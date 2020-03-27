@@ -1,0 +1,5 @@
+six
+django
+django-crispy-forms
+django-sslserver
+django-shortuuidfield
