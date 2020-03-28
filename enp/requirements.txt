@@ -3,3 +3,7 @@ django
 django-crispy-forms
 django-sslserver
 django-shortuuidfield
+djangorestframework
+django-rest-auth
+django-allauth
+djoser

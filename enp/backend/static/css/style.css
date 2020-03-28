@@ -13,7 +13,12 @@ nav {
   position: fixed;
   top: 0;
   left: 0vw;
+  height: 8vh;
+  width: 100vw;
+  /* opacity: 0.6; */
   border-width: 0px;
+  /* background-color: #003459; */
+  /* color: #FFFFFF; */
   -webkit-box-shadow: 0px 0px;
   box-shadow: 0px 0px;
   background-color: rgba(0,0,0,0.0);
@@ -40,6 +45,7 @@ nav {
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   border-top: 0.1em solid rgb(126,30,98);
   color: rgb(126,30,98);
+  
 }
 
 .sub-menu-parent:focus .sub-menu,
@@ -64,7 +70,7 @@ nav > ul > li {
   display: inline-block; 
   border-left: solid 1px #aaa; }
 
-nav > ul > li:first-child { border-left: none; }
+nav > ul > li:nth-child(2) { border-left: none; }
 
 .sub-menu {
   background: white;
@@ -113,7 +119,7 @@ a:visited {
     text-align:center;
     top: 50vh;
     width: 100%;
-    color: rgb(173, 20, 20);
+    /* color: rgb(173, 20, 20); */
     font-weight: bolder;
     font-size: 4em;
 

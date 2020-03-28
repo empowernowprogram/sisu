@@ -1,7 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from . import views as accounts
 
+from . import views as accounts
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('module', accounts.ModuleView)
+router.register('session', accounts.SessionView)
+# router.register('restauth/', include('rest_auth.urls'))
+
+## comment out because hyperlinked didnt work.
 app_name = 'accounts'
 
 urlpatterns = [
@@ -19,7 +27,6 @@ urlpatterns = [
     path('employee/<int:uid>/setpassword/', accounts.employee_set_password, name='employee_set_password'),
     path('employee/session', accounts.session_employee_list, name='session_employee_list'),
 
-
     path('activate/account/<slug:uidb64>/<slug:token>/', accounts.activate_account, name='activate_account'),
     path('account/activation/sent/', accounts.activation_sent, name='account_activation_sent'),
     
@@ -30,4 +37,8 @@ urlpatterns = [
     path('module/', accounts.module_create, name='module_create'),
     path('session/', accounts.session_create, name='session_create'),
 
+
+    ##for api calls
+    path('api/', include(router.urls)),
+    path('rest-auth/', include('rest_auth.urls')),
 ]

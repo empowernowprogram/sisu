@@ -11,10 +11,28 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
 
+from rest_framework import viewsets, status
+
+
 from .forms import *
 from .models import User, Employer, Employee, Module, Session
 from .tokens import activation_token
 from .decorators import employer_required, employee_required
+from .serializers import ModuleSerializer, SessionSerializer
+
+
+class ModuleView(viewsets.ModelViewSet):
+    
+    #query from the db
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
+
+class SessionView(viewsets.ModelViewSet):
+    
+    queryset = Session.objects.all()
+    serializer_class = SessionSerializer
+
+
 
 def index(request):
     context = {}

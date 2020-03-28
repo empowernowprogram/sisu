@@ -17,7 +17,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-class Employer(models.Model):
+class Employer(models.Model): #not playing game
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=200, default=None)
     uuid = ShortUUIDField(unique=True, primary_key=True)
