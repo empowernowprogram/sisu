@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<div class="about-us container">
+    <p></p>
+    <hr class="hr-text" data-content="OVERVIEW">
+    <div class="about-us-upper-panel">
+		<div class="custom-row">
+			<span class="left-text">
+				<h1>
+					Shine |Y|our Light
+				</h1>
+				<p style="padding-top: 10px">
+                    In Finnish, SISU means "hope in the face of adversity."  We aim to be a beacon of light as women in STEM undergo <b>#MeToo</b> situations in  academic or professional workspaces.
+				</p>
+                <!--<p>	
+                    SISU is an organization focused on empowering women in STEM fields who have undergone <b>#MeToo</b> situations in the workplace or academia. 
+                </p>-->
+                <p>
+                    SISU's novel platform includes cases from real women as well as custom solutions and resources provided by diverse field experts.
+                </p>
+                <a href="{% url 'get_all_category' %}" class="sisu-button">Read Cases</a>
+			</span>
+            <span id="overview_img">
+				<figure class="circle-img">
+                    <img src="{% static 'img/story/about_us_lighthouse.jpg' %}" />
+                	<div class="img-blur"></div>
+				</figure>
+			</span>
+		</div>
+		<div class="custom-row">
+			<span id="overview_img">
+				<figure class="circle-img">
+					<img src="{% static 'img/story/about_us.jpg' %}" />
+					<div class="img-blur"></div>
+				</figure>
+			</span>
+			<span class="right-text">
+				<h1>
+					One event.
+				</h1>
+				<h1>
+					One school.
+				</h1>
+				<h1>
+					Two passionate
+				</h1>
+				<h1>
+					women engineers.
+				</h1>
+				<p style="padding-top: 10px">
+						Our friendship started in the most conventional of ways; one was a
+						student, other was her teaching assistant.
+				</p>
+				<p>
+                        After a few exchanged doodles via homework assignments on graphing
+						paper, we finally met in-person at a Society of Women Engineers event
+						being hosted at our university...
+				</p>
+                <p>
+						...and the rest was history.
+				</p>
+                <a href="{% url 'about_team' %}" class="sisu-button">Meet the Team</a>
+            </span>
+		</div>
+        <div class="custom-row" style="margin-bottom: 25px">
+			<span class="left-text">
+				<h1>
+					Empower Now Program
+				</h1>
+				<p style="padding-top: 10px">
+					The <b>Empower Now Program</b> is a partnership between SISU and universities or corporations.  
+				</p>
+                <p>
+                    Its objective is to build customized cases and workshops, as well as interactive exercises and questionnaires, for clients to integrate within their curriculum or enterprise.
+                </p>
+                <a href="{% url 'about_program' %}" class="sisu-button">Learn More</a>
+			</span>
+            <span id="overview_img">
+				<figure class="circle-img">
+                    <img src="{% static 'img/story/about_us_upper.jpg' %}" />
+                	<div class="img-blur"></div>
+				</figure>
+			</span>
+		</div>
+	</div>	
+</div>

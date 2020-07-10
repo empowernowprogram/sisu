@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+<div class="story-content">
+    <!-- story entry insert story id -->
+    {% for post in pop_cases %}
+        {% for p in post %}
+        <a href="{% url 'story_entry' pk=p.pk %}">
+            <div class="story-content-entry custom-row">
+                <div class="story-text">
+                    <h3>{{ p.category_name }}</h3>
+                    <h4>{{ p.title }}</h4>
+                    <p>{{ p.short_desc|linebreaksbr }}</p>
+                </div>
+                <div class="story-img-list">
+                    <img src="{% static '/img/blog/main-blog/' %}{{ p.pk }}.jpg" alt="" align="case">
+                    
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {% endfor %}
+</div>

@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<div class="story-entry-right" id="story-right-section">
+    <div class="story-entry-right-content">
+        <h4>SUGGESTED SOLUTIONS</h4>
+        <img src="{% static '/img/story/construction.jpg' %}" />
+        <p>
+                We are still working on SUGGESTED SOLUTIONS.
+                <br>
+                Stay tuned Or <a href="{% url 'contact_us' %}" style="color:#F78C18">contact us</a> !
+        </p>
+    </div>
+    <div class="story-entry-right-content">
+        <h4>RESOURCES</h4>
+        
+        {% for resource in resources %}
+        <div>
+            <a href="{{ resource.res_url }}" target="_blank"><i class="fa fa-home"></i> {{ resource.title }} </a>
+            <hr/>
+        </div>   
+        {% empty %}
+            <p>More resources are coming!</p>
+        {% endfor %}
+        
+    </div>
+</div>

@@ -1,0 +1,73 @@
+{% extends "blog/base_post_w_footer.html" %}
+{% load staticfiles %}
+{% load blog_template %}
+
+{% block banner_content %}
+<section class="banner_area">
+  <div class="banner_inner d-flex align-items-center">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+			<div class="container">
+				<div class="banner_content text-center">
+					<h2>{{ cat }}</h2>
+					<div class="page_link">
+						<a href="/">Home</a>
+						<a href="{% url 'post_cases' %}">Cases</a>
+					</div>
+				</div>
+			</div>
+   </div>
+</section>   
+{% endblock %}
+
+{% block post_content %}  
+<section class="blog_area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog_left_sidebar">
+          {% for post in posts %}
+            <article class="row blog_item">
+             <div class="col-md-3">
+              <div class="blog_info text-right">
+               <div class="post_tag">
+                {{ post.category_name }}
+               </div>
+               
+               <ul class="blog_meta list">
+                 <li>{{ post.published_date }} <i class="lnr lnr-calendar-full"></i></li>
+                 
+                 {% if cases|dict_key:post.pk %}
+                 <li>{{ cases|dict_key:post.pk }} Comments <i class="lnr lnr-bubble"></i></li>
+                 {% else %}
+                 <li>0 Comments <i class="lnr lnr-bubble"></i></li>
+                 {% endif %}
+               </ul>
+              </div>
+             </div>
+          
+            <div class="col-md-9">
+             <div class="blog_post">
+                <img src="{% static '/img/blog/main-blog/' %}{{ post.pk }}.png" alt="">
+                <div class="blog_details">
+                  <a href="{% url 'post_detail' pk=post.pk %}"><h2>{{ post.title }}</h2></a>
+                  <p>{{ post.short_desc|linebreaksbr }}</p>
+                  <a href="{% url 'post_detail' pk=post.pk %}" class="blog_btn">View Details</a>
+                </div>
+               </div>
+             </div>
+            </article>
+                
+           {% empty %}
+           <div class="col-md-4"></div>
+           <h2> New cases are coming! </h2>
+           {% endfor %}
+          </div>
+        </div>
+
+        {% include 'blog/post_right_bar.html'%}
+    </div>
+  </div>
+</section>
+                    
+<!--================Blog Area =================-->
+{% endblock %}

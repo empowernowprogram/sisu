@@ -1,0 +1,488 @@
+/*
+    Reference: 
+*/
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+<a href="https://en.wikipedia.org/wiki/Django" class="external_link" id="link_to_wiki_page">
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    width: 100%;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.navbar-content {
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.separator_line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #fff;
+    margin: 10px 0;
+}
+
+
+.sticky {
+  padding:0px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 751;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    z-index: 999;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar.active {
+    left: 0;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    vertical-align: middle !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #7386D5;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#dismiss:hover {
+    background: #fff;
+    color: #7386D5;
+}
+
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    display: none;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+[aria-expanded="false"].categoryArrow::before, [aria-expanded="true"].categoryArrow::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-size: 0.6em;
+}
+[aria-expanded="true"].categoryArrow::before {
+    content: '\e260';
+}
+
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+a.article, a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+}
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    z-index: 750;
+    overflow:auto;
+}
+
+/* ---------------------------------------------------
+    POST STYLE
+----------------------------------------------------- */
+.date {
+    margin: 100px 0
+    color: #828282;
+}
+
+.save {
+    float: right;
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.post {
+    margin-bottom: 70px;
+}
+
+.post h1 a, .post h1 a:visited {
+    color: #000000;
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+/*---- Comments Bottom Bar ---- */
+#bottombar {
+	height:25px;
+	text-align: center;
+  background: #7386D5;
+  color: #fff;
+  transition: all 0.3s;
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	width:100%;
+}
+
+#bottombar.active {
+	text-align: center;
+	bottom: 0;
+	height:70%;
+	width:100%;
+}
+
+#bottombar.active .bottombar-header h3, #bottombar.active .CTAs {
+    display: none;
+}
+
+#bottombar.active .bottombar-header strong {
+    display: block;
+}
+
+#bottombar ul li a {
+    text-align: left;
+}
+
+#bottombar.active ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#bottombar.active ul li a i {
+    margin-right:  0;
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+#bottombar.active ul ul a {
+    padding: 10px !important;
+}
+
+#bottombar.active a[aria-expanded="false"]::before, #bottombar.active a[aria-expanded="true"]::before {
+    top: auto;
+    bottom: 5px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+#bottombar .bottombar-header {
+    
+}
+
+#bottombar .bottombar-header strong {
+    display: none;
+    font-size: 1.0em;
+}
+
+#bottombar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#bottombar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#bottombar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+#bottombar ul li a i {
+    margin-right: 10px;
+}
+
+#bottombar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+#bottombarCollapseHolder {
+  border-bottom: 1px dashed #fff;
+}
+.botnavbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+	background: #7386D5;
+}
+
+/*-- icon open close */
+[aria-expanded="false"] .icon_open {
+    display: block;
+}
+
+[aria-expanded="false"] .icon_close {
+    display: none;
+}
+
+[aria-expanded="true"] .icon_open {
+    display: none;
+}
+
+[aria-expanded="true"] .icon_close {
+    display: block;
+}
+/* ***** */
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-size: 0.6em;
+}
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+
+/*
+* For vote
+*/
+.hide {
+  position: absolute;
+  left: -10000px;
+}
+
+label {
+  display: inline-block;
+  background: gray;
+  position: relative;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 2px;
+  font-size: 1em;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.btnVote {
+  display: inline-block;
+  background: gray;
+  position: relative;
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 2px;
+  font-size: 1em;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  
+}
+
+.btnVote-up:hover {
+  background:green;
+  cursor:pointer;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.btnVote-down:hover {
+  background:orange;
+  cursor:pointer;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*
+* For "Me too!" feature
+*/
+.star{
+  font-size: 25px;
+	color:gold;
+  background:white;
+  width: 40px;
+  height: 30px;
+  border-radius: 0;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.star:hover{
+  cursor:pointer;
+} 
+
+#tolight input[type=checkbox]{
+    display: none;
+}
+
+#lighted input[type=checkbox]{
+    display: none;
+}
+
+/*
+* Search bar
+*/
+#searchDiv {
+  width: 250px;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  text-align: left;
+  vertical-align: middle !important;
+}
+
+/*
+* Comments related
+*/
+#comment_content {
+  width: 270px;
+  height: 250px;
+  vertical-align: bottom !important;
+  color: #999;
+}
+
+#reply_content {
+  vertical-align: bottom !important;
+  color: #999;
+}
+

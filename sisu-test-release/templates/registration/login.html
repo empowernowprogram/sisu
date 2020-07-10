@@ -1,0 +1,44 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %} 
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+<div class="login-wrap-adj">
+	<div class="login-html">
+		<div class="login-form">
+			<div class="sign-in-htm">
+				<div class="group">
+					<h3>
+						Sign in to sisu
+					</h3>
+				</div>
+				
+				<form id="signinForm" method="post" action="{% url 'login' %}">
+					{% csrf_token %}
+					<div class="group">
+						<input id="user" type="text" class="input" name="username" placeholder="Username">
+					</div>
+					<div class="group">
+						<input id="pass" type="password" class="input" name="password" placeholder="Password">
+					</div>
+					<div class="group" style="font-size: 0.8rem">
+						<input id="check" type="checkbox" class="check" checked onchange="document.getElementById('sign-in-button').disabled = !this.checked;">
+						<label for="check" class="loginCheck" style="line-height:1em;font-weight:lighter;"><span class="icon"></span> You agreed to SISU's <a href="{% url 't_c' %}"><u>Terms & Conditions</u></a>&nbsp and &nbsp  
+                        <a href="{% url 'p_p' %}"><u>Privacy Policy</u></a>
+                        </label>
+					</div>
+                    
+					<div class="group">
+						<input type="submit" class="sisu-button" value="Sign In" id="sign-in-button">
+					</div>
+					<!-- input type="hidden" name="next" value="{{ request.path }}" / -->
+				</form>
+				<div class="foot-lnk-login">
+						Forget Password? <a href="{% url 'password_reset' %}">Reset</a>  
+				</div>
+			</div>
+		</div>
+	</div>
+  
+</div>
+{% endblock %}

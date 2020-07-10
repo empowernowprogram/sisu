@@ -1,0 +1,57 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+
+{% block sub_content %}  
+<div class="sisu-header" style="background-image: url({% static '/img/blog/cat-post/categories.jpg' %});">
+    <div class="sisu-header-container-center">
+        <div class="sisu-header-text">
+            <h1>Case Categories</h1>
+        </div>
+    </div>
+    <div class="story-carousel-blur"></div>
+</div>
+<!--================Blog Categorie Area =================-->
+
+<section class="blog_categorie_area">
+  <div class="container">
+    <div class="row">
+      {% for name, member in categories %}
+      <div class="col-lg-4">
+        <div class="categories_post">
+            <a href="{% url 'story' category_name=member.value %}">
+                <img class="cat_img" id="cat_imgs" src="{% static '/img/blog/cat-post/'|add:member.value|add:'.jpg' %}">
+            </a>
+            <a href="{% url 'story' category_name=member.value %}">
+            <div class="categories_details">
+                <div class="categories_text">
+                    <h5>{{ member.label }}</h5>
+                <div class="border_line"></div>
+                </div>
+            </div>
+            </a>
+        </div> 
+        <div><br></div>
+      </div>
+      {% endfor %}
+      <div class="col-lg-4">
+        <div class="categories_post">
+            <a href="{% url 'contact_us' %}">
+            <img class="cat_img" id="cat_imgs" src="{% static '/img/story/contact_us.jpg' %}">
+            </a>
+            <a href="{% url 'contact_us' %}">
+            <div class="categories_details">
+                <div class="categories_text">
+                    <h5>Contact Us</h5>
+                    <p> If you want to tell us your story </p>
+                <div class="border_line"></div>
+                </div>
+            </div> 
+            </a>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+{% endblock %}

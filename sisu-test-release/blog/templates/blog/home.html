@@ -1,0 +1,829 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 px-5" id="mainNav">
+        <a class="navbar-brand js-scroll-trigger nav-title" href="#page-top">SISU VR</a>
+        <button
+            class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        About
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Overview</a>
+                        <a class="dropdown-item" href="#teams">Meet the Team</a>
+
+
+                        <a class="nav-link dropdown-toggle text-dark px-4 no-bold" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cases
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">All Categories</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Harrassment</a>
+                            <a class="dropdown-item" href="#">Discrimination</a>
+                            <a class="dropdown-item" href="#">Politics</a>
+                            <a class="dropdown-item" href="#">Employee Conflicts</a>
+                            <a class="dropdown-item" href="#">Other Issue</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Product</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#testimonial">Testimonials</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#pricing">Pricing</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
+
+                <div class="row nav-row">
+
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://www.facebook.com/sisuvr">
+                            <i class="fab fa-lg fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="mailto:sisu.contact.us@gmail.com">
+                            <i class="fas nav-icon fa-lg fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://twitter.com/sisuvr">
+                            <i class="fab fa-lg fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://www.linkedin.com/company/sisuvr/">
+                            <i class="fab fa-lg fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://www.gofundme.com/f/sisu-vr">
+                            <i class="fas fa-lg fa-gift"></i>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </div>
+</nav>
+
+
+<header class="splash" id="page-top">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h1 class="text-uppercase text-white font-weight-bold">
+                    take one step closer to an empowered workplace
+                </h1>
+                <hr class="divider my-4" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white font-weight-light mb-5 text" id="text">
+                    Immersive sexual harassment prevention training through VR
+                </p>
+                <a class="btn btn-info btn-xl" href="#overview">Find Out More</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- <section class="page-section py-4 py-5 bg-light" id="overview">
+    <div class="container">
+        <h2 class="text-center my-4">Overview</h2>
+        <hr class="divider my-4" />
+
+        <h5>Sisu VR delivers anti-sexual harassment training thru 
+            virtual reality for enterprise and post-secondary institutions.
+        </h5>
+    </div>
+</section> -->
+
+
+<section class="page-section mb-4 py-4 py-5 border-top" id="services">
+
+    <div class="container py-4">
+        <h2 class="text-center my-4">Empower Now Program (ENP)</h2>
+        <hr class="divider my-4" />
+        <h5 class="text-center">Create an empathy-driven workforce thru the Empower Now Program, featuring: </h3>
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-vr-cardboard fa-5x text-secondary mb-4 text-info"></i>
+                        <h3 class="h4 mb-3">Virtual Reality</h3>
+                        <p class="text-muted mb-0">Engage in DFEH-compliant simulations based on real scenarios.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-binoculars fa-5x text-secondary mb-4 text-info"></i>
+                        <h3 class="h4 mb-3">Multiple Perspectives</h3>
+                        <p class="text-muted mb-0">Experience simulations as a victim, perpetrator, or observer. Learn
+                            how to handle intricate situations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="mt-5">
+                        <i class="fas fa-check fa-5x text-secondary mb-4 text-info"></i>
+                        <h3 class="h4 mb-3">Ethical Framework</h3>
+                        <p class="text-muted mb-0">Engage in simulations empowering users to <br>
+                            "do what's right".</p>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+<section class="page-section bg-light border-top" id="testimonial">
+    <div class="container py-5">
+        <h2 class="text-center py-4">Testimonials</h2>
+        <hr class="divider" />
+
+
+        <!-- <div class="moving">
+            <h1 class="coming-soon">COMING SOON...</h1>
+        </div> -->
+
+        <div class="slider">
+            <!-- <input type="radio" name="slider" title="slide1" checked="checked" class="slider__nav" />
+            <input type="radio" name="slider" title="slide2" class="slider__nav" />
+            <input type="radio" name="slider" title="slide3" class="slider__nav" />
+            <input type="radio" name="slider" title="slide4" class="slider__nav" /> -->
+            <div class="slider__inner">
+                <div class="slider__contents">
+                    <!-- <i class="fab fa-gratipay fa-4x text-info"></i> -->
+                    
+                    <p class="slider__txt">
+                        <i class="fas fa-quote-left quote fa-lg text-info"></i>
+                        <!-- <br> -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
+                        made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
+                        an engaging way!
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-quote-right fa-lg text-info"></i>
+                    </p>
+                    <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
+                </div>
+                
+                <div class="slider__contents">
+                    <!-- <i class="fab fa-gratipay fa-4x text-info"></i>
+                    <h2 class="slider__caption">Lorem Ipsum</h2>
+                    <p class="slider__txt">
+                        <i class="fas fa-quote-left quote fa-2x text-info"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis
+                        possimus illo quos, corporis minima!
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-quote-right fa-2x text-info"></i>
+                    </p> -->
+                </div>
+                <div class="slider__contents">
+                    <!-- <i class="fab fa-gratipay fa-4x text-info"></i>
+                    <h2 class="slider__caption">Lorem Ipsum</h2>
+                    <p class="slider__txt">
+                        <i class="fas fa-quote-left quote fa-2x text-info"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis
+                        possimus illo quos, corporis minima!
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-quote-right fa-2x text-info"></i>
+                    </p> -->
+                </div>
+                <div class="slider__contents">
+                    <!-- <i class="fab fa-gratipay fa-4x text-info"></i>
+                    <h2 class="slider__caption">Lorem Ipsum</h2>
+                    <p class="slider__txt">
+                        <i class="fas fa-quote-left quote fa-2x text-info"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate omnis
+                        possimus illo quos, corporis minima!
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fas fa-quote-right fa-2x text-info"></i>
+                    </p> -->
+                </div>
+
+
+                
+    
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<section class="page-section border-top py-4 py-5" id="pricing">
+    <div class="container">
+        <h2 class="text-center mt-5">Pricing</h2>
+        <hr class="divider my-4" />
+        <div class="row mb-5">
+            <div class="col-lg-4 card-transition">
+                <div class="mb-5 mb-lg-0 rounded-lg shadow pricing-card">
+                    <div class="card-header">
+                        <h5 class="card-title text-lighttext-uppercase text-center font-weight-bold">ENP BASIC (1 YEAR
+                            PLAN) </h5>
+                        <div class="text-center">
+
+                            <div class="border-top border-bottom py-1">
+                                <p class="h6 font-weight-bold">For 5 to 50 employees:</p>
+
+                                <p>Non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$39 per person/1hr</p>
+                                <p class="h6 font-weight-bold">$59 per person/2hr</p>
+
+                            </div>
+
+                            <div class="py-1">
+
+                                <p class="h6 font-weight-bold">For 50+ employees:</p>
+                                <p>Contact us for <span class="font-weight-bold font-italic">special</span> pricing</p>
+<!-- 
+                                <p>1 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$49 per person</p>
+
+                                <p>2 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$69 per person</p> -->
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body bg-light rounded-bottom">
+                        <h3 class="font-italic h6">Includes:</h3>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                New Modules Every 6 Months
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Training Brochure
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Cloud Infrastructure
+                            </li> -->
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Customeer Installation Support
+                            </li> -->
+
+
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                In-game Branding/Custom Scenery
+                            </li>
+                            <!-- <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Custom Scenery
+                            </li> -->
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                24/7 Customer/Technical Support
+                            </li>
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Bonus Bundle: ENP + Active Shooter training
+                            </li>
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Usage Management
+                            </li>
+                            <!-- <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Database Maintenance
+                            </li> -->
+                            <li class="text-muted mb-3">
+                                <span class="mr-3">&nbsp;&nbsp;</span>
+                                2D ENP Version
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn btn-block pricing-btn text-uppercase rounded-lg py-3">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENP PREFERRED -->
+            <div class="col-lg-4 card-transition">
+                <div class="mb-5 mb-lg-0 rounded-lg shadow pricing-card">
+                    <div class="card-header">
+                        <h5 class="card-titletext-uppercase text-center font-weight-bold">ENP PREFERRED (2 YEAR PLAN)
+                        </h5>
+
+                        <div class="text-center">
+                            <div class="border-top border-bottom py-1">
+                                <p class="h6 font-weight-bold">For 5 to 50 employees:</p>
+
+                                <p>Non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$79 per person/1hr</p>
+                                <p class="h6 font-weight-bold">$118 per person/2hr</p>
+
+                                <!-- <p>2 hour non-supervisory training:</p> -->
+                            </div>
+
+                            <div class="py-1">
+                                <p class="h6 font-weight-bold">For 50+ employees:</p>
+                                <p>Contact us for <span class="font-weight-bold font-italic">special</span> pricing</p>
+
+                                <!-- <p>1 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$98 per person</p>
+
+                                <p>2 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$138 per person</p> -->
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="card-body bg-light rounded-bottom">
+                        <h3 class="font-italic h6">Includes:</h3>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                New Modules Every 6 Months
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Training Brochure
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Cloud Infrastructure
+                            </li> -->
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Customer Installation Support
+                            </li> -->
+
+
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                In-game Branding/Custom Scenery
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Custom Scenery
+                            </li> -->
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                24/7 Customer/Technical Support
+                            </li>
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Bonus Bundle: ENP + Active Shooter training
+                            </li>
+                            <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Usage Management
+                            </li>
+                            <!-- <li class="text-muted mb-3">
+                                <span class="mr-3"><i class="fas fa-times"></i></span>
+                                Database Maintenance
+                            </li> -->
+                            <li class="text-muted mb-3">
+                                <span class="mr-3">&nbsp;&nbsp;</span>
+                                2D ENP Version
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn btn-block pricing-btn text-uppercase rounded-lg py-3">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXCLUSIVE -->
+            <div class="col-lg-4 card-transition">
+                <div class="mb-5 mb-lg-0 rounded-lg shadow pricing-card">
+                    <div class="card-header">
+                        <h5 class="card-title text-uppercase text-center font-weight-bold">ENP EXCLUSIVE (2 YEAR PLAN)
+                        </h5>
+
+                        <div class="text-center">
+                            <div class="border-top border-bottom py-1">
+                                <p class="h6 font-weight-bold">For 5 to 50 employees:</p>
+
+                                <p>Non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$156 per person/1hr</p>
+                                <p class="h6 font-weight-bold">$177 per person/2hr</p>
+
+
+
+                            </div>
+
+                            <div class="py-1">
+
+                                <p class="h6 font-weight-bold">For 50+ employees:</p>
+                                <p>Contact us for <span class="font-weight-bold font-italic">special</span> pricing</p>
+
+                                <!-- <p>1 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$144 per person</p>
+
+                                <p>2 hour non-supervisory training:</p>
+                                <p class="h6 font-weight-bold">$207 per person</p> -->
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="card-body bg-light rounded-bottom">
+                        <h3 class="font-italic h6">Includes:</h3>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                New Modules Every 6 Months
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Training Brochure
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Cloud Infrastructure
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Customer Installation Support
+                            </li> -->
+
+
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                In-game Branding/Custom Scenery
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Custom Scenery
+                            </li> -->
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                24/7 Customer/Technical Support
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Bonus Bundle: ENP + Active Shooter training
+                            </li>
+                            <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Usage Management
+                            </li>
+                            <!-- <li class="mb-3">
+                                <span class="mr-3"><i class="fas fa-check text-info"></i></span>
+                                Database Maintenance
+                            </li> -->
+                            <li class="text-muted mb-3">
+                                <span class="mr-3">&nbsp;&nbsp;</span>
+                                2D ENP Version
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn btn-block pricing-btn text-uppercase rounded-lg py-3">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- </div> -->
+
+        </div>
+</section>
+
+<section class="page-section border-top py-4 py-5" id="teams">
+    <div class="container">
+        <h2 class="text-center mt-5">Meet the Team</h2>
+        <hr class="divider my-4" />
+
+        <ul class="teams">
+
+            <li>
+                <div class="ch-item jocelyn">
+                    <div class="ch-info">
+                        <h3>Jocelyn</h3>
+                        <p>CEO | Co-Founder</p>
+                    </div>
+                </div>
+
+            </li>
+
+            <li>
+                <div class="ch-item sean">
+                    <div class="ch-info">
+                        <h3>Sean</h3>
+                        <p>CTO | ENP Developer </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="ch-item brett">
+                    <div class="ch-info">
+                        <h3>Brett</h3>
+                        <p>Business Dev Strategist </p>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+        <ul class="teams">
+            <li>
+                <div class="ch-item kim">
+                    <div class="ch-info">
+                        <h3>Kim</h3>
+                        <p>Software Developer</p>
+                    </div>
+                </div>
+
+            </li>
+
+            <li>
+                <div class="ch-item desiree">
+                    <div class="ch-info">
+                        <h3>Desiree</h3>
+                        <p>HR Consultant | Marketing and Sales Specialist </p>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="ch-item lia">
+                    <div class="ch-info">
+                        <h3>Lia</h3>
+                        <p>R&D Intern </p>
+                    </div>
+                </div>
+            </li>
+
+            <h3 class="text-center mt-5">Advisory Board</h3>
+            <hr class="divider my-4" />
+
+            <li>
+                <div class="ch-item patricia">
+                    <div class="ch-info">
+                        <h3>Patricia Hatter</h3>
+                        <br>
+                        <p>Board Member at WOOTCLOUD </p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="ch-item pratima">
+                    <div class="ch-info">
+                        <h3>Pratima Rao</h3>
+                        <p>Engineering Manager at VMWare and author of "Nevertheless, She Persisted" </p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="ch-item tom">
+                    <div class="ch-info">
+                        <h3>Tom Kosnik</h3>
+                        <p>VC at FoundersX </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+</section>
+
+<section class="page-section bg-secondary border-top mt-4 py-5">
+    <div class="container px-5">
+        <h2 class="text-center text-light">Partners</h2>
+        <hr class="divider my-4" />
+
+        <ul class="teams">
+
+            <li>
+                <a href="https://www.litas4girls.org/">
+                    <div class="ch-item litas">
+                        <div class="ch-info">
+                            <h3>Litas for Girls</h3>
+                            <br>
+                            <p>"Guiding Young Women in CS & STEM Careers"</p>
+                        </div>
+                    </div>
+                </a>
+
+            </li>
+
+            <li>
+                <a href="https://www.mindglowinc.com/">
+                    <div class="ch-item mindglow">
+                        <div class="ch-info">
+                            
+                            <h3>MindGlow Inc.</h3>
+                            <br>
+                            <p>Immersive Safety Training </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="https://relay.how/">
+                    <div class="ch-item relay">
+                        <div class="ch-info">
+                            <h3>RELAY</h3>
+                            <br>
+                            <p>Ask a Question, Get the Best Video Answer </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+
+    </div>
+</section>
+
+
+<section class="page-section border-top py-5" id="blog">
+    <div class="container">
+        <h2 class="text-center mt-5">Blog</h2>
+        <hr class="divider my-4" />
+
+        <div class="moving">
+            <h1 class="coming-soon">COMING SOON...</h1>
+        </div>
+
+        <!-- <div class="wrap mb-5">
+    
+        <div class="tile">
+            <img
+                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
+            <div class="text">
+                <h1>Lorem ipsum.</h1>
+                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
+                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile">
+            <img
+                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
+            <div class="text">
+                <h1>Lorem ipsum.</h1>
+                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
+                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile">
+            <img
+                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
+            <div class="text">
+                <h1>Lorem ipsum.</h1>
+                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
+                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile">
+            <img
+                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
+            <div class="text">
+                <h1>Lorem ipsum.</h1>
+                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
+                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
+                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+    </div>
+
+</section>
+
+
+
+<section class="resume-section p-4 p-lg-5 text-center border-top bg-light" id="contact">
+    <h2 class="mb-4 py-4"> Contact Us</h2>
+    <hr class="divider my-4" />
+    <span class="icon envelope">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.173 27.728">
+            <defs>
+                <style>
+                    .a,
+                    .b {
+                        fill: #17a2b8;
+                    }
+
+                    .a {
+                        stroke: #17a2b8;
+                        stroke-miterlimit: 10;
+                        stroke-width: 0.25px;
+                    }
+                </style>
+            </defs>
+            <g transform="translate(-1521.875 -3251.875)">
+                <g transform="translate(-330 1428)">
+                    <g transform="translate(1852 1824)">
+                        <g transform="translate(0 0)">
+                            <path class="a"
+                                d="M35.06,24.482a3.139,3.139,0,0,1-3.1,3.1H3.2a3.139,3.139,0,0,1-3.1-3.1V3.2A3.139,3.139,0,0,1,3.2.1H31.835a3.139,3.139,0,0,1,3.1,3.1V24.482Zm-3.1-21.8H3.2a.609.609,0,0,0-.645.645A7.358,7.358,0,0,0,5.389,8.872c2.58,2.064,5.16,4.128,7.869,6.192,1.032.774,2.838,2.58,4.257,2.58h0c1.419,0,3.225-1.806,4.257-2.58,2.58-2.064,5.16-4.128,7.869-6.192,1.29-1.032,2.838-3.1,2.838-4.773C32.48,3.454,32.609,2.68,31.964,2.68Zm.516,6.837a12.163,12.163,0,0,1-1.29,1.29c-2.838,2.193-5.547,4.386-8.256,6.579-1.419,1.29-3.225,2.709-5.289,2.709h0c-2.064,0-3.87-1.548-5.289-2.709-2.838-2.322-5.547-4.515-8.385-6.579a6.116,6.116,0,0,1-1.29-1.29V24.482a.609.609,0,0,0,.645.645H31.964a.609.609,0,0,0,.645-.645V9.517Z"
+                                transform="translate(-0.1 -0.1)" />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </span>
+    <!-- <div class="container"> -->
+    <div class="contact py-5">
+
+        <!-- <form class="contact-form d-flex flex-column align-items-center"
+            action="https://formspree.io/youremail@mail.com" method="POST">
+            <div class="form-group w-75">
+                <input type="name" class="form-control" placeholder="Name" name="name" required />
+            </div>
+            <div class="form-group w-75">
+                <input type="name" class="form-control" placeholder="Company Name" name="name" required />
+            </div>
+            <div class="form-group w-75">
+                <input type="email" class="form-control" placeholder="Email" name="name" required />
+            </div>
+
+            <div class="form-group w-75">
+                <textarea class="form-control" type="text" placeholder="Message" rows="7" name="name"
+                    required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-submit btn-info w-75">Submit</button>
+        </form> -->
+
+        {% include 'blog/contact_us.html'%}
+
+    </div>
+
+    </div>
+
+    <!-- </div> -->
+</section>
+
+
+
+<!-- <footer class="splash bg-light">
+    <div class="container py-5">
+        <div class="contact-icon justify-content-center py-3">
+
+            <a href="https://www.facebook.com/mysisuco"><i class="fab fa-3x fa-facebook"></i></a>
+            <a href="mailto:hello@gmail.com"><i class="fas fa-3x fa-envelope"></i></a>
+            <a href="https://twitter.com/MySISUCo"><i class="fab fa-3x fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/mysisuco/"><i class="fab fa-3x fa-linkedin-in"></i></a>
+            <a href="https://www.gofundme.com/f/sisu-vr"><i class="fas fa-3x fa-gift"></i></a>
+        </div>
+        <p class="border-top text-center footer-p">
+            Copyright © 2020 Sisu Inc. All Rights Reserved. Terms & Conditions | Privacy Policy
+        </p>
+    </div>
+</footer> -->
+
+
+
+
+
+
+{% endblock content %}

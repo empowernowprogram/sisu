@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+  <b id="like_count_after"></b>    
+
+  {% if summary.voted %}    
+  <b id="like_count"><span class='metoo_icon_filled'></span> Total {{ summary.total_yes }} (including you) met similar situation. Let's fight together.</b>    
+
+  {% else %}
+  <b id="no_vote"><span class='metoo_icon' id ="likes" data-catid="{{ post.id }}"></span> {{ summary.total_yes }} others met similar situation. If you too, let them know they are not alone. </b>
+  
+ {% endif %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript"> 
+    $('#likes').click(function(){
+    var catid = $(this).attr("data-catid");
+    var value = 1;
+    $.ajax(
+    {
+        type:"GET",
+        url: "/likepost",
+        data:{
+                 postid: catid,
+                 on_off_value: value
+        },
+        success: function( data ) 
+        {
+            $('#likes').hide();
+            $('#no_vote').hide();
+            $("#like_count_after").load(" #like_count");
+            
+        }
+     })
+});  
+</script>  
