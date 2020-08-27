@@ -1,0 +1,113 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %} 
+<div class="user-details">
+<div style="height: 300px">
+    <hr class="hr-text" data-content="CHANGE PROFILE PICTURE">
+    <div class="custom-row" style="margin-top: 20px;">
+        <div id="my-icon-select"></div>
+        <input type="text" id="selected-text" name="photo" style="display:none;">
+        <input type="text" id="profile-id" data="{{ context.photo }}"
+                value="{% static '/img/icon/' %}{{ context.photo }}.png"
+                style="display:none;">
+    </div>
+    
+    <hr class="hr-text" style="margin-top: 20px;" data-content="UPDATE YOUR NAME">
+    
+    <div class="user-details-header-content">
+        <div class="custom-row">
+            <input type="text" id="first-name-div" name="first_name"
+                    value="{{ context.f_name }}" 
+                    placeholder="Your First Name">
+        </div>
+        <div class="custom-row">
+            <input type="text" id="last-name-div" name="last_name"
+                value="{{ context.l_name }}"
+                placeholder="Your Last Name"> 
+        </div>
+        
+        <div class="user-details-edit-button">
+            <button type="submit" class="sisu-button">
+                <a href="{% url 'user_details' pk=user.id %}">GO BACK</a>
+            </button>
+         
+            <button type="submit" id="updateButton" class="sisu-button">
+                  SAVE
+            </button> 
+        </div>
+        <div id="results" style="display:none"><p>Updated Successfully. Loading... </p></div>
+    
+     </div>
+</div>     
+</div>
+          
+<script>
+  var iconSelect;
+  var selectedText;
+  var profile;
+  var profiletag;
+  
+  window.onload = function(){
+
+    selectedText = document.getElementById('selected-text');
+            
+    document.getElementById('my-icon-select').addEventListener('changed', function(e){
+               selectedText.value = iconSelect.getSelectedValue();
+    });
+          
+    profile = document.getElementById('profile-id').value;
+    profiletag = document.getElementById('profile-id').getAttribute("data");
+    
+    iconSelect = new IconSelect("my-icon-select", 
+                 {'selectedIconWidth':150,
+                  'selectedIconHeight':150,
+                  'selectedBoxPadding':5,
+                  'iconsWidth':65,
+                  'iconsHeight':65,
+                  'boxIconSpace':10,
+                  'vectoralIconNumber':5,
+                  'horizontalIconNumber': 2});
+
+    var icons = [];
+    icons.push({'iconFilePath':profile, 'iconValue':profiletag});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_f1.png' %}", 'iconValue':'avatar_f1'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_f2.png' %}", 'iconValue':'avatar_f2'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_f3.png' %}", 'iconValue':'avatar_f3'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_m1.png' %}", 'iconValue':'avatar_m1'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_m2.png' %}", 'iconValue':'avatar_m2'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_m3.png' %}", 'iconValue':'avatar_m3'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_n1.png' %}", 'iconValue':'avatar_n1'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_n2.png' %}", 'iconValue':'avatar_n2'});
+    icons.push({'iconFilePath':"{% static 'img/icon/avatar_n3.png' %}", 'iconValue':'avatar_n3'});
+    
+    iconSelect.refresh(icons);
+    
+ };
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript"> 
+  $('#updateButton').click(function(){
+      var first_name  = document.getElementById("first-name-div").value;
+      var last_name = document.getElementById("last-name-div").value;
+      var profile_photo = document.getElementById("selected-text").value;
+      $.ajax(
+      {
+          type:"GET",
+          url: "{% url 'update_profile' pk=user.id %}",
+          data:{
+               f_name: first_name,
+               l_name: last_name,
+               profile_photo: profile_photo,
+          },
+          success: function( data ) 
+          {
+            $("#results").show();
+            window.setTimeout(function(){window.location.reload()}, 500);
+          }
+       })
+});  
+</script>  
+
+
+{% endblock %}

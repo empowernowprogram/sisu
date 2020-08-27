@@ -1,0 +1,35 @@
+{% extends "blog/base_sub_w_footer.html" %}
+<!-- {% extends "blog/base.html" %} -->
+{% load static %}
+
+{% block content %}   
+    <div class="sisu-header" style="background-image: url({% static 'img/story/contact_us_header.jpg' %});">
+        <div class="sisu-header-container-center">
+            <div class="sisu-header-text">
+                <h1>Contact Us</h1>
+            </div>
+        </div>
+        <div class="story-carousel-blur"></div>
+    </div>
+    <section class="contact_area p_120">
+        <div class="container contact-us-content">
+            <div class="row contact-us-panel">
+                <div class="contact-us-left-panel">
+                    <figure class="circle-img">
+                        <img src="{% static 'img/story/contact_us_suc.jpg' %}" />
+                        <div class="img-blur"></div>
+                    </figure>
+                </div>
+                <div class="left-text contact-us-right-panel contact-us-text-panel">
+                    <h1>
+                          Message Sent!
+                    </h1>
+                    <p>Thank you for contacting us. </p>
+                    <p>We will get back to you soon. </p>
+                    
+                </div>
+            </div>
+        </div>    
+    </section>
+ 
+{% endblock %}

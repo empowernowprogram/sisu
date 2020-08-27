@@ -1,0 +1,13 @@
+{% load staticfiles %}
+
+<li>
+    <a href="#">Cases</a>
+    <ul class="list" >
+      {% for name, member in categories %}
+      <li><small><a href="{% url 'post_list_by_category' category_name=member.value %}"> {{ member.label }} </a></small></li>
+      {% endfor %}
+      
+      
+    </ul>
+    
+</li>                   

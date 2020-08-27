@@ -1,0 +1,82 @@
+{% load staticfiles %}
+
+<div>
+<section id="user_profile_table">
+
+{% if user_metooed %}
+	<div class="section-top-border">
+		<h3>You lighted up these <span class="metoo_icon_filled"></span> :</h3>
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+						<div class="table-head">
+							<div class="serial">#</div>
+							<div class="country">Title </div>
+							<div class="country">Category </div>
+							<div class="visit">Date Time </div>
+						</div>
+						
+           {% for mt in user_metooed %}
+           <div class="table-row">
+							<div class="serial"> {{ forloop.counter }}</div>
+							<div class="country"> <a href="{% url 'post_detail' pk=mt.postpk.pk %}">{{ mt.postpk }} </a> </div>
+							<div class="country"> {{ mt.postpk.category_name }}	</div>
+              <div class="visit">{{ mt.vote_date}}</div>
+					 </div>
+					{% endfor %}			
+				</div>
+    </div>
+	</div>
+{% endif %}
+
+{% if user_commented or user_pending %}
+{% if user_commented %}
+<div class="section-top-border">
+		<h3 class="mb-30 title_color">Your published comments:</h3>
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+						<div class="table-head">
+							<div class="serial">#</div>
+							<div class="country">Title </div>
+							<div class="country">Category </div>
+							<div class="visit">Date Time </div>
+						</div>
+						
+           {% for ct in user_commented %}
+           <div class="table-row">
+							<div class="serial"> {{ forloop.counter }}</div>
+							<div class="country"> <a href="{% url 'post_detail' pk=ct.post.pk %}">{{ ct.post }} </a> </div>
+							<div class="country"> {{ ct.post.category_name }}	</div>
+              <div class="visit">{{ ct.created_date }} </div>
+					 </div>
+					{% endfor %}			
+				</div>
+    </div>
+	</div>
+{% endif %}
+{% if user_pending %}
+<div class="section-top-border">
+		<h3 class="mb-30 title_color">Your pending comments:</h3>
+			<div class="progress-table-wrap">
+				<div class="progress-table">
+						<div class="table-head">
+							<div class="serial">#</div>
+							<div class="country">Title </div>
+							<div class="country">Category </div>
+							<div class="visit">Date Time </div>
+						</div>
+						
+           {% for ct in user_pending %}
+           <div class="table-row">
+							<div class="serial"> {{ forloop.counter }}</div>
+							<div class="country"> <a href="{% url 'post_detail' pk=ct.post.pk %}">{{ ct.post }} </a> </div>
+							<div class="country"> {{ ct.post.category_name }}	</div>
+              <div class="visit">{{ ct.created_date }} </div>
+					 </div>
+					{% endfor %}			
+				</div>
+    </div>
+	</div>
+  {% endif %}
+{% endif %}
+</section>
+</div>             

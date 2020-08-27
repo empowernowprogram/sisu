@@ -1,0 +1,24 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %}  
+
+<div class="sisu-header" style="background-image: url({% static '/img/blog/cat-post/' %}{{ cat.name }}.jpg);">
+    <div class="sisu-header-container">
+        <div class="sisu-header-text">
+            <!-- Plug in correct header and p for each category -->
+            <h1>{{ cat }}</h1>
+            <p>
+                {{ description }}
+            </p>
+        </div>
+    </div>
+    <div class="story-carousel-blur"></div>
+</div>
+<section class="story">
+    {% include 'blog/story_content.html' %}
+</section>
+
+
+{% endblock %}       
+        

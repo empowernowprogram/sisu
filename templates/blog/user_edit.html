@@ -1,0 +1,65 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %} 
+
+<div class="user-details">
+    <div class="user-details-header user-details-header-edit">
+        <div class="user-details-header-avatar">
+            <img src="{% static 'img/icon/default_user_orig.png' %}">
+        </div>
+        <div class="user-details-header-content">
+            <div class="custom-row">
+                <input placeholder="First name">
+                </input>
+            </div>
+            <div class="custom-row">
+                <input placeholder="Last name">
+                </input>
+            </div>
+            
+        </div>
+        <div class="user-details-edit-button">
+            <button class="sisu-button">
+                <a>Cancel</a>
+            </button>
+            <button class="sisu-button">
+                <a>Save</a>
+            </button>
+        </div>
+    </div>
+    <div class="user-details-edit custom-row">
+        <div style="height: 150px; width: 150px; margin-right: 50px;">
+
+        </div>
+        <div>
+            <h3>
+                Change Password
+            </h3>
+            <div>
+                <input 
+                    type="text" 
+                    placeholder="Email"
+                >
+            </div>
+            <div>
+                <input 
+                    type="password" 
+                    placeholder="Password"
+                >
+            </div>
+            <div class="user-details-edit-button">
+                <button class="sisu-button">
+                    <a>Cancel</a>
+                </button>
+                <button class="sisu-button">
+                    <a>Save</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

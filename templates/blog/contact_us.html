@@ -1,0 +1,92 @@
+{% load staticfiles %}
+
+<!-- <section class="contact_area p_120">
+    <div class="container contact-us-content"> -->
+        <div class="col contact-us-panel">
+                <h3>Reach out to us for:
+        <br>Demos, Trails, Inquiries
+                </h3>
+            <div  class="contact-us-form contact-us-right-panel">
+                <form method="post" action="{% url 'contact_us' %}" class="contact-form d-flex flex-column align-items-center py-3">
+                    {% csrf_token %}
+                    <div class="form-group contact-input">
+                        <input type="text" name="{{ form.your_name.html_name }}" class="form-control"
+                            maxlength="100" required="" id="{{ form.your_name.id_for_label }}"
+                            placeholder="Name">
+                    </div>
+
+                    <div class="form-group contact-input">
+                        <input type="text" name="{{ form.your_email.html_name }}" class="form-control"
+                            maxlength="100" required="" id="{{ form.your_email.id_for_label }}"
+                            placeholder="Email">
+                    </div>
+
+                    <div class="form-group contact-input">
+                        <input type="text" name="{{ form.your_company.html_name }}" class="form-control"
+                            maxlength="100" required="" id="{{ form.your_company.id_for_label }}"
+                            placeholder="Company Name">
+                    </div>
+
+                    <div class="form-group contact-input">
+                        <input type="text" name="{{ form.subject.html_name }}" class="form-control"
+                            maxlength="100" required="" id="{{ form.subject.id_for_label }}"
+                            placeholder="Subject">
+                    </div>
+
+                    <div class="form-group contact-input">
+                        <textarea name="{{ form.message.html_name }}" cols="40" rows="10" required=""
+                            id="{{ form.message.id_for_label }}" class="form-control"
+                            placeholder="Message"></textarea>
+                    </div>
+
+
+
+                    <br>
+                        <button type="submit" class="btn btn-submit btn-info contact-input">Send</button>
+                </form>
+            </div>
+
+
+            <!-- <div id="contact_right" class="contact-us-form contact-us-right-panel">
+                <form method="post" class="contact_form">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" name="{{ form.your_name.html_name }}" class="contactusfield" maxlength="100"
+                                        required="" id="{{ form.your_name.id_for_label }}" placeholder="{{ form.your_name.label }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="{{ form.your_email.html_name }}" class="contactusfield" maxlength="100"
+                                        required="" id="{{ form.your_email.id_for_label }}"
+                                        placeholder="{{ form.your_email.label }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="{{ form.subject.html_name }}" class="contactusfield" maxlength="100"
+                                        required="" id="{{ form.subject.id_for_label }}" placeholder="{{ form.subject.label }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea name="{{ form.message.html_name }}" cols="40" rows="10" required=""
+                                        id="{{ form.message.id_for_label }}" placeholder="{{ form.message.label }}"></textarea>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <div class="form-actions">
+                        <button type="submit" class="sisu-button">Send</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div> -->
+
+    <!-- </div>
+</section> -->
