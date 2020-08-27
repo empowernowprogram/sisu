@@ -1,0 +1,59 @@
+{% extends "blog/base_sub_w_footer_no_usrprof.html" %}
+{% load staticfiles %}
+
+{% block sub_content %} 
+<div class="sisu-header" style="background-image: url({% static '/img/story/search.jpg' %});">
+    <div class="sisu-header-container">
+        <div class="sisu-header-text">
+            <h2>Search Results for: </h2>
+            <h3>"{{ query_string }}"</h3>
+        </div>
+    </div>
+    <div class="story-carousel-blur"></div>
+</div>
+
+<div class="story-content">
+    <!-- story entry insert story id -->
+    {% for post in found_entries %}
+    <a href="{% url 'story_entry' pk=post.pk %}">
+        <div class="story-content-entry custom-row">
+            <div class="story-text">
+                <h5> {{ post.category_name }} </h5>
+                <h4>
+                    {{ post.title }}
+                </h4>
+                <p>
+                    {{ post.short_desc|linebreaksbr }}
+                </p>
+            </div>
+            <div class="story-img-list">
+                <img src="{% static '/img/blog/main-blog/' %}{{ post.pk }}.jpg" alt="" align="case">
+                
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <br>
+    <div class="col-md-0"></div>
+    <h2><i class="fa fa-info-circle" aria-hidden="true"></i> Sorry, we searched all the Story Titles and Story Contents but couldn't find "{{ query_string }}" in any of SISU stories. 
+    </h2>  
+    <br>
+    <h3><b>Search Tips: </b></h3>
+    <br>
+    <ul class="sq">
+        <li>Check the spelling and try again; </li>
+        <li>Try a similar but different search word(s); </li>
+        <li>Try searching for one or two words; </li>
+        <li>Keep the search word(s) simple and less specific.</li>
+    </ul>   
+    <br>
+    <h3>If you want to share with us about your experiences regarding "{{ query_string }}", <a href="{% url 'contact_us' %}" style="color:#F78C18">contact us!</a></h3>
+    <br style="line-height: 2em">
+    <h3><b>You may want to read: </b></h3>
+    
+    <!-- Provide a suggested reading page -->
+    {% include 'blog/post_random_footer.html' %}
+    {% endfor %}
+ </div>
+                                       
+{% endblock %}  

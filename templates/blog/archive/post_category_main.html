@@ -1,0 +1,113 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block header %}
+<li class="nav-item"><a class="nav-link" href="/">Home</a></li> 
+<li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">About</a></li> 
+<li class="nav-item active"><a class="nav-link" href="{% url 'post_cases' %}">Cases</a></li>
+
+{% endblock %}
+
+{% block sub_content %}  
+<section class="banner_area">
+  <div class="banner_inner d-flex align-items-center">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+      <div class="banner_content text-center">
+        <h2>Cases</h2>
+        <div class="page_link">
+          <a href="/">Home</a>
+          <a href="{% url 'post_cases' %}">Cases</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--================Blog Categorie Area =================-->
+
+<section class="blog_categorie_area">
+  <div class="container">
+    <div class="row">
+      {% for name, member in categories %}
+      <div class="col-lg-4">
+        <div class="categories_post">
+          <img src="{% static '/img/blog/cat-post/'|add:member.value|add:'.jpg' %}">
+          <div class="categories_details">
+            <div class="categories_text">
+             <a href="{% url 'post_list_by_category' category_name=member.value %}"><h5>{{ member.label }}</h5></a>
+             <div class="border_line"></div>
+            </div>
+          </div>
+        </div> 
+        <div><br></div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!--================Recommend Area =================-->
+<section class="testimonials_area">
+  <div class="container">
+    <h2>Recommended Readings</h2>
+    <div class="testi_slider owl-carousel">
+    {% if rec_post_list %} 
+      {% for post in rec_post_list %}            
+      <div class="item">
+      	<div class="row">
+         	<div class="col-lg-4">
+            <a href="{% url 'post_detail' pk=post.pk %}">
+              <img src="{% static '/img/testimonials/' %}{{ post.pk }}.png" alt="">
+              
+            </a>
+        	</div>
+          <div class="col-lg-8">
+            <div class="testi_text">
+            
+              <h4> {{ post.title }} </h4>
+              <h5>{{ post.category_name }}</h5>
+              <p>{{ post.short_desc }}</p>
+              <br>
+              <br>
+              <a href="{% url 'post_detail' pk=post.pk %}" class="main_btn">Read More... </a>
+            </div>
+            
+          </div>
+          
+       </div>
+     </div>
+     {% endfor %}
+              
+    {% else %} 
+     {% for post in pop_cases %}
+       {% for p in post %}
+       <div class="item">
+         <div class="row">
+           <div class="col-lg-4">
+             <img src="{% static 'img/testimonials/' %}{{ p.pk }}.png" alt="">
+             
+           </div>
+           <div class="col-lg-8">
+            <div class="testi_text">
+              <h4> {{ p.title }}</h4>
+              <h5>{{ p.category_name }}</h5>
+              <p>{{ p.short_desc }}</p>
+              <br>
+              <br>
+              <a href="{% url 'post_detail' pk=p.pk %}" class="main_btn">Read More... </a>
+            </div>
+              
+            </div>
+           </div>
+         </div>
+         
+        {% endfor %}
+       {% endfor %}   
+      </div>       
+     {% endif %}
+   </div>
+</section>
+<!--================End Recommend Area =================-->
+
+<!--================Blog Categorie Area =================-->
+{% endblock %}

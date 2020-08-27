@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+{% if user_metooed %}
+<div class="story-content">
+    <h3>You lighted up these <span class="metoo_icon_filled"></span> :</h3>
+    <!-- story entry insert story id -->
+    {% for mt in user_metooed %}
+    <a href="{% url 'story_entry' pk=mt.postpk.pk %}">
+        <div class="story-content-entry custom-row">
+            <div class="story-text">
+                <h5 style="text-transform: uppercase;">{{ mt.vote_date }} </h5>
+                <h4>{{ mt.postpk }}</h4>
+                <h5>{{ mt.postpk.short_desc|linebreaksbr }}</h5> 
+            </div>
+            <div class="story-img-list">
+                <img src="{% static '/img/blog/main-blog/' %}{{ mt.postpk.pk }}.jpg" alt="" align="case">
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+    <h4>If you have involved in the same situation. #MeToo it by lighting the bulb! </h4>  
+    
+    {% include 'blog/story_popular.html' %}
+
+{% endif %}

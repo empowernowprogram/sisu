@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<div id="act_chart" style="font-family: Raleway;">
+  {% if cat_chart %}
+  <h3 style="color: #5D1049;">Your Activity in Different Categories </h3> 
+    <div id="userChart">           
+    {{ cat_chart|safe }}
+    </div>
+    <script type="text/javascript" src="http://kozea.github.com/pygal.js/latest/pygal-tooltips.min.js"></script> 
+  {% else %}
+    <h4>Welcome to SISU! Below are the top picks for you. </h4>  
+    
+    {% include 'blog/story_popular.html' %}
+
+  {% endif %}  
+  
+</div>  
+
+           

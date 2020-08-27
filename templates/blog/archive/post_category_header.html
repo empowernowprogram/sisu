@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<li>
+ <ul class="list" >
+ {% for name, member in categories %}
+ <li class="nav-item"><a class="nav-link" href="{% url 'post_list_by_category' category_name=member.value %}">{{ member.label }} </a></li>
+ {% endfor %}
+      
+      
+    </ul>
+    
+</li>           

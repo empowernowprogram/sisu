@@ -1,0 +1,143 @@
+{% extends "blog/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<section class="navigation">
+  <div class="nav-container">
+    <div class="brand logo_h">
+      <a href="/"><img src="{% static 'img/Sisu_Logo_1.png' %}" alt=""></a>
+    </div>
+    <nav>
+      <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+      <ul class="nav-list">
+        <li>
+          <a href="#!">About</a>
+          <ul class="nav-dropdown">
+            <li>
+              <a href="{% url 'about_us' %}">Overview</a>
+            </li>
+            <li>
+              <a href="{% url 'about_team' %}">Meet the Team</a>
+            </li>
+            <li>
+              <a href="{% url 'about_program' %}">Empower Now</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#!">Cases</a>
+          <ul class="nav-dropdown">
+            <li>
+              <a href="{% url 'get_all_category' %}">All Categories</a>
+            </li>
+            {% for name, member in categories %}
+            <li>
+              <a href="{% url 'story' category_name=member.value %}">{{ member.label }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        
+        <li>
+          <a href="{% url 'contact_us' %}">Contact</a>
+        </li>
+        <li id="separater_li" style="visibility:hidden;">
+          <a>PH</a>
+        </li>
+
+        <li>
+            <form action="{% url 'search' %}" method="POST" id="seachForm" style="text-align:right;">
+            {% csrf_token %}
+            <input id="main_search_input" type="text" name="search_string" class="form-control" 
+                   style="text-align:left; cursor:auto;background-color:#F6E6F0;" placeholder="Search For A Case" required=""/>
+            </form>
+        </li>
+         
+        {% if isLoggedIn == True %}
+        <li id="account_detail">
+            {{ userprofile.management_form }}
+            {% for form in userprofile.forms %}
+            <a href="#!" style="padding:0 5px;"><img id="profile_img" src="{% static '/img/icon/' %}{{ form.instance.photo }}.png" style="height:80%;margin-right:10px;">Hi, {{ request.user }}!</a>
+            {% endfor %}
+            
+            <ul class="nav-dropdown">
+                <li>
+                  <a href="{% url 'user_details' pk=user.pk %}">Account</a>
+                </li>
+                <li>
+                  <a href="{% url 'logout' %}">Log Out</a>
+                </li>
+            </ul>
+        </li>
+
+        {% else %}
+        <li>
+            <a href="" data-toggle="modal" data-target="#signinModal"> SIGN IN </a>
+        </li>
+        <li>
+            <button type="submit" id="signup-button" data-toggle="modal" data-target="#signupModal">
+              SIGN UP
+            </button>
+        </li>
+        {% endif %}
+        
+      </ul>
+      
+    </nav>
+  </div>
+</section>
+
+<p id="placeholder" style="visibility:hidden;">placeholder</p>
+
+<!-- Sign-in/up Modal -->
+<div class="modal fade" id="signinModal" role="dialog" style="overflow-y:hidden;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        {% include 'blog/login_modal.html' %}
+        </div>
+    </div>
+</div>      
+<div class="modal fade" id="signupModal" role="dialog" style="overflow-y:hidden;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        {% include 'blog/signup_modal.html' %}
+        </div>
+    </div>
+</div>
+
+    {% block sub_content %}
+        
+    {% endblock %}
+   
+  
+<script>
+(function($) { // Begin jQuery
+  $(function() { // DOM ready
+    // If a link has a dropdown, add sub menu toggle.
+    $('nav ul li a:not(:only-child)').click(function(e) {
+      $(this).siblings('.nav-dropdown').toggle();
+      // Close one dropdown when selecting another
+      $('.nav-dropdown').not($(this).siblings()).hide();
+      e.stopPropagation();
+    });
+    // Clicking away from dropdown will remove the dropdown class
+    $('html').click(function() {
+      $('.nav-dropdown').hide();
+    });
+    // Toggle open and close nav styles on click
+    $('#nav-toggle').click(function() {
+      $('nav ul').slideToggle();
+    });
+    // Hamburger to X toggle
+    $('#nav-toggle').on('click', function() {
+      this.classList.toggle('active');
+    });
+  }); // end DOM ready
+})(jQuery); // end jQuery
+</script>
+
+{% endblock %}
+        

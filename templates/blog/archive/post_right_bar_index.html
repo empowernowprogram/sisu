@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<div class="blog_right_sidebar">
+  <aside class="single_sidebar_widget popular_post_widget">
+    <h3 class="widget_title">Suggest Solutions</h3>
+    <div class="media post_item">
+      <img src="{% static 'img/icon/female_user_1.png' %}" alt="post" class="avatar">
+      <div class="media-body">
+        <a href="#"><h3>XXX suggested YYY </h3></a>
+      </div>
+    </div>
+    <div class="media post_item">
+      <img src="{% static 'img/icon/male_user_5.png' %}" alt="post" class="avatar">
+      <div class="media-body">
+        <a href="#"><h3>ZZZ said AAA </h3></a>
+      </div>
+    </div>
+    <div class="br"></div>		
+  </aside>
+  <aside class="single-sidebar-widget tag_cloud_widget">
+    <h4 class="widget_title">Polls</h4>
+    <input id="id-div" type="hidden" name="pid" value="{{ post.id }}" >
+    <div class="media-body" id="pollresult">
+      {% if summary.polled %}
+      <h4>{{ summary.pollquestion.question }} - results in %</h4>
+      {{ barchart|safe }}
+      {% else %}
+      <h3>{{ summary.pollquestion.question }} </h3>
+      <div><input type="radio" name="choice" value="1" />{{ summary.pollquestion.choice1 }}</div>
+      <div><input type="radio" name="choice" value="2" />{{ summary.pollquestion.choice2 }}</div>
+      <div><input type="radio" name="choice" value="3" />{{ summary.pollquestion.choice3 }}</div>
+      <div><input type="radio" name="choice" value="4" />{{ summary.pollquestion.choice4 }}</div>
+      <button id="pollBtn" class='main_btn'>Submit</button>
+      {% endif %}
+    </div>
+  </aside>
+</div>
+
+<script>
+$('#pollBtn').click(function(){
+      var selected = document.querySelector('input[name=choice]:checked').value
+      var pid = document.getElementById("id-div").value;
+      var author = document.getElementById("user_name").value;
+      
+      $.ajax(
+      {
+          type:"GET",
+          url: "/poll",
+          data:{
+               postid: pid,
+               selected: selected,
+          },
+          success: function( data ) 
+          {
+              $("#pollresult").load(" #pollresult");;
+          }
+       })
+});  
+  
+  alert(selected)
+</script>      

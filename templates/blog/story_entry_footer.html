@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<section class="story-entry-footer custom-row">
+{% if default_cases %} 
+<div class="custom-row" id="story-footers">
+    {% for post in default_cases %}  
+    <a href="{% url 'story_entry' pk=post.pk %}">
+        <div class="story-entry-footer-item">
+            <div class="story-img-list">
+                <img src="{% static '/img/blog/main-blog/' %}{{ post.pk }}.jpg">
+            </div>
+            <h4>{{ post.category_name }}</h4>
+            <h3>{{ post.title }}</h3>
+            <p>
+                {{ post.short_desc }} 
+            </p>
+        </div>
+    </a>
+    {% endfor %}
+</div>        
+{% else %}
+{% if rec_post_list %}
+    <div class="custom-row" id="story-footers">
+        {% for post in rec_post_list %}  
+        <a href="{% url 'story_entry' pk=post.pk %}">
+            <div class="story-entry-footer-item">
+                <div class="story-img-list">
+                    <img src="{% static '/img/blog/main-blog/' %}{{ post.pk }}.jpg">
+                </div>
+                <h4>{{ post.category_name }}</h4>
+                <h3>{{ post.title }}</h3>
+                <p>
+                    {{ post.short_desc }} 
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>        
+{% else %} 
+    <div class="custom-row" id="story-footers">
+    {% for post in pop_cases %}
+        {% for p in post %}
+        <a href="{% url 'story_entry' pk=p.pk %}">
+            <div class="story-entry-footer-item">
+                <div class="story-img-list">
+                    <img src="{% static '/img/blog/main-blog/' %}{{ p.pk }}.jpg">
+                </div>
+                <h4>{{ p.category_name }}</h4>
+                <h3>{{ p.title }}</h3>
+                <p>
+                    {{ p.short_desc }} 
+                </p>
+            </div>
+        </a>
+        {% endfor %}
+    {% endfor %} 
+    </div>
+{% endif %}
+{% endif %}
+</section>

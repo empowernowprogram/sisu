@@ -1,0 +1,41 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %} 
+<div class="user-details">
+<section class="contact_area p_120">
+<div class="container contact-us-content">
+    <div class="row contact-us-panel">
+        <div class="contact-us-left-panel">
+            <figure class="circle-img">
+                <img src="{% static 'img/story/deleteaccount.jpg' %}" />
+                <div class="img-blur"></div>
+            </figure>
+        </div>
+        <div class="left-text contact-us-right-panel contact-us-text-panel">
+            <h1>
+                  Are your sure to delete your Sisu account?
+            </h1>
+            <br>
+            
+            {% if user.is_authenticated  %}
+            
+                <button type="submit" class="sisu-button">
+                    <a href="{% url 'user_details' pk=user.id %}">GO BACK</a>
+                </button>
+                <hr class="hr-text" data-content="We are sorry to see you go" />
+                <form method="post">
+                    {% csrf_token %}
+                    <button class="sisu-button">Delete "{{ object }}" account</button>
+                </form>
+                
+            
+            {% else %}
+                <h3> Please login to delete account.</h3>
+            {% endif %}    
+        </div>
+    </div>
+</div>    
+</section>
+</div>
+{% endblock %}

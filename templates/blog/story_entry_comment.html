@@ -1,0 +1,324 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/alert.css' %}" /> 
+<section class="story-entry-comment" style="padding-top: 40px;">
+    <!-- dynamic comment numbers -->
+    {% if cases|dict_key:post.pk %}
+    <h6><i class="fa fa-comments"></i> {{ cases|dict_key:post.pk }} Comments </h6>
+    {% else %}
+    <h6><i class="fa fa-comments-o"></i> 0 Comment</h6>
+    {% endif %}
+    
+    <!-- run for loop for each user comment -->
+    {% if user.is_authenticated %} 
+    <div id="newComment">
+    {% for comment in post.comments.all|dictsortreversed:"created_date" %}
+    {% if comment.approved_comment %}
+    <div class="one-comment-section">
+        <div class="comment-entry-wrapper">
+            <div class="comment-entry comment-entry-avatar">
+                <img src="{% static '/img/icon/' %}{{ comment.userprofile.photo }}.png">
+            </div>
+            <div class="comment-entry comment-entry-container flex-direction">
+                <div class="comment-entry comment-entry-author">{{ comment.author }} </div>
+                <div class="comment-entry comment-entry-timeline">{{ comment.created_date }} </div>
+            </div>
+            <div class="comment-entry-content">
+                {{ comment.text|linebreaks }}  
+            </div>
+        </div>
+
+        <div id="replyButton{{ comment.pk }}" class="reply-button" onClick="replyToCommentFunction({{ comment.pk }})">
+            <i class="fa fa-reply fa-rotate-180" aria-hidden="true"></i> Reply
+        </div>
+        <input id="cid" type="hidden" value="{{ comment.pk }}"/>
+        <div id="replyToCommentDiv{{ comment.pk }}" style="display:none;">
+            <div id="replyToCommentForm{{ comment.pk }}" >
+                {% csrf_token %}
+                <div class="story-entry-comment-reply">
+                    <div class="comment-entry comment-entry-avatar">
+                        {{ formset.management_form }}
+                        {% for form in userprofile.forms %}
+                        <!-- a href="{% url 'user_details' 1 %}" -->
+                            <img src="{% static '/img/icon/' %}{{ form.instance.photo }}.png" alt="Avatar" class="avatar">
+                        <!-- /a -->
+                        {% endfor %}
+                    </div>
+                    <input id="user_name_r" type="hidden" name="author" value="{{ user.username }}" >
+                    <input id="commentpid{{ comment.pk }}" type="hidden" value="{{ post.pk }}"/>
+                    <textarea onkeyup="rpybtnsuccess({{ comment.pk }})" id="reply_content{{ comment.pk }}" name="text" wrap="soft" style="overflow:auto; resize:none;order: 2" placeholder="Reply to {{ comment.author }}"></textarea>
+                </div>
+                <button type="submit" id="addReplyBtn{{ comment.pk }}" class="sisu-button shrink-80" style="margin-left: auto; display: block;" onClick="addReply({{ comment.pk }})" disabled>
+                    Reply</i>
+                </button>
+            </div>
+        </div>
+    
+        {% if comment.replyToComment.all %}
+            <div class="story-comment-view" id="view{{ comment.pk }}">Show All Replies</div>
+            <div class="story-comment-replies" id="comment-replies{{ comment.pk }}">
+                {% for reply in comment.replyToComment.all|dictsortreversed:"created_date" %}
+                <div class="comment-entry-wrapper" id="replies{{ comment.pk }}">
+                    <div class="comment-entry comment-entry-avatar">
+                        <!-- a href="{% url 'user_details' 1 %}" -->
+                            <img src="{% static '/img/icon/' %}{{ reply.userprofile.photo }}.png" alt="Avatar" class="avatar">
+                        <!-- /a -->
+                    </div>
+                    <div class="comment-entry comment-entry-container flex-direction">
+                        <div class="comment-entry comment-entry-author" id="author">{{ reply.author }} </div>
+                        <div class="comment-entry comment-entry-timeline" id="date">{{ reply.created_date }} </div>
+                    </div>
+                    <div class="comment-entry-content">
+                        {{ reply.text|linebreaks }}  
+                    </div>                               
+                </div>
+                {% endfor %}
+            </div>
+          
+        {% else %}
+            <div class="story-comment-view" id="view{{ comment.pk }}" style="display: none">Hide</div>
+            <div class="story-comment-replies" id="comment-replies{{ comment.pk }}" style="display: none">
+                <div class="comment-entry-wrapper" id="replies{{ comment.pk }}">
+                    <div class="comment-entry comment-entry-avatar">
+                         {{ formset.management_form }}
+                         {% for form in userprofile.forms %}
+                            <!-- a href="{% url 'user_details' 1 %}" -->
+                            <img src="{% static '/img/icon/' %}{{ form.instance.photo }}.png" alt="Avatar" class="avatar">
+                            <!-- /a -->
+                         {% endfor %}
+                    </div>
+                    <div class="comment-entry comment-entry-container flex-direction">
+                        <div class="comment-entry comment-entry-author" id="reply-author"></div>
+                        <div class="comment-entry comment-entry-timeline" id="reply-date"></div>
+                    </div>
+                    
+                    <div class="comment-entry-content">
+                        <h5 id="reply-text">
+                        </h5>
+                    </div>     
+                </div>
+            </div>
+         </div>     
+        {% endif %}
+    {% else %}
+        {% if user.get_username == comment.author or user.is_superuser %}
+        <div class="one-comment-section">
+        <div class="comment-entry-wrapper">
+            <div class="comment-entry comment-entry-avatar">
+                <!-- dynamic user_id and image -->
+                <!-- a href="{% url 'user_details' 1 %}" -->
+                    <img src="{% static '/img/icon/' %}{{ comment.userprofile.photo }}.png">
+                <!-- /a -->  
+            </div>
+            
+            <div class="comment-entry comment-entry-container flex-direction">
+                <div class="comment-entry comment-entry-author">{{ comment.author }} </div>
+                <div class="comment-entry comment-entry-timeline">{{ comment.created_date }} </div>
+            </div>            
+            
+            <div class="comment-entry-content">
+                <p style="color: #5D1049">[Your comment will be pulished after censoring]</p>
+                <p>{{ comment.text|linebreaks }}</p>  
+                
+                {% if user.is_superuser %}
+                <a class="sisu-button shrink-90" href="{% url 'comment_remove' pk=comment.pk %}"> Remove </a>
+                <a class="sisu-button shrink-90" href="{% url 'comment_approve' pk=comment.pk %}"> Approve </a>
+                {% endif %}
+            </div>
+            
+            
+        </div>
+        </div>
+        {% endif %}
+    {% endif %}
+    
+    {% empty %}
+          <p>No comments here yet. Post the first one!</p>
+          
+    {% endfor %}
+    </div>
+    <br>
+    <div class="story-entry-comment-reply" id="comment-reply-div">
+        <div class="comment-entry comment-entry-avatar">
+            <!-- dynamic user id and img -->
+            {{ formset.management_form }}
+            {% for form in userprofile.forms %}
+            <a href="{% url 'user_details' pk=user.pk %}">
+                <img src="{% static '/img/icon/' %}{{ form.instance.photo }}.png">
+            </a>
+            {% endfor %}
+        </div>
+        {% csrf_token %}
+        <input id="user_name" type="hidden" name="author" value="{{ user.username }}" >
+        <input id="id-div" type="hidden" name="pid" value="{{ post.id }}" >
+        <textarea onkeyup="btnsuccess()" id="comment_content" name="text" wrap="soft" style="overflow:auto; resize:none; order: 2" placeholder="{{ user.username }}, what do you think?"></textarea>
+        
+        {% if messages %}
+        <ul class="messages" style="display:none;">
+                {% for message in messages %}
+                <li id="msg" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>   
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <button type="submit" id="addCommentBtn" class="sisu-button shrink-90" style="margin-left: auto; display: block;" disabled>
+            Post
+        </button>
+    {% else %}
+    <h5 style="text-align:left;">Want to give some suggestions? 
+        <i data-toggle="modal" data-target="#signinModal" class="underline" style="cursor: pointer;"> Sign In</i> | 
+        <i data-toggle="modal" data-target="#signupModal" class="underline" style="cursor: pointer;"> Sign up</i> 
+        to comment!
+    </h5>
+    {% endif %}
+      
+</section>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script> 
+function replyToCommentFunction(id) {
+    var divId = String(id);  
+    var reply = document.getElementById("replyToCommentDiv" + divId);
+    var replyBtn = document.getElementById("replyButton" + divId);
+    if (reply.style.display === "none") {
+            //reply.style.display = "block";
+            $(reply).fadeIn("slow");
+            $(replyBtn).html("<i class='fa fa-close' aria-hidden='true'></i> Cancel");            
+    } else {
+            //reply.style.display = "none";
+            $(reply).fadeOut();
+            $(replyBtn).html("<i class='fa fa-reply fa-rotate-180' aria-hidden='true'></i> Reply");
+    }
+}
+
+</script>
+ 
+<script type="text/javascript" src="{% static '/js/alert.js' %}"></script>
+ 
+<script>
+$(document).ready(function(){
+   var mesg = document.getElementById("msg");
+   alert(mesg.innerHTML);
+});
+    
+function btnsuccess() {
+   if(document.getElementById("comment_content").value==="") { 
+        document.getElementById('addCommentBtn').disabled = true; 
+    } else { 
+        document.getElementById('addCommentBtn').disabled = false;
+    }
+}
+    
+function rpybtnsuccess(cid) {
+    var divcid = String(cid);
+    var btnid = document.getElementById("addReplyBtn" + divcid);
+    var replydivcid = document.getElementById("reply_content" + divcid);
+     
+    if(replydivcid.value==="") { 
+        btnid.disabled = true; 
+    } else { 
+        btnid.disabled = false;
+    }
+}
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight + 2)+"px";
+}
+
+</script>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript"> 
+$('#addCommentBtn').click(function(){
+    var pid = document.getElementById("id-div").value;
+    var author = document.getElementById("user_name").value;
+    var content = document.getElementById("comment_content").value;
+    $.ajax(
+    {
+        type:"GET",
+        url: "/add_comment",
+        data:{
+            pid: pid,
+            author: author,
+            text: content,
+        },
+        success: function( data ) 
+        {
+            $("#newComment").hide().fadeIn();
+            $("#newComment").load(" #newComment");
+            $("#comment_content").val("");
+            alert("Thank you. Your comment will be open to public after censoring.");
+        }
+    })
+});
+
+$('.story-comment-view').click(function() {
+    $(this).next('.story-comment-replies').toggle();
+    let text = $(this).text();
+    $(this).text(text == "Show All Replies" ? 'Hide' : 'Show All Replies')
+})
+$('textarea').keyup(function() {
+    auto_grow(this);
+});
+</script>  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
+<script type="text/javascript"> 
+function addReply(id) {
+    var commentId = String(id);
+    var pid = document.getElementById("commentpid" + commentId).value;
+    var author = document.getElementById("user_name_r").value;
+    var content = document.getElementById("reply_content" + commentId).value;
+    var textArea = document.getElementById("reply_content" + commentId);
+    var view = document.getElementById("view" + commentId);
+    var replies = document.getElementById("comment-replies" + commentId);
+    var replyBtn = document.getElementById("addReplyBtn" + commentId);
+    var lastReply = document.getElementById("replies" + commentId);
+    var replyForm = document.getElementById("replyToCommentForm" + commentId);
+    var nextReply = $(lastReply).clone();
+    $(nextReply).find( "p" ).text(content);
+ 
+   $.ajax({
+         type:"GET",
+         url: "/add_reply_to_comment",
+         data:{
+                pid: pid,
+                cid: commentId,
+                author: author,
+                text: content,
+         },
+         success: function( data ){
+                $(textArea).val("");
+                
+                
+                let text = $(view).text();
+                if(text == "Show All Replies") {
+                    $(view).text("Hide");
+                    $(replies).toggle();
+                }
+                
+                if($(view).css("display") == "none") {
+                    $(view).css("display", "block");
+                    
+                    $("#reply-author").html(author);
+                    $("#reply-text").html(content);
+                    $("#reply-date").html("Now");
+                    $(replies).css("display", "block");
+                    
+                } else {
+                    $(replies).prepend( $(nextReply) );
+                    $(nextReply).find( "#date" ).html(moment(data.replyDate).format('LLL'));
+                }
+                
+                $("#reply").css("display", "none");
+                $(replyBtn).prop("disabled",true);
+                
+         }
+   })
+}  
+</script>   
