@@ -2,7 +2,7 @@
 {% extends "blog/base.html" %}
 {% load staticfiles %}
 
-{% block sub_content %}   
+{% block sub_content %}
 
     <div class="sisu-header" style="background-image: url({% static 'img/story/contact_us_header.jpg' %});">
         <div class="sisu-header-container-center">
@@ -18,9 +18,8 @@
                 <div id="contact_left" class="contact-us-left-panel">
                     <div>
                         <h1>
-                            Partnership Inquiries? 
-                            <br>Want to share your story?
-                            <br>Let’s talk!
+                            Get in touch with us for:
+                            <br>Demos, Trails, Parternships
                         </h1>
                     </div>
                 </div>
@@ -31,50 +30,50 @@
                     <tbody>
                         <tr>
                             <td>
-                                <input 
-                                    type="text" 
-                                    name="{{ form.your_name.html_name }}" 
-                                    class="contactusfield" 
-                                    maxlength="100" 
-                                    required="" 
-                                    id="{{ form.your_name.id_for_label }}" 
+                                <input
+                                    type="text"
+                                    name="{{ form.your_name.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.your_name.id_for_label }}"
                                     placeholder="{{ form.your_name.label }}"
                                     >
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type="text" 
-                                    name="{{ form.your_email.html_name }}" 
-                                    class="contactusfield" 
-                                    maxlength="100" 
-                                    required="" 
-                                    id="{{ form.your_email.id_for_label }}" 
+                                <input
+                                    type="text"
+                                    name="{{ form.your_email.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.your_email.id_for_label }}"
                                     placeholder="{{ form.your_email.label }}"
                                 >
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input 
-                                    type="text" 
-                                    name="{{ form.subject.html_name }}" 
-                                    class="contactusfield" 
-                                    maxlength="100" 
-                                    required="" 
-                                    id="{{ form.subject.id_for_label }}" 
+                                <input
+                                    type="text"
+                                    name="{{ form.subject.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.subject.id_for_label }}"
                                     placeholder="{{ form.subject.label }}"
                                 >
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <textarea 
-                                    name="{{ form.message.html_name }}" 
-                                    cols="40" 
-                                    rows="10" 
-                                    required="" 
+                                <textarea
+                                    name="{{ form.message.html_name }}"
+                                    cols="40"
+                                    rows="10"
+                                    required=""
                                     id="{{ form.message.id_for_label }}"
                                     placeholder="{{ form.message.label }}"
                                 ></textarea>

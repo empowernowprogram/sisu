@@ -3,14 +3,9 @@
 <!-- <section class="contact_area p_120">
     <div class="container contact-us-content"> -->
         <div class="col contact-us-panel">
-
-                <div>
-                    <h4>
-                        Partnership? Inquiries? Products?
-                        <br>Want to share your story?
-                        <br>Let’s talk!
-                    </h4>
-                </div>
+                <h3>Reach out to us for:
+        <br>Demos, Trails, Inquiries
+                </h3>
             <div  class="contact-us-form contact-us-right-panel">
                 <form method="post" action="{% url 'contact_us' %}" class="contact-form d-flex flex-column align-items-center py-3">
                     {% csrf_token %}
@@ -44,8 +39,8 @@
                             placeholder="Message"></textarea>
                     </div>
 
-                        
-                                
+
+
                     <br>
                         <button type="submit" class="btn btn-submit btn-info contact-input">Send</button>
                 </form>
@@ -81,7 +76,7 @@
                                         id="{{ form.message.id_for_label }}" placeholder="{{ form.message.label }}"></textarea>
                                 </td>
                             </tr>
-            
+
                         </tbody>
                     </table>
                     <br>
@@ -95,4 +90,3 @@
 
     <!-- </div>
 </section> -->
-
