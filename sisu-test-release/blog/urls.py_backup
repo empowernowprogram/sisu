@@ -30,17 +30,6 @@ urlpatterns = [
     #url(r'^settings/user_id(?P<pk>\d+)/$', IndexView.as_view(), name='user_details'),
     path('terms_conditions/', views.terms_conditions, name='t_c'),
     path('privacy_policy/', views.privacy_policy, name='p_p'),
-    path('sisu_case/category/', views.get_all_category, name='get_all_category'),
-    path('enp_login/', views.login_portal, name='login_portal'),
-    path('employee_progress/', views.employee_progress, name='employee_progress'),
-    path('supervisor_progress/', views.supervisor_progress, name='supervisorprogress'),
-    path('nonsupervisor_progress/', views.nonsupervisor_progress, name='nonsupervisorprogress'),
-    path('modules/', views.modules, name='modules'),
-    path('downloads/', views.downloads, name='downloads'),
-    path('modules_s/', views.modules_s, name='modules_s'),
-    path('downloads_s/', views.downloads_s, name='downloads_s'),
-    path('employee_reg', views.employee_reg, name='employee_reg'),
-    path('send_reg/', views.send_reg, name='send_reg'),
-    path('reg_from_invite', views.reg_from_invite, name='reg_from_invite')
+    path('sisu_case/category/', views.get_all_category, name='get_all_category')
     
 ]

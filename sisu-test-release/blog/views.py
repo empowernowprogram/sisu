@@ -23,6 +23,7 @@ from django.contrib import messages
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
+from enpApi.models import PlaySession, Player
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -67,7 +68,125 @@ def pretty_request(request):
         headers=headers,
         body=request.body,
     )
+
 # Create your views here.
+def login_portal(request):
+    context = {}
+    return render(request, 'blog/login_portal.html', context)
+def modules(request):
+    if request.user.is_authenticated:
+        return render(request, 'blog/modules.html')
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def modules_s(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        context = { 'player': player }
+        return render(request, 'blog/modules_s.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def downloads(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        context = { 'player': player }
+        return render(request, 'blog/downloads.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def downloads_s(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        context = { 'player': player }
+        return render(request, 'blog/downloads_s.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def reg_from_invite(request):
+    if request.method == 'GET':
+        code = request.GET['code']
+        try:
+            invite = Invite.objects.get(link=code)
+            email = invite.email
+            employer = invite.employer
+            print (username)
+        except ObjectDoesNotExist:
+            print("Not found")
+    return render(request, 'blog/reg_from_invite.html')
+
+def register_new_employee(request):
+    return render(request, 'blog/modules.html')
+
+def employee_reg(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        context = { 'player': player }
+        return render(request, 'blog/employee_registration.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def send_reg(request):
+    return render(request, 'blog/login_portal.html')
+    
+
+def employee_progress(request):
+    if request.user.is_authenticated:
+        user_email = request.user.email
+        player = Player.objects.get(user=request.user)
+        print (player.user.username)
+        
+        context = { 'player': player }
+        return render(request, 'blog/employee_progress.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def nonsupervisor_progress(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        user_email = request.user.email
+        players = Player.objects.filter(employer='0').filter(supervisor='False')
+        #print (sessions.count)
+        context = { 'players': players, 'player': player }
+        return render(request, 'blog/nonsupervisor_progress.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def supervisor_progress(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        user_email = request.user.email
+        players = Player.objects.filter(employer='0').filter(supervisor='True')
+        #print (sessions.count)
+        context = { 'players': players, 'player': player }
+        return render(request, 'blog/supervisor_progress.html', context)
+    else:
+        return render(request, 'blog/login_portal.html')
+
+def attempt_login(request):
+    if request.method == 'GET':
+        employee_user = request.GET['user']
+        employee_password = request.GET['pass']
+        user = authenticate(username=employee_user, password=employee_password)
+        if user is not None:
+            data = { 'valid': 'yes', 'email': user.email }
+            return JsonResponse(data)
+        else:
+            data = { 'valid': 'no' }
+            return JsonResponse(data)
+    if request.method == 'POST':
+        employee_user = request.POST.get("user")
+        print(employee_user)
+        employee_pass = request.POST.get("pass")
+        print(employee_pass)
+        user = authenticate(username=employee_user, password=employee_pass)
+        if user is not None:
+            data = { 'valid': 'yes', 'email': user.email }
+            return JsonResponse(data)
+        else:
+            data = { 'valid': 'no' }
+            return JsonResponse(data)
+
 
 #
 # Global variables across all templates
@@ -454,11 +573,13 @@ def contact_us(request):
             print("Set sendgrid instance")
             from_email = Email(form.cleaned_data['your_email'])
             print("Set from email")
-            to_email = Email("sisu.contact.us@gmail.com")
+            to_email = Email("Hello@sisuvr.com")
             print("Set to email")
-            #company = sender + form.cleaned_data['your_company']
+            company = sender + form.cleaned_data['your_company']
+            #company = form.cleaned_data['your_company']
             print("Set company")
-            subject = sender + form.cleaned_data['subject']
+            subject = company + form.cleaned_data['subject']
+            #subject = sender + form.cleaned_data['subject']
             print("Set subject")
             content = Content("text/plain", form.cleaned_data['message'])
             print("Creating mail structure")
