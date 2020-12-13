@@ -423,7 +423,24 @@ def portal_home(request):
 def portal_register(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
+
         context = {'player': player}
+        
+
+        if request.method == 'POST':
+            print('---- PORTAL_REGISTER - POST.REQUEST ----') 
+            # vr | non-supervisor and supervisor
+            emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
+            emails_vr_supervisor = request.POST['vr-supervisor']
+            # desktop | non-supervisor and supervisor            
+            emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
+            emails_desktop_supervisor = request.POST['desktop-supervisor']
+
+            print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
+            print('emails_vr_supervisor = {}'.format(emails_vr_supervisor))
+            print('emails_desktop_nonsupervisor = {}'.format(emails_desktop_nonsupervisor))
+            print('emails_desktop_supervisor = {}'.format(emails_desktop_supervisor))
+
         return render(request, 'portal/register.html', context)
     else:
         return render(request, 'auth/login.html')

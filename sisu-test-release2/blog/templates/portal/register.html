@@ -70,32 +70,35 @@
                             <p>Enter each employee's email address into their corresponding textbox below (VR or Desktop, Non-supervisor, or Supervisor).</p>
                             <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #9F3688" href="#send-reg-emails">Register Employees and Send Emails</a>" at the bottom of this page.</p>
                             <hr>
-                            
-                            <div>
-                                <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
-                                <p>Add each employee's email address separated by commas.</p>
-                                <input type="email" data-role="tagsinput" class="form-control">
-                                
-                            </div>
-                            <div>
-                                <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
-                                <p>Add each employee's email address separated by commas.</p>
-                                <input type="email" data-role="tagsinput" class="form-control">
-                            </div>
-                            <div>
-                                <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
-                                <p>Add each employee's email address separated by commas.</p>
-                                <input type="email" data-role="tagsinput" class="form-control">
-                            </div>
-                            <div>
-                                <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
-                                <p>Add each employee's email address separated by commas.</p>
-                                <input type="email" data-role="tagsinput" class="form-control">
-                            </div>
-                            <div style="padding-bottom: 120px" class="">
-                                <br>
-                                <a href="#" name="send-reg-emails" class="btn btn-sisu-primary">Register and Send Registration Emails</a>
-                            </div>
+                            <form action='.' method="post">
+                                {% csrf_token %}
+                                <div>
+                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
+                                    <p>Add each employee's email address separated by commas.</p>
+                                    <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor">
+                                </div>
+                                <div>
+                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
+                                    <p>Add each employee's email address separated by commas.</p>
+                                    <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor">
+                                </div>
+                                <div>
+                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
+                                    <p>Add each employee's email address separated by commas.</p>
+                                    <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor">
+                                </div>
+                                <div>
+                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
+                                    <p>Add each employee's email address separated by commas.</p>
+                                    <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor">
+                                </div>
+                                <div style="padding-bottom: 120px" class="">
+                                    <br>
+                                    <button name="send-reg-emails" class="btn btn-sisu-primary" type="submit">
+                                        Register and Send Registration Emails
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- Main Content End -->
