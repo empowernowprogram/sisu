@@ -61,9 +61,9 @@ urlpatterns = [
     path('portal/downloads/', views.portal_training_dl, name='downloads'),
     path('portal/progress/', views.portal_employee_progress, name='progress'),
     path('portal/settings/', views.portal_settings, name='settings'),
+    path('portal/certificate/', views.portal_certificate, name='certificate'),
     # Training Portal - END
 
-    path('portal/test/', views.test, name='test'),
     
     
 

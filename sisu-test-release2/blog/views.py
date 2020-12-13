@@ -403,22 +403,15 @@ def portal_logout(request):
 
 # Training Portal Authentication / Login, Logout - END
 
-def test(request):
-    return render(request, 'portal/test.html')
 
-# Authentication - END
 
 
 # Training Portal - START
 def portal_home(request):
-    print(request.user.is_authenticated)
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-
-        print('-------- HERE --------')
-        print(play_sessions_completed)
 
         context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
     
@@ -494,17 +487,24 @@ def portal_settings(request):
     else:
         return render(request, 'auth/login.html')
 
+
+def portal_certificate(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+
+        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+    
+        return render(request, 'portal/certificate.html', context)
+    else:
+        return render(request, 'auth/login.html')
+    
+
 # Training Portal - END
 
 
 
-
-# temporary test - delete , remember to delete in urls + templates / blog
-def test_home(request):
-    return render(request, 'blog/test_home.html')
-
-
-# Training Portal URLS - END
 
 
 def story(request, category_name):

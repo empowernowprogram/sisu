@@ -291,3 +291,56 @@ tfoot {
 }
 
 
+
+
+/* CERTIFICATE STYLING - START */
+.cert{
+    text-align: center;
+    padding: 12px;
+    font-family: 'Sahitya', sans-serif;
+}
+
+.cert-container{
+    padding-top: 110px;
+    padding-bottom: 110px;
+    padding-right: 260px;
+    padding-left: 260px;
+}
+
+.cert-player-name{
+    font-family: 'Reem Kufi';
+    font-weight: 600;
+    font-size: 42px;
+    text-transform: uppercase;
+}
+
+.cert-text-reg {
+    font-size: 24px;
+}
+
+
+.cert-title{
+    font-size: 56px
+}
+
+.cert-col{
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding: 24px;
+}
+
+.cert-border-primary {
+    border: 24px solid transparent;
+    background-image: 
+        linear-gradient(0deg, white 0%, white 100%),
+        linear-gradient(0deg, #FFF1D5 0%, #FFF1D5 100%),
+        linear-gradient(0deg, #F3D4EA 0%, #F3D4EA 100%),
+        linear-gradient(0deg, #F3D4EA 0%, #F3D4EA 100%),
+        linear-gradient(0deg, #FFF1D5 0%, #FFF1D5 100%);
+    background-origin: padding-box, border-box, border-box, border-box, border-box;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 50% 50%, 50% 50%, 50% 50%, 50% 50%;
+    background-position: top left, top left, top right, bottom left, bottom right;
+}
+/* CERTIFICATE STYLING - END */

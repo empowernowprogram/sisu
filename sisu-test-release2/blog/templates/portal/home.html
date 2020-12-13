@@ -117,28 +117,10 @@
                                 <br>
                                 <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
                                 {% if play_sessions_completed.count is play_sessions.count %}
-                                    <button style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary">View Certificate</button>
+                                <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">View Certificate</a>
+                                <!-- {% url 'edit-registration' %} -->
                                 {% endif %}
                                 
-
-                                <!-- TESTING START -->
-                                <br><br>
-
-
-                                <!-- <br><br>
-                                <h3>TESTING</h3>
-                                Welcome, {{ player.full_name }}
-                                {% for play_session in play_sessions.all %}
-                                <p>Module ID: {{ play_session.module_id }}</p>
-                                <p>Employer: {{ play_session.employer }}</p>
-                                <p>Player: {{ play_session.player }}</p>
-                                <p>Success Status: {{ play_session.success }}</p>
-                                <p>Training Type: {{ play_session.training_type }}</p>
-                                <p>IF: {% if play_session.success is False %} Not Completed {% elif play_session.success is True %} PASSED {% endif %} </p>
-                                <br>
-                                {% endfor %} -->
-
-                                <!-- TESTING END -->
                         </div>
                     </div>
                     <!-- Main Content End -->
