@@ -1,0 +1,456 @@
+{% load staticfiles %}
+{% load socialaccount %}
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
+
+    <!-- Title -->
+    <title>Sisu VR - Training Portal</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+</head>
+
+<body>
+
+    <!-- Page Container -->
+    <div class="page-container">
+
+        <!-- Page Sidebar Start -->
+        {% include 'blog/comp_portal_sidebar.html' %}
+        <!-- Page Sidebar End -->
+
+        <!-- Page Content Start -->
+        <div class="page-content">
+            <!-- Page Sidebar / Navigation Elements Start -->
+            <div class="page-header">
+                <!-- Collapsed / Mobile Navigation Bar Start -->
+                {% include 'blog/comp_portal_mobilenav.html' %}
+                <!-- Collapsed / Mobile Navigation Bar End -->
+            </div>
+            <!-- Page Sidebar / Navigation Elements End -->
+
+            <!-- Page Inner Start -->
+            <div class="page-inner">
+                <!-- Page Top Bar Start -->
+                <div class="page-title">
+                    <div style="float: right; margin-bottom: 10px">
+                        <h4>TODO (ACCOUNT TYPE LINK){{ account_type }}</h4>
+                    </div>
+                    <h2>Welcome, {{ player.full_name }}.</h2>
+                    <hr>
+                </div>
+                <!-- Page Top Bar End -->
+
+                <!-- Main Content Start -->
+                <div id="main-wrapper">
+                    <div class="row">
+                        <h3>Your progress: <span style="color:#9F3688; font-weight: 800">2 of 4 modules
+                                completed.</span></h3>
+                        <p>All modules must be completed by June 15, 2021.</p>
+                        <br><br>
+                        <div class="table-responsive">
+                            <table class="table-sisu-overview">
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td><span class="table-sisu-completed">Completed</span></td>
+                                        <td><span class="table-sisu-completed">Completed</span></td>
+                                        <td><span class="table-sisu-inprogress">In Progress</span></td>
+                                        <td><span class="table-sisu-notstarted">Not Started</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date Completed</td>
+                                        <td>12/12/2020</td>
+                                        <td>12/15/2020</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Training Type</td>
+                                        <td>VR</td>
+                                        <td>VR</td>
+                                        <td>VR</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <br>
+                        <button style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary">Print
+                            Certificate</button>
+                    </div>
+                </div>
+                <!-- Main Content End -->
+
+            </div>
+            <!-- Page Inner End -->
+        </div>
+        <!-- Page Content End -->
+    </div>
+    <!-- /Page Content -->
+
+
+    <!-- Scripts -->
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+    <!-- <script src="{% static 'portal/js/space.js' %}"></script> -->
+    <script>
+        $(document).ready(function () {
+            // Options
+            var submenu_animation_speed = 100,
+                submenu_opacity_animation = true, // set to "false" to remove opacity animation
+                page_boxed = false,
+                page_sidebar_fixed = false,
+                page_sidebar_collapsed = false,
+                page_header_fixed = false;
+
+            // Elements
+            var body = $('body'),
+                page_header = $('.page-header'),
+                page_sidebar = $('.page-sidebar'),
+                page_content = $('.page-content');
+
+            // Boxed Page 
+            var boxed_page = function () {
+                if (page_boxed === true) {
+                    $('.page-container').addClass('container');
+                };
+            };
+
+
+            // Fixed Header
+            var fixed_header = function () {
+                if (page_header_fixed === true) {
+                    $('body').addClass('page-header-fixed');
+                };
+            };
+
+            // Sidebar
+            var page_sidebar_init = function () {
+
+                // Slimscroll
+                $('.page-sidebar-inner').slimScroll({
+                    height: '100%'
+                }).mouseover();
+
+                // Fixed Sidebar
+                var fixed_sidebar = function () {
+                    if ((body.hasClass('page-sidebar-fixed')) && (page_sidebar_fixed === false)) {
+                        page_sidebar_fixed = true;
+                    };
+
+                    if (page_sidebar_fixed === true) {
+                        body.addClass('page-sidebar-fixed');
+                        $('#fixed-sidebar-toggle-button').removeClass('icon-radio_button_unchecked');
+                        $('#fixed-sidebar-toggle-button').addClass('icon-radio_button_checked');
+                    };
+
+                    var fixed_sidebar_toggle = function () {
+                        body.toggleClass('page-sidebar-fixed');
+                        if (body.hasClass('page-sidebar-fixed')) {
+                            page_sidebar_fixed = true;
+                        } else {
+                            page_sidebar_fixed = false;
+                        }
+                    };
+
+                    $('#fixed-sidebar-toggle-button').on('click', function () {
+                        fixed_sidebar_toggle();
+                        $(this).toggleClass('icon-radio_button_unchecked');
+                        $(this).toggleClass('icon-radio_button_checked');
+                        return false;
+                    });
+                };
+
+
+                // Collapsed Sidebar
+                // var collapsed_sidebar = function () {
+                    // if (page_sidebar_collapsed === true) {
+                    //     body.addClass('page-sidebar-collapsed');
+                    // };
+
+                    // var collapsed_sidebar_toggle = function () {
+                    //     body.toggleClass('page-sidebar-collapsed');
+                    //     if (body.hasClass('page-sidebar-collapsed')) {
+                    //         page_sidebar_collapsed = true;
+                    //     } else {
+                    //         page_sidebar_collapsed = false;
+                    //     };
+                    //     $('.page-sidebar-collapsed .page-sidebar .accordion-menu').on({
+                    //         mouseenter: function () {
+                    //             $('.page-sidebar').addClass('fixed-sidebar-scroll')
+                    //         },
+                    //         mouseleave: function () {
+                    //             $('.page-sidebar').removeClass('fixed-sidebar-scroll')
+                    //         }
+                    //     }, 'li');
+                    // };
+
+                    // $('.page-sidebar-collapsed .page-sidebar .accordion-menu').on({
+                    //     mouseenter: function () {
+                    //         $('.page-sidebar').addClass('fixed-sidebar-scroll')
+                    //     },
+                    //     mouseleave: function () {
+                    //         $('.page-sidebar').removeClass('fixed-sidebar-scroll')
+                    //     }
+                    // }, 'li');
+
+                    // $('#collapsed-sidebar-toggle-button').on('click', function () {
+                    //     collapsed_sidebar_toggle();
+                    //     return false;
+                    // });
+
+                // };
+
+                // var small_screen_sidebar = function () {
+                //     if (($(window).width() < 768) && ($('#fixed-sidebar-toggle-button').hasClass(
+                //             'icon-radio_button_unchecked'))) {
+                //         $('#fixed-sidebar-toggle-button').click();
+                //     }
+                //     $(window).on('resize', function () {
+                //         if (($(window).width() < 768) && ($('#fixed-sidebar-toggle-button')
+                //                 .hasClass('icon-radio_button_unchecked'))) {
+                //             $('#fixed-sidebar-toggle-button').click();
+                //         }
+                //     });
+                //     $('#sidebar-toggle-button').on('click', function () {
+                //         body.toggleClass('page-sidebar-visible');
+                //         return false;
+                //     });
+                //     $('#sidebar-toggle-button-close').on('click', function () {
+                //         body.toggleClass('page-sidebar-visible');
+                //         return false;
+                //     });
+                // };
+
+                // fixed_sidebar();
+                // collapsed_sidebar();
+                // small_screen_sidebar();
+            };
+
+
+            // Accordion menu
+            var accordion_menu = function () {
+
+                var select_sub_menus = $('.page-sidebar li:not(.open) .sub-menu'),
+                    active_page_sub_menu_link = $('.page-sidebar li.active-page > a');
+
+                // Hide all sub-menus
+                select_sub_menus.hide();
+
+
+                if (submenu_opacity_animation === false) {
+                    $('.sub-menu li').each(function (i) {
+                        $(this).addClass('animation');
+                    });
+                };
+
+                // Accordion
+                $('.accordion-menu').on('click', 'a', function () {
+                    var sub_menu = $(this).next('.sub-menu'),
+                        parent_list_el = $(this).parent('li'),
+                        active_list_element = $('.accordion-menu > li.open'),
+                        show_sub_menu = function () {
+                            sub_menu.slideDown(submenu_animation_speed);
+                            parent_list_el.addClass('open');
+                            if (submenu_opacity_animation === true) {
+                                $('.open .sub-menu li').each(function (i) {
+                                    var t = $(this);
+                                    setTimeout(function () {
+                                        t.addClass('animation');
+                                    }, (i + 1) * 15);
+                                });
+                            };
+                        },
+                        hide_sub_menu = function () {
+                            if (submenu_opacity_animation === true) {
+                                $('.open .sub-menu li').each(function (i) {
+                                    var t = $(this);
+                                    setTimeout(function () {
+                                        t.removeClass('animation');
+                                    }, (i + 1) * 5);
+                                });
+                            };
+                            sub_menu.slideUp(submenu_animation_speed);
+                            parent_list_el.removeClass('open');
+                        },
+                        hide_active_menu = function () {
+                            $('.accordion-menu > li.open > .sub-menu').slideUp(
+                                submenu_animation_speed);
+                            active_list_element.removeClass('open');
+                        };
+
+                    if ((sub_menu.length) && (!body.hasClass('page-sidebar-collapsed'))) {
+
+                        if (!parent_list_el.hasClass('open')) {
+                            if (active_list_element.length) {
+                                hide_active_menu();
+                            };
+                            show_sub_menu();
+                        } else {
+                            hide_sub_menu();
+                        };
+
+                        return false;
+
+                    };
+                    if ((sub_menu.length) && (body.hasClass('page-sidebar-collapsed'))) {
+                        return false;
+                    };
+                });
+
+                if ($('.active-page > .sub-menu').length) {
+                    active_page_sub_menu_link.click();
+                };
+            };
+
+            // Fulscreen Function
+            function toggleFullScreen() {
+                if (!document.fullscreenElement && // alternative standard method
+                    !document.mozFullScreenElement && !document.webkitFullscreenElement && !document
+                    .msFullscreenElement) { // current working methods
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            };
+
+
+            var navbar_init = function () {
+
+                $('#toggle-fullscreen').on('click', function () {
+                    toggleFullScreen();
+                    return false;
+
+                });
+
+                $('#search-button').on('click', function () {
+                    body.toggleClass('search-open')
+                    if (body.hasClass('search-open')) {
+                        $('.search-form input').focus();
+                    }
+                });
+
+                $('#close-search').on('click', function () {
+                    body.toggleClass('search-open')
+                });
+
+            };
+
+
+
+            var right_sidebar = function () {
+                $('.right-sidebar-toggle').on('click', function () {
+                    var sidebarId = $(this).data("sidebar-id");
+                    $('#' + sidebarId).toggleClass('visible');
+                });
+
+                var write_message = function () {
+                    $(".chat-write form input").on('keypress', function (e) {
+                        if ((e.which === 13) && (!$(this).val().length === 0)) {
+                            if ($('.right-sidebar-chat .chat-bubbles .chat-bubble:last-child')
+                                .hasClass('me')) {
+
+                                $('<span class="chat-bubble-text">' + $(this).val() + '</span>')
+                                    .insertAfter(
+                                        ".right-sidebar-chat .chat-bubbles .chat-bubble:last-child span:last-child"
+                                    );
+                            } else {
+                                $('<div class="chat-bubble me"><div class="chat-bubble-text-container"><span class="chat-bubble-text">' +
+                                    $(this).val() + '</span></div></div>').insertAfter(
+                                    ".right-sidebar-chat .chat-bubbles .chat-bubble:last-child"
+                                );
+                            };
+                            $(this).val('');
+                        } else if (e.which === 13) {
+                            return;
+                        }
+                        var scrollTo_int = $('.right-sidebar-chat').prop('scrollHeight') + 'px';
+                        $('.right-sidebar-chat').slimscroll({
+                            allowPageScroll: true,
+                            scrollTo: scrollTo_int
+                        });
+                    });
+                };
+                write_message();
+            };
+
+
+            // Plugins
+            var plugins_init = function () {
+                // Slimscroll
+                $('.slimscroll').slimScroll();
+
+                // Uniform
+                var checkBox = $(
+                    "input[type=checkbox]:not(.js-switch), input[type=radio]:not(.no-uniform)");
+                if (checkBox.length > 0) {
+                    checkBox.each(function () {
+                        $(this).uniform();
+                    });
+                };
+
+                var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+                elems.forEach(function (html) {
+                    var switchery = new Switchery(html, {
+                        size: 'small',
+                        color: '#637282'
+                    });
+                });
+
+            };
+
+            // page_sidebar_init();
+            boxed_page();
+            accordion_menu();
+            navbar_init();
+            right_sidebar();
+            plugins_init();
+
+
+        });
+    </script>
+</body>
+
+</html>

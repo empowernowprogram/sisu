@@ -1,0 +1,46 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %}  
+
+<div class="sisu-header" style="background-image: url({% static '/img/blog/main-blog/' %}{{ post.pk }}.jpg);">
+    <div class="sisu-header-container">
+        <div class="sisu-header-text" id="case-header">
+            <h4>{{ post.category_name }}</h4>
+            <h1>{{ post.title }}</h1>
+            <p>
+                {{ post.short_desc|linebreaksbr }}
+            </p>
+        </div>
+    </div>
+    <div class="story-carousel-blur"></div>
+</div>
+<section class="story-entry">
+    {% include 'blog/story_entry_social.html' %} 
+    
+    <div class="story-entry-content custom-row" id="center-block-container">
+        <div class="story-entry-center" id="center-block">
+            <section>
+                <p>
+                   {{ post.text|linebreaksbr }}
+                </p>
+            </section>
+            
+            {% include 'blog/story_entry_comment.html' %} 
+            
+            <hr style="visibility:hidden"></hr>
+            
+            {% include 'blog/story_entry_solution.html' %} 
+            
+        </div>
+        <div class="story-entry-center-filler"></div>
+        
+        
+    </div>
+</section>
+
+
+{% include 'blog/story_entry_footer.html' %}
+
+{% endblock %}       
+        

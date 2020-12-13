@@ -1,0 +1,427 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Sisu VR</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/sisu.css' %}">
+    
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <style>
+      /* @media (min-width: 576px)
+      .modal-dialog {
+          max-width: 800px !important;
+          margin: 1.75rem auto;
+      } */
+      
+      .modal.show .modal-dialog {
+          width: 600px !important; 
+      }
+
+
+
+  </style>
+
+  </head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Sisu VR</h3>
+            </div>
+
+
+            <ul class="list-unstyled components">
+                <li class="active"><a href="{% url 'modules_s' %}">Home</a></li>
+                <li><a href="{% url 'modules_s' %}">Training</a></li>
+                <li><a href="{% url 'employee_reg' %}">Registration</a></li>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Employees</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">All Employees</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'nonsupervisorprogress' %}">Non Supervisors</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'supervisorprogress' %}">Supervisors</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'downloads_s' %}">Downloads</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled">
+                <li>
+                    <a href="mailto:hello@sisuvr.com">Support</a>
+                </li>
+                <li>
+                    <a href="http://www.sisuvr.com/">Sisu VR</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Sign Out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <main role="main">
+
+              <!-- Main jumbotron for a primary marketing message or call to action -->
+              <div class="jumbotron">
+                <div class="container">
+                  <h2 class="display-3">Hello {{player.full_name}}</h1>
+                  <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                  <p>{{player.has_signed}}</p>
+                  <p><a class="btn btn-primary btn-sisu-lg" href="#" role="button">View incomplete trainings &raquo;</a></p>
+                </div>
+              </div>
+        
+              <div class="container">
+                <!-- Example row of columns -->
+                <div class="row">
+                  <div class="col-md-4">
+                    <h2>Training</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="{% url 'downloads_s' %}" role="button">View trainings &raquo;</a></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h2>Metrics</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h2>Heading</h2>
+                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                  </div>
+                </div>
+                <hr>
+              </div> <!-- /container -->
+            </main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="agreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Training NDA Form</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-check">
+            <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I have read and agree to the <a id="tos-link" href="#">Terms of Use and NDA</a></label> -->
+            <input type="checkbox" class="input-group-addon sisu-checkbox" id="customCheck1" required="required" onchange="document.getElementById('btn-sign-in').disabled = !this.checked;">
+            <label class="" for="customCheck1">I agree to Sisu VR's <a id="tos-link" href="#">Terms & Conditions</a></label>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-sisu-md" id="btn-sign-in" data-dismiss="modal" disabled>Accept Terms</button>
+          <!-- <button type="button" class="btn btn-sisu-primary" data-dismiss="modal">Accept</button> -->
+        </div>
+        <div class="modal-body" id="agreeDetails" data-is-displayed="false">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+    <script>
+        feather.replace()
+      </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+
+
+    $(window).on('load', function () {
+      $('#agreeModal').modal({
+        backdrop: 'static',
+        keyboard: false
+      })
+      $('#agreeModal').modal('show');
+    });
+
+    
+    $("#tos-link").on('click', function() {
+      data_is_displayed = $('#agreeDetails').attr('data-is-displayed')
+      console.log(data_is_displayed)
+
+      let tosText = `<hr><p class="font-weight-bold">SAAS SERVICES AND SUPPORT</p>
+                            <p class="">(i) Subject to the terms of this Agreement, Company will use commercially
+                                reasonable efforts to provide Customer the Services. As part of the registration
+                                process, Customer will identify an administrative user name and password for Customer’s
+                                Company account. Company reserves the right to refuse registration of, or cancel
+                                passwords it deems inappropriate.
+                                <br><br>1.1 Subject to the terms hereof, Company will provide Customer with reasonable
+                                technical support services in accordance with the terms set forth in the Order Form.
+                            </p>
+
+                            <p class="font-weight-bold">RESTRICTIONS AND RESPONSIBILITIES</p>
+                            <p class="">1.1 Customer will not, directly or indirectly: reverse engineer, decompile,
+                                disassemble or otherwise attempt to discover the source code, object code or underlying
+                                structure, ideas, know-how or algorithms relevant to the Services or any software,
+                                documentation or data related to the Services (“Software”); modify, translate, or create
+                                derivative works based on the Services or any Software (except to the extent expressly
+                                permitted by Company or authorized within the Services); use the Services or any
+                                Software for timesharing or service bureau purposes or otherwise for the benefit of a
+                                third; or remove any proprietary notices or labels.<br><br>
+
+                                1.2 Further, Customer may not remove or export from the United States or allow the
+                                export or re-export of the Services, Software or anything related thereto, or any direct
+                                product thereof in violation of any restrictions, laws or regulations of the United
+                                States Department of Commerce, the United States Department of Treasury Office of
+                                Foreign Assets Control, or any other United States or foreign agency or authority. As
+                                defined in FAR section 2.101, the Software and documentation are “commercial items” and
+                                according to DFAR section 252.2277014(a)(1) and (5) are deemed to be “commercial
+                                computer software” and “commercial computer software documentation.” Consistent with
+                                DFAR section 227.7202 and FAR section 12.212, any use modification, reproduction,
+                                release, performance, display, or disclosure of such commercial software or commercial
+                                software documentation by the U.S. Government will be governed solely by the terms of
+                                this Agreement and will be prohibited except to the extent expressly permitted by the
+                                terms of this Agreement.<br><br>
+
+                                1.3 Customer represents, covenants, and warrants that Customer will use the Services
+                                only in compliance with Company’s standard published policies then in effect (the
+                                “Policy”) and all applicable laws and regulations. [Customer hereby agrees to indemnify
+                                and hold harmless Company against any damages, losses, liabilities, settlements and
+                                expenses (including without limitation costs and attorneys’ fees) in connection with any
+                                claim or action that arises from an alleged violation of the foregoing or otherwise from
+                                Customer’s use of Services. Although Company has no obligation to monitor Customer’s use
+                                of the Services, Company may do so and may prohibit any use of the Services it believes
+                                may be (or alleged to be) in violation of the foregoing.<br><br>
+
+                                1.4 Customer shall be responsible for obtaining and maintaining any equipment and
+                                ancillary services needed to connect to, access or otherwise use the Services,
+                                including, without limitation, modems, hardware, servers, software, operating systems,
+                                networking, web servers and the like (collectively, “Equipment”). Customer shall also be
+                                responsible for maintaining the security of the Equipment, Customer account, passwords
+                                (including but not limited to administrative and user passwords) and files, and for all
+                                uses of Customer account or the Equipment with or without Customer’s knowledge or
+                                consent.
+                            </p>
+
+                            <p class="font-weight-bold">CONFIDENTIALITY: PROPRIETARY RIGHTS</p>
+                            <p class="">1.1 Each party (the “Receiving Party”) understands that the other party (the
+                                “Disclosing Party”) has disclosed or may disclose business, technical or financial
+                                information relating to the Disclosing Party’s business (hereinafter referred to as
+                                “Proprietary Information” of the Disclosing Party). Proprietary Information of Company
+                                includes non-public information regarding features, functionality and performance of the
+                                Service. Proprietary Information of Customer includes non-public data provided by
+                                Customer to Company to enable the provision of the Services (“Customer Data”). The
+                                Receiving Party agrees: (i) to take reasonable precautions to protect such Proprietary
+                                Information, and (ii) not to use (except in performance of the Services or as otherwise
+                                permitted herein) or divulge to any third person any such Proprietary Information. The
+                                Disclosing Party agrees that the foregoing shall not apply with respect to any
+                                information after five (5) years following the disclosure thereof or any information
+                                that the Receiving Party can document (a) is or becomes generally available to the
+                                public, or (b) was in its possession or known by it prior to receipt from the Disclosing
+                                Party, or (c) was rightfully disclosed to it without restriction by a third party, or
+                                (d) was independently developed without use of any Proprietary Information of the
+                                Disclosing Party or (e) is required to be disclosed by law.<br><br>
+
+                                1.2 Customer shall own all right, title and interest in and to the Customer Data, as
+                                well as any data that is based on or derived from the Customer Data and provided to
+                                Customer as part of the Services] Company shall own and retain all right, title and
+                                interest in and to (a) the Services and Software, all improvements, enhancements or
+                                modifications thereto, (b) any software, applications, inventions or other technology
+                                developed in connection with Implementation Services or support, and (c) all
+                                intellectual property rights related to any of the foregoing.<br><br>
+
+                                1.3 [Notwithstanding anything to the contrary, Company shall have the right collect and
+                                analyze data and other information relating to the provision, use and performance of
+                                various aspects of the Services and related systems and technologies (including, without
+                                limitation, information concerning Customer Data and data derived therefrom), and
+                                Company will be free (during and after the term hereof) to (i) use such information and
+                                data to improve and enhance the Services and for other development, diagnostic and
+                                corrective purposes in connection with the Services and other Company offerings, and
+                                (ii) disclose such data solely in aggregate or other de-identified form in connection
+                                with its business.] No rights or licenses are granted except as expressly set forth
+                                herein.</p>
+
+                            <p class="font-weight-bold">PAYMENT OF FEES</p>
+                            <p class="">1.1 Customer will pay Company the then applicable fees described in the Order
+                                Form for the Services and Implementation Services in accordance with the terms therein
+                                (the “Fees”). If Customer’s use of the Services exceeds the Service Capacity set forth
+                                on the Order Form or otherwise requires the payment of additional fees (per the terms of
+                                this Agreement), Customer shall be billed for such usage and Customer agrees to pay the
+                                additional fees in the manner provided herein. Company reserves the right to change the
+                                Fees or applicable charges and to institute new charges and Fees at the end of the
+                                Initial Service Term or the current renewal term, upon thirty (30) days prior notice to
+                                Customer (which may be sent by email). If Customer believes that Company has billed
+                                Customer incorrectly, Customer must contact Company no later than 60 days after the
+                                closing date on the first billing statement in which the error or problem appeared, in
+                                order to receive an adjustment or credit. Inquiries should be directed to Company’s
+                                customer support department.<br><br>
+
+                                1.2 Company may choose to bill through an invoice, in which case, full payment for
+                                invoices issued in any given month must be received by Company thirty (30) days after
+                                the mailing date of the invoice. Unpaid amounts are subject to a finance charge of 1.5%
+                                per month on any outstanding balance, or the maximum permitted by law, whichever is
+                                lower, plus all expenses of collection and may result in immediate termination of
+                                Service. Customer shall be responsible for all taxes associated with Services other than
+                                U.S. taxes based on Company’s net income.
+                            </p>
+
+                            <p class="font-weight-bold">TERM AND TERMINATION</p>
+                            <p class="">2.1 Subject to earlier termination as provided below, this Agreement is for the
+                                Initial Service Term as specified in the Order Form.<br><br>
+
+                                2.2 In addition to any other remedies it may have, either party may also terminate this
+                                Agreement upon thirty (30) days’ notice (or without notice in the case of nonpayment),
+                                if the other party materially breaches any of the terms or conditions of this Agreement.
+                                Customer will pay in full for the Services up to and including the last day on which the
+                                Services are provided. All sections of this Agreement which by their nature should
+                                survive termination will survive termination, including, without limitation, accrued
+                                rights to payment, confidentiality obligations, warranty disclaimers, and limitations of
+                                liability.<br><br>
+                            </p>
+
+                            <p class="font-weight-bold">WARRANTY AND DISCLAIMER</p>
+                            <p class="">Company shall use reasonable efforts consistent with prevailing industry
+                                standards to maintain the Services in a manner which minimizes errors and interruptions
+                                in the Services and shall perform the Implementation Services in a professional and
+                                workmanlike manner. Services may be temporarily unavailable for scheduled maintenance or
+                                for unscheduled emergency maintenance, either by Company or by third-party providers, or
+                                because of other causes beyond Company’s reasonable control, but Company shall use
+                                reasonable efforts to provide advance notice in writing or by e-mail of any scheduled
+                                service disruption. HOWEVER, COMPANY DOES NOT WARRANT THAT THE SERVICES WILL BE
+                                UNINTERRUPTED OR ERROR FREE; NOR DOES IT MAKE ANY WARRANTY AS TO THE RESULTS THAT MAY BE
+                                OBTAINED FROM USE OF THE SERVICES. EXCEPT AS EXPRESSLY SET FORTH IN THIS SECTION, THE
+                                SERVICES AND IMPLEMENTATION SERVICES ARE PROVIDED “AS IS” AND COMPANY DISCLAIMS ALL
+                                WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+                                MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.</p>
+
+                            <p class="font-weight-bold">INDEMNITY</p>
+                            <p class="">Company shall hold Customer harmless from liability to third parties resulting
+                                from infringement by the Service of any United States patent or any copyright or
+                                misappropriation of any trade secret, provided Company is promptly notified of any and
+                                all threats, claims and proceedings related thereto and given reasonable assistance and
+                                the opportunity to assume sole control over defense and settlement; Company will not be
+                                responsible for any settlement it does not approve in writing. The foregoing obligations
+                                do not apply with respect to portions or components of the Service (i) not supplied by
+                                Company, (ii) made in whole or in part in accordance with Customer specifications, (iii)
+                                that are modified after delivery by Company, (iv) combined with other products,
+                                processes or materials where the alleged infringement relates to such combination, (v)
+                                where Customer continues allegedly infringing activity after being notified thereof or
+                                after being informed of modifications that would have avoided the alleged infringement,
+                                or (vi) where Customer’s use of the Service is not strictly in accordance with this
+                                Agreement. If, due to a claim of infringement, the Services are held by a court of
+                                competent jurisdiction to be or are believed by Company to be infringing, Company may,
+                                at its option and expense (a) replace or modify the Service to be non-infringing
+                                provided that such modification or replacement contains substantially similar features
+                                and functionality, (b) obtain for Customer a license to continue using the Service, or
+                                (c) if neither of the foregoing is commercially practicable, terminate this Agreement
+                                and Customer’s rights hereunder and provide Customer a refund of any prepaid, unused
+                                fees for the Service.</p>
+
+                            <p class="font-weight-bold">LIMITATION OF LIABILITY</p>
+                            <p class="">NOTWITHSTANDING ANYTHING TO THE CONTRARY, EXCEPT FOR BODILY INJURY OF A PERSON,
+                                COMPANY AND ITS SUPPLIERS (INCLUDING BUT NOT LIMITED TO ALL EQUIPMENT AND TECHNOLOGY
+                                SUPPLIERS), OFFICERS, AFFILIATES, REPRESENTATIVES, CONTRACTORS AND EMPLOYEES SHALL NOT
+                                BE RESPONSIBLE OR LIABLE WITH RESPECT TO ANY SUBJECT MATTER OF THIS AGREEMENT OR TERMS
+                                AND CONDITIONS RELATED THERETO UNDER ANY CONTRACT, NEGLIGENCE, STRICT LIABILITY OR OTHER
+                                THEORY: (A) FOR ERROR OR INTERRUPTION OF USE OR FOR LOSS OR INACCURACY OR CORRUPTION OF
+                                DATA OR COST OF PROCUREMENT OF SUBSTITUTE GOODS, SERVICES OR TECHNOLOGY OR LOSS OF
+                                BUSINESS; (B) FOR ANY INDIRECT, EXEMPLARY, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES;
+                                (C) FOR ANY MATTER BEYOND COMPANY’S REASONABLE CONTROL; OR (D) FOR ANY AMOUNTS THAT,
+                                TOGETHER WITH AMOUNTS ASSOCIATED WITH ALL OTHER CLAIMS, EXCEED THE FEES PAID BY CUSTOMER
+                                TO COMPANY FOR THE SERVICES UNDER THIS AGREEMENT IN THE 12 MONTHS PRIOR TO THE ACT THAT
+                                GAVE RISE TO THE LIABILITY, IN EACH CASE, WHETHER OR NOT COMPANY HAS BEEN ADVISED OF THE
+                                POSSIBILITY OF SUCH DAMAGES.</p>
+
+                            <p class="font-weight-bold">MISCELLANEOUS</p>
+                            <p class="">If any provision of this Agreement is found to be unenforceable or invalid, that
+                                provision will be limited or eliminated to the minimum extent necessary so that this
+                                Agreement will otherwise remain in full force and effect and enforceable. This Agreement
+                                is not assignable, transferable or sublicensable by Customer except with Company’s prior
+                                written consent. Company may transfer and assign any of its rights and obligations under
+                                this Agreement without consent. All waivers and modifications must be in a writing
+                                signed by both parties, except as otherwise provided herein. No agency, partnership,
+                                joint venture, or employment is created as a result of this Agreement and Customer does
+                                not have any authority of any kind to bind Company in any respect whatsoever. In any
+                                action or proceeding to enforce rights under this Agreement, the prevailing party will
+                                be entitled to recover costs and attorneys’ fees. All notices under this Agreement will
+                                be in writing and will be deemed to have been duly given when received, if personally
+                                delivered; when receipt is electronically confirmed, if transmitted by facsimile or
+                                e-mail; the day after it is sent, if sent for next day delivery by recognized overnight
+                                delivery service; and upon receipt, if sent by certified or registered mail, return
+                                receipt requested. This Agreement shall be governed by the laws of the State of
+                                [California] without regard to its conflict of laws provisions.</p>
+                        </div>`
+
+      if(data_is_displayed === 'false'){
+        console.log('here')
+
+        $('#agreeDetails').append(tosText)
+
+        $('#agreeDetails').attr('data-is-displayed', 'true')
+        console.log($('#agreeDetails').attr('data-is-displayed'))
+      } 
+
+
+
+      
+      // window.location = "http://www.google.com";
+    });
+
+    </script>
+
+
+
+</body>
+

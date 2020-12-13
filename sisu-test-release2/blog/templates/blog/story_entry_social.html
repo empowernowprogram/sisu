@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% load hitcount_tags %}
+{% with "http://mysisu.co" as host %}
+{% with "Share in" as share_txt %}
+
+<div class="story-entry-left" id="story-social-panel-container">
+    <!-- Plug in post_details for each sharing functionality -->
+    <div class="story-icons" id="story-social-panel">
+        <div>
+        {% include 'blog/story_entry_metoo.html' %} 
+        </div>
+        <div>
+            <a href="#" title="{% get_hit_count for post %} Views">
+                <img class="view_icon" src="{% static '/img/icon/eye2.JPG' %}"></img> 
+                <span style="font-size:10px;text-align:right;cursor:content-menu !important;">{% get_hit_count for post %}</span>
+            </a>
+        </div>
+        
+        <div>
+            {% with "facebook" as service %}
+            <a href="http://www.facebook.com/share.php?u={{ host }}{% url 'story_entry' pk=post.pk %}&amp;t={{ post.title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                <i class="fa fa-facebook-square"></i>
+            </a>
+            {% endwith %}
+        </div>
+        
+        <div>
+            {% with "linkedin" as service %}
+            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ host }}{% url 'story_entry' pk=post.pk %}&amp;title={{ post.title }}&amp;ro=false&amp;summary=&amp;source=" target="_blank" title="{{ share_txt }} {{ service }}">
+                <i class="fa fa-linkedin-square"></i>
+            </a> 
+            {% endwith %}
+        </div>
+        
+        <div>
+            {% with "twitter" as service %}
+            <a href="http://twitter.com/share?url={{ host }}{% url 'story_entry' pk=post.pk %}&amp;text={{ post.title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                <i class="fa fa-twitter"></i>
+            </a>
+            {% endwith%}
+        </div>  
+    </div>
+</div>
+{% endwith %}
+{% endwith %}

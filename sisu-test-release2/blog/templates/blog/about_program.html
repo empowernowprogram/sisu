@@ -1,0 +1,105 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %}  
+<div class="sisu-header" style="background-image: url({% static '/img/story/empower.jpg' %}">
+    <div class="sisu-header-container-center">
+        <div class="sisu-header-text">
+            <h1>Empower Now Program</h1>
+        </div>
+    </div>
+    <div class="story-carousel-blur"></div>
+</div>
+<div class="empower-section program-card">
+    <div class="custom-row">
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/listen.svg' %}" alt="">
+            </div>
+			<h3 class="col-title">We want to listen</h3>
+			<div class="col-details">
+                <p>Interviewing and collecting cases from women who have undergone
+					unfavorable incidents in academia or industry is our mission.
+				</p>
+                <p> We want to highlight the real, the here, and the now in the hopes of
+					
+					illuminating truth in the darkest places.
+                </p>
+			</div>
+		</div>
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/handshake.svg' %}" alt="">
+            </div>
+			<h3 class="col-title">We are not alone</h3>
+			<div class="col-details">
+                <p> Harassment, discrimination, politics, and other conflicts in the workplace
+					inspired us to realize that many other women could be facing similar
+					situations in their workplaces.</p>
+			</div>
+		</div>
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/comments.svg' %}" alt="">
+            </div>
+            <h3 class="col-title">We want to speak up</h3>
+			<div class="col-details">
+                <p> Our published cases aim to empower women, particularly those in STEM fields, to
+					speak up--whether it be to their perpetrator, manager, organizational authority, or
+					themselves. 
+                </p>
+                <p> We want to help women embrace their emotions, discern the best
+					path forward, and, ultimately, heal from their incidents.
+                </p>
+			</div>
+        </div>
+    </div> <!-- /.row -->
+    <div class="custom-row">
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/users.svg' %}" alt="">
+            </div>
+			<h3 class="col-title">We want to work with you</h3>
+			<div class="col-details">
+                <p>By bringing awareness to universities, corporations, and other organizational
+					entities, our “Empower Now” program intends to prevent inappropriate
+					incidents from occuring in the workplace. 
+                </p>
+                <p> Inspiring empathy in every user is
+					key to preparing them to respond aptly to on-the-field situations.
+                </p>
+			</div>
+		</div>
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/chart-bar.svg' %}" alt="">
+            </div>
+            <h3 class="col-title">We want you to stick with it</h3>
+			<div class="col-details">
+                <p>More than 200 women in top, tech firm positions reported sexist work interactions,
+					with one in three women having felt afraid for their safety. Additionally, nearly 40% who earn engineering degrees either quit or never enter the profession.
+				</p>
+                <p>Thus, our mission is: to help women joyfully pursue their STEM dreams without
+					feeling uncomfortable, inhibited, or dissuaded in any way because of uncalled for
+					people-play.
+                </p>
+			</div>
+        </div>
+        <div class="program-col">
+            <div class="col-icon-wrapper">
+                <img src="{% static 'img/icon/email.svg' %}" alt="">
+            </div>
+            <h3 class="col-title">Reach out to us</h3>
+			<div class="col-details">
+                <p>Are you a university or company? <br> Want to improve your curriculum or training program? </p>
+                <p>Collaborate with us today!</p>
+			</div>
+            <p><br></p>
+            <a href="{% url 'contact_us' %}" class="sisu-button"> Contact us </a>
+        </div>
+    </div> <!-- /.row -->
+</div>
+<div class="empower-section program-card">
+</div> <!-- /.empower-section -->
+
+{% endblock %}

@@ -1,0 +1,107 @@
+UPLOAD PROPERTIES
+Subsystem                 | ACDS
+Classification            | IMU/IRU
+	Uploads Todo          | 6.0
+	Time Date (start)     | 2020-11-17 00:11:52.901645
+
+
+UPLOAD STATUS: 0/6  (0)%  |  Uploading Item: 11    | STIM300
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 1/6  (17)%  |  Delta Time: 83 sec  |  Remaining Time: 6 min 53 sec
+UPLOAD STATUS: 1/6  (17)%  |  Uploading Item: 22    | STIM318
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 2/6  (33)%  |  Delta Time: 80 sec  |  Remaining Time: 5 min 26 sec
+UPLOAD STATUS: 2/6  (33)%  |  Uploading Item: 33    | STIM202
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 3/6  (50)%  |  Delta Time: 84 sec  |  Remaining Time: 4 min 7 sec
+UPLOAD STATUS: 3/6  (50)%  |  Uploading Item: 44    | STIM210
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 4/6  (67)%  |  Delta Time: 79 sec  |  Remaining Time: 2 min 43 sec
+UPLOAD STATUS: 4/6  (67)%  |  Uploading Item: 55    | STIM277H
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 5/6  (83)%  |  Delta Time: 79 sec  |  Remaining Time: 1 min 21 sec
+UPLOAD STATUS: 5/6  (83)%  |  Uploading Item: 66    | STIM377H
+	Title                 |  TRUE
+	Overview Tab          |  TRUE
+	Properties Tab        |  TRUE
+	References Tab        |  TRUE
+	Sidebar HTML          |  TRUE
+	Options Added         |  TRUE
+	Comments Enabled      |  False
+	Featured Image        |  TRUE
+	SEO Keywords          |  Not Added
+	Excerpt Added         |  TRUE
+UPLOAD STATUS: 6/6  (100)%  |  Delta Time: 79 sec  |  Remaining Time: 0 sec
+
+HARDWARE UPLOAD COMPLETED
+	Components Uploaded   | 6
+	Time Date (end)       | 2020-11-17 00:20:21.390245
+	Upload Time           | 0:08:28.488600
+
+
+UPDATED UPLOAD STATUS
+Upload Status	Upload Exists	Name
+True	True	STIM300
+True	True	STIM318
+True	True	MIMU
+True	True	LN-200S
+True	True	CIRUS
+True	True	CIRUS-EX
+False	False	GS-IMU3000TA
+True	True	Astrix 120
+True	True	Astrix 200
+True	True	Astrix 1090
+True	True	Astrix 1120
+True	True	Astrix NS
+True	True	Starlight 1000 IRU
+False	False	IRU 42S
+True	True	NSGY-001
+True	True	STIM202
+True	True	STIM210
+True	True	STIM277H
+True	True	STIM377H

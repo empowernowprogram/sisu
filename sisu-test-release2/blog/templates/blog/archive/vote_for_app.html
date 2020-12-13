@@ -1,0 +1,64 @@
+{% load staticfiles %}
+
+  <div id="result">
+  {% if summary.voted %}
+    {% if not user.is_authenticated %}
+      <p>There was a vote from this IP / device. </p>
+    {% else %}
+      <p>Thank you, {{ user.username }}, for your vote! </p>
+    {% endif %}
+                         
+    <p>See the summary of the current status. </p>
+    <label class="voteLabel"><i class="glyphicon glyphicon-thumbs-up"></i> Yes!      ({{ summary.total_yes }}) </label>
+    <label class="voteLabel"><i class="glyphicon glyphicon-thumbs-down"></i> No.      ({{ summary.total_no }}) </label>
+
+  {% else %}
+    <p>We'd love to hear from you if an app version is needed.</p>
+    <p>Vote below to help us make a decision!</p>
+    
+    <label id ="likes" class="btnVote btnVote-up" type="button"><i class="glyphicon glyphicon-thumbs-up"></i> Yes, please!</label> 
+    <label id ="dislikes" class="btnVote btnVote-down" type="button"><i class="glyphicon glyphicon-thumbs-down"></i> Website is fine.</label> 
+
+  {% endif %}
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript"> 
+    $('#likes').click(function(){
+    var value = 1;
+    $.ajax(
+    {
+        type:"GET",
+        url: "/voteforapp",
+        data:{
+                 voted_value: value
+        },
+        success: function( data ) 
+        {
+            $('#likes').hide();
+            $('#dislikes').hide();
+            $('#result').load(" #result");
+            
+        }
+     })
+});
+
+$('#dislikes').click(function(){
+    var value = 2;
+    $.ajax(
+    {
+        type:"GET",
+        url: "/voteforapp",
+        data:{
+                 voted_value: value
+        },
+        success: function( data ) 
+        {
+            $('#dislikes').hide();
+            $('#likes').hide();
+            $("#result").load(" #result");
+            
+        }
+     })
+});    
+</script>  

@@ -1,0 +1,43 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/navbar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'blog/module_table.css' %}">
+
+<style>
+button {
+  border-radius: 50;
+}
+</style>
+<h3 align="center"><b>Welcome back, {{ player.full_name }}</b></h3>
+<form action="{% url 'logout' %}">
+<button type="submit" style="position: absolute; top: 0; left: 90%; width: 5%;" value="Log Out">Log Out</button>
+</form>
+<div class="topnav">
+<div class="child">
+  <a class="tab first inactive" href="{% url 'employee_reg' %}"><p>Employee Registration</p></a>
+  <a class="tab second active" href="{% url 'modules_s' %}"><p>Training Modules</p></a>
+  <a class="tab third inactive" href="{% url 'nonsupervisorprogress' %}"><p>Non-Supervisor Progress</p></a>
+  <a class="tab forth inactive" href="{% url 'supervisorprogress' %}"><p>Supervisor Progress</p></a>
+</div>
+
+<div class="container">
+<br><br><br><h2 align=center>Training Modules</h2>
+
+<br><br>
+<form action="{% url 'downloads_s' %}">
+<button type="submit" class="rect" align="center" value="Go to Downloads">Go to Downloads</button>
+</form>
+<br><br>
+
+<!-- MODULES ARE HARDCODED FOR NOW -->
+<table class="center">
+<th>Module</th>
+<th>Topics Covered</th>
+<tr>
+<td class="module">Module 1S</td>
+<td>Toxic Work Environment</td>
+<tr>
+<td class="module">Module 2S</td>
+<td>Quid Pro Quo</td>
+</table>
+</div>

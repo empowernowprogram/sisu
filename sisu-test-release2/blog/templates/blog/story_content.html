@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<div class="story-content">
+    <!-- story entry insert story id -->
+    {% for post in posts %}
+    <a href="{% url 'story_entry' pk=post.pk %}">
+        <div id="cat-list" class="story-content-entry custom-row">
+            <div class="story-text" id="story-list">
+                <h4>
+                    {{ post.title }}
+                </h4>
+                <p>
+                    {{ post.short_desc|linebreaksbr }}
+                </p>
+            </div>
+            <div class="story-img-list">
+                <img src="{% static '/img/blog/main-blog/' %}{{ post.pk }}.jpg" alt="" align="case">
+                
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <h2 style="padding-top:20px"> New cases are coming! </h2>
+    <h2> Meanwhile, take a look at these cases. </h2>
+    
+    {% include 'blog/story_popular.html' %}
+    
+    {% endfor %}
+    <hr style="visibility:hidden;"></hr>
+</div>

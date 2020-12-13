@@ -1,0 +1,140 @@
+{% extends "blog/base_post.html" %}
+{% load staticfiles %}
+{% load hitcount_tags %}
+
+{% block banner_content %}
+<section class="banner_area">
+            <div class="banner_inner d-flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="banner_content text-center">
+            <h2>{{ post.title }} </h2>
+						<h3 style="color:#1D556F">{{ post.category_name }}</h3>
+          </div>
+				</div>
+            </div>
+        </section>   
+{% endblock %}
+
+{% block post_content %}
+
+{% with "http://sisu.com" as host %}
+{% with "Share in" as share_txt %}
+
+<div><br></div>
+<section class="blog_area single-post-area"> 
+  <div class="container" style="overflow:auto">
+              {% include 'blog/post_detail_metoo.html' %} 
+                
+                <div class="row">
+                    <div class="col-lg-8 posts-list">
+                        <div class="single-post row">
+                            <div class="col-lg-12">
+                                <!--div class="feature-img">
+                                    <img class="img-fluid" src="{% static 'img/blog/case.jpg' %}" alt="">
+                                </div-->									
+                            </div>
+                            <div class="col-lg-3  col-md-3">
+                                <div class="blog_info text-right">
+                                    <div class="post_tag">
+                                        
+                                    </div>
+                                    <ul class="blog_meta list">
+                                        <li><a> {{ post.published_date }} <i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a> {% get_hit_count for post %} Views <i class="lnr lnr-eye"></i></a></li>
+                                        
+                                        {% if cases|dict_key:post.pk %}
+                                        <li id = "showComments"><a> {{ cases|dict_key:post.pk }} Comments <i class="lnr lnr-bubble"></i></a></li>
+                                        {% else %}
+                                        <li><a>0 Comments <i class="lnr lnr-bubble"></i></a></li>
+                                        {% endif %}
+                                    
+                                    </ul>
+                                    <ul class="social-links">
+                                        <li>{% with "facebook" as service %}
+                                            <a href="http://www.facebook.com/share.php?u={{ host }}{% url 'post_detail' pk=post.pk %}&amp;t={{ post.title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                              <i class="fa fa-facebook"></i>
+                                            </a>
+                                            {% endwith %}
+                                        </li>
+                                        
+                                        <li>{% with "twitter" as service %}
+                                            <a href="http://twitter.com/share?url={{ host }}{% url 'post_detail' pk=post.pk %}&amp;text={{ post.title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                                              <i class="fa fa-twitter"></i>
+                                            </a>
+                                            {% endwith%}
+                                        </li>
+                                        <li>{% with "linkedin" as service %}
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ host }}{% url 'post_detail' pk=post.pk %}&amp;title={{ post.title }}&amp;ro=false&amp;summary=&amp;source=" target="_blank" title="{{ share_txt }} {{ service }}">
+                                              <i class="fa fa-linkedin"></i>
+                                            </a> 
+                                            {% endwith %}
+                                        </li>
+                                    </ul>
+                                    <!-- Trigger/Open The Modal -->
+                                    <button id="myBtn" class='main_btn'>Show Comments</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-9 blog_details">
+                                <p>{{ post.text|linebreaksbr }}</p>
+                            </div>
+                             
+                        </div>
+                         <div> <br> </div>
+                     </div>
+                    <div class="col-lg-4">
+                      {% include 'blog/post_right_bar_index.html' %}
+                        
+                      <div id="myModal" class="comment-modal">
+
+                        <!-- Modal content -->
+                        <div class="comment-modal-content" >
+                          <div class="comment-modal-header" style="background: #1D556F; vertical-align: middle !important;">
+                            <p class="comment-close">&times;</p>
+                            <h2 class="widget_title">Comments</h2>
+                          </div>
+                          <div class="comment-modal-body">
+                            {% include 'blog/post_comments.html' %}
+                          </div>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+        </section>
+        
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("comment-close")[0];
+
+  // When the user clicks the button, open the modal 
+  btn.onclick = function() {
+      modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+        
+{% endwith %}
+{% endwith %}
+{% endblock %}

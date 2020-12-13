@@ -1,0 +1,15 @@
+{% load static %}
+
+<h1>Your Progress</h1>
+
+<table>
+<tr>
+<td>Module 1</td>
+<td>Module 2</td>
+<td>Module 3 </td>
+<td>Module 4</td>
+<tr>
+{% for session in player.playsession_set.all %}
+<td>{{ session.success }}</td>
+{% endfor %}
+</table>

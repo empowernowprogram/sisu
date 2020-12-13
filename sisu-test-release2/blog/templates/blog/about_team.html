@@ -1,0 +1,67 @@
+{% extends "blog/base_sub_w_footer.html" %}
+{% load staticfiles %}
+
+{% block sub_content %}  
+<div class="about-us-footer">
+    <h1>We are SISU</h1>
+    <!-- img src="{% static 'img/Sisu_Logo_1.png' %}" alt="sisu_team" style="transform: scale(0.4);" -->
+    <p></p>
+    <hr class="hr-text" data-content="MEET THE TEAM">
+	<div class="custom-row">
+        <div class="about-us-footer-profile">
+            <img src="{% static 'img/team/Jo.jpg' %}" alt="">
+			<h4>Jo</h4>
+			<h6>CEO and Co-founder</h6>
+		</div>
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Xiao.jpg' %}" alt="">
+			<h4>Xiao</h4>
+			<h6>Co-founder and Lead Backend Developer </h6>
+		</div>
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Sean.jpg' %}" alt="">
+			<h4>Sean</h4>
+			<h6>Lead Game Developer</h6>
+		</div>
+	</div>
+    <hr style="visibility: hidden;">
+    <div class="custom-row">
+        <div class="about-us-footer-profile">
+            <img src="{% static 'img/team/Kruti.jpg' %}" alt="">
+			<h4>Kruti</h4>
+			<h6>Product Marketing Specialist</h6>
+		</div>
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Cid.jpg' %}" alt="">
+			<h4>Cid</h4>
+			<h6>Game Modeller and Animator </h6>
+		</div>
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Brett.jpg' %}" alt="">
+			<h4>Brett</h4>
+			<h6>Business Dev Strategist</h6>
+		</div>
+	</div>
+    <hr class="hr-text" data-content="ADVISORY BOARD">
+    <div class="custom-row">
+        <!-- div class="about-us-footer-profile">
+            <img src="{% static 'img/icon/female_user_7.png' %}" alt="">
+			<h4>Orna Barryman</h4>
+			<h6>Director of Cloud Program Management and Ops at Google</h6>
+		</div -->
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Patricia_Hatter.jpg' %}" alt="">
+			<h4>Patricia Hatter</h4>
+			<h6>Board Member at WOOTCLOUD</h6>
+        </div>
+		<div class="about-us-footer-profile">
+			<img src="{% static 'img/team/Pratima_Rao.jpg' %}" alt="">
+			<h4>Pratima Rao</h4>
+			<h6>Engineering Manager at VMWare and author of "Nevertheless, She Persisted"</h6>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

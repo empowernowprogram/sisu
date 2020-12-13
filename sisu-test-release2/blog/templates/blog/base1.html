@@ -1,0 +1,77 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>SISU</title>
+        
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">    
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        
+        <!-- Custom CSS Reference: https://bootstrapious.com/p/bootstrap-sidebar -->
+        <link rel="stylesheet" href="{% static 'css/blog_custom.css' %}">
+        <!-- Scrollbar Custom CSS -->
+        <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
+        <!-- main css -->
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom-style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'css/image-picker.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/lib/control/iconselect.css' %}" >
+        <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+    </head>
+    <body>
+        {% block content %}
+       
+        {% endblock %}
+        
+        <div style="margin: 0 auto;"></div>
+        <section id="social_icon_footer">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="footer-row">
+                <div class="footer-row-center">
+                    <a class="footer-row-center-icon" href="mailto:sisu.contact.us@gmail.com" title="Email us!"><i id="icon-email" class="fa fa-envelope fa-3x social"></i></a>
+                    <a class="footer-row-center-icon" href="https://www.facebook.com/mysisuco" title="Follow us on Facebook" target="_blank"><i id="icon-fb" class="fa fa-facebook fa-3x social"></i></a>
+                    <a class="footer-row-center-icon" href="https://twitter.com/MySISUCo" title="Follow us on Twitter" target="_blank"><i id="icon-tw" class="fa fa-twitter fa-3x social"></i></a>
+                    <a class="footer-row-center-icon" href="https://www.linkedin.com/company/mysisuco" title="Follow us on LinkedIn" target="_blank"><i id="icon-li" class="fa fa-linkedin fa-3x social"></i></a>
+                    <a class="footer-row-center-icon" href="https://fundly.com/sisu-donations-and-crowdfunding" title="Donate to us on Fundly" target="_blank">
+                        <i id="icon-gift" class="fa fa-gift fa-3x social"></i>
+                    </a>
+                </div>
+                <hr class="hr-text-footer" data-content='Shine |Y|our Light'>
+                <div class="footer-row-center">
+                    <p>Copyright © 2019 Sisu Inc. All Rights Reserved. &nbsp
+                        <a href="{% url 't_c' %}"><u>Terms & Conditions</u></a> &nbsp | &nbsp  
+                        <a href="{% url 'p_p' %}"><u>Privacy Policy</u></a>
+                    </p>
+                </div>
+                
+            </div>
+        </section>    
+        <!--================ End footer Area  =================-->
+        
+                 <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/stellar.js' %}"></script>
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/mail-script.js' %}"></script>
+        <script src="{% static 'js/theme.js' %}"></script>
+        <script src="{% static 'js/image-picker.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/control/iconselect.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/iscroll.js' %}"></script>
+        <script type="text/javascript" src="http://kozea.github.com/pygal.js/latest/pygal-tooltips.min.js"></script>
+
+    </body>
+</html>

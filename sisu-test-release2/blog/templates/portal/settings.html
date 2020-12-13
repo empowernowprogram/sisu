@@ -1,0 +1,133 @@
+{% load staticfiles %}
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Sisu VR Inc">
+
+        <!-- Title -->
+        <title>Sisu VR - Training Portal</title>
+
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+        
+        <!-- Theme Styles -->
+        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+    </head>
+
+    <body>
+
+        <!-- Page Container -->
+        <div id="portal" data-page="settings" class="page-container">
+
+            <!-- Page Sidebar Start -->
+            {% if player.supervisor is True %}
+            {% include 'components/portal_sidebar_supervisor.html' %}
+            {% elif player.supervisor is False %}
+            {% include 'components/portal_sidebar_nonsupervisor.html' %}
+            {% endif %}
+            <!-- Page Sidebar End -->
+
+            <!-- Page Content Start -->
+            <div class="page-content">
+                <!-- Page Sidebar / Navigation Elements Start -->
+                <div class="page-header">
+                    <!-- Collapsed / Mobile Navigation Bar Start -->
+                    {% include 'components/portal_mobilenav.html' %}
+                    <!-- Collapsed / Mobile Navigation Bar End -->
+                </div>
+                <!-- Page Sidebar / Navigation Elements End -->
+
+                <!-- Page Inner Start -->
+                <div class="page-inner">
+                    <!-- Page Top Bar Start -->
+                    <div class="page-title">
+                        <h2>Settings</h2>
+                        <hr>
+                    </div>
+                    <!-- Page Top Bar End -->
+                    
+                    <!-- Main Content Start -->
+                    <div id="main-wrapper">
+                        <div class="row">
+                            <div>
+                                <h3>Change Password</h3>
+                                <p>To change or reset your password, click the button below. If you have trouble
+                                    changing your password contact support.</p>
+                                <button style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
+                                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Change
+                                    Password</button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="exampleModalLabel">Change Password Forum
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Current Password</label>
+                                                        <input type="password" class="form-control" id="user-current-password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">New Password</label>
+                                                        <input type="password" class="form-control" id="user-new-password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Confirm New Password</label>
+                                                        <input type="password" class="form-control" id="user-new-password-confirm">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-sisu-primary">Change Password</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Page Footer Start -->
+                    <div class="page-footer">
+                        <p>Sisu VR Inc.</p>
+                    </div>
+                    <!-- Page Footer End -->
+                </div>
+                <!-- Page Inner End -->
+            </div>
+            <!-- Page Content End -->
+
+        </div>
+        <!-- /Page Content -->
+
+
+        <!-- Scripts -->
+        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+        <script src="{% static 'portal/js/space.js' %}"></script>
+        <script src="{% static 'portal/js/scripts.js' %}"></script>
+
+    </body>
+
+</html>

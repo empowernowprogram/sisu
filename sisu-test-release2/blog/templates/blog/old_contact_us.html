@@ -1,0 +1,117 @@
+<!-- {% extends "blog/base_sub_w_footer.html" %} -->
+{% extends "blog/base.html" %}
+{% load staticfiles %}
+
+{% block sub_content %}
+
+    <div class="sisu-header" style="background-image: url({% static 'img/story/contact_us_header.jpg' %});">
+        <div class="sisu-header-container-center">
+            <div class="sisu-header-text">
+                <h1>Contact Us</h1>
+            </div>
+        </div>
+        <div class="story-carousel-blur"></div>
+    </div>
+    <section class="contact_area p_120">
+        <div class="container contact-us-content">
+            <div class="row contact-us-panel">
+                <div id="contact_left" class="contact-us-left-panel">
+                    <div>
+                        <h1>
+                            Get in touch with us for:
+                            <br>Demos, Trails, Parternships
+                        </h1>
+                    </div>
+                </div>
+                <div id="contact_right" class="contact-us-form contact-us-right-panel">
+                    <form method="post" class="contact_form">
+                    <table>
+                    {% csrf_token %}
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="{{ form.your_name.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.your_name.id_for_label }}"
+                                    placeholder="{{ form.your_name.label }}"
+                                    >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="{{ form.your_email.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.your_email.id_for_label }}"
+                                    placeholder="{{ form.your_email.label }}"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    type="text"
+                                    name="{{ form.subject.html_name }}"
+                                    class="contactusfield"
+                                    maxlength="100"
+                                    required=""
+                                    id="{{ form.subject.id_for_label }}"
+                                    placeholder="{{ form.subject.label }}"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <textarea
+                                    name="{{ form.message.html_name }}"
+                                    cols="40"
+                                    rows="10"
+                                    required=""
+                                    id="{{ form.message.id_for_label }}"
+                                    placeholder="{{ form.message.label }}"
+                                ></textarea>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    </table>
+                    <br>
+                    <div class="form-actions">
+                        <button type="submit" class="sisu-button">Send</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row contact-us-panel">
+                <div id="contact_left_img" class="contact-us-left-panel">
+                    <figure class="circle-img">
+                        <img src="{% static 'img/story/contact_us.jpg' %}" />
+                        <div class="img-blur"></div>
+                    </figure>
+                </div>
+                <div id="contact_right" class="right-text contact-us-right-panel contact-us-text-panel">
+                    <h1>
+                        Help SISU
+                        shine!
+                    </h1>
+                    <p>
+                        Your generous contributions will enable us to continue and further our mission.
+                    </p>
+                    <br>
+                    <button class="sisu-button">
+                        <a href="https://fundly.com/sisu-donations-and-crowdfunding" target="_blank">CONTRIBUTE TO SISU</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Contact Area =================-->
+
+{% endblock %}

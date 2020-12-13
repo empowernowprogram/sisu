@@ -1,0 +1,48 @@
+{% extends "blog/base_sub.html" %}
+{% load staticfiles %}
+
+{% block header %}
+	<li class="nav-item"><a class="nav-link" href="/">Home</a></li> 
+	<li class="nav-item"><a class="nav-link" href="{% url 'about_us' %}">About</a></li> 
+	<li class="nav-item active"><a class="nav-link" href="{% url 'post_cases' %}">Cases</a></li>
+{% endblock %}
+
+{% block sub_content %}  
+
+  {% block banner_content %}
+  {% endblock %}
+  
+  <!--================ Break =================-->
+  <div><br></div>
+  <!--================ Break =================-->
+  
+    <div class="sidenav">
+      <div class="sidediv">
+         <ul class="list menu_left" id="left_menu_list">  
+           <div><br></div>
+           <h2>Cases</h2>
+             {% for name, member in categories %}
+             <li><small><i class="glyphicon glyphicon-lamp"></i> <a href="{% url 'post_list_by_category' category_name=member.value %}"> {{ member.label }} </a></small></li>
+             {% endfor %}
+         </ul>
+          
+          <div><br><br><br><br><br><br></div>
+          <!--
+          <ul class="list menu_left" id="left_user_area">
+          {% if user.is_authenticated %}
+            <li><i class="glyphicon glyphicon-user"></i> {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></li>
+            <li><i class="glyphicon glyphicon-cog"></i> <a href="{% url 'user_settings' pk=user.pk %}" >Settings</a> </li>
+          {% else %}
+            <li><i class="glyphicon glyphicon-lock"></i> <a href="{% url 'signup' %}">Sign in / Sign up </a></li>
+          {% endif %}
+          </ul>
+          -->
+       </div>
+		</div> 
+     
+  <!--================Blog Area =================-->
+  
+  {% block post_content %}
+  {% endblock %}
+
+{% endblock %}
