@@ -1,0 +1,65 @@
+{% load staticfiles %}
+{% load socialaccount %}
+
+<!-- dedicated to key redeem to users to get vr-based training -->
+
+<head>
+	<meta charset="utf-8">
+	<title>Sisu VR - Key Redeem</title>
+	<meta name="description" content="Sisu VR training login portal">
+	<meta name="author" content="Sisu VR">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'login/css/login.css' %}" />
+</head>
+
+<body>
+		<div class="signup-form">
+			<div class="signup-form-container">				
+				<h2>Key Redeem</h2>
+				<p class="lead">Accept the Terms of Use and Privacy Policy to redeem key</p>
+
+				<div class="form-group">
+					<input type="checkbox" class="input-group-addon sisu-checkbox" id="tos-checkbox" required="required"
+						onchange="document.getElementById('btn-sign-in').disabled = !this.checked;">
+					<label class="" for="tos-checkbox">I agree to Sisu VR's <a href="{% url 't_c' %}">Terms & Conditions</a>
+						and <a href="{% url 'p_p' %}">Privacy Policy</a></label>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary btn-block btn-lg" id="btn-sign-in" disabled onclick="revealKey()">Reveal Key</button>
+				</div>
+
+				<!-- <input type="hidden" name="next" value="{{ request.path }}" /> -->
+				
+				<div class="form-group key-field">
+					<input style="display: none; text-align: center; font-size: 20px" id="redeem-key" style="text-align: center;" disabled value={{key}}>
+				</div>
+
+
+				<div class="small text-center">
+					<p>Key is limited and intended for use by single person.</p>
+				</div>
+			</div>
+			
+			<div class="small text-center">
+				<p><a href="http://www.sisuvr.com/">Sisu VR Inc.</a>&nbsp&nbsp&nbsp&nbsp&copy; 2020</p>
+			</div>
+		</div>
+
+	</body>
+
+	<script>
+		revealKey = () => {
+			console.log('clicked')
+			// let elm = document.getElementBy
+			document.getElementById('redeem-key').style.display = 'block';
+			document.getElementById('tos-checkbox').disabled = true;
+			}
+		
+
+		</script>
+
+
+
+
+

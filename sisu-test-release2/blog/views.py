@@ -401,6 +401,11 @@ def portal_logout(request):
     auth.logout(request)
     return redirect('/')
 
+
+def key_redeem(request):
+    context = {'key': '1111-2222-3333-4444'}
+    return render(request, 'auth/key-redeem.html', context)
+
 # Training Portal Authentication / Login, Logout - END
 
 
@@ -426,7 +431,6 @@ def portal_register(request):
 
         context = {'player': player}
         
-
         if request.method == 'POST':
             print('---- PORTAL_REGISTER - POST.REQUEST ----') 
             # vr | non-supervisor and supervisor
@@ -516,11 +520,8 @@ def portal_certificate(request):
         return render(request, 'portal/certificate.html', context)
     else:
         return render(request, 'auth/login.html')
-    
 
 # Training Portal - END
-
-
 
 
 
