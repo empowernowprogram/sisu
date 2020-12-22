@@ -557,12 +557,14 @@ font-weight: bold;
   background-size: cover;
 }
 .bva {
-  background-image: url("/static/img/bva.jpg");
+  /* old link missing = /static/img/bva.jpg */
+  background-image: url("/static/img/placeholder.jpg");
   background-size: cover;
 }
 
 .ycschool {
-  background-image: url("/static/images/yc.jpg");
+  /* old link miss = /static/images/yc.jpg */
+  background-image: url("/static/img/placeholder.jpg");
   background-size: cover;
 }
 .litas {
