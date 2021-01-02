@@ -373,6 +373,13 @@ def header(request):
     return render(request, 'blog/header.html')
 
 
+def faq(request):
+    return render(request, 'blog/faq.html')
+
+def contact(request):
+    return render(request, 'blog/contact.html')
+
+
 # Training Portal Authentication / Login, Logout - START
 def portal_login(request):
     # todo - better method is to incorporate 'next=?' operations and logic

@@ -1,668 +1,470 @@
-{% extends 'blog/base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    {% load staticfiles %}
+    {% load static %}
+
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="author" content="Sisu VR" />
+        <meta name="description"
+            content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
+        <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Document title -->
+        <title>Sisu VR</title>
+        <!-- Stylesheets & Fonts -->
+        <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+        <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+    </head>
+
+    <body>
+
+        <!-- Body Inner -->
+        <div class="body-inner">
 
 
-{% block content %}
+            <!-- Header -->
+            <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light header-disable-fixed">
+                <div class="header-inner sisu-header-transparent-bkg">
+                    <div class="container">
+                        <!--Logo-->
+                        <div id="logo">
+                            <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+                            <a href="index.html">
+                                <!-- <span class="logo-default">Sisu VR</span> -->
+                                <!-- <span class="logo-dark">Sisu VR</span> -->
+                            </a>
+                        </div>
+                        <!--End: Logo-->
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 px-5" id="mainNav">
-        <a class="navbar-brand js-scroll-trigger nav-title" href="#page-top">SISU VR</a>
-        <button
-            class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto my-2 my-lg-0">
-
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Product</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#teams">Team</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-                <div class="row nav-row">
-
-        <!--            <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="https://www.facebook.com/sisuvr">
-                            <i class="fab fa-lg fa-facebook"></i>
-                        </a>
-                    </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="mailto:sisu.contact.us@gmail.com">
-                            <i class="fas nav-icon fa-lg fa-envelope"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="https://twitter.com/sisuvr">
-                            <i class="fab fa-lg fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="https://www.linkedin.com/company/sisuvr/">
-                            <i class="fab fa-lg fa-linkedin-in"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="https://www.gofundme.com/f/sisu-vr">
-                            <i class="fas fa-lg fa-gift"></i>
-                        </a>
-                    </li>
-                </div>
-            </ul>
-        </div>
-</nav>
-
-
-<header class="splash" id="page-top">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center justify-content-center text-center">
-            <div class="col-lg-10 align-self-end">
-                <div class= "fullheader">
-                <h1 class="text-uppercase text-white font-weight-bold">
-
-                     VR Can Take You To An Empowered Workplace
-                </h1>
-                <hr class="divider my-4" />
-                </div>
-            </div>
-            <div class="col-lg-8 align-self-baseline">
-                <div class="subheader">
-                  <h4 class="text-white font-weight-light mb-5 text" id="text">
-                      Anti-harassment Training through Virtual Reality
-                  </h4>
-                    </div>
-                <a class="btn btn-info btn-xl" class="nav-link js-scroll-trigger" href="#contact"> Contact Us</a>
-            </div>
-        </div>
-    </div>
-</header>
-
- <section class="page-section py-4 py-5 bg-light" id="overview">
-
-    <div class="container">
-        <hr class="divider my-4" />
-        <p style="float: right;" >
-          <img  class="tomato" src="{% static 'img/bgpic1.jpg' %}" height="300px" width="400px" border="100px" object-fit: cover >
-        </p>
-      <!--
-        <img  src="{% static 'img/backgroundpic1.png' %}" height="300px" width="400px" border="100px" object-fit: cover >
-      padding-right: 3rem!important  <img src="{% static 'img/team/neilda.jpg' %}" class="rounded float-left" alt="background image of Neilda Pacquing"> -->
-      <div class ="theproblem">
-          <h1 class="text-left my-4" >The Problem</h1>
-          <h3>In the post-Harvey Weinstein world, responsible employers know sexual harassment has very severe consequence.
-          </h3>
-          <h3 class="probend" >Starting from January 1, 2021, the state of California requires mandatory harassment training for employers with more than 5 employees.
-        </h3>
-      </div>
-    </div>
-
-    <div class="container">
-       <p style="float: left;">
-       <img class="potato" src="{% static 'img/bgpic2.jpg' %}" height="350px" width="400px" border="10px" object-fit: cover>
-      </p>
-      <div class="thesol">
-        <h1 class=" px-2" >Our Solution</h1>
-
-        <h3 class=" px-1" >
-          “After experiencing the severe aftermath of workplace harassment,
-           I founded Sisu VR to help professionals bring their best selves to work, everyday.
-         </h3>
-          <h3 class=" px-1">
-            <b> The Empower Now Program</b>, delivers anti-harassment training through virtual reality.
-          It will inspire empathy and empower workplaces, enabling all professionals to work fearlessly.”
-          </h3>
-        <h5 class="text-left my-4"> <i>- Jocelyn Tan, Sisu VR Founder & CEO </i></h5>
-        </div>
-        <div class="text-right px-2">
-    <!--   <a class="btn btn-info btn-xl" class=" my-4" class="nav-link js-scroll-trigger"
-          href="#contact"> Contact Us</a> -->
-          </div>
-    </div>
-
-</section>
-
-
-<section class="page-section mb-4 py-4 py-5 border-top" id="services">
-
-    <div class="container py-4">
-        <h1 class="text-center my-4">Empower Now Program (ENP)</h1>
-        <hr class="divider my-4" />
-        <h5 class="text-center">Create an Empowered Workplace with: </h5>
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="mt-5">
-                        <i class="fas fa-vr-cardboard fa-5x text-secondary mb-4 text-info"></i>
-                        <h3 class="h4 mb-3">Immersive Virtual Reality Experience</h3>
-                        <p class="text-muted mb-0"> Engage in VR simulations based on real-life scenarios </p>
+                        <!--Navigation Resposnive Trigger-->
+                        <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines lines-dark" style="color:#494949"></span></a> </div>
+                        <!--end: Navigation Resposnive Trigger-->
+                        <!--Navigation-->
+                        <div id="mainMenu">
+                            <div class="container">
+                                <nav>
+                                    <ul class="sisu-header-link-mobile">
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Home</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'faq' %}">FAQ</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Testimonials</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Blog</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home_portal' %}">Customer Portal</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'contact' %}">Contact Sales</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!--end: Navigation-->
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="mt-5">
-                        <i class="fas fa-binoculars fa-5x text-secondary mb-4 text-info"></i>
-                        <h3 class="h4 mb-3">Play Through Multiple Perspectives</h3>
-                        <p class="text-muted mb-0">Learn to handle high-stake situations as a complainant, offender, or observer. </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="mt-5">
-                        <i class="fas fa-check fa-5x text-secondary mb-4 text-info"></i>
-                        <h3 class="h4 mb-3">Evidence-Based and Ethical Framework</h3>
-                        <p class="text-muted mb-0"> Modules built on psychological reserach  <br>
-                            and ethical frameworks</p>
-                    </div>
-                </div>
-            </div>
-<!--  <hr class="divider my-4"/>
-            <h5 class="text-center my-4">What sets our product apart</h5>
-            <h5 class="text-left">  </h5>
-            <p style="float: right" >
-              <img class="featuresgif" src="{% static 'img/featuresg2.gif' %}" height="200px" width="500px" border="190px" object-fit: cover >
-            </p>
-              <h5>
-            <ul class="featurelist">
-              <li>Tailored 2D and 3D training formats </li>
-              <li>Post-training and metrics dashboard </li>
-              <li>Gamified and realistic Training Modules</li>
-              <li>Increased Retention and Awareness from Use</li>
-              <li>Compliance with federal & CA state regulations </li>
-            </ul>
-            </h5>
-    </div> -->
-    <hr class="divider my-4"/>
-              <p style="float: right" >
-                <img class="featuresgif" src="{% static 'img/featuresg2.gif' %}" height="200px" width="500px" border="190px" object-fit: cover >
-              </p>
-                  <h4 class="featurestitles"> What sets our product apart </h4>
-              <h5 class="featurelist">
-              <ul>
-                <li>Tailored 2D and 3D training formats </li>
-                <li>Post-training and metrics dashboard </li>
-                <li>Gamified and realistic Training Modules</li>
-                <li>Increased Retention and Awareness from Use</li>
-                <li>Compliance with federal & CA state regulations </li>
-              </ul>
-              </h5>
-      </div>
-</section>
+            </header>
+            <!-- end: Header -->
 
-<section class="page-section border-top py-5 bg-light" id="blog">
-    <div class="container">
-        <h2 class="text-center mt-5"> What's Happening at Sisu VR? </h2>
-        <hr class="divider my-4" />
-        <div class="row row-cols-1 row-cols-md-3">
-          <div class="col mb-4">
-            <div class="card h-100">
-              <img src="{% static 'img/backgroundpic2.png' %}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">VR Productivity Apps To Try Out</h5>
-                <p class="card-text">Whether you are a small business, large enterprise, or hobbyist, the following VR applications may help you be more productive.</p>
-                <!-- https://medium.com/@hello_45908/the-future-of-work-is-now-vr-productivity-apps-to-try-out-3c894290df8e //-->
-              </div>
-            </div>
-          </div>
-          <div class="col mb-4">
-            <div class="card h-100">
-              <img src="{% static 'img/jocpod.jpg' %}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">How It All Started</h5>
-                <p class="card-text">Jocelyn goes on the Maverix Multimedia podcast to talka about how she started Sisu VR </p>
-              <!-- http://twomaverix.com/?p=20914 //-->
-              </div>
-            </div>
-          </div>
-          <div class="col mb-4">
-            <div class="card h-100">
-              <img src="{% static 'img/magazine.jpg' %}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Virtual Morality</h5>
-                <p class="card-text">Santa Clara Magazine features SISU VR as an ethical approach to copliance training</p>
-                <!-- https://www.linkedin.com/company/sisuvr/ //-->
-              </div>
-            </div>
-          </div>
-          <div class="col mb-4">
-            <div class="card h-100">
-              <img src="{% static 'img/markulla.jpg' %}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Trouble with Training</h5>
-                <p class="card-text">The Markulla Center for Applied Ethics makes our CEO Jocelyn Tan a Hackworth Fellow</p>
-                <!-- https://www.scu.edu/ethics/focus-areas/more/engineering-ethics/engineering-ethics-cases/trouble-with-training/ //-->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="wrap mb-5">
-
-        <div class="tile">
-            <img
-                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
-            <div class="text">
-                <h1>Lorem ipsum.</h1>
-                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
-                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
-                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
-                <div class="dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="tile">
-            <img
-                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
-            <div class="text">
-                <h1>Lorem ipsum.</h1>
-                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
-                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
-                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
-                <div class="dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="tile">
-            <img
-                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
-            <div class="text">
-                <h1>Lorem ipsum.</h1>
-                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
-                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
-                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
-                <div class="dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="tile">
-            <img
-                src='https://whenonearth.net/wp-content/uploads/Godafoss-Waterfall-1600x941.jpg' />
-            <div class="text">
-                <h1>Lorem ipsum.</h1>
-                <h2 class="animate-text">More lorem ipsum bacon ipsum.</h2>
-                <p class="animate-text">Bacon ipsum dolor amet pork belly tri-tip turducken, pancetta bresaola pork chicken
-                    meatloaf. Flank sirloin strip steak prosciutto kevin turducken. </p>
-                <div class="dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </div>
-
-    </div> -->
-    </div>
-
-</section>
-<!--
-<section class="page-section bg-light border-top" id="testimonial">
-    <div class="container py-5">
-        <h2 class="text-center py-4">Testimonials</h2>
-        <hr class="divider" />
-        <p style="float: left;" object-fit: cover>
-        <img src="{% static 'img/team/neilda.jpg' %}"  alt="background image of Neilda Pacquing" height="600px" width="400px" border="100px" >
-        </p>
-        <p class="slider__txt" style="float:right;">
-                        <i class="fas fa-quote-left quote fa-lg text-info"></i>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                        made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                        an engaging way!
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fas fa-quote-right fa-lg text-info"></i>
-          </p>
-                    <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-
-    </div>
-</section>
-            <!-- </div> -->
-
-<section class="page-section bg-secondary border-top mt-4 py-5">
-  <div class="container px-5">
-      <h2 class="text-center text-light">Partners and Testimonials</h2>
-      <hr class="divider my-4" />
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <i class="fas fa-quote-left quote fa-lg text-info" ></i>
-            <!-- <br> -->
-          <h6 class="testimonaltaxt">
-              &nbsp;&nbsp;&nbsp;&nbsp;
-           SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience is a great solution for employees to learn about sexual harassment in
-            an engaging way!
-            &nbsp;&nbsp;&nbsp;&nbsp;
-           </h6>
-            <i class="fas fa-quote-right fa-lg text-info"></i>
-      <h2 class="lead"> <i> - VR Company MindGlow's CEO</i> </h2>
-          </div>
-          <div class="col-sm">
-            <i class="fas fa-quote-left quote fa-lg text-info"></i>
-            <!-- <br> -->
-        <h6 class="testimonaltaxt">
-           &nbsp;&nbsp;&nbsp;&nbsp;
-            This service really resonated with my wife who is a HR Manager.
-            Compliance training doesn't work well, people don't like doing it and they don't retain the info!
-            &nbsp;&nbsp;&nbsp;&nbsp;
-          </h6>
-            <i class="fas fa-quote-right fa-lg text-info"></i>
-            <h2 class="lead"> <i> - Y Combinator Startup CEO </i> </h2>
-          </div>
-          <div class="col-sm">
-            <i class="fas fa-quote-left quote fa-lg text-info"></i>
-            <!-- <br> -->
-          <h6 class="testimonaltaxt">
-             &nbsp;&nbsp;&nbsp;&nbsp;
-            SISU VR has a unique and vital perseptive on compliance training.
-            Its taking out the boredom by gamifying the process
-            and making it more effective with VR and cutting-edge research.
-            &nbsp;&nbsp;
-          </h6>
-            <i class="fas fa-quote-right fa-lg text-info"></i>
-            <h2 class="lead"> <i> - Bronco Venture Accelerator <br> Startup CEO </i> </h2>
-          </div>
-        </div>
-      </div>
+            <!-- Inspiro Slider -->
+            <!-- <div id="slider" class="inspiro-slider slider-halfscreen dots-creative"> -->
+            <div id="slider" class="inspiro-slider">
 
 
-      <ul class="teams">
-  <hr class="divider my-4" />
-  <!--    <li>
-          <a href="https://www.startupschool.org/">
-              <div class="ch-item ycschool">
-                  <div class="ch-info">
-                      <h3>YC Startup School</h3>
-                      <br>
-                      <p>"SISU VR has graduted twice from this program"</p>
-                  </div>
-              </div>
-          </a>
+                <div class="slide" data-bg-image="{% static 'public/assets/img/sisu-image-bg-straight.png' %}">
+                    <div class="shape-divider" data-style="12" style="z-index: 0; opacity: 1;"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 120" preserveAspectRatio="none"
+                            style="height:105px">
+                            <path
+                                d="M630,34.5a54,54,0,0,1-9,2.3C578.3,46.1,556.1,24,517.2,12.5c-22.9-6.7-47.9-9.8-71-3.9C395.8,21.7,340.3,102,285.1,102.4c-45.4.3-72.6-26.5-102.3-46.1-21.8-14.4-44-30.8-67.4-42.1C84.2-.9,50.9-7.2,13.2,11.8l-1.2.6c-3.5,1.9-8.2,3.9-12,5.9V120H630Z"
+                                style="fill:#fff"></path>
+                        </svg></div>
+                    <div class="container">
+                        <div class="slide-captions text-left text-light">
+                            <!-- Captions -->
+                            <h2 style="font-size: 36px; line-height:42px">Take one step closer to an<br>empowered
+                                workplace.
+                            </h2>
+                            <p>Sexual harassment prevention training through VR</p>
+                            <button style="font-size:16px; margin-top:12px" type="button"
+                                class="btn btn-rounded btn-sisu-primary"><a href="#learn-more">Learn More</a></button>
 
-    < </li>
-      <li>
-          <a href="https://www.scu.edu/cioccacenter/bronco-venture-accelerator/">
-              <div class="ch-item bva">
-                  <div class="ch-info">
-                      <h3>Bronco Accelerator</h3>
-                      <br>
-                      <p>"SISU VR is funded and graduted from BVA"</p>
-                  </div>
-              </div>
-          </a>
-
-      </li> -->
-          <li>
-              <a href="https://www.litas4girls.org/">
-                  <div class="ch-item litas">
-                      <div class="ch-info">
-                          <h3>Litas for Girls</h3>
-                          <br>
-                          <p>"Guiding Young Women in CS & STEM Careers"</p>
-                      </div>
-                  </div>
-              </a>
-
-          </li>
-
-          <li>
-              <a href="https://www.mindglowinc.com/">
-                  <div class="ch-item mindglow">
-                      <div class="ch-info">
-
-                          <h3>MindGlow Inc.</h3>
-                          <br>
-                          <p>Immersive Safety Training </p>
-                      </div>
-                  </div>
-              </a>
-          </li>
-
-          <li>
-              <a href="https://relay.how/">
-                  <div class="ch-item relay">
-                      <div class="ch-info">
-                          <h3>RELAY</h3>
-                          <br>
-                          <p>Ask a Question, Get the Best Video Answer </p>
-                      </div>
-                  </div>
-              </a>
-    </li>
-    <!--
-          <li>
-              <a href="https://www.scu.edu/cioccacenter/bronco-venture-accelerator/">
-                  <div class="ch-item bva">
-                      <div class="ch-info">
-                          <h3>BVA Prep School</h3>
-                          <br>
-                          <p>SISU VR is a BVA Prep school Gradute </p>
-                      </div>
-                  </div>
-              </a>
-          </li>
-          <li>
-              <a href="https://www.startupschool.org/">
-                  <div class="ch-item relay">
-                      <div class="ch-info">
-                          <h3>YC Startup School/h3>
-                          <br>
-                          <p>SISU VR is a YC Startup School GRadute </p>
-                      </div>
-                  </div>
-              </a>
-          </li>
-        -->
-      </ul>
-  </div>
-<div>
-<!--
-  <div class="jumbotron">
-  <div class="container">
-    <h1 class="lead"> "SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-    made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-    an engaging way!""</h1>
-    <h2 class="lead"> <i> - Person Name, The CEO of MindGlow </i> </h2>
-  </div>
-</div> -->
-
-<!--
-<div class="container py-5">
-    <hr class="divider" />
-    <div class="slider">
-        <input type="radio" name="slider" title="slide1" checked="checked" class="slider__nav" />
-        <input type="radio" name="slider" title="slide2" class="slider__nav" />
-        <input type="radio" name="slider" title="slide3" class="slider__nav" />
-        <input type="radio" name="slider" title="slide4" class="slider__nav" />
-        <div class="slider__inner">
-      <div class="slider__contents">
-                <!-- <i class="fab fa-gratipay fa-4x text-info"></i>
-
-                <p class="slider__txt">
-                    <i class="fas fa-quote-left quote fa-lg text-info"></i>
-                    <!-- <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                    made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                    an engaging way!
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="fas fa-quote-right fa-lg text-info"></i>
-                </p>
-                <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-      </div>
-            <div class="slider__contents">
-              <  <i class="fab fa-gratipay fa-4x text-info"></i>
-                <p class="slider__txt">
-                    <i class="fas fa-quote-left quote fa-lg text-info"></i>
-                     <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                    made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                    an engaging way!
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="fas fa-quote-right fa-lg text-info"></i>
-                </p>
-                <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-            </div>
-
-            <div class="slider__contents">
-                <i class="fab fa-gratipay fa-4x text-info"></i>
-
-                <p class="slider__txt">
-                    <i class="fas fa-quote-left quote fa-lg text-info"></i>
-                    <!-- <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                    made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                    an engaging way!
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="fas fa-quote-right fa-lg text-info"></i>
-                </p>
-                <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-            </div>
-            <div class="slider__contents">
-                 <i class="fab fa-gratipay fa-4x text-info"></i>
-                <p class="slider__txt">
-                    <i class="fas fa-quote-left quote fa-lg text-info"></i>
-                     <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                    made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                    an engaging way!
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <i class="fas fa-quote-right fa-lg text-info"></i>
-                </p>
-                <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-            </div>
-        </div>
-    </div> -->
-</div>
-
-<!--
-  <p style="float:center;">
-                  <i class="fas fa-quote-left quote fa-lg text-info"></i>
-
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  SISU VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I
-                  made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in
-                  an engaging way!
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <i class="fas fa-quote-right fa-lg text-info"></i>
-    </p>
-              <h5>Neilda Pacquing, <br>CEO of MindGlow Inc.</h5>
-  </div>-->
-</section>
-
-<section class="page-section border-top bg-light py-4 py-5" id="teams">
-    <div class="container">
-        <h2 class="text-center mt-5">Meet the Team</h2>
-        <hr class="divider my-4" />
-
-        <ul class="teams">
-
-            <li>
-                <div class="ch-item jocelyn">
-                    <div class="ch-info">
-                        <h3>Jocelyn</h3>
-                        <p>CEO | Co-Founder</p>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="ch-item sean">
-                    <div class="ch-info">
-                        <h3>Sean</h3>
-                        <p>CTO | ENP Developer </p>
-                    </div>
-                </div>
-                <li>
-                    <div class="ch-item courtney">
-                        <div class="ch-info">
-                            <h3>Courtney</h3>
-                            <p>Marketing Strategist </p>
+                            <!-- end: Captions -->
                         </div>
                     </div>
-                </li>
-        </ul>
-        <ul class="teams">
-          <li>
-              <div class="ch-item dhanush">
-                    <div class="ch-info">
-                        <h3>Dhanush</h3>
-                        <p>Software Engineering Intern</p>
-                    </div>
                 </div>
-            </li>
-            <li>
-                <div class="ch-item brett">
-                    <div class="ch-info">
-                        <h3>Brett</h3>
-                        <p>Business Dev Strategist </p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="ch-item lia">
-                    <div class="ch-info">
-                        <h3>Lia</h3>
-                        <p>R&D Intern </p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="ch-item mindy">
-                    <div class="ch-info">
-                        <h3>Mindy</h3>
-                        <p>UI/UX Reseracher</p>
-                    </div>
-                </div>
-            </li>
 
-            <h3 class="text-center mt-5">Advisory Board</h3>
-            <hr class="divider my-4" />
+                <!-- end: Slide 2 -->
 
-            <li>
-                <div class="ch-item patricia">
-                    <div class="ch-info">
-                        <h3>Patricia Hatter</h3>
-                        <br>
-                        <p>Board Member at WOOTCLOUD </p>
+            </div>
+            <!--end: Inspiro Slider -->
+
+
+            <div class="container" style="padding-top:64px">
+                <div class="bg-cube-container" style="margin-left:-48px">
+                    <div class="bg-cube-element" style="width:34px; height:22px; margin-top:-12px"></div>
+                </div>
+                <div class="bg-cube-container" style="float: right; margin-right: 100px;">
+                    <div class="bg-cube-element" style="width:56px; height:36px; margin-top:-62px"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/img/featured-01.png' %}" class="img-fluid rounded" alt=""
+                            style="width:476px; height:318px">
+                        <div class="bg-cube-element"
+                            style="width:156px; height:102px; margin-top:-80px; margin-left:-28px">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 id="learn-more" style="font-weight: 600; color:#494949; animation-duration: 100ms"><span class="sisu-color-purple">One in two
+                                women</span>
+                            has or will face sexual harassment.</h3>
+                        <p style="font-size:16px">Harassment has profound psychological effects. It also causes
+                            decreased
+                            productivity, increased turnover, and lawsuits.</p>
+                        <div class="bg-cube-container" style="float: right; margin-right: 48%;">
+                            <div class="bg-cube-element" style="width:56px; height:36px; margin-top:18%"></div>
+                        </div>
+                        <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+                    </div>
+                    <hr class="space">
+                    <div class="col-lg-2">
+                        <div class="bg-cube-element"
+                            style="width:126px; height:88px; margin-top:0px; margin-left:-12px">
+                        </div>
+                        <div class="bg-cube-element"
+                            style="width:80px; height:72px; margin-top:60px; margin-left:-36px">
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+
+                        <h3 class="text-center" style="font-weight: 600; color:#494949">Let <span
+                                class="sisu-color-purple">Sisu VR</span> empower your workforce.</h3>
+                        <p class="text-center" style="font-size:16px">The <strong>Empower Now Program</strong> is an
+                            immersive
+                            anti-harassment training<br>experienced through your desktop or VR headset designed to teach
+                            your<br>workplace about harassment situations.</p>
+                        <div class="col-lg-2">
+                            <div class="bg-cube-container" style="float: right; margin-right: 0%;">
+                                <div class="bg-cube-element" style="width:56px; height:36px; margin-top:0%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="bg-cube-container" style="float: right;">
+                        <div class="bg-cube-element"
+                            style="width:120px; height:96px; margin-top:160px; margin-left:42px"></div>
+                    </div>
+                    <hr class="space">
+
+                    <div class="col-lg-6">
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                        </div>
+                        <h3 style="font-weight: 600; color:#494949">Experience <span class="sisu-color-purple">Immersive
+                                Virtual Reality</span> Training.</h3>
+                        <p style="font-size:16px">Engage in VR simulations based on real-life scenarios. Studies show
+                            that
+                            VR increases retention by up to 80%.*</p>
+                        <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/img/featured-02.png' %}" class="img-fluid rounded" alt=""
+                            style="width:476px; height:318px">
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:226px; height:186px; margin-top:32%; margin-left:-24px"></div>
+                        </div>
+
+                    </div>
+
+                    <hr class="space">
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/img/featured-03.png' %}" class="img-fluid rounded" alt=""
+                            style="width:476px; height:318px">
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 style="font-weight: 600; color:#494949">Play from <span class="sisu-color-purple">multiple
+                                perspectives</span>.</h3>
+                        <p style="font-size:16px">Learn to handle high-stake situations as a complainant, offender, or
+                            observer.</p>
+                        <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+                        <div class="bg-cube-container" style="float: right; margin-right: 0%;">
+                            <div class="bg-cube-element" style="width:56px; height:36px; margin-top:0%"></div>
+                        </div>
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                        </div>
+                    </div>
+
+
+                    <hr class="space">
+                    <div class="col-lg-6">
+                        <h3 style="font-weight: 600; color:#494949">Evaluate your results with an evidence-based <span
+                                class="sisu-color-purple">Ethical Framework</span>.</h3>
+                        <p style="font-size:16px">Play through modules built on psychological research and ethical
+                            frameworks.</p>
+                        <div class="bg-cube-container" style="float: right; margin-right: 0%;">
+                            <div class="bg-cube-element" style="width:56px; height:36px; margin-top:0%"></div>
+                        </div>
+
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                        </div>
+                        <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/img/featured-04.png' %}" class="img-fluid rounded" alt=""
+                            style="width:476px; height:318px">
+
+                    </div>
+
+                    <div class="grid-system-demo-live">
+                        <div class="row">
+                            <div class="col-lg-12 p-t-80 p-b-20">
+                                <div class="heading-section">
+                                    <h3 id="testimonials" class="text-center">Our clients are raving!</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <div class="blockquote blockquote-fancy">
+                                    <p>Art is the only serious thing in the world. And the artist is the only person who
+                                        is
+                                        never serious.</p>
+                                    <p class="text-center"><strong><cite>Planet Earth</cite></strong><br>Milky Way
+                                        Galaxy
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="blockquote blockquote-fancy">
+                                    <p>Art is the only serious thing in the world. And the artist is the only person who
+                                        is
+                                        never serious.</p>
+                                    <p class="text-center"><strong><cite>Mars</cite></strong><br>Milky Way Galaxy</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="blockquote blockquote-fancy">
+                                    <p>Art is the only serious thing in the world. And the artist is the only person who
+                                        is
+                                        never serious.</p>
+                                    <p class="text-center"><strong><cite>PA-99-N2</cite></strong><br>Andromeda</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="">
+
+                <div data-bg-image="{% static 'public/assets/img/featured-05.png' %}"
+                    style="height: 364px; background-image: url(&quot;{% static 'public/assets/img/divider-curved-01.png' %}&quot;);"
+                    class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/divider-curved-01.png' %}" data-ll-status="loaded">
+
+                    <div class="grid-system-demo-live vertical-center">
+
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h3 class="text-center" style="font-weight: 600; color:#fff; font-size: 24px">Ready to
+                                    empower your
+                                    workforce<br>with a customized training plan?</h3>
+                                <button style="font-size:16px; margin-top:12px" type="button"
+                                    class="btn btn-rounded btn-sisu-primary"><a style="color:#fff"
+                                        href="{% url 'contact' %}">Contact Us</a></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="ch-item pratima">
-                    <div class="ch-info">
-                        <h3>Pratima Rao</h3>
-                        <p>Engineering Manager at VMWare and author of "Nevertheless, She Persisted" </p>
+            </div>
+
+            <section>
+                <div class="container">
+                    <div class="bg-cube-container" style="float: right; margin-right: 0%;">
+                        <div class="bg-cube-element" style="width:26px; height:18px; margin-top:0%; margin-left:80px">
+                        </div>
+                    </div>
+                    <div class="heading-text heading-line text-center">
+                        <h4>Our Partners</h4>
+                    </div>
+                    <div class="row team-members m-b-40">
+                        <div class="col-lg-4">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/partner-01.png' %}" style="width:138px">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>Litas for Girls</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/partner-02.png' %}" style="width:138px">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>MindGlow Inc.</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/partner-03.png' %}" style="width:138px">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>Replay</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="heading-text heading-line text-center">
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:42px; height:28px; margin-top:0%; margin-left:80px"></div>
+                        </div>
+                        <h4 id="sisu-blog">What's Happening at Sisu VR?</h4>
+                    </div>
+                    <div class="row team-members team-members-shadow m-b-40">
+                        <div class="col-lg-3">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/blog-cover-01.png' %}">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>VR Productivity Apps to Try</h3>
+                                    <p>Whether you are a small or large enterprise, VR applications increase.</p>
+                                    <!-- <button type="button" class="btn btn-rounded btn-sisu-primary">Read</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/blog-cover-02.png' %}">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>How it all Started</h3>
+                                    <p>CEO Jocelyn Tan goes on the Maverix Multimedia podcast to talk about how she
+                                        started Sisu VR.</p>
+                                    <!-- <button type="button" class="btn btn-rounded btn-sisu-primary">Read</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/blog-cover-03.png' %}">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>Virtual Morality</h3>
+                                    <p>Santa Clara Magazine features Sisu VR as an ethical approach to compliance
+                                        training.</p>
+                                    <!-- <button type="button" class="btn btn-rounded btn-sisu-primary">Read</button> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="team-member">
+                                <div class="team-image">
+                                    <img src="{% static 'public/assets/img/blog-cover-04.png' %}">
+                                </div>
+                                <div class="team-desc">
+                                    <h3>Trouble with Training</h3>
+                                    <p>The Markkula Center for Applied Ethics makes our CEO a Hackworth Fellow.</p>
+                                    <!-- <button type="button" class="btn btn-rounded btn-sisu-primary">Read</button> -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="ch-item tom">
-                    <div class="ch-info">
-                        <h3>Tom Kosnik</h3>
-                        <p>VC at FoundersX </p>
+            </section>
+
+
+
+            <!-- Footer -->
+            <footer id="footer" class="sisu-footer-bg"></footer>
+
+            
+
+            <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
+                style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
+                class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}" data-ll-status="loaded">
+                <div class="grid-system-demo-live vertical-center">
+                    <div class="footer-content">
+                        <div class="container">
+                            <div class="row" style="padding-bottom:0px">
+                                <div class="col-md-4 col-xl-4">
+                                    <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}" alt="Sisu VR"></a></p>
+                                    <p class="sisu-footer-text">Designed to deliver immersive workplace training.</p>
+                                </div>
+                                <div class="col-4 col-md-4 col-xl-4">
+                                    <div class="widget" style="margin-bottom:0px">
+                                        <ul class="list">
+                                            <li><a class="sisu-footer-link" href="{% url 'faq' %}">About</a></li>
+                                            <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a></li>
+                                            <li><a class="sisu-footer-link"
+                                                    href="{% url 'home_portal' %}">Customer Portal</a></li>
+                                            <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy Policy</a></li>
+                                            <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms & Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-4 col-xl-4">
+                                    <br>
+                                    <h5 style="color: #fff">FOLLOW US</h5>
+                                    <div class="social-icons social-icons-colored social-icons-rounded float-left">
+                                        <ul>
+                                            <li class="social-facebook"><a href="https://www.facebook.com/sisuvr"
+                                                    target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li class="social-twitter"><a href="https://twitter.com/sisuvr"
+                                                    target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                            <li class="social-linkedin"><a
+                                                    href="https://www.linkedin.com/company/sisuvr" target="_blank"><i
+                                                        class="fab fa-linkedin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
+                                Copyright © 2020 Sisu VR Inc. All
+                                Rights Reserved.</div>
+                        </div>
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+            </footer>
+            <!-- end: Footer -->
 
-    </div>
+        </div>
+        <!-- end: Body Inner -->
 
-</section>
+        <!--Plugins-->
+        <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+        <script src="{% static 'public/js/jquery.js' %}"></script>
+        <script src="{% static 'public/js/plugins.js' %}"></script>
 
-<section class="resume-section p-4 p-lg-5 text-center border-top bg-light" id="contact">
-    <div class="contact py-5">
-        {% include 'blog/contact_us.html'%}
-    </div>
-</section>
+        <!--Template functions-->
+        <script src="{% static 'public/js/functions.js' %}"></script>
 
-{% endblock content %}
+
+    </body>
+
+</html>

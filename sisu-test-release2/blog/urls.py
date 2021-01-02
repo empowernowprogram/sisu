@@ -47,6 +47,11 @@ urlpatterns = [
 
     path('header/', views.header, name='header'),
 
+
+    # PUBLIC SITE - START
+    path('faq', views.faq, name='faq'),
+    path('contact', views.contact, name='contact'),
+    # PUBLIC SITE - END
     
     # Training Portal Authentication / Login / Logout - START
     path('auth-login/', views.portal_login, name='portal_login'),
