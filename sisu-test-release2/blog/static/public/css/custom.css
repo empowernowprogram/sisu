@@ -109,9 +109,10 @@
 
 .accordion .ac-item .ac-title {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     background: #F6F6F6;
     padding:12px;
+    padding-right: 34px;
     border-radius: 4px;
 }
 
@@ -242,6 +243,15 @@
 }
 
 
+@media (max-width: 768px) {
+    .footer-content {
+        padding-top:42px;
+       }
+   }
+
+
+
+   
 
 
 
@@ -302,9 +312,6 @@
  }
 
 
-
-
-
 .lines, .lines:before, .lines:after {
     background-color: #fff;
 }
@@ -314,11 +321,6 @@
 }
 
 
-
-.accordion .ac-item .ac-title {
-    font-size: 16px;
-}
-
 .ac-content > p {
     font-size: 16px;
 }
@@ -327,4 +329,8 @@
     text-decoration: underline !important;
 }
 
-
+@media (min-width: 640px) {
+    .sisu-header-title{
+        padding-right:36% !important;
+    }
+}
