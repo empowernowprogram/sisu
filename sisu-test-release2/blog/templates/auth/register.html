@@ -1,0 +1,89 @@
+{% load staticfiles %}
+{% load socialaccount %}
+
+
+<head>
+	<meta charset="utf-8">
+	<title>Sisu VR - Training Registration Portal</title>
+	<meta name="description" content="Sisu VR training login portal">
+	<meta name="author" content="Sisu VR">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'login/css/login.css' %}" />
+</head>
+
+<body>
+		<div class="signup-form">
+			<form action="{% url 'portal_signup' %}" method="post">
+
+				{% csrf_token %}
+				
+				<h2>Registration Portal</h2>
+				<p class="lead">Complete the form below and login to start your training<br>Your password was sent in the registration email</p>
+
+				{% if bad_login_is is True %}
+					<div class="auth-invalid">
+						<p class="auth-invalid">Your password is incorrect</p>
+						<p>If you don't remember your password either reset your password or contact support at <a class="auth-invalid" href="mailto:hello@sisuvr.com">hello@sisuvr.com</a></p>
+					</div>
+				{% endif %}
+
+				<div class="form-group" style="margin-bottom: 0px;">
+					<div class="input-group">
+						<label style="margin-top:2px">Company:</label>
+						<p class="" style="color: #999; padding-left:10px">[CompanyName]</p>
+					</div>
+				</div>
+				<div class="form-group" style="margin-bottom: 0px;">
+					<div class="input-group">
+						<label style="margin-top:2px">Email:</label>
+						<p class="" style="color: #999; padding-left:10px">[email@address.com]</p>
+					</div>
+				</div>
+				<div class="form-group" style="margin-bottom: 12px;">
+					<div class="input-group">
+						<label style="margin-top:2px">Type:</label>
+						<p class="" style="color: #999; padding-left:10px">[training_type]</p>
+					</div>
+				</div>
+				
+
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+						<input id="name" type="text" class="form-control" name="name" placeholder="Full name" required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<input id="pass" type="password" class="form-control" name="password" placeholder="Password"
+							required="required">
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="checkbox" class="input-group-addon sisu-checkbox" id="agreement-checkbox" required="required"
+						onchange="document.getElementById('btn-sign-in').disabled = !this.checked;">
+					<label class="" for="agreement-checkbox">I agree to Sisu VR's <a href="{% url 't_c' %}">Terms & Conditions</a>
+						and <a href="{% url 'p_p' %}">Privacy Policy</a></label>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-sign-in" disabled>Sign
+						In</button>
+				</div>
+				<!-- <input type="hidden" name="next" value="{{ request.GET.next }}" /> -->
+				<input type="hidden" name="next" value="{{ request.path }}" />
+				<div class="small text-center">
+					<a href="mailto:hello@sisuvr.com">Need help?</a>
+				</div>
+			</form>
+			<div class="small text-center">
+				<p><a href="http://www.sisuvr.com/">Sisu VR Inc.</a>&nbsp&nbsp&nbsp&nbsp&copy; 2020</p>
+			</div>
+		</div>
+	</body>
+
+
+
+
+

@@ -409,6 +409,30 @@ def portal_logout(request):
     return redirect('/')
 
 
+# Training Portal Authentication / Login, Logout - START
+def portal_signup(request):
+    # todo - better method is to incorporate 'next=?' operations and logic
+    if request.method == 'POST':
+
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/portal/home/')
+        else:
+            context = {'bad_login_is': True}
+            messages.info(request, 'invalid credentials')
+            # messages.info(request, 'invalid credentials')
+            return render(request, 'auth/register.html', context)
+    else:    
+        return render(request, 'auth/register.html')
+    
+    return render(request, 'auth/register.html')
+
+
 def key_redeem(request):
     context = {'key': '1111-2222-3333-4444'}
     return render(request, 'auth/key-redeem.html', context)
@@ -447,10 +471,10 @@ def portal_register(request):
             emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
             emails_desktop_supervisor = request.POST['desktop-supervisor']
 
-            print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
-            print('emails_vr_supervisor = {}'.format(emails_vr_supervisor))
-            print('emails_desktop_nonsupervisor = {}'.format(emails_desktop_nonsupervisor))
-            print('emails_desktop_supervisor = {}'.format(emails_desktop_supervisor))
+            # print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
+            # print('emails_vr_supervisor = {}'.format(emails_vr_supervisor))
+            # print('emails_desktop_nonsupervisor = {}'.format(emails_desktop_nonsupervisor))
+            # print('emails_desktop_supervisor = {}'.format(emails_desktop_supervisor))
 
         return render(request, 'portal/register.html', context)
     else:
