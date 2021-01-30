@@ -70,25 +70,31 @@
                             <hr>
                             <form action='.' method="post">
                                 {% csrf_token %}
+                                <!-- NOTE - the input of "type=email" and data-role="tagsinput" was causing issues - need to investigate further -->
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
-                                    <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor">
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor"> -->
+                                    <textarea class="form-control" name="vr-nonsupervisor"></textarea>
+                                    <!-- hello@email.com, robert@sisuvr.com, test@sisurvr.com -->
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
-                                    <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor">
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor"> -->
+                                    <textarea class="form-control" name="vr-supervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
-                                    <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor">
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor"> -->
+                                    <textarea class="form-control" name="desktop-nonsupervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
-                                    <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor">
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor"> -->
+                                    <textarea class="form-control" name="desktop-supervisor"></textarea>
                                 </div>
                                 <div style="padding-bottom: 120px" class="">
                                     <br>
