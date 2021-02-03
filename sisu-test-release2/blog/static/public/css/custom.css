@@ -336,7 +336,9 @@
 }
 
 
-
+.flickity-button:hover {
+    background-color: #EC7F00;
+}
 
 .mobile-show{
     display: none;
