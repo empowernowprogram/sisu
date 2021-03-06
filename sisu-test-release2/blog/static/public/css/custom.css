@@ -162,6 +162,15 @@
 }
 
 
+.center-block {
+    width: 100vw;
+    position: relative;
+  
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+
     
 .sisu-hero {
     position: relative;
