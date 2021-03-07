@@ -264,10 +264,12 @@
                             <div class="col-lg-12 text-center">
                                 <h3 class="text-center" style="font-weight: 600; color:#fff; font-size: 24px">Stay updated wtih our free newsletter!</h3>
                                 <div style=" justify-content: center; display: flex;">
-                                    <form class="site-search" method="POST">
+
+                                    <form class="site-search" method="GET">
+                                        {% csrf_token %}
                                         <div class="input-group">
-                                            <input class="form-control" style="border: 0px solid #ced4da; font-size: 16px; width: 346px" placeholder="Email address" type="text"> 
-                                            <span><a class="btn btn-sisu-primary" style="border-radius: 0px 4px 4px 0px; border: 1px solid #ced4da; font-size: 16px" href="#"> Sign up</a></span>
+                                            <input class="form-control" style="border: 0px solid #ced4da; font-size: 16px; width: 346px" placeholder="Email address" type="text" name="email_signup"> 
+                                            <span><button class="btn btn-sisu-primary" style="border-radius: 0px 4px 4px 0px; border: 1px solid #ced4da; font-size: 16px" type="submit"> Sign up</button></span>
                                         </div>
                                     </form>
                             </div>

@@ -42,12 +42,11 @@ from django.contrib.auth.models import User, auth
 
 
 def index(request):
-    print("<index>")
-    context = {}
+    context = {}    
     if request.method == 'GET':
-        print("\trequest.method == GET")
-        form = ContactForm()
-        return render(request, 'blog/home.html', {'form' : form})
+        email_signup = request.GET.get('email_signup')
+        # form = ContactForm()
+        # return render(request, 'blog/home.html', {'form' : form})
     return render(request, 'blog/home.html', context)
 
 
@@ -378,6 +377,10 @@ def faq(request):
 
 def contact(request):
     return render(request, 'blog/contact.html')
+
+
+
+
 
 
 # Training Portal Authentication / Login, Logout - START
