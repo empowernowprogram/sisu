@@ -265,7 +265,7 @@
                                 <h3 class="text-center" style="font-weight: 600; color:#fff; font-size: 24px">Stay updated wtih our free newsletter!</h3>
                                 <div style=" justify-content: center; display: flex;">
 
-                                    <form class="site-search" method="GET">
+                                    <form class="site-search" method="POST" action=".">
                                         {% csrf_token %}
                                         <div class="input-group">
                                             <input class="form-control" style="border: 0px solid #ced4da; font-size: 16px; width: 346px" placeholder="Email address" type="text" name="email_signup"> 
