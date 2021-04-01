@@ -51,7 +51,6 @@ $(document).ready(function() {
         html_registration = `<select style="padding: 6px 6px; border: 1px solid #C1C7CD; border-radius: 4px">`
 
         if(user_registration.toLowerCase() === 'supervisor'){
-            console.log(user_registration)
             html_registration += `<option value="supervisor" selected>Supervisor</option>`
             html_registration += '<option value="non-supervisor">Non-supervisor</option>'
         } else if (user_registration.toLowerCase() === 'non-supervisor'){

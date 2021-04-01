@@ -68,41 +68,48 @@
                             <p>Enter each employee's email address into their corresponding textbox below (VR or Desktop, Non-supervisor, or Supervisor).</p>
                             <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #9F3688" href="#send-reg-emails">Register Employees and Send Emails</a>" at the bottom of this page.</p>
                             <hr>
-                            <form action='.' method="post">
-                                {% csrf_token %}
                                 <!-- NOTE - the input of "type=email" and data-role="tagsinput" was causing issues - need to investigate further -->
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor"> -->
-                                    <textarea class="form-control" name="vr-nonsupervisor"></textarea>
+                                    <textarea id="vr-nonsupervisor" class="form-control" name="vr-nonsupervisor"></textarea>
                                     <!-- hello@email.com, robert@sisuvr.com, test@sisurvr.com -->
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor"> -->
-                                    <textarea class="form-control" name="vr-supervisor"></textarea>
+                                    <textarea id="vr-supervisor" class="form-control" name="vr-supervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor"> -->
-                                    <textarea class="form-control" name="desktop-nonsupervisor"></textarea>
+                                    <textarea id="desktop-nonsupervisor" class="form-control" name="desktop-nonsupervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor"> -->
-                                    <textarea class="form-control" name="desktop-supervisor"></textarea>
+                                    <textarea id="desktop-supervisor" class="form-control" name="desktop-supervisor"></textarea>
                                 </div>
                                 <div style="padding-bottom: 120px" class="">
                                     <br>
-                                    <button name="send-reg-emails" class="btn btn-sisu-primary" type="submit">
+                                    <button name="send-reg-emails" class="btn btn-sisu-primary bnt-submit" type="">
                                         Send Registration Emails
                                     </button>
+
+                                    <div style="width: 350px; margin-top:12px">
+                                    
+                                    <div id="alert-emails-sent" class="alert alert-success alert-dismissible hidden" role="alert">
+                                    Emails successfully sent.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
-                            </form>
+
+                                    </div>
+                                </div>
+
                         </div>
                     </div>
                     <!-- Main Content End -->
@@ -129,5 +136,49 @@
         <script src="{% static 'portal/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js' %}"></script>
         <script src="{% static 'portal/js/space.min.js' %}"></script>
         <script src="{% static 'portal/js/scripts.js' %}"></script>
+        <script>
+                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+                let vr_supervisor = $('#vr-supervisor').val()
+                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+                let desktop_supervisor = $('#desktop-supervisor').val();
+
+                $('#vr-nonsupervisor').val("vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com");
+                $('#vr-supervisor').val("vr-supervisor@gmail.com");
+                $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com");
+                $('#desktop-supervisor').val("desktop-supervisor@gmail.com");
+        
+
+            $(".bnt-submit").click(function() {
+
+                console.log('FORM CLCIKED!')
+                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+                let vr_supervisor = $('#vr-supervisor').val()
+                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+                let desktop_supervisor = $('#desktop-supervisor').val();
+
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        vr_nonsupervisor: vr_nonsupervisor,
+                        vr_supervisor: vr_supervisor,
+                        desktop_nonsupervisor: desktop_nonsupervisor,
+                        desktop_supervisor: desktop_supervisor
+                    },
+                    success: function(repsonse){
+                        console.log('RESPONSE')
+                        $('#vr-nonsupervisor').val("");
+                        $('#vr-supervisor').val("");
+                        $('#desktop-nonsupervisor').val("");
+                        $('#desktop-supervisor').val("");
+
+                        
+                        $('#alert-emails-sent').removeClass('hidden');
+                    }
+                })
+
+
+            });
+        </script>
     </body>
 </html>

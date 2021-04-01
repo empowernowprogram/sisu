@@ -469,17 +469,36 @@ def portal_register(request):
         player = Player.objects.get(user=request.user)
         context = {'player': player}
         
-        if request.method == 'POST':
-            emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
-            emails_vr_supervisor = request.POST['vr-supervisor']       
-            emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
-            emails_desktop_supervisor = request.POST['desktop-supervisor']
+        # if request.method == 'POST':
+        #     emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
+        #     emails_vr_supervisor = request.POST['vr-supervisor']       
+        #     emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
+        #     emails_desktop_supervisor = request.POST['desktop-supervisor']
+
+        #     # split lists
+        #     emails_vr_nonsupervisor = split_emails(emails_vr_nonsupervisor)
+        #     emails_vr_supervisor = split_emails(emails_vr_supervisor)
+        #     emails_desktop_nonsupervisor = split_emails(emails_desktop_nonsupervisor)
+        #     emails_desktop_supervisor = split_emails(emails_desktop_supervisor)
+        #     print(emails_vr_nonsupervisor)
+
+        if request.is_ajax():
+            print('<AJAX REQUEST>')
+            emails_vr_nonsupervisor = request.GET.get('vr_nonsupervisor')
+            emails_vr_supervisor = request.GET.get('vr_supervisor')
+            emails_desktop_nonsupervisor = request.GET.get('desktop_nonsupervisor')
+            emails_desktop_supervisor = request.GET.get('desktop_supervisor')
 
             # split lists
             emails_vr_nonsupervisor = split_emails(emails_vr_nonsupervisor)
             emails_vr_supervisor = split_emails(emails_vr_supervisor)
             emails_desktop_nonsupervisor = split_emails(emails_desktop_nonsupervisor)
             emails_desktop_supervisor = split_emails(emails_desktop_supervisor)
+
+            return JsonResponse({'submitted': True}, status=200)
+
+
+
 
         return render(request, 'portal/register.html', context)
     else:
