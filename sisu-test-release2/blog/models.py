@@ -44,7 +44,7 @@ class Category(Enum):
       if cat_name == "Miscellaneous":
         return Category.Miscellaneous
     
-    
+
 @python_2_unicode_compatible  
 class Post(models.Model, HitCountMixin):
   author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -65,6 +65,7 @@ class Post(models.Model, HitCountMixin):
   def __str__(self):
     return self.title
     
+
 class Comment(models.Model):
   post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
   user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
@@ -99,6 +100,7 @@ class PostPreferrence(models.Model):
   class Meta:
     unique_together = ("username", "postpk", "ip_address")
 
+
 class ReplyToComment(models.Model):
   post = models.ForeignKey('Post', related_name='commentPost', on_delete=models.CASCADE)
   comment = models.ForeignKey('Comment', related_name='replyToComment', on_delete=models.CASCADE)
@@ -127,6 +129,7 @@ class Cluster(models.Model):
   def get_members(self):
         return "\n".join([u.username for u in self.users.all()])
  
+
 class Resource(models.Model):
   title = models.CharField(max_length=200)
   category_name = EnumField(Category, max_length=30, default=Category.Harassment)

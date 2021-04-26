@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Player(models.Model):
+    registration_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
+    
     email = models.CharField(max_length=50, primary_key=True)
     employer = models.IntegerField()
     full_name = models.CharField(max_length=60)
     supervisor = models.BooleanField()
     admin = models.BooleanField(default=False)
-    registration_type = models.CharField(default='', max_length=16)
+    registration_type = models.CharField(max_length=255, null=False, blank=False, choices=registration_type_choices)
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
 
@@ -49,3 +51,20 @@ class Invite(models.Model):
     email = models.CharField(max_length=50)
     link = models.CharField(max_length=30, primary_key=True)
 
+
+class ModuleDownloadLink(models.Model):
+    # holds download links for modules
+    training_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
+    training_category_choices = (('None', 'None'), ('Harassment Training', 'Harassment Training'))
+    platform_category_choices = (('Windows', 'Windows'), ('Mac', 'Mac'), ('SteamVR', 'SteamVR'), ('Oculus Quest', 'Oculus Quest'))
+    
+    training_type = models.CharField(max_length=255, null=False, blank=False, choices=training_type_choices)
+    training_category = models.CharField(max_length=255, null=False, blank=False, choices=training_category_choices)
+    platform_category = models.CharField(max_length=255, null=False, blank=False, choices=platform_category_choices)
+    download_link = models.CharField(max_length=554, null=False, blank=False)
+    description = models.TextField(max_length=1000, null=True, blank=True)
+
+    is_supervisor = models.BooleanField(null=False, blank=False)
+
+    class Meta:
+        ordering = ['training_type', 'platform_category']

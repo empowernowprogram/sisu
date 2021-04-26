@@ -31,10 +31,10 @@
         <div id="portal" data-page="settings" class="page-container">
 
             <!-- Page Sidebar Start -->
-            {% if player.supervisor is True %}
-            {% include 'components/portal_sidebar_supervisor.html' %}
-            {% elif player.supervisor is False %}
-            {% include 'components/portal_sidebar_nonsupervisor.html' %}
+            {% if player.admin is True %}
+                {% include 'components/portal_sidebar_admin.html' %}
+            {% else %}
+                {% include 'components/portal_sidebar_employee.html' %}
             {% endif %}
             <!-- Page Sidebar End -->
 

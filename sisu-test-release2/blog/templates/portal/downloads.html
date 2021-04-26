@@ -34,10 +34,8 @@
             <!-- Page Sidebar Start -->
             {% if player.admin is True %}
                 {% include 'components/portal_sidebar_admin.html' %}
-            {% elif player.supervisor is True %}
-                {% include 'components/portal_sidebar_supervisor.html' %}
-            {% elif player.supervisor is False %}
-                {% include 'components/portal_sidebar_nonsupervisor.html' %}
+            {% else %}
+                {% include 'components/portal_sidebar_employee.html' %}
             {% endif %}
             <!-- Page Sidebar End -->
 
@@ -63,10 +61,11 @@
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
                         <div class="row">
+                            {% comment %} Instructions {% endcomment %}
                             {% if player.admin is False %}
-                                {% if player.registration_type.lower == 'desktop'%}
+                                {% if player.registration_type == 'Desktop'%}
                                     {% include 'components/dl-instructions-desktop.html' %}
-                                {% elif player.registration_type.lower == 'vr'%}
+                                {% elif player.registration_type == 'VR'%}
                                     {% include 'components/dl-instructions-vr.html' %}  
                                 {% endif %}
                             {% else %}
@@ -75,17 +74,59 @@
                             {% endif %}
                             
                             <hr>
-
+                            
                             {% if player.admin is False %}
-                                {% if player.registration_type.lower == 'desktop' and player.supervisor is True %}
-                                    {% include 'components/dl-card-supervisor.html' %}
-                                {% elif player.registration_type.lower == 'desktop' and player.supervisor is False %}
-                                    {% include 'components/dl-card-nonsupervisor.html' %}  
+                                {% if player.supervisor is False %}
+                                    {% comment %} TRAINING - NON-SUPERVISOR {% endcomment %}
+                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Traning</h3>
+                                    <div class="row">
+                                    {% if player.registration_type == 'Desktop' and player.supervisor is False %}
+                                        {% for module_download_link in module_download_links %}                                        
+                                            {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Employee" description=module_download_link.description download_link=module_download_link.download_link %}
+                                        {% endfor %}
+                                    {% elif player.registration_type == 'VR' and player.supervisor is False %}
+                                        {% for module_download_link in module_download_links %}                                        
+                                            {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Employee" description=module_download_link.description download_link=module_download_link.download_link %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    </div>
                                 {% endif %}
+                                
+                                
+                                {% if player.supervisor is True %} 
+                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Supervisor Traning</h3>
+                                    <div class="row">
+                                    {% if player.registration_type == 'Desktop'%}
+                                        {% for module_download_link in module_download_links %}                                        
+                                            {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Supervisor" description=module_download_link.description download_link=module_download_link.download_link %}
+                                        {% endfor %}
+                                    {% elif player.registration_type == 'VR'%}
+                                        {% for module_download_link in module_download_links %}                                        
+                                            {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Supervisor" description=module_download_link.description download_link=module_download_link.download_link %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endif %}
+                                </div>
+
                             {% else %}
-                                {% include 'components/dl-card-supervisor.html' %}
+                                <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Traning</h3>
+                                <div class="row"></div>
+                                {% for module_download_link in module_download_links %}
+                                    {% if module_download_link.is_supervisor == False %}
+                                        {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Employee" description=module_download_link.description download_link=module_download_link.download_link %}
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
                                 <hr>
-                                {% include 'components/dl-card-nonsupervisor.html' %}  
+                                <h3 style="padding-top:0px; padding-bottom: 6px;">Supervisor Traning</h3>
+                                <div class="row"></div>
+                                {% for module_download_link in module_download_links %}
+                                    {% if module_download_link.is_supervisor == True %}
+                                        {% include 'components/dl-card.html' with title=module_download_link.platform_category label="Supervisor" description=module_download_link.description download_link=module_download_link.download_link %}
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+
                             {% endif %}
                         </div>
                     </div>

@@ -22,7 +22,6 @@ $(document).ready(function() {
                 col_counter += 1;
 
                 var select = $(`<select class="table-sisu-select-option" id="search-id-${col_counter}"><option value=""></option></select>`)
-                // var select = $(`<select><option value=""></option></select>`)
                     .appendTo( $(column.footer()).empty())
                     
                     .on( 'change', function () {

@@ -123,6 +123,19 @@
         
         <script src="{% static 'portal/plugins/datatables/js/jquery.datatables.min.js' %}"></script>
         <script src="{% static 'portal/js/table-data.js' %}"></script>
+
+        <script>
+            
+            $(document).ready(function(){
+                $('#search-id-1').val($("#search-id-1 option:first").text('All'));
+                $("#search-id-1").val($("#search-id-1 option:first").val());
+
+                $('#search-id-2').val($("#search-id-2 option:first").text('All'));
+                $("#search-id-2").val($("#search-id-2 option:first").val());
+                
+
+            });
+        </script>
         
     </body>
 
