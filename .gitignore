@@ -1,2 +1,10 @@
-
-sisu-test-release2/workspace-sisuvr2.code-workspace
+*.pyc
+*~
+*.sqlite3
+__pycache__
+myvenv
+db.sqlite3
+db.json
+/static
+.DS_Store
+.vscode/

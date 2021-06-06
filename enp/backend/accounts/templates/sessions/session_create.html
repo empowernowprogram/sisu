@@ -1,8 +1,0 @@
-
-{% load crispy_forms_tags %}
-
-<form method="post" action="{% url 'accounts:session_create' %}">
-    {% csrf_token %}
-    {{ session | crispy }}
-    <button type="submit" class="my-btn my-btn-primary">Create</button>
-</form>
