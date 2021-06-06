@@ -41,14 +41,14 @@
 
                         <p class="cert cert-text-reg"><strong>The Empower Now Program: Harassment-Free Workplace
                                 Training</strong><br>by Sisu VR</p>
-                        <p class="cert cert-text-reg">October 25, 2020</p>
+                        <p class="cert cert-text-reg">{{play_sessions.last.date_modified }}</p>
 
-                        <div class="col-md-6 cert-col">
+                        <div class="col-md-12 cert-col">
                             <img src="{% static 'portal/img/logo-sisu.svg' %}" width="56px" height="auto" alt="Sisu VR">
                         </div>
-                        <div class="col-md-6 cert-col">
+                        {% comment %} <div class="col-md-6 cert-col">
                             COMPANY LOGO / NAME
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
                 {% elif play_sessions_completed.count is not play_sessions.count %}

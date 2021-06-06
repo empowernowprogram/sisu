@@ -36,6 +36,8 @@ class PlaySession(models.Model):
     success = models.BooleanField()
     time_taken = models.IntegerField()
     training_type = models.CharField(default='', max_length=16)
+    date_created = models.DateField(verbose_name="date created", auto_now_add=True)
+    date_modified = models.DateField(verbose_name="date modified", auto_now=True)
 
     
 class LoginSessions(models.Model):
