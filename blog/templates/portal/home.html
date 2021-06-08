@@ -53,16 +53,15 @@
                     <div id="portal-home" class="page-title">
                         <div style="float: right; margin-bottom: 10px">
                             <h4>
-                                {% if player.supervisor is True %}
-                                    Supervisor
-                                {% elif player.supervisor is False %}
-                                    Non-supervisor
-                                {% endif %}
-                                
                                 {% if player.admin is True %}
-                                    (Admin)
-                                {% endif %}
-                                
+                                    Admin
+                                {% else %}
+                                    {% if player.supervisor is True %}
+                                        Supervisor
+                                    {% elif player.supervisor is False %}
+                                        Non-supervisor
+                                    {% endif %}
+                                {% endif %}                             
                             </h4>
                         </div>
                         <h2>Welcome, {{ player.full_name }}.</h2>
@@ -72,56 +71,64 @@
                     
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
-                        <div class="row">
-                                <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span></h3>
-                                <p>All modules must be completed by June 15, 2021.</p>
-                                <br><br>
-                                <div class="table-responsive">
-                                    <table class="table-sisu-overview">
-                                        <thead>
-                                            <tr>
-                                                <th>Module</th>
-                                                {% for play_session in play_sessions.all %}
-                                                <th>{{ play_session.module_id }}</th>
-                                                {% endfor %}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Status</td>
-                                                {% for play_session in play_sessions.all %}
-                                                <td>
-                                                    {% if play_session.success is True %} <span class="table-sisu-completed">Completed</span> 
-                                                    {% elif play_session.success is False %} <span class="table-sisu-notstarted">Not Started</span> 
-                                                    {% endif %}
-                                                </td>
-                                                {% endfor %}
-                                            </tr>
-                                            <tr>
-                                                <td>Date Completed</td>
-                                                {% for play_session in play_sessions.all %}
-                                                <td>N/A</td>
-                                                {% endfor %}
-                                            </tr>
-                                            <tr>
-                                                <td>Training Type</td>
-                                                {% for play_session in play_sessions.all %}
-                                                <td>{{ play_session.training_type }}</td>
-                                                {% endfor %}
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        {% if player.admin == False %}
+                            {% if play_sessions.count != 0 %}
+                                <div class="row">
+                                        <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span></h3>
+                                        <p>All modules must be completed by June 15, 2021.</p>
+                                        <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table-sisu-overview">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Module</th>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <th>{{ play_session.module_id }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Status</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <td>
+                                                            {% if play_session.success is True %} <span class="table-sisu-completed">Completed</span> 
+                                                            {% elif play_session.success is False %} <span class="table-sisu-notstarted">Not Started</span> 
+                                                            {% endif %}
+                                                        </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Date Completed</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                            {% if play_session.success is True %}
+                                                                <td>{{ play_session.date_modified }}</td>
+                                                            {% else %}
+                                                                <td>-</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Training Type</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <td>{{ play_session.training_type }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
+                                        {% if play_sessions_completed.count is play_sessions.count %}
+                                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">View Certificate</a>
+                                        <!-- {% url 'edit-registration' %} -->
+                                        {% endif %}
+                                        
+                                </div>                            
+                            {% endif %}
+                        {% endif %}
 
-                                <br>
-                                <br>
-                                <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
-                                {% if play_sessions_completed.count is play_sessions.count %}
-                                <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">View Certificate</a>
-                                <!-- {% url 'edit-registration' %} -->
-                                {% endif %}
-                                
-                        </div>
                     </div>
                     <!-- Main Content End -->
 

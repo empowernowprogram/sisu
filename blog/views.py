@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import sendgrid
 import os
+import requests, json
 from sendgrid.helpers.mail import *
 
 from django.shortcuts import render, redirect
@@ -20,10 +21,11 @@ from django.template import Context
 import re, random
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
-from enpApi.models import PlaySession, Player, ModuleDownloadLink
+from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -42,11 +44,49 @@ from django.contrib.auth.models import User, auth
 
 
 def index(request):
-    context = {}    
-    if request.method == 'GET':
-        email_signup = request.GET.get('email_signup')
-        # form = ContactForm()
-        # return render(request, 'blog/home.html', {'form' : form})
+    print("<index>")
+    context = {}
+    if request.method == 'POST':
+        print(request.POST['email_signup'])
+        url = "https://api.mailerlite.com/api/v2/groups/104430287/subscribers"
+        
+        data = {
+            'email': request.POST['email_signup']
+        }
+
+        payload = json.dumps(data)
+
+        headers = {
+            'content-type': "application/json",
+            'x-mailerlite-apikey': "cdf788da5a461f34b95459a22160a4ee"
+        }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        print(response.text)
+    #    email_signup = request.GET.get('email_signup')
+    #    EmailList.objects.create(email = email_signup)
+    #    print (os.environ.get('SENDGRID_API_KEY'))  
+    #    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    #    print("Set sendgrid instance")
+    #    from_email = Email("Hello@sisuvr.com")
+    #    print("Set from email")
+    #    to_email = Email(i)
+    #    print("Set to email")
+    #    subject = "Register for the Empower Now Program from Sisu VR"
+        #subject = sender + form.cleaned_data['subject']
+    #    print("Set subject")
+    #    html = render_to_string('email-templates/email-newsletter.html')
+    #    content = Content("text/html", html)
+                    
+    #    print("Creating mail structure")
+    #    mail = Mail(from_email, subject, to_email, content)
+    #    print("Attempting to send mail")
+    #    response = sg.client.mail.send.post(request_body=mail.get())
+
+    #    print("\trequest.method == GET")
+        #form = ContactForm()
+        #return render(request, 'blog/home.html', {'form' : form})
     return render(request, 'blog/home.html', context)
 
 
@@ -177,6 +217,52 @@ def nonsupervisor_progress(request):
         return render(request, 'blog/login_portal.html')
 
 
+def forgot_password(request):
+    #email_signup = request.Get.get('email_signup')
+    #EmailList.objects.create(email = email_signup)
+    #context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
+    #print (os.environ.get('SENDGRID_API_KEY'))  
+    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    #print("Set sendgrid instance")
+    #from_email = Email("Hello@sisuvr.com")
+    #print("Set from email")
+    #to_email = Email(i)
+    #print("Set to email")
+    #subject = "Register for the Empower Now Program from Sisu VR"
+    #subject = sender + form.cleaned_data['subject']
+    #print("Set subject")
+    #html = render_to_string('email-templates/email-training-signup.html', context)
+    #content = Content("text/html", html)
+                
+    #print("Creating mail structure")
+    #mail = Mail(from_email, subject, to_email, content)
+    #print("Attempting to send mail")
+    #response = sg.client.mail.send.post(request_body=mail.get())
+    return render(request, 'auth/login.html')
+
+def recover_password(request):
+    if request.method == 'POST':
+
+        username = request.POST['username']
+        #password = request.POST['password']
+        usr = get_user_model().objects.filter(email = request.GET['username'])   
+
+        emp = Employer.objects.get(company_name=request.POST['company'])
+
+        print(emp)
+        print(request.POST['isSuper'])
+        if request.POST['npassword1'] == request.POST['npassword2']:
+            user.set_password(npassword1)
+            user.save()
+
+    if request.method == 'GET':
+        key = request.GET['key']
+        if PassWordKey.objects.filter(key=key).user == request.GET['user']:
+            usr = get_user_model().objects.filter(email = request.GET['user'])   
+            context = {usr : request.GET['user']}
+            render(request, 'auth/recover.html', context)
+    return render(request, 'auth/recover.html')
+
 def supervisor_progress(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -297,51 +383,51 @@ def popular_cases(request):
 def user_recommendation_list(request):
   post_list = {}
   
-  if request.user.is_authenticated:
-    # get the user commented:
-    user_commented = Comment.objects.filter(author=request.user.username).prefetch_related('post')
-    user_metooed = PostPreferrence.objects.filter(vote_value=1, username=auth.get_user(request))
+#   if request.user.is_authenticated:
+#     # get the user commented:
+#     user_commented = Comment.objects.filter(author=request.user.username).prefetch_related('post')
+#     user_metooed = PostPreferrence.objects.filter(vote_value=1, username=auth.get_user(request))
     
-    user_commented_posts = set(map(lambda x: x.post.pk, user_commented))
-    user_metooed_posts = set(map(lambda x: x.postpk.pk, user_metooed))
+#     user_commented_posts = set(map(lambda x: x.post.pk, user_commented))
+#     user_metooed_posts = set(map(lambda x: x.postpk.pk, user_metooed))
     
-    #print (user_commented_posts)
-    #print (user_metooed_posts)
+#     #print (user_commented_posts)
+#     #print (user_metooed_posts)
     
-    # the set of posts this user commented and metooed
-    user_set = user_commented_posts | user_metooed_posts
-    #print (recommend_set)
+#     # the set of posts this user commented and metooed
+#     user_set = user_commented_posts | user_metooed_posts
+#     #print (recommend_set)
     
-    #get user cluster name & get all other cluster members
-    try:
-       user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
+#     #get user cluster name & get all other cluster members
+#     try:
+#        user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
     
-    except: # if no cluster assigned for a user, update clusters
-       update_clusters("true")
-       user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
+#     except: # if no cluster assigned for a user, update clusters
+#        update_clusters("true")
+#        user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
     
-    user_cluster_other_members = Cluster.objects.get(name=user_cluster).users.exclude(username=auth.get_user(request)).all()
-    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+#     user_cluster_other_members = Cluster.objects.get(name=user_cluster).users.exclude(username=auth.get_user(request)).all()
+#     other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
     
-    # get other users' commented and metooed posts from the same clusters
-    other_user_commented_posts = Comment.objects.filter(author__in=other_members_usernames).exclude(post__pk__in=user_set)
-    other_user_metooed_posts =  PostPreferrence.objects.filter(username__username__exact=other_members_usernames, vote_value=1).exclude(postpk__pk__in=user_set)        
+#     # get other users' commented and metooed posts from the same clusters
+#     other_user_commented_posts = Comment.objects.filter(author__in=other_members_usernames).exclude(post__pk__in=user_set)
+#     other_user_metooed_posts =  PostPreferrence.objects.filter(username__username__exact=other_members_usernames, vote_value=1).exclude(postpk__pk__in=user_set)        
     
-    other_user_commented = set(map(lambda x: x.post.pk, other_user_commented_posts))
-    other_user_metooed = set(map(lambda x: x.postpk.pk, other_user_metooed_posts))
+#     other_user_commented = set(map(lambda x: x.post.pk, other_user_commented_posts))
+#     other_user_metooed = set(map(lambda x: x.postpk.pk, other_user_metooed_posts))
     
-    other_users_set = other_user_commented | other_user_metooed
+#     other_users_set = other_user_commented | other_user_metooed
     
-    post_list_1 = list(Post.objects.filter(id__in=other_users_set))
-    post_list_2 = list(Post.objects.exclude(id__in=user_set))
+#     post_list_1 = list(Post.objects.filter(id__in=other_users_set))
+#     post_list_2 = list(Post.objects.exclude(id__in=user_set))
     
-    post_list = list(set(post_list_1)|set(post_list_2))[:3]
+#     post_list = list(set(post_list_1)|set(post_list_2))[:3]
     
     #print(post_list)
     #print(other_users_set)
     #print(other_members_usernames)
   
-  return {'rec_post_list': post_list}
+  return {'rec_post_list': '1'}
 
 #
 # For About us page
@@ -354,7 +440,7 @@ def about_sisu(request):
     return render(request, 'blog/about.html', context)
     
 def about_us(request):
-    return render(request, 'blog/about_us.html')
+    return render(request, 'blog/about-us.html')
     
 def about_team(request):
     return render(request, 'blog/about_team.html')    
@@ -379,10 +465,6 @@ def contact(request):
     return render(request, 'blog/contact.html')
 
 
-
-
-
-
 # Training Portal Authentication / Login, Logout - START
 def portal_login(request):
     # todo - better method is to incorporate 'next=?' operations and logic
@@ -399,12 +481,35 @@ def portal_login(request):
         else:
             context = {'bad_login_is': True}
             messages.info(request, 'invalid credentials')
+            # messages.info(request, 'invalid credentials')
             return render(request, 'auth/login.html', context)
     else:    
         return render(request, 'auth/login.html')
     
     return render(request, 'auth/login.html')
+ 
+def portal_login_trial(request):
+    # todo - better method is to incorporate 'next=?' operations and logic
+    if request.method == 'POST':
+
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/portal/downloads_trial/')
+        else:
+            context = {'bad_login_is': True}
+            messages.info(request, 'invalid credentials')
+            # messages.info(request, 'invalid credentials')
+            return render(request, 'auth/login_trial.html', context)
+    else:    
+        return render(request, 'auth/login_trial.html')
     
+    return render(request, 'auth/login_trial.html')
+   
 
 def portal_logout(request):
     auth.logout(request)
@@ -418,19 +523,35 @@ def portal_signup(request):
 
         username = request.POST['username']
         password = request.POST['password']
-
         user = auth.authenticate(username=username, password=password)
+        #user = auth.authenticate(username="srossi455@gmail.com", password="default1234")
+    
+        emp = Employer.objects.get(company_name=request.POST['company'])
 
+        print(emp)
+        print(request.POST['isSuper'])
         if user is not None:
             auth.login(request, user)
-            return redirect('/portal/home/')
+            if request.POST['npassword1'] == request.POST['npassword2']:
+                user.set_password(npassword1)
+                user.save()
+                ply = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=emp.employer_id)
+                PlaySession.objects.create(employer=emp.employer_id, player=ply, module_id=0, score=0, success=False, time_taken=0)
+                return redirect('/portal/home/')
+            else:
+                context = {'bad_login_is' : True}
         else:
             context = {'bad_login_is': True}
             messages.info(request, 'invalid credentials')
             # messages.info(request, 'invalid credentials')
             return render(request, 'auth/register.html', context)
-    else:    
-        return render(request, 'auth/register.html')
+    else:
+        training = request.GET['type']
+        company = request.GET['cmp']
+        usr = request.GET['user']
+        isSuper = request.GET['is']
+        context = {'training': training, 'company': company, 'usr': usr, 'is': isSuper}    
+        return render(request, 'auth/register.html', context)
     
     return render(request, 'auth/register.html')
 
@@ -458,52 +579,154 @@ def portal_home(request):
         return render(request, 'auth/login.html')
 
 
+def split_emails(email_string):
+    emails = re.split('; |;, |,| |  |\*|$|$ |\n', email_string)
+    emails = list(filter(None, emails))
+    return emails
+
 def portal_register(request):
-
-    def split_emails(email_string):
-        emails = re.split('; |;|, |,| |  |\*|$|$ |\n', email_string)
-        emails = list(filter(None, emails))
-        return emails
-
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
+
         context = {'player': player}
+        emp = Employer.objects.get(employer_id=player.employer)
+        employer = emp.company_name
         
-        # if request.method == 'POST':
-        #     emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
-        #     emails_vr_supervisor = request.POST['vr-supervisor']       
-        #     emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
-        #     emails_desktop_supervisor = request.POST['desktop-supervisor']
-
-        #     # split lists
-        #     emails_vr_nonsupervisor = split_emails(emails_vr_nonsupervisor)
-        #     emails_vr_supervisor = split_emails(emails_vr_supervisor)
-        #     emails_desktop_nonsupervisor = split_emails(emails_desktop_nonsupervisor)
-        #     emails_desktop_supervisor = split_emails(emails_desktop_supervisor)
-        #     print(emails_vr_nonsupervisor)
-
-        if request.is_ajax():
-            print('<AJAX REQUEST>')
-            emails_vr_nonsupervisor = request.GET.get('vr_nonsupervisor')
-            emails_vr_supervisor = request.GET.get('vr_supervisor')
-            emails_desktop_nonsupervisor = request.GET.get('desktop_nonsupervisor')
-            emails_desktop_supervisor = request.GET.get('desktop_supervisor')
-
-            # split lists
+        if request.method == 'POST':
+            print('---- PORTAL_REGISTER - POST.REQUEST ----') 
+            # vr | non-supervisor and supervisor
+            emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
             emails_vr_nonsupervisor = split_emails(emails_vr_nonsupervisor)
+            print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
+            print(len(emails_vr_nonsupervisor))
+            emails_vr_supervisor = request.POST['vr-supervisor']
             emails_vr_supervisor = split_emails(emails_vr_supervisor)
+            # desktop | non-supervisor and supervisor            
+            emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
             emails_desktop_nonsupervisor = split_emails(emails_desktop_nonsupervisor)
+            emails_desktop_supervisor = request.POST['desktop-supervisor']
             emails_desktop_supervisor = split_emails(emails_desktop_supervisor)
 
-            return JsonResponse({'submitted': True}, status=200)
+            if len(emails_vr_nonsupervisor) > 0:
+                for i in emails_vr_nonsupervisor:
+                    if i == '':
+                        break
+                    if not get_user_model().objects.filter(email = i).exists():
+                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
+                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
+                    print (os.environ.get('SENDGRID_API_KEY'))  
+                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    print("Set sendgrid instance")
+                    from_email = Email("Hello@sisuvr.com")
+                    print("Set from email")
+                    to_email = Email(i)
+                    print("Set to email")
+                    subject = "Register for the Empower Now Program from Sisu VR"
+                    #subject = sender + form.cleaned_data['subject']
+                    print("Set subject")
+                    html = render_to_string('email-templates/email-training-signup.html', context)
+                    content = Content("text/html", html)
+                    print("Creating mail structure")
+                    mail = Mail(from_email, subject, to_email, content)
+                    print("Attempting to send mail")
+                    response = sg.client.mail.send.post(request_body=mail.get())
+                
+            if len(emails_vr_supervisor) > 0:
+                for i in emails_vr_supervisor:
+                    if i == '':
+                        break;
+                    if not get_user_model().objects.filter(email = i).exists():
+                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
+                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
+                    print (os.environ.get('SENDGRID_API_KEY'))  
+                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    print("Set sendgrid instance")
+                    from_email = Email("Hello@sisuvr.com")
+                    print("Set from email")
+                    to_email = Email(i)
+                    print("Set to email")
+                    subject = "Register for the Empower Now Program from Sisu VR"
+                    #subject = sender + form.cleaned_data['subject']
+                    print("Set subject")
+                    html = render_to_string('email-templates/email-training-signup.html', context)
+                    content = Content("text/html", html)
+                    print("Creating mail structure")
+                    mail = Mail(from_email, subject, to_email, content)
+                    print("Attempting to send mail")
+                    response = sg.client.mail.send.post(request_body=mail.get())
 
+            if len(emails_desktop_nonsupervisor) > 0:
+                for i in emails_desktop_nonsupervisor:
+                    if i == '':
+                        break;
+                    if not get_user_model().objects.filter(email = i).exists():
+                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
+                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
+                    print (os.environ.get('SENDGRID_API_KEY'))  
+                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    print("Set sendgrid instance")
+                    from_email = Email("Hello@sisuvr.com")
+                    print("Set from email")
+                    to_email = Email(i)
+                    print("Set to email")
+                    subject = "Register for the Empower Now Program from Sisu VR"
+                    #subject = sender + form.cleaned_data['subject']
+                    print("Set subject")
+                    html = render_to_string('email-templates/email-training-signup.html', context)
+                    content = Content("text/html", html)
+                    print("Creating mail structure")
+                    mail = Mail(from_email, subject, to_email, content)
+                    print("Attempting to send mail")
+                    response = sg.client.mail.send.post(request_body=mail.get())
 
+            if len(emails_desktop_supervisor) > 0:
+                for i in emails_desktop_supervisor:
+                    if i == '':
+                        break;
+                    if not get_user_model().objects.filter(email = i).exists():
+                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
+                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
+                    print (os.environ.get('SENDGRID_API_KEY'))  
+                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    print("Set sendgrid instance")
+                    from_email = Email("Hello@sisuvr.com")
+                    print("Set from email")
+                    to_email = Email(i)
+                    print("Set to email")
+                    subject = "Register for the Empower Now Program from Sisu VR"
+                    #subject = sender + form.cleaned_data['subject']
+                    print("Set subject")
+                    html = render_to_string('email-templates/email-training-signup.html', context)
+                    content = Content("text/html", html)
+                    print("Creating mail structure")
+                    mail = Mail(from_email, subject, to_email, content)
+                    print("Attempting to send mail")
+                    response = sg.client.mail.send.post(request_body=mail.get())
 
+            # print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
+            # print('emails_vr_supervisor = {}'.format(emails_vr_supervisor))
+            # print('emails_desktop_nonsupervisor = {}'.format(emails_desktop_nonsupervisor))
+            # print('emails_desktop_supervisor = {}'.format(emails_desktop_supervisor))
 
         return render(request, 'portal/register.html', context)
     else:
         return render(request, 'auth/login.html')
 
+
+def portal_change_password(request):
+    if request.user.is_authenticated:
+        #if request.user.check_pasword(request.POST['old-password']):
+            if request.POST['new-password-1'] == request.POST['new-password-2']:
+                u = request.user
+                u.set_password(request.POST['new-password-2'])
+                u.save()
+                return redirect('/portal/home/')
+            else:
+                return redirect('/portal/settings/')
+        #else:
+            #return redirect('/portal/settings')
+    else:
+        return render(request, 'auth/login.html')
 
 def portal_edit_registration(request):
     if request.user.is_authenticated:
@@ -516,32 +739,76 @@ def portal_edit_registration(request):
     else:
         return render(request, 'auth/login.html')
         
-
-def portal_training_dl(request):
+def portal_edit(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
-        if player.admin == True:
-            module_download_links = ModuleDownloadLink.objects.all()
-            # module_download_links = module_download_links.order_by('is_supervisor')
-        else:
-            # non-supervisor
-            if player.supervisor == False and player.registration_type == 'Desktop':
-                module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
-            elif player.supervisor == False and player.registration_type == 'VR':
-                module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
-            elif player.supervisor == True and player.registration_type == 'Desktop':
-                module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
-            elif player.supervisor == True and player.registration_type == 'VR':
-                module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
-            else:
-                module_download_links = ''
+        players = Player.objects.filter(employer=player.employer)
 
-        print(module_download_links)
-        context = {'player': player, 'module_download_links': module_download_links}
-        return render(request, 'portal/downloads.html', context)
+        context = {'player': player, 'players': players}
+        
+        print(request.POST['usr-email'])
+        print(request.POST['usr-reg'])
+        print(request.POST['isRem'])
+
+        if request.POST['isRem'] == 'true':
+            ply = request.POST['usr-email']
+            Player.objects.filter(email=ply).delete()
+            CustomUser.objects.filter(email=ply).delete()
+        else:
+            if request.POST['usr-reg'] == 'supervisor':
+                ply = Player.objects.filter(email=request.POST['usr-email'])
+                ply.supervisor = True
+                ply.save()
+        return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
 
+def portal_remove(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        players = Player.objects.filter(employer=player.employer)
+
+        ply = request.POST['usrRem']
+        Player.objects.filter(email=ply).delete()
+        CustomUser.objects.filter(email=ply).delete()
+        context = {'player': player, 'players': players}
+        
+        return render(request, 'portal/edit-registration.html', context)
+    else:
+        return render(request, 'auth/login.html')
+
+def portal_training_dl(request):
+    if request.user.is_authenticated:
+      player = Player.objects.get(user=request.user)
+      if player.admin == True:
+        module_download_links = ModuleDownloadLink.objects.all()
+            # module_download_links = module_download_links.order_by('is_supervisor')
+      else:
+            # non-supervisor
+        if player.supervisor == False and player.registration_type == 'Desktop':
+          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
+        elif player.supervisor == False and player.registration_type == 'VR':
+          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
+        elif player.supervisor == True and player.registration_type == 'Desktop':
+          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
+        elif player.supervisor == True and player.registration_type == 'VR':
+          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
+        else:
+          module_download_links = ''
+
+      print(module_download_links)
+      context = {'player': player, 'module_download_links': module_download_links}
+      return render(request, 'portal/downloads.html', context)
+    else:
+      return render(request, 'auth/login.html')
+
+def portal_training_dl_trial(request):
+    if request.user.is_authenticated:
+        player = Player.objects.get(user=request.user)
+        context = {'player': player}
+        return render(request, 'portal/downloads_trial.html', context)
+    else:
+        return render(request, 'auth/login.html')
 
 def portal_employee_progress(request):
     if request.user.is_authenticated:

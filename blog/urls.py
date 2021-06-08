@@ -6,7 +6,9 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index' ),
     # url(r'^$', views.about_sisu, name='about'),
-    path('about_us', views.about_us, name='about_us'),
+    
+    path('about-us/', views.about_us, name='about-us'),
+
     path('about_us/team', views.about_team, name='about_team'),
     path('about_us/empower_now', views.about_program, name='about_program'),
     path('post/', views.post_list, name='post_list'),
@@ -55,6 +57,7 @@ urlpatterns = [
     
     # Training Portal Authentication / Login / Logout - START
     path('auth-login/', views.portal_login, name='portal_login'),
+    path('auth-login-trial/', views.portal_login_trial, name='portal_login_trial'),
     path('auth-logout/', views.portal_logout, name='portal_logout'),
     path('auth-register/', views.portal_signup, name='portal_signup'),
     path('redeem/', views.key_redeem, name='key_redeem'),
@@ -67,9 +70,13 @@ urlpatterns = [
     path('portal/register/', views.portal_register, name='register'),
     path('portal/edit-registration/', views.portal_edit_registration, name='edit-registration'),
     path('portal/downloads/', views.portal_training_dl, name='downloads'),
+    path('portal/downloads_trial/', views.portal_training_dl_trial, name='downloads_trial'),
     path('portal/progress/', views.portal_employee_progress, name='progress'),
     path('portal/settings/', views.portal_settings, name='settings'),
     path('portal/certificate/', views.portal_certificate, name='certificate'),
+    path('portal/edit/', views.portal_edit, name='portal_edit'),
+    path('portal/remove/', views.portal_remove, name='portal_remove'),
+    path('portal/change_pwd/', views.portal_change_password, name='portal_pwd'),
     # Training Portal - END
     
 ]

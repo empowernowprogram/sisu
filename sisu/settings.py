@@ -25,7 +25,7 @@ SECRET_KEY = 's0v=!e!258^h550c4k-0aq86xuv=fykg$imoqivbajg71n^a4q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sisu-dev.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -77,23 +77,11 @@ WSGI_APPLICATION = 'sisu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-# database for local
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-# database for heroku-dev
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_sisuvr_dev',
-        'USER': 'sisuvr',
-        'PASSWORD': 'c8E&geDFJvi3y7Cz',
-        'HOST': 'satcat-database-dev.cpri5k6lorj7.us-west-2.rds.amazonaws.com',
-        'PORT': '5432',
     }
 }
 
@@ -135,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/blog/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # demo_project/settings.py
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'

@@ -72,22 +72,26 @@
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor"> -->
                                     <textarea id="vr-nonsupervisor" class="form-control" name="vr-nonsupervisor"></textarea>
                                     <!-- hello@email.com, robert@sisuvr.com, test@sisurvr.com -->
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor"> -->
                                     <textarea id="vr-supervisor" class="form-control" name="vr-supervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor"> -->
                                     <textarea id="desktop-nonsupervisor" class="form-control" name="desktop-nonsupervisor"></textarea>
                                 </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
+                                    <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor"> -->
                                     <textarea id="desktop-supervisor" class="form-control" name="desktop-supervisor"></textarea>
                                 </div>
                                 <div style="padding-bottom: 120px" class="">
@@ -138,10 +142,10 @@
                 let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
                 let desktop_supervisor = $('#desktop-supervisor').val();
 
-                {% comment %} $('#vr-nonsupervisor').val("vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com");
+                $('#vr-nonsupervisor').val("vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com, vr-nonsupervisor@gmail.com");
                 $('#vr-supervisor').val("vr-supervisor@gmail.com");
                 $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com");
-                $('#desktop-supervisor').val("desktop-supervisor@gmail.com"); {% endcomment %}
+                $('#desktop-supervisor').val("desktop-supervisor@gmail.com");
         
 
             $(".bnt-submit").click(function() {

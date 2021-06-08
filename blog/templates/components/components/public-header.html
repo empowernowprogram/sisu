@@ -1,0 +1,41 @@
+<!-- Header -->
+{% load staticfiles %}
+{% load static %}
+
+<header id="header" data-transparent="true" data-fullwidth="true"
+class="dark submenu-light header-disable-fixed">
+<div class="header-inner">
+    <div class="container">
+        <!--Logo-->
+        <div id="logo">
+            <link rel="stylesheet" href="{% static 'public/svg/logo-text.svg' %}" />
+            <a href="index.html">
+                <!-- <span class="logo-default">Sisu VR</span> -->
+                <!-- <span class="logo-dark">Sisu VR</span> -->
+            </a>
+        </div>
+        <!--End: Logo-->
+
+        <!--Navigation Resposnive Trigger-->
+        <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines"></span></a> </div>
+        <!--end: Navigation Resposnive Trigger-->
+        <!--Navigation-->
+        <div id="mainMenu">
+            <div class="container">
+                <nav>
+                    <ul class="sisu-header-link">
+                        <li><a class="sisu-menu-link" href="{% url 'home' %}">Home</a></li>
+                        <li><a class="sisu-menu-link" href="{% url 'faq' %}">FAQ</a></li>
+                        <li><a class="sisu-menu-link" href="{% url 'home' %}#testimonials">Testimonials</a></li>
+                        <li><a class="sisu-menu-link" href="#sisu-blog">News</a></li>
+                        <li><a class="sisu-menu-link" href="{% url 'home_portal' %}">Customer Portal</a></li>
+                        <li><a class="sisu-menu-link" href="contact.html">Contact Sales</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!--end: Navigation-->
+    </div>
+</div>
+</header>
+<!-- end: Header -->

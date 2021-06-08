@@ -19,8 +19,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
-DEBUG = True
-ALLOWED_HOSTS = ["10.0.0.6"]
+#DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1', 'sisu-test-release.herokuapp', 'sisuvr']
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +31,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
+    # core apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     'blog',
     'users',
     'pages',
@@ -46,11 +48,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_api_key',
 
-    'allauth', # new
-    'allauth.account', # new
-    'allauth.socialaccount', # new
-    'allauth.socialaccount.providers.google', # new
-    'allauth.socialaccount.providers.linkedin_oauth2', # new
+    'allauth',                                          # new
+    'allauth.account',                                  # new
+    'allauth.socialaccount',                            # new
+    'allauth.socialaccount.providers.google',           # new
+    'allauth.socialaccount.providers.linkedin_oauth2',  # new
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -171,5 +173,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 # hitcount setting
 HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 120 }
-
 django_heroku.settings(locals())
+
+

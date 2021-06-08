@@ -161,8 +161,6 @@
     }
 }
 
-/* 1200 */
-
 
 .center-block {
     width: 100vw;
@@ -343,13 +341,6 @@
 @media (min-width: 640px) {
     .sisu-header-title{
         padding-right:36% !important;
-    }
-}
-
-@media (max-width: 1199px) {
-    .inspiro-slider .slide .slide-captions h2{
-        font-size: 36px !important;
-        line-height: 38px !important;
     }
 }
 
