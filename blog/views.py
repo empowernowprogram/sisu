@@ -44,10 +44,8 @@ from django.contrib.auth.models import User, auth
 
 
 def index(request):
-    print("<index>")
     context = {}
     if request.method == 'POST':
-        print(request.POST['email_signup'])
         url = "https://api.mailerlite.com/api/v2/groups/104430287/subscribers"
         
         data = {
@@ -63,7 +61,6 @@ def index(request):
 
         response = requests.request("POST", url, data=payload, headers=headers)
 
-        print(response.text)
     #    email_signup = request.GET.get('email_signup')
     #    EmailList.objects.create(email = email_signup)
     #    print (os.environ.get('SENDGRID_API_KEY'))  
