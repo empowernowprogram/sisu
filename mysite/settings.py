@@ -162,7 +162,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
 SERVER_EMAIL = 'sisu.contact.us@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -175,4 +174,6 @@ LOGOUT_REDIRECT_URL = '/'
 HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 120 }
 django_heroku.settings(locals())
 
-
+# Google reCAPTCHA #
+# TODO - move to .env key instead of storing in settings.py file.
+RECAPTCHA_SECRET_KEY = '6Lf4EywbAAAAAOvh_pR5uG_Ds3-iwRLng3xJJ4ln'
