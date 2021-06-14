@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 import sendgrid
-import os
+import os, urllib
 import requests, json
 from sendgrid.helpers.mail import *
-
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Post, Comment, Category, PostPreferrence, ReplyToComment,Cluster, Resource
@@ -459,6 +459,47 @@ def faq(request):
     return render(request, 'blog/faq.html')
 
 def contact(request):
+    if request.method == 'POST':
+        # validate captcha
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+            }
+        data        = urllib.parse.urlencode(values).encode()
+        req         = urllib.request.Request(url, data=data)
+        response    = urllib.request.urlopen(req)
+        result      = json.loads(response.read().decode()) # if pass result["success"] will == True        
+
+        if result['success'] == True:
+            input_first_name    = request.POST.get('input-first-name')
+            input_last_name     = request.POST.get('input-last-name')
+            input_email         = request.POST.get('input-email')
+            input_company_name  = request.POST.get('input-company-name')
+            input_message       = request.POST.get('input-message')
+
+            # this is a quick fix, because for whatever reason, the "required" tag on the html page is not working.
+            if len(input_first_name) != 0 and len(input_last_name) != 0 and "@" in input_email and len(input_message) != 0:
+                email_meta = f'-- META --\nRecipient name: {str(input_first_name)} {str(input_last_name)}\nCompany name: {str(input_company_name)}\nRecipient email: {str(input_email)}'
+                email_message = f'{input_message}\n\n{email_meta}'
+
+                # send mail
+                try:
+                    send_mail(
+                        f'Contact - {str(input_first_name)} {str(input_last_name)}',    # subject
+                        email_message,                                                  # message
+                        'sisu.contact.us@gmail.com',                                    # from email
+                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],                # to email
+                    )
+                    context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
+                    return render(request, 'blog/contact.html', context)
+                except:
+                    context = {'message_submit': {'type': "failed", "message": f'Message could not be sent due to an error. If this error persists please email hello@sisuvr.com'}}
+                    return render(request, 'blog/contact.html', context)
+
+                
+
     return render(request, 'blog/contact.html')
 
 
@@ -1108,6 +1149,7 @@ def contact_us(request):
             mail = Mail(from_email, subject, to_email, content)
             print("Attempting to send mail")
             response = sg.client.mail.send.post(request_body=mail.get())
+
             '''print(response.status_code)
             print(response.body)
             print(response.headers) 
