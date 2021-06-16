@@ -898,6 +898,15 @@ def portal_certificate(request):
     else:
         return render(request, 'auth/login.html')
 
+def post_program_survey(request):
+    starRange = range(1, 6)
+    experienceFeatures = ['Realistic', 'Engaging', 'Fun', 'Interactive', 'Educational', 'Confusing', 'Boring', 'Slow', 'Awkward', 'Uncomfortable']
+    preference = ['I prefer this training', 'I somewhat prefer this training', 'I liked both equally', 'I somewhat prefer previous training', 'I prefer previous training']
+    
+    context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+
+    return render(request, 'portal/post-program-survey.html', context)
+
 # Training Portal - END
 
 

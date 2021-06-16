@@ -75,4 +75,20 @@ $(document).ready(function() {
     });
 
 
+    //// post-program-survey ////
+
+    // when click on continue button
+    $('.continueBtn').click(function(event) {
+        // hide current question and show the next question
+        if (event.target.id == "continue1") {
+            $('#continue1').remove();
+            $('#question2').show();
+        } else if (event.target.id == "continue2") {
+            $('#question1').hide();
+            $('#question2').hide();
+            $('#question3').show();
+        }
+    });
+
+
 })
