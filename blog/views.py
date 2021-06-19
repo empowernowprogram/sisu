@@ -25,7 +25,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
-from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink
+from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -900,8 +900,8 @@ def portal_certificate(request):
 
 def post_program_survey(request):
     starRange = range(1, 6)
-    experienceFeatures = ['Realistic', 'Engaging', 'Fun', 'Interactive', 'Educational', 'Confusing', 'Boring', 'Slow', 'Awkward', 'Uncomfortable']
-    preference = ['I prefer this training', 'I somewhat prefer this training', 'I liked both equally', 'I somewhat prefer previous training', 'I prefer previous training']
+    experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+    preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
     
     context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
 

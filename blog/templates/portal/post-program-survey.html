@@ -92,7 +92,7 @@
                                 <h4>Please select the features that are applicable to your overall experience with the program.</span></h4>
                                     {% for feature in experienceFeatures %}
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="checkbox_feature_{{feature}}" value="{{forloop.counter}}">{{feature}}
+                                        <input type="checkbox" id="checkbox_feature_{{feature}}" value="{{forloop.counter}}">{{feature.description}}
                                     </label>
                                     {% endfor %}
                                 <br><br><br>
@@ -100,7 +100,7 @@
                                 <h4>Compared with previous forms of training, do you prefer the Empower Now Program?</span></h4>
                                 <div class="btn-group" data-toggle="buttons">
                                     {% for prefer in preference %}
-                                    <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter}}">{{prefer}}</label><br>
+                                    <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter}}">{{prefer.description}}</label><br>
                                     {% endfor %}
                                 </div>
                                 <br><br><br>
