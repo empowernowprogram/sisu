@@ -21,7 +21,11 @@ var INSPIRO = {},
     //Header
     $topbar = $("#topbar"),
     $header = $("#header"),
+    $headerInner = $("#header-inner"),
+    $headerLink = $('#header-link'),
+    $menuTrigger = $('#menu-trigger-lines'),
     $headerCurrentClasses = $header.attr("class"),
+    $headerChildCurrentClasses = $headerInner.attr("class"),
     //Logo
     headerLogo = $("#logo"),
     //Menu
@@ -327,11 +331,20 @@ var INSPIRO = {},
             $header.addClass("header-sticky");
             if (scrollOnTop > $headerOffsetTop + shrinkHeaderActive) {
               $header.addClass("sticky-active");
+              if ($header.hasClass("home")) {
+                $headerInner.removeClass("sisu-header-transparent-bkg");
+                $headerInner.addClass("sisu-header-bkg");
+              }
               if (Settings.submenuLight && Settings.headerHasDarkClass) {
                 $header.removeClass("dark");
                 Settings.headerDarkClassRemoved = true;
               }
               INSPIRO.header.logoStatus();
+            } else {
+              if ($header.hasClass("home")) {
+                $header.removeClass("sticky-active");
+                $headerInner.removeClass().addClass($headerChildCurrentClasses);
+              }
             }
           } else {
             $header.removeClass().addClass($headerCurrentClasses);
@@ -349,11 +362,24 @@ var INSPIRO = {},
             $header.addClass("header-sticky");
             if (scrollOnTop > $headerOffsetTop + shrinkHeaderActive) {
               $header.addClass("sticky-active");
+              if ($header.hasClass("home")) {
+                $headerInner.removeClass("sisu-header-transparent-bkg");
+                $headerInner.addClass("sisu-header-bkg");
+                $headerLink.addClass("sisu-header-link");
+                $menuTrigger.removeClass("lines-dark");
+              }
               if (Settings.submenuLight) {
                 $header.removeClass("dark");
                 Settings.headerDarkClassRemoved = true;
               }
               INSPIRO.header.logoStatus();
+            } else {
+              if ($header.hasClass("home")) {
+                $header.removeClass("sticky-active");
+                $headerLink.removeClass("sisu-header-link");
+                $menuTrigger.addClass("lines-dark");
+                $headerInner.removeClass().addClass($headerChildCurrentClasses);
+              }
             }
           } else {
             $header.removeClass().addClass($headerCurrentClasses);
