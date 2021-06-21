@@ -622,6 +622,7 @@ def split_emails(email_string):
     emails = list(filter(None, emails))
     return emails
 
+
 def portal_register(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -750,7 +751,6 @@ def portal_register(request):
     else:
         return render(request, 'auth/login.html')
 
-
 def portal_change_password(request):
     if request.user.is_authenticated:
         #if request.user.check_pasword(request.POST['old-password']):
@@ -766,6 +766,7 @@ def portal_change_password(request):
     else:
         return render(request, 'auth/login.html')
 
+
 def portal_edit_registration(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -776,7 +777,8 @@ def portal_edit_registration(request):
         return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
-        
+
+
 def portal_edit(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -801,6 +803,7 @@ def portal_edit(request):
     else:
         return render(request, 'auth/login.html')
 
+
 def portal_remove(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -814,6 +817,7 @@ def portal_remove(request):
         return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
+
 
 def portal_training_dl(request):
     if request.user.is_authenticated:
@@ -840,6 +844,7 @@ def portal_training_dl(request):
     else:
       return render(request, 'auth/login.html')
 
+
 def portal_training_dl_trial(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -847,6 +852,7 @@ def portal_training_dl_trial(request):
         return render(request, 'portal/downloads_trial.html', context)
     else:
         return render(request, 'auth/login.html')
+
 
 def portal_employee_progress(request):
     if request.user.is_authenticated:

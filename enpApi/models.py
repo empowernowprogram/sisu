@@ -83,3 +83,17 @@ class ModuleDownloadLink(models.Model):
 
     class Meta:
         ordering = ['training_type', 'platform_category']
+
+
+class TrainingSurvey(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
+
+    overall_experience = models.IntegerField()
+    overall_experience_feedback = models.TextField(max_length=3000, null=True, blank=True)
+
+    selected_features = models.CharField(max_length=255, null=False, blank=False)
+    comparison_rating = models.CharField(max_length=255, null=False, blank=False)
+
+    general_feedback = models.TextField(max_length=3000, null=True, blank=True)
+    email = models.CharField(max_length=255, null=False, blank=False)           # likely redundant since we already have their email
+    has_completed = models.BooleanField(default=False)
