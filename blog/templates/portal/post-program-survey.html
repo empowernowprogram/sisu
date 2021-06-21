@@ -62,13 +62,14 @@
                     
                     <!-- Main Content Start -->
                     <div id="survey">
-                        <form>
+                        <form action="{% url 'save_survey' %}" method="post">
+                            {% csrf_token %}
                             <div id="question1" class="row">
                                 <h4>Please rate your overall experience with the Empower Now Program.</h4>
                                 <br>
                                 {% for star in starRange %}
                                 <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox_star_{{star}}" value="{{star}}">
+                                <input type="checkbox" id="inlineCheckbox_star_{{star}}" name="overallStars" value="{{star}}">
                                 </label>
                                 {% endfor %}
                                 <br><br><br>
@@ -79,20 +80,18 @@
                             <div id="question2" class="row" hidden>
                                 <div class="form-group">
                                     <label for="textarea1"><h4>Please tell us why you gave a rating.</h4></label>
-                                    <textarea class="form-control" id="textarea1" rows="3"></textarea>
+                                    <textarea class="form-control" id="textarea1" name="overallFeedback" rows="3"></textarea>
                                 </div>
                                 <br><br>
                                 
                                 <a id="continue2" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn">Continue</a>
                             </div>
-                        </form>
 
-                        <div id="question3" class="row" hidden>
-                            <form>
+                            <div id="question3" class="row" hidden>
                                 <h4>Please select the features that are applicable to your overall experience with the program.</span></h4>
                                     {% for feature in experienceFeatures %}
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="checkbox_feature_{{feature}}" value="{{forloop.counter}}">{{feature.description}}
+                                        <input type="checkbox" id="checkbox_feature_{{feature}}" name="features" value="{{forloop.counter0}}">{{feature.description}}
                                     </label>
                                     {% endfor %}
                                 <br><br><br>
@@ -100,32 +99,25 @@
                                 <h4>Compared with previous forms of training, do you prefer the Empower Now Program?</span></h4>
                                 <div class="btn-group" data-toggle="buttons">
                                     {% for prefer in preference %}
-                                    <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter}}">{{prefer.description}}</label><br>
+                                    <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter0}}">{{prefer.description}}</label><br>
                                     {% endfor %}
                                 </div>
                                 <br><br><br>
 
                                 <div class="form-group">
                                     <label for="textarea2"><h4>Do you have any questions, comments, or suggestions?</h4></label>
-                                    <textarea class="form-control" id="textarea2" rows="3"></textarea>
+                                    <textarea class="form-control" id="textarea2" name="comments" rows="3"></textarea>
                                 </div>
                                 <br><br>
 
                                 <div class="form-group">
                                     <label for="textarea3"><h4>Would you be willing to provide a testimonial? If so, what is the best way to reach you?</h4></label>
-                                    <textarea class="form-control" id="textarea3" rows="3"></textarea>
+                                    <textarea class="form-control" id="textarea3" name="contact" rows="3"></textarea>
                                 </div>
                                 <br><br>
-                                <a id="continue3" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn">Continue</a>
-                            </form>
-                        </div>
-
-                        <div id="ending" class="row" hidden>
-                            <h4>Thank you for your feedback!</span></h4>
-                            <br><br>
-                            <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">Download</a>
-                        </div>
-
+                                <input id="continue3" style="margin-bottom:15px;" type="submit" class="btn btn-sisu-primary continueBtn" value="Continue">
+                            </div>
+                        </form>
                     </div>
                     <!-- Main Content End -->
 

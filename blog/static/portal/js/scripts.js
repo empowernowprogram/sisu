@@ -87,12 +87,6 @@ $(document).ready(function() {
             $('#question1').hide();
             $('#question2').hide();
             $('#question3').show();
-        } else {
-            // udate survey page title
-            $('#survey-title').text('Download Certificate');
-            $('#question3').hide();
-            $('#ending').show();
-            
         }
     });
 

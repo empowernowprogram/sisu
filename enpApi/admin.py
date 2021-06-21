@@ -30,7 +30,7 @@ class ComparisonRatingAdmin(admin.ModelAdmin):
     list_display = ('comparison_rating_id', 'description')
 
 class SelectedAdjectiveAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'adj_id')
+    list_display = ('id', 'user')
 
 
 admin.site.register(Player, PlayerAdmin)

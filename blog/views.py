@@ -907,6 +907,32 @@ def post_program_survey(request):
 
     return render(request, 'portal/post-program-survey.html', context)
 
+def save_survey(request):
+    if request.method == 'POST':
+        postProgramSurvey = PostProgramSurvey()
+
+        postProgramSurvey.user = request.user
+        postProgramSurvey.overall_rating = max(request.POST.getlist('overallStars')) # get the total number of stars
+        postProgramSurvey.overall_feedback = request.POST.get('overallFeedback')
+        postProgramSurvey.comments = request.POST.get('comments')
+        postProgramSurvey.contact = request.POST.get('contact')
+        postProgramSurvey.has_completed = True
+
+        if request.POST.get('preference'):
+            postProgramSurvey.comparison_rating_id = ComparisonRating.objects.get(comparison_rating_id=request.POST.get('preference'))
+        
+        postProgramSurvey.save()
+
+        selectedAdj = SelectedAdjective(user=request.user)
+        selectedAdj.save()
+        
+        for adjId in request.POST.getlist('features'):
+            selectedAdj.adj_id.add(Adjective.objects.get(adj_id=adjId))
+
+        return render(request, 'portal/save-survey.html')
+    else:
+        return redirect('/portal/post-program-survey')
+
 # Training Portal - END
 
 

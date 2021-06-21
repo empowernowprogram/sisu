@@ -73,6 +73,7 @@ urlpatterns = [
     path('portal/progress/', views.portal_employee_progress, name='progress'),
     path('portal/settings/', views.portal_settings, name='settings'),
     path('portal/post-program-survey/', views.post_program_survey, name='post_program_survey'),
+    path('portal/save-survey/', views.save_survey, name='save_survey'),
     path('portal/certificate/', views.portal_certificate, name='certificate'),
     path('portal/edit/', views.portal_edit, name='portal_edit'),
     path('portal/remove/', views.portal_remove, name='portal_remove'),

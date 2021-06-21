@@ -91,16 +91,22 @@ class ComparisonRating(models.Model):
     description = models.CharField(max_length=255, null=False, blank=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
+    def __str__(self):
+        return self.description
+
 # Adjectives holds currently available adjectives user can choose in the survey
 class Adjective(models.Model):
     adj_id = models.IntegerField(blank=False)
     description = models.CharField(max_length=255, null=False, blank=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
+    def __str__(self):
+        return self.description
+
 # AdjectivesSelected holds every adjective user chose in the survey
 class SelectedAdjective(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
-    adj_id = models.ForeignKey(Adjective, on_delete=models.DO_NOTHING, blank=False)
+    adj_id = models.ManyToManyField(Adjective, blank=False, null=True)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
 # PostProgramSurvey holds user feedbacks in the post program survey
