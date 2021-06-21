@@ -106,8 +106,8 @@ class SelectedAdjective(models.Model):
 # PostProgramSurvey holds user feedbacks in the post program survey
 class PostProgramSurvey(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
-    overall_experience = models.IntegerField(blank=False)
-    overall_experience_feedback = models.TextField(max_length=3000, null=True, blank=True)
+    overall_rating = models.IntegerField(blank=False)
+    overall_feedback = models.TextField(max_length=3000, null=True, blank=True)
     comparison_rating_id = models.ForeignKey(ComparisonRating, on_delete=models.DO_NOTHING, null=True, blank=True)
     comments = models.TextField(max_length=3000, null=True, blank=True)
     contact = models.TextField(max_length=3000, null=True, blank=True)

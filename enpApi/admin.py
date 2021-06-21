@@ -21,7 +21,7 @@ class ModuleDownloadLinkAdmin(admin.ModelAdmin):
 
 
 class PostProgramSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'has_completed', 'overall_experience', 'creation_date')
+    list_display = ('id', 'user', 'has_completed', 'overall_rating', 'creation_date')
 
 class AdjectiveAdmin(admin.ModelAdmin):
     list_display = ('adj_id', 'description')
