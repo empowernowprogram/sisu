@@ -899,13 +899,19 @@ def portal_certificate(request):
         return render(request, 'auth/login.html')
 
 def post_program_survey(request):
-    starRange = range(1, 6)
-    experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
-    preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
-    
-    context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+    # show certificate if user already completed the survey
+    try:
+        PostProgramSurvey.objects.get(user=request.user)
+        return redirect('/portal/certificate/')
 
-    return render(request, 'portal/post-program-survey.html', context)
+    except PostProgramSurvey.DoesNotExist:
+        starRange = range(1, 6)
+        experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+        preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+        
+        context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+
+        return render(request, 'portal/post-program-survey.html', context)
 
 def save_survey(request):
     if request.method == 'POST':
@@ -925,7 +931,7 @@ def save_survey(request):
 
         selectedAdj = SelectedAdjective(user=request.user)
         selectedAdj.save()
-        
+
         for adjId in request.POST.getlist('features'):
             selectedAdj.adj_id.add(Adjective.objects.get(adj_id=adjId))
 
