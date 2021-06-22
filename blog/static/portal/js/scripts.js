@@ -90,5 +90,32 @@ $(document).ready(function() {
         }
     });
 
+    // when click on overall rating stars
+    $("[name='overallStars']").click(function(event) {
+        console.log(event.target.id);
+        if (event.target.id == "inlineCheckbox_star_2") {
+            console.log("star 2!");
+            $("#inlineCheckbox_star_1").prop('checked', true);
+            $("#inlineCheckbox_star_3").uncheck();
+            $("#inlineCheckbox_star_4").uncheck();
+            $("#inlineCheckbox_star_5").uncheck();
+        } else if (event.target.id == "inlineCheckbox_star_3") {
+            $("#inlineCheckbox_star_1").click();
+            $("#inlineCheckbox_star_2").click();
+            $("#inlineCheckbox_star_4").unclick();
+            $("#inlineCheckbox_star_5").unclick();
+        } else if (event.target.id == "inlineCheckbox_star_4") {
+            $("#inlineCheckbox_star_1").click();
+            $("#inlineCheckbox_star_2").click();
+            $("#inlineCheckbox_star_3").click();
+            $("#inlineCheckbox_star_5").unclick();
+        } else if (event.target.id == "inlineCheckbox_star_5") {
+            $("#inlineCheckbox_star_1").click();
+            $("#inlineCheckbox_star_2").click();
+            $("#inlineCheckbox_star_3").click();
+            $("#inlineCheckbox_star_4").click();
+        }
+    })
+
 
 })
