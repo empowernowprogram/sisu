@@ -344,3 +344,17 @@ tfoot {
     background-position: top left, top left, top right, bottom left, bottom right;
 }
 /* CERTIFICATE STYLING - END */
+
+
+/* POST PROGRAM SURVEY STYLING - START */
+.star-rating {
+    line-height:32px;
+    font-size:1.25em;
+    cursor: pointer;
+}
+
+.yellow-star {
+    color: #ffef00;
+}
+
+/* POST PROGRAM SURVEY STYLING - END */

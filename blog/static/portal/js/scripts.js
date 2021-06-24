@@ -75,7 +75,9 @@ $(document).ready(function() {
     });
 
 
-    //// post-program-survey ////
+    /**
+     * Post-program-survey
+     */
 
     // when click on continue button
     $('.continueBtn').click(function(event) {
@@ -89,33 +91,25 @@ $(document).ready(function() {
             $('#question3').show();
         }
     });
+    
+    // rating stars
+    var $star_rating = $('.star-rating .fa');
 
-    // when click on overall rating stars
-    $("[name='overallStars']").click(function(event) {
-        console.log(event.target.id);
-        if (event.target.id == "inlineCheckbox_star_2") {
-            console.log("star 2!");
-            $("#inlineCheckbox_star_1").prop('checked', true);
-            $("#inlineCheckbox_star_3").uncheck();
-            $("#inlineCheckbox_star_4").uncheck();
-            $("#inlineCheckbox_star_5").uncheck();
-        } else if (event.target.id == "inlineCheckbox_star_3") {
-            $("#inlineCheckbox_star_1").click();
-            $("#inlineCheckbox_star_2").click();
-            $("#inlineCheckbox_star_4").unclick();
-            $("#inlineCheckbox_star_5").unclick();
-        } else if (event.target.id == "inlineCheckbox_star_4") {
-            $("#inlineCheckbox_star_1").click();
-            $("#inlineCheckbox_star_2").click();
-            $("#inlineCheckbox_star_3").click();
-            $("#inlineCheckbox_star_5").unclick();
-        } else if (event.target.id == "inlineCheckbox_star_5") {
-            $("#inlineCheckbox_star_1").click();
-            $("#inlineCheckbox_star_2").click();
-            $("#inlineCheckbox_star_3").click();
-            $("#inlineCheckbox_star_4").click();
-        }
-    })
+    var SetRatingStar = function() {
+        return $star_rating.each(function() {
+            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('fa-star-o').addClass('fa-star');
+            } else {
+                return $(this).removeClass('fa-star').addClass('fa-star-o');
+            }
+        });
+    };
+
+    $star_rating.on('click', function() {
+        $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+        $('#continue1').prop('disabled', false);
+        return SetRatingStar();
+    });
 
 
 })
