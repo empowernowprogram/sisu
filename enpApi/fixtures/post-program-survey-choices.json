@@ -1,0 +1,137 @@
+[
+    {
+        "model": "enpApi.comparisonrating",
+        "pk": 1,
+        "fields": {
+            "comparison_rating_id": 0,
+            "description": "I prefer this training",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.comparisonrating",
+        "pk": 2,
+        "fields": {
+            "comparison_rating_id": 1,
+            "description": "I somewhat prefer this training",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.comparisonrating",
+        "pk": 3,
+        "fields": {
+            "comparison_rating_id": 2,
+            "description": "I liked both equally",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.comparisonrating",
+        "pk": 4,
+        "fields": {
+            "comparison_rating_id": 3,
+            "description": "I somewhat prefer previous training",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.comparisonrating",
+        "pk": 5,
+        "fields": {
+            "comparison_rating_id": 4,
+            "description": "I prefer previous training",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 1,
+        "fields": {
+            "adj_id": 0,
+            "description": "Realistic",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 2,
+        "fields": {
+            "adj_id": 1,
+            "description": "Engaging",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 4,
+        "fields": {
+            "adj_id": 2,
+            "description": "Fun",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 5,
+        "fields": {
+            "adj_id": 3,
+            "description": "Interactive",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 6,
+        "fields": {
+            "adj_id": 4,
+            "description": "Educational",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 7,
+        "fields": {
+            "adj_id": 5,
+            "description": "Confusing",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 8,
+        "fields": {
+            "adj_id": 6,
+            "description": "Boring",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 9,
+        "fields": {
+            "adj_id": 7,
+            "description": "Slow",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 10,
+        "fields": {
+            "adj_id": 8,
+            "description": "Awkward",
+            "creation_date": "2021-06-23"
+        }
+    },
+    {
+        "model": "enpApi.adjective",
+        "pk": 11,
+        "fields": {
+            "adj_id": 9,
+            "description": "Uncomfortable",
+            "creation_date": "2021-06-23"
+        }
+    }
+]
