@@ -107,8 +107,15 @@ $(document).ready(function() {
 
     $star_rating.on('click', function() {
         $star_rating.siblings('input.rating-value').val($(this).data('rating'));
-        $('#continue1').prop('disabled', false);
+        $('#continue1').removeClass('disabled');
         return SetRatingStar();
+    });
+
+    // disable button for required field
+    $("a").on("click", function(event){
+        if ($(this).hasClass("disabled")) {
+            event.preventDefault();
+        }
     });
 
 
