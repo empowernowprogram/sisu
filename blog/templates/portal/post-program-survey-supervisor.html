@@ -62,26 +62,27 @@
                     
                     <!-- Main Content Start -->
                     <div id="survey">
-                        <form action="{% url 'save_survey' pk='nonsupervisor' %}" method="post">
+                        <form action="{% url 'save_survey' pk='supervisor' %}" method="post">
                             {% csrf_token %}
                             <div id="question1" class="row">
-                                <h4>Please rate your overall experience with the Empower Now Program.</h4>
+                                <h4>1. On a scale from 1-10, how likely are you to recommend Sisu VR to a friend or colleague?</h4>
                                 <br>
-                                <div class="star-rating">
-                                    {% for star in starRange %}
-                                    <span class="fa fa-star-o fa-2x yellow-star" data-rating="{{star}}"></span>
+                                <div class="likert">
+                                    <li> Not at all likely </li>
+                                    {% for score in scale10 %}
+                                    <li><input type="radio" name="recommendScore" value="{{score}}" /></li>
                                     {% endfor %}
-                                    <input type="hidden" class="rating-value" name="overallStars" value="0">
+                                    <li> Extremely likely </li>
                                 </div>
                                 <br><br><br>
-                                <a id="continue1" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn disabled">Continue</a>
+                                <a id="continue1" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn">Continue</a>
 
                             </div>
 
                             <div id="question2" class="row" hidden>
                                 <div class="form-group">
-                                    <label for="textarea1"><h4>Please tell us why you gave a rating.</h4></label>
-                                    <textarea class="form-control" id="textarea1" name="overallFeedback" rows="3"></textarea>
+                                    <label for="textarea1"><h4>2. Please tell us why you gave this rating.</h4></label>
+                                    <textarea class="form-control" id="textarea1" name="recommendFriendReason" rows="3"></textarea>
                                 </div>
                                 <br><br>
                                 
@@ -89,15 +90,39 @@
                             </div>
 
                             <div id="question3" class="row" hidden>
-                                <h4>Please select the features that are applicable to your overall experience with the program.</span></h4>
-                                    {% for feature in experienceFeatures %}
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="checkbox_feature_{{feature}}" name="features" value="{{forloop.counter0}}">{{feature.description}}
-                                    </label>
-                                    {% endfor %}
+                                <h4>3. Please select the features that are applicable to your overall experience with the program.</span></h4>
+                                <br>
+                                {% for feature in experienceFeatures %}
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="checkbox_feature_{{feature}}" name="features" value="{{forloop.counter0}}">{{feature.description}}
+                                </label>
+                                {% endfor %}
                                 <br><br><br>
 
-                                <h4>Compared with previous forms of training, do you prefer the Empower Now Program?</span></h4>
+                                <h4>4. How well do you think employees will retain the information in our training? (Scale from 1-5)</h4>
+                                <br>
+                                <div class="likert">
+                                    <li> They will not retain it at all </li>
+                                    {% for score in scale5 %}
+                                    <li><input type="radio" name="retainScore" value="{{score}}" /></li>
+                                    {% endfor %}
+                                    <li> They will retain it completely </li>
+                                </div>
+                                <br><br><br>
+
+                                <h4>5. How confident are you that our training will help to prevent harassment in your workplace?</h4>
+                                <br>
+                                <div class="likert">
+                                    <li> Not confident at all </li>
+                                    {% for score in scale5 %}
+                                    <li><input type="radio" name="confidenceScore" value="{{score}}" /></li>
+                                    {% endfor %}
+                                    <li> Completely confident </li>
+                                </div>
+                                <br><br><br>
+
+                                <h4>6. Compared to previous forms of training, do you prefer the Empower Now Program?</h4>
+                                <br>
                                 <div class="btn-group" data-toggle="buttons">
                                     {% for prefer in preference %}
                                     <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter0}}">{{prefer.description}}</label><br>
@@ -106,16 +131,37 @@
                                 <br><br><br>
 
                                 <div class="form-group">
-                                    <label for="textarea2"><h4>Do you have any questions, comments, or suggestions?</h4></label>
-                                    <textarea class="form-control" id="textarea2" name="comments" rows="3"></textarea>
+                                    <h4>7. How likely are you to recommend this training to other employers/managers?</h4>
+                                    <br>
+                                    <div class="likert">
+                                        <li> Extremely unlikely </li>
+                                        {% for score in scale10 %}
+                                        <li><input type="radio" name="recommendManagerScore" value="{{score}}" /></li>
+                                        {% endfor %}
+                                        <li> Extremely likely </li>
+                                    </div>
                                 </div>
-                                <br><br>
+                                <br><br><br>
 
                                 <div class="form-group">
-                                    <label for="textarea3"><h4>Would you be willing to provide a testimonial? If so, what is the best way to reach you?</h4></label>
-                                    <textarea class="form-control" id="textarea3" name="contact" rows="3"></textarea>
+                                    <h4>8. How likely are you to recommend this training to your company’s employees?</h4>
+                                    <br>
+                                    <div class="likert">
+                                        <li> Extremely unlikely </li>
+                                        {% for score in scale10 %}
+                                        <li><input type="radio" name="recommendEmployeeScore" value="{{score}}" /></li>
+                                        {% endfor %}
+                                        <li> Extremely likely </li>
+                                    </div>
                                 </div>
-                                <br><br>
+                                <br><br><br>
+
+                                <div class="form-group">
+                                    <label for="textarea2"><h4>9. Do you have any questions, comments, or suggestions?</h4></label>
+                                    <textarea class="form-control" id="textarea2" name="comments" rows="3"></textarea>
+                                </div>
+                                <br><br><br>
+
                                 <input id="continue3" style="margin-bottom:15px;" type="submit" class="btn btn-sisu-primary continueBtn" value="Continue">
                             </div>
                         </form>

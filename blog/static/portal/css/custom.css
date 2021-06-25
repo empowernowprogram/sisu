@@ -357,4 +357,16 @@ tfoot {
     color: #ffef00;
 }
 
+.btn-group,
+.likert {
+    margin-left: 10px;
+}
+
+.likert li {
+    color: #606060;
+    float: left;
+    list-style-type: none;
+    padding-left: 10px;
+  }
+
 /* POST PROGRAM SURVEY STYLING - END */
