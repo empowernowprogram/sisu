@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Player(models.Model):
+    registration_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
+    
     email = models.CharField(max_length=50, primary_key=True)
     employer = models.IntegerField()
     full_name = models.CharField(max_length=60)
     supervisor = models.BooleanField()
     admin = models.BooleanField(default=False)
-    registration_type = models.CharField(default='', max_length=16)
+    registration_type = models.CharField(max_length=255, null=False, blank=False, choices=registration_type_choices)
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
 
@@ -19,24 +21,23 @@ class Player(models.Model):
 
 class Employer(models.Model):
     company_name = models.CharField(max_length=60)
-    employer_id = models.IntegerField()
 
 class Modules(models.Model):
     code = models.CharField(max_length=10)
     case = models.IntegerField()
     creation_date = models.DateField()
-    is_available = models.BooleanField(default=False)
-    is_mandatory = models.BooleanField(default=False)
 
 class PlaySession(models.Model):
     employer = models.IntegerField()
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING, null=True)
     module_id = models.IntegerField()
     date_taken = models.DateField(auto_now=True)
     score = models.IntegerField()
     success = models.BooleanField()
     time_taken = models.IntegerField()
     training_type = models.CharField(default='', max_length=16)
+    date_created = models.DateField(verbose_name="date created", auto_now_add=True)
+    date_modified = models.DateField(verbose_name="date modified", auto_now=True)
 
     
 class LoginSessions(models.Model):
@@ -52,27 +53,13 @@ class Invite(models.Model):
     email = models.CharField(max_length=50)
     link = models.CharField(max_length=30, primary_key=True)
 
-class EmailList(models.Model):
-    email = models.CharField(max_length=80)
-
-class PassWordKey(models.Model):
-    key = models.CharField(max_length=20)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
-
-class RegKey(models.Model):
-    key = models.CharField(max_length=20)
-    supervisor = models.BooleanField()
-    training_type = models.CharField(default='', max_length=16)
-    company_name = models.CharField(default='', max_length=60)
-    training_duration = models.IntegerField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
 
 class ModuleDownloadLink(models.Model):
     # holds download links for modules
     training_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
     training_category_choices = (('None', 'None'), ('Harassment Training', 'Harassment Training'))
     platform_category_choices = (('Windows', 'Windows'), ('Mac', 'Mac'), ('SteamVR', 'SteamVR'), ('Oculus Quest', 'Oculus Quest'))
-
+    
     training_type = models.CharField(max_length=255, null=False, blank=False, choices=training_type_choices)
     training_category = models.CharField(max_length=255, null=False, blank=False, choices=training_category_choices)
     platform_category = models.CharField(max_length=255, null=False, blank=False, choices=platform_category_choices)

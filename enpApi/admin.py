@@ -11,6 +11,7 @@ class PlayerAdmin(admin.ModelAdmin):
 
 class PlaySessionAdmin(admin.ModelAdmin):
     list_display = ('player', 'module_id', 'success')
+    readonly_fields = ('id', 'date_created', 'date_modified')
 
 class EmployerAdmin(admin.ModelAdmin):
     list_display = ('company_name', 'id')

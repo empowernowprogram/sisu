@@ -78,7 +78,7 @@
                             {% if player.admin is False %}
                                 {% if player.supervisor is False %}
                                     {% comment %} TRAINING - NON-SUPERVISOR {% endcomment %}
-                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Training</h3>
+                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Traning</h3>
                                     <div class="row">
                                     {% if player.registration_type == 'Desktop' and player.supervisor is False %}
                                         {% for module_download_link in module_download_links %}                                        
@@ -94,7 +94,7 @@
                                 
                                 
                                 {% if player.supervisor is True %} 
-                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Supervisor Training</h3>
+                                    <h3 style="padding-top:12px; padding-bottom: 6px;">Supervisor Traning</h3>
                                     <div class="row">
                                     {% if player.registration_type == 'Desktop'%}
                                         {% for module_download_link in module_download_links %}                                        
@@ -109,7 +109,7 @@
                                 </div>
 
                             {% else %}
-                                <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Training</h3>
+                                <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Traning</h3>
                                 <div class="row"></div>
                                 {% for module_download_link in module_download_links %}
                                     {% if module_download_link.is_supervisor == False %}
@@ -118,7 +118,7 @@
                                 {% endfor %}
                                 </div>
                                 <hr>
-                                <h3 style="padding-top:0px; padding-bottom: 6px;">Supervisor Training</h3>
+                                <h3 style="padding-top:0px; padding-bottom: 6px;">Supervisor Traning</h3>
                                 <div class="row"></div>
                                 {% for module_download_link in module_download_links %}
                                     {% if module_download_link.is_supervisor == True %}

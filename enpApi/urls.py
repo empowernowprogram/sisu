@@ -6,8 +6,6 @@ router = routers.DefaultRouter()
 router.register(r'players', views.PlayerViewSet)
 router.register(r'playsessions', views.PlaySessionViewSet)
 router.register(r'employees', views.EmployeeViewSet)
-router.register(r'employers', views.EmployerViewSet)
-router.register(r'modules', views.ModulesViewSet)
 
 urlpatterns = [
     path('api', include(router.urls)),

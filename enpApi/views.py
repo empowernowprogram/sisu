@@ -2,14 +2,13 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-from users.models import CustomUser, UserProfile
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
-from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules
+from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer
+from .models import Player, PlaySession, Employee
 
 # Create your views here.
 
@@ -26,23 +25,12 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
 
-class EmployerViewSet(viewsets.ModelViewSet):
-    queryset = Employer.objects.all()
-    serializer_class = EmployerSerializer
-
-class ModulesViewSet(viewsets.ModelViewSet):
-    queryset = Modules.objects.all()
-    serializer_class = ModulesSerializer
-
 @csrf_exempt
 @api_view(['GET', 'POST'])
 def addSession(request):
     #session = request.data
     #data = {'employee_email': request.POST.get('email'), 'module_id': request.POST.get('id'), 'score': request.POST.get('score'), 'success': request.POST.get('success'), 'time_taken': request.POST.get('time')}
-    usr = CustomUser.objects.get(email=request.GET['email'])
-    print(usr)
-    player = Player.objects.get(user=usr)
-    data = {'module_id': request.GET['id'], 'player': player, 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time'], 'employer': '0', 'training_type': "2D"}
+    data = {'employee_email': request.GET['email'], 'module_id': request.GET['id'], 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time']}
     session_serializer = PlaySessionSerializer(data=data)
     if session_serializer.is_valid():
         print("Session valid")
@@ -50,7 +38,6 @@ def addSession(request):
         return JsonResponse({'Success': 'YES'})
     else:
         print("Session not valid")
-        print(session_serializer.errors)
         session_serializer.save()
         return JsonResponse({'Success': 'NO'})
         #return HttpResponse("Failure")
