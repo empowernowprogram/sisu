@@ -4,8 +4,14 @@ from . import views
 #from .views import IndexView
 
 urlpatterns = [
+<<<<<<< HEAD
     # Public website - START
     path('', views.index, name='home' ),    
+=======
+    path('', views.index, name='index' ),
+    # url(r'^$', views.about_sisu, name='about'),
+    
+>>>>>>> parent of d933068 (General cleanup)
     path('about-us/', views.about_us, name='about-us'),
 
     

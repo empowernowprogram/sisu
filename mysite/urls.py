@@ -20,9 +20,9 @@ from django.conf.urls import url
 from django.contrib.auth import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls), 
-    url('', include("blog.urls")),
-    # path('', include('pages.urls')),
+    path('admin/', admin.site.urls),
+    url(r'', include("blog.urls")),
+    path('', include('pages.urls')),
     path('users/', include('users.urls')), # new
     path('users/', include('django.contrib.auth.urls')), # new
     path('accounts/', include('allauth.urls')), 
