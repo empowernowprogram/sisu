@@ -8,10 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="Sisu VR" />
-    <meta name="description"
-        content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
-    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <meta name="description" content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@id": "https://www.sisuvr.com",
+            "@type": "Organization",
+            "name": "Sisu VR",
+            "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
+            "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
+            "sameAs": [
+                "https://www.linkedin.com/company/sisuvr",
+                "https://www.facebook.com/sisuvr",
+                "https://www.twitter.com/sisuvr",
+            ]
+        }
+    </script>
+
     <!-- Document title -->
     <title>Sisu VR</title>
     <!-- Stylesheets & Fonts -->
@@ -238,11 +254,16 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="blockquote blockquote-fancy">
-                                <p>Sisu VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in an engaging way.
-                                    <span style="color:#FFB800; font-size: 82px; margin-left:10px; margin-top:-18px; position: absolute;">"</span>
+                                <p>Sisu VR's Empower Now Program made me feel uncomfortable (as it should!). The
+                                    experience placed me in positions where I made choices through a variety of
+                                    perspectives. It's a great solution for employees to learn about sexual harassment
+                                    in an engaging way.
+                                    <span
+                                        style="color:#FFB800; font-size: 82px; margin-left:10px; margin-top:-18px; position: absolute;">"</span>
                                 </p>
                                 {% comment %} quotes outside box {% endcomment %}
-                                {% comment %} <span style="color:#FFB800; font-size: 82px; float:right;">"</span> {% endcomment %}
+                                {% comment %} <span style="color:#FFB800; font-size: 82px; float:right;">"</span>
+                                {% endcomment %}
 
                                 <p style="padding-top:10px" class="text-center"><strong><cite>Neilda
                                             Pacquing</cite></strong><br>CEO of MindGlow
@@ -252,10 +273,14 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="blockquote blockquote-fancy">
-                                <p>The moment I heard about Sisu VR I became excited about the possibilities! I have been working in the area of workplace psychological harassment and psychological
-                                    violence for 11 years, training in all industries. This product allows participants to observe in real terms, the often-complex dynamics of harassment. With this
-                                    immersive experience building more awareness and skills, long term positive changes will occur.
-                                    <span style="color:#FFB800; font-size: 82px; margin-left:10px; margin-top:-18px; position: absolute;">"</span>
+                                <p>The moment I heard about Sisu VR I became excited about the possibilities! I have
+                                    been working in the area of workplace psychological harassment and psychological
+                                    violence for 11 years, training in all industries. This product allows participants
+                                    to observe in real terms, the often-complex dynamics of harassment. With this
+                                    immersive experience building more awareness and skills, long term positive changes
+                                    will occur.
+                                    <span
+                                        style="color:#FFB800; font-size: 82px; margin-left:10px; margin-top:-18px; position: absolute;">"</span>
                                 </p>
                                 <p style="padding-top:10px" class="text-center"><strong><cite>Linda
                                             Crockett</cite></strong><br>Founder of ABRC
@@ -264,8 +289,10 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="blockquote blockquote-fancy">
-                                <p>Sisu VR’s training provides a surreal training experience, something I have never personally experienced before. I was faced with realistic workplace scenarios from a
-                                    series of different perspectives. I definitely felt more engaged with Sisu’s training package compared to the traditional training methods.<span
+                                <p>Sisu VR’s training provides a surreal training experience, something I have never
+                                    personally experienced before. I was faced with realistic workplace scenarios from a
+                                    series of different perspectives. I definitely felt more engaged with Sisu’s
+                                    training package compared to the traditional training methods.<span
                                         style="color:#FFB800; font-size: 82px; margin-left:10px; margin-top:-18px; position: absolute;">"</span>
                                 </p>
                                 <p class="text-center"><strong><cite>Robert M.</cite></strong><br>Founder of SatCatalog
@@ -539,69 +566,10 @@
                         </div>
                         <!-- end: Post item-->
                     </div>
-
                 </div>
             </div>
         </section>
-
-
-
-        <!-- Footer -->
-        <footer id="footer" class="sisu-footer-bg">
-
-            <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
-                style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
-                class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}"
-                data-ll-status="loaded">
-                <div class="grid-system-demo-live vertical-center">
-                    <div class="footer-content">
-                        <div class="container">
-                            <div class="row" style="padding-bottom:0px">
-                                <div class="col-md-4 col-xl-4">
-                                    <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}"
-                                                alt="Sisu VR"></a></p>
-                                    <p class="sisu-footer-text">Designed to deliver immersive workplace training.</p>
-                                </div>
-                                <div class="col-4 col-md-4 col-xl-4">
-                                    <div class="widget" style="margin-bottom:0px">
-                                        <ul class="list">
-                                            <li><a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 'home_portal' %}">Customer
-                                                    Portal</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy Policy</a>
-                                            </li>
-                                            <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms &
-                                                    Conditions</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-4 col-md-4 col-xl-4">
-                                    <br>
-                                    <h5 style="color: #fff">FOLLOW US</h5>
-                                    <div class="social-icons social-icons-colored social-icons-rounded float-left">
-                                        <ul>
-                                            <li class="social-facebook"><a href="https://www.facebook.com/sisuvr"
-                                                    target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li class="social-twitter"><a href="https://twitter.com/sisuvr"
-                                                    target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                            <li class="social-linkedin"><a
-                                                    href="https://www.linkedin.com/company/sisuvr" target="_blank"><i
-                                                        class="fab fa-linkedin"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
-                                Copyright © 2021 Sisu VR Inc. All
-                                Rights Reserved.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end: Footer -->
-
+        {% include 'blog/footer.html' %}
         </section>
         <!-- end: Body Inner -->
 
