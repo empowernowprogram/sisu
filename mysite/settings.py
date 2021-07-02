@@ -20,7 +20,7 @@ DEBUG = config('DEBUG', cast=bool)
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 #DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'sisu-test-release.herokuapp', 'sisuvr']
+ALLOWED_HOSTS = []
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-    # core apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
     'blog',
     'users',
     'pages',
@@ -48,11 +46,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_api_key',
 
-    'allauth',                                          # new
-    'allauth.account',                                  # new
-    'allauth.socialaccount',                            # new
-    'allauth.socialaccount.providers.google',           # new
-    'allauth.socialaccount.providers.linkedin_oauth2',  # new
+    'allauth', # new
+    'allauth.account', # new
+    'allauth.socialaccount', # new
+    'allauth.socialaccount.providers.google', # new
+    'allauth.socialaccount.providers.linkedin_oauth2', # new
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -162,6 +160,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
 SERVER_EMAIL = 'sisu.contact.us@gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -172,8 +171,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 # hitcount setting
 HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 120 }
-django_heroku.settings(locals())
 
-# Google reCAPTCHA #
-# TODO - move to .env key instead of storing in settings.py file.
-RECAPTCHA_SECRET_KEY = '6Lf4EywbAAAAAOvh_pR5uG_Ds3-iwRLng3xJJ4ln'
+django_heroku.settings(locals())

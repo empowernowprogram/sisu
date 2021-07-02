@@ -27,29 +27,31 @@
 
 
             <!-- Header -->
-            <header id="header" data-transparent="true" data-fullwidth="true" data-responsive-fixed="true" data-sticky-active="500" class="dark submenu-light header-fixed home">
-                <div id="header-inner" class="header-inner sisu-header-transparent-bkg">
+            <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light header-disable-fixed">
+                <div class="header-inner sisu-header-transparent-bkg">
                     <div class="container">
                         <!--Logo-->
                         <div id="logo">
                             <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
                             <a href="index.html">
+                                <!-- <span class="logo-default">Sisu VR</span> -->
+                                <!-- <span class="logo-dark">Sisu VR</span> -->
                             </a>
                         </div>
                         <!--End: Logo-->
 
                         <!--Navigation Resposnive Trigger-->
-                        <div id="mainMenu-trigger"> <a class="lines-button x"><span id="menu-trigger-lines" class="lines lines-dark"></span></a> </div>
+                        <div id="mainMenu-trigger"> <a class="lines-button x"><span class="lines lines-dark" style="color:#494949"></span></a> </div>
                         <!--end: Navigation Resposnive Trigger-->
                         <!--Navigation-->
                         <div id="mainMenu">
                             <div class="container">
                                 <nav>
-                                    <ul id="header-link" class="sisu-header-link-mobile">
+                                    <ul class="sisu-header-link-mobile">
                                         <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Home</a></li>
                                         <li><a class="sisu-menu-link-mobile" href="{% url 'faq' %}">FAQ</a></li>
+                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}#testimonials">Testimonials</a></li>
                                         <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}#blog">News</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'about-us' %}">About</a></li>
                                         <li><a class="sisu-menu-link-mobile" href="{% url 'home_portal' %}">Customer Portal</a></li>
                                         <li><a class="sisu-menu-link-mobile" href="{% url 'contact' %}">Contact Sales</a></li>
                                     </ul>
@@ -537,7 +539,7 @@
                                 </div>
                             </div>
                             <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
-                                Copyright © 2021 Sisu VR Inc. All
+                                Copyright © 2020 Sisu VR Inc. All
                                 Rights Reserved.</div>
                         </div>
                     </div>

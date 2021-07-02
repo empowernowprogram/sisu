@@ -33,6 +33,8 @@ from django.core.exceptions import PermissionDenied
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 
+from .suggestions import update_clusters
+
 import pygal
 from .chart import CatPieChart, PollHorizontalBarChart
 from django.views.generic import TemplateView

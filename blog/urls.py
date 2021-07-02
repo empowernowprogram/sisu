@@ -6,9 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index' ),
     # url(r'^$', views.about_sisu, name='about'),
-    
-    path('about-us/', views.about_us, name='about-us'),
-
+    path('about_us', views.about_us, name='about_us'),
     path('about_us/team', views.about_team, name='about_team'),
     path('about_us/empower_now', views.about_program, name='about_program'),
     path('post/', views.post_list, name='post_list'),
@@ -61,6 +59,7 @@ urlpatterns = [
     path('auth-logout/', views.portal_logout, name='portal_logout'),
     path('auth-register/', views.portal_signup, name='portal_signup'),
     path('redeem/', views.key_redeem, name='key_redeem'),
+    
     # Training Portal Authentication / Login / Logout - START
 
 

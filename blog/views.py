@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 import sendgrid
-import os, urllib
+import os
 import requests, json
 from sendgrid.helpers.mail import *
-from django.conf import settings
+
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Post, Comment, Category, PostPreferrence, ReplyToComment,Cluster, Resource
@@ -33,6 +33,8 @@ from django.core.exceptions import PermissionDenied
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 
+from .suggestions import update_clusters
+
 import pygal
 from .chart import CatPieChart, PollHorizontalBarChart
 from django.views.generic import TemplateView
@@ -42,8 +44,10 @@ from django.contrib.auth.models import User, auth
 
 
 def index(request):
+    print("<index>")
     context = {}
     if request.method == 'POST':
+        print(request.POST['email_signup'])
         url = "https://api.mailerlite.com/api/v2/groups/104430287/subscribers"
         
         data = {
@@ -59,6 +63,7 @@ def index(request):
 
         response = requests.request("POST", url, data=payload, headers=headers)
 
+        print(response.text)
     #    email_signup = request.GET.get('email_signup')
     #    EmailList.objects.create(email = email_signup)
     #    print (os.environ.get('SENDGRID_API_KEY'))  
@@ -378,51 +383,51 @@ def popular_cases(request):
 def user_recommendation_list(request):
   post_list = {}
   
-#   if request.user.is_authenticated:
-#     # get the user commented:
-#     user_commented = Comment.objects.filter(author=request.user.username).prefetch_related('post')
-#     user_metooed = PostPreferrence.objects.filter(vote_value=1, username=auth.get_user(request))
+  if request.user.is_authenticated:
+    # get the user commented:
+    user_commented = Comment.objects.filter(author=request.user.username).prefetch_related('post')
+    user_metooed = PostPreferrence.objects.filter(vote_value=1, username=auth.get_user(request))
     
-#     user_commented_posts = set(map(lambda x: x.post.pk, user_commented))
-#     user_metooed_posts = set(map(lambda x: x.postpk.pk, user_metooed))
+    user_commented_posts = set(map(lambda x: x.post.pk, user_commented))
+    user_metooed_posts = set(map(lambda x: x.postpk.pk, user_metooed))
     
-#     #print (user_commented_posts)
-#     #print (user_metooed_posts)
+    #print (user_commented_posts)
+    #print (user_metooed_posts)
     
-#     # the set of posts this user commented and metooed
-#     user_set = user_commented_posts | user_metooed_posts
-#     #print (recommend_set)
+    # the set of posts this user commented and metooed
+    user_set = user_commented_posts | user_metooed_posts
+    #print (recommend_set)
     
-#     #get user cluster name & get all other cluster members
-#     try:
-#        user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
+    #get user cluster name & get all other cluster members
+    try:
+       user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
     
-#     except: # if no cluster assigned for a user, update clusters
-#        update_clusters("true")
-#        user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
+    except: # if no cluster assigned for a user, update clusters
+       update_clusters("true")
+       user_cluster = CustomUser.objects.get(username=auth.get_user(request)).cluster_set.first().name
     
-#     user_cluster_other_members = Cluster.objects.get(name=user_cluster).users.exclude(username=auth.get_user(request)).all()
-#     other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
+    user_cluster_other_members = Cluster.objects.get(name=user_cluster).users.exclude(username=auth.get_user(request)).all()
+    other_members_usernames = set(map(lambda x: x.username, user_cluster_other_members))
     
-#     # get other users' commented and metooed posts from the same clusters
-#     other_user_commented_posts = Comment.objects.filter(author__in=other_members_usernames).exclude(post__pk__in=user_set)
-#     other_user_metooed_posts =  PostPreferrence.objects.filter(username__username__exact=other_members_usernames, vote_value=1).exclude(postpk__pk__in=user_set)        
+    # get other users' commented and metooed posts from the same clusters
+    other_user_commented_posts = Comment.objects.filter(author__in=other_members_usernames).exclude(post__pk__in=user_set)
+    other_user_metooed_posts =  PostPreferrence.objects.filter(username__username__exact=other_members_usernames, vote_value=1).exclude(postpk__pk__in=user_set)        
     
-#     other_user_commented = set(map(lambda x: x.post.pk, other_user_commented_posts))
-#     other_user_metooed = set(map(lambda x: x.postpk.pk, other_user_metooed_posts))
+    other_user_commented = set(map(lambda x: x.post.pk, other_user_commented_posts))
+    other_user_metooed = set(map(lambda x: x.postpk.pk, other_user_metooed_posts))
     
-#     other_users_set = other_user_commented | other_user_metooed
+    other_users_set = other_user_commented | other_user_metooed
     
-#     post_list_1 = list(Post.objects.filter(id__in=other_users_set))
-#     post_list_2 = list(Post.objects.exclude(id__in=user_set))
+    post_list_1 = list(Post.objects.filter(id__in=other_users_set))
+    post_list_2 = list(Post.objects.exclude(id__in=user_set))
     
-#     post_list = list(set(post_list_1)|set(post_list_2))[:3]
+    post_list = list(set(post_list_1)|set(post_list_2))[:3]
     
     #print(post_list)
     #print(other_users_set)
     #print(other_members_usernames)
   
-  return {'rec_post_list': '1'}
+  return {'rec_post_list': post_list}
 
 #
 # For About us page
@@ -435,7 +440,7 @@ def about_sisu(request):
     return render(request, 'blog/about.html', context)
     
 def about_us(request):
-    return render(request, 'blog/about-us.html')
+    return render(request, 'blog/about_us.html')
     
 def about_team(request):
     return render(request, 'blog/about_team.html')    
@@ -457,47 +462,6 @@ def faq(request):
     return render(request, 'blog/faq.html')
 
 def contact(request):
-    if request.method == 'POST':
-        # validate captcha
-        recaptcha_response = request.POST.get('g-recaptcha-response')
-        url = 'https://www.google.com/recaptcha/api/siteverify'
-        values = {
-            'secret': settings.RECAPTCHA_SECRET_KEY,
-            'response': recaptcha_response
-            }
-        data        = urllib.parse.urlencode(values).encode()
-        req         = urllib.request.Request(url, data=data)
-        response    = urllib.request.urlopen(req)
-        result      = json.loads(response.read().decode()) # if pass result["success"] will == True        
-
-        if result['success'] == True:
-            input_first_name    = request.POST.get('input-first-name')
-            input_last_name     = request.POST.get('input-last-name')
-            input_email         = request.POST.get('input-email')
-            input_company_name  = request.POST.get('input-company-name')
-            input_message       = request.POST.get('input-message')
-
-            # this is a quick fix, because for whatever reason, the "required" tag on the html page is not working.
-            if len(input_first_name) != 0 and len(input_last_name) != 0 and "@" in input_email and len(input_message) != 0:
-                email_meta = f'-- META --\nRecipient name: {str(input_first_name)} {str(input_last_name)}\nCompany name: {str(input_company_name)}\nRecipient email: {str(input_email)}'
-                email_message = f'{input_message}\n\n{email_meta}'
-
-                # send mail
-                try:
-                    send_mail(
-                        f'Contact - {str(input_first_name)} {str(input_last_name)}',    # subject
-                        email_message,                                                  # message
-                        'sisu.contact.us@gmail.com',                                    # from email
-                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],                # to email
-                    )
-                    context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
-                    return render(request, 'blog/contact.html', context)
-                except:
-                    context = {'message_submit': {'type': "failed", "message": f'Message could not be sent due to an error. If this error persists please email hello@sisuvr.com'}}
-                    return render(request, 'blog/contact.html', context)
-
-                
-
     return render(request, 'blog/contact.html')
 
 
@@ -607,8 +571,8 @@ def portal_home(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+        total_modules = Modules.objects.all()
+        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed, 'modules': total_modules}
     
         return render(request, 'portal/home.html', context)
     else:
@@ -619,7 +583,6 @@ def split_emails(email_string):
     emails = re.split('; |;, |,| |  |\*|$|$ |\n', email_string)
     emails = list(filter(None, emails))
     return emails
-
 
 def portal_register(request):
     if request.user.is_authenticated:
@@ -749,6 +712,7 @@ def portal_register(request):
     else:
         return render(request, 'auth/login.html')
 
+
 def portal_change_password(request):
     if request.user.is_authenticated:
         #if request.user.check_pasword(request.POST['old-password']):
@@ -764,7 +728,6 @@ def portal_change_password(request):
     else:
         return render(request, 'auth/login.html')
 
-
 def portal_edit_registration(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -775,8 +738,7 @@ def portal_edit_registration(request):
         return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
-
-
+        
 def portal_edit(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -801,7 +763,6 @@ def portal_edit(request):
     else:
         return render(request, 'auth/login.html')
 
-
 def portal_remove(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -815,7 +776,6 @@ def portal_remove(request):
         return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
-
 
 def portal_training_dl(request):
     if request.user.is_authenticated:
@@ -842,7 +802,6 @@ def portal_training_dl(request):
     else:
       return render(request, 'auth/login.html')
 
-
 def portal_training_dl_trial(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -850,7 +809,6 @@ def portal_training_dl_trial(request):
         return render(request, 'portal/downloads_trial.html', context)
     else:
         return render(request, 'auth/login.html')
-
 
 def portal_employee_progress(request):
     if request.user.is_authenticated:
@@ -1153,7 +1111,6 @@ def contact_us(request):
             mail = Mail(from_email, subject, to_email, content)
             print("Attempting to send mail")
             response = sg.client.mail.send.post(request_body=mail.get())
-
             '''print(response.status_code)
             print(response.body)
             print(response.headers) 
