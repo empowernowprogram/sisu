@@ -437,20 +437,12 @@ def about_sisu(request):
 def about_us(request):
     return render(request, 'blog/about-us.html')
     
-def about_team(request):
-    return render(request, 'blog/about_team.html')    
-
-def about_program(request):
-    return render(request, 'blog/about_program.html')    
 
 def terms_conditions(request):
     return render(request, 'blog/terms_condition.html')
     
 def privacy_policy(request):
     return render(request, 'blog/privacy_policy.html')
-
-def header(request):
-    return render(request, 'blog/header.html')
 
 
 def faq(request):
@@ -982,21 +974,17 @@ def story_entry(request, pk):
                   })    
 
 
-def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    
-    return render(request, 'blog/post_list.html', {'posts':posts})
     
 # Post.objects.get(pk=pk)
 def post_cases(request):
     return render(request, 'blog/post_category_main.html')
-    
+
+
 def post_list_by_category(request, category_name):
     posts = Post.objects.filter(category_name=category_name).order_by('-published_date')
     cat = Category.get_label(category_name)
     return render(request, 'blog/post_list.html', {'posts':posts, 'cat':cat })
    
-@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -1010,24 +998,20 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
-@login_required   
-def post_draft_list(request):
-  posts = Post.objects.filter(published_date__isnull=True).order_by('created_date')
-  return render(request, 'blog/post_draft_list.html', {'posts': posts})
 
-@login_required  
+
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish_post()
     return redirect('post_detail', pk=pk)
 
-@login_required    
+
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
 
-@login_required     
+
 def post_edit(request, pk):
 
     post = get_object_or_404(Post, pk=pk)
@@ -1043,7 +1027,7 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
 
-@login_required     
+
 def add_comment_to_post(request):
   
   if request.method == "GET":
@@ -1116,66 +1100,9 @@ def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('story_entry', pk=comment.post.pk)
-#
-# For contact us page
-#
-def contact_us(request):
-    print( "Inside contact_us block")
-    if request.method == 'GET':
-        print("Registering as GET")
-        form = ContactForm()
-    else:
-        print("Registering as POST")
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            print("Form is valid");
-            sender = "From " + form.cleaned_data['your_name']
-            if request.user.is_authenticated:
-              sender = sender + "_(REG_User)_" + auth.get_user(request).username
-            else:
-              sender = sender + "_(PUB_User)_"
-              
-            print (os.environ.get('SENDGRID_API_KEY'))  
-            sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-            print("Set sendgrid instance")
-            from_email = Email(form.cleaned_data['your_email'])
-            print("Set from email")
-            to_email = Email("Hello@sisuvr.com")
-            print("Set to email")
-            company = sender + form.cleaned_data['your_company']
-            #company = form.cleaned_data['your_company']
-            print("Set company")
-            subject = company + form.cleaned_data['subject']
-            #subject = sender + form.cleaned_data['subject']
-            print("Set subject")
-            content = Content("text/plain", form.cleaned_data['message'])
-            print("Creating mail structure")
-            mail = Mail(from_email, subject, to_email, content)
-            print("Attempting to send mail")
-            response = sg.client.mail.send.post(request_body=mail.get())
 
-            '''print(response.status_code)
-            print(response.body)
-            print(response.headers) 
-            '''
-            '''
-            from_email = form.cleaned_data['your_email']
-            message = form.cleaned_data['message']
-            try:
-                send_mail(subject, message, from_email, ['admin@example.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-                '''
-            # return render(request, 'blog/contact_us_success.html')
-            print("Sent mail!")
-            context = {}
-            return render(request, 'blog/home.html', context)
-        print("Form is invalid")
-    return render(request, "blog/contact_us.html", {'form': form})
-           
    
 def on_off_star(request):
-
    if request.method == 'GET':
       post_id = request.GET['postid']
       post_preference = request.GET['on_off_value']
