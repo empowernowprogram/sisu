@@ -1,0 +1,100 @@
+{% extends "blog/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <!--================Header Menu Area =================-->
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="150">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+      </button>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mySearchbar">
+          <span class="fa fa-search" style="color:#fff; font-weight:bold;"></span>
+      </button>
+      <a class="navbar-brand logo_h" href="/" style="top= -10px;"><img src="{% static 'img/Sisu_Logo_1.png' %}" alt=""></a>
+      
+    </div>
+    <div class="row" style="float: right;">
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav" style="overflow-x: hidden;">
+          {% block header %}
+          {% endblock %}
+        </ul>
+               
+      </div>
+      <div class="collapse navbar-collapse" id="mySearchbar" >
+        <ul class="nav navbar-nav">
+          <aside class="f_widget news_widget" style="padding-bottom:0;">
+            <form action="{% url 'search' %}" method="POST" id="seachForm" style="text-align:right;">
+            {% csrf_token %}
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="input-group d-flex flex-row">
+                <input id="main_search_input" type="text" name="search_string" class="form-control" 
+                       style="text-align:left; cursor:auto" placeholder="Search For A Case" required=""/>
+                <button type="submit" id="search_button" class="btn sub-btn" style="background-color:#1D556F;">
+                  <i class="glyphicon glyphicon-search" ></i>
+                </button>
+              </div>
+             </div> 
+            </form>
+          </aside>
+          </ul>
+          </div>
+         
+         </nav>
+         
+        </div>   
+    </div>
+    
+   </div>
+  </div>
+</nav>    
+    
+      <!--================Header Menu Area =================-->
+      
+      <!-- Circular Menu --> 
+<!-- Credit to Mojtaba Seyedi created on June 23, 2015
+https://codepen.io/seyedi/pen/YXEqwB -->
+<div id="circularMenu1" class="circular-menu">
+
+  <a class="floating-btn" onclick="document.getElementById('circularMenu1').classList.toggle('active');">
+    <i class="fa fa-user" style="color:#fff;"></i>
+  </a>
+
+  <menu class="items-wrapper">
+    {% if user.is_authenticated %}
+    <a></a>
+    <a href="{% url 'contact_us' %}" class="menu-item fa fa-envelope"></a>
+    <a href="{% url 'user_settings' pk=user.pk %}" class="menu-item fa fa-user"></a>
+    <a href="{% url 'logout' %}" class="menu-item fa fa-sign-out"></a>
+    
+    {% else %}
+    <a></a>
+    <a></a>
+    <a href="{% url 'contact_us' %}" class="menu-item fa fa-envelope"></a>
+    <a href="" class="menu-item fa fa-sign-in" data-toggle="modal" data-target="#signinModal"></a>
+    
+    {% endif %}
+  </menu>
+
+</div>   
+<!-- Sign-in/up Modal -->
+  <div class="modal fade" id="signinModal" role="dialog" style="overflow-y:hidden;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        {% include 'blog/login_modal.html' %}
+      </div>
+    </div>
+  </div>
+  
+        {% block sub_content %}
+        {% endblock %}
+   
+{% endblock %}
+        

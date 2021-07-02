@@ -1,0 +1,41 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/navbar.css' %}">
+
+<style>
+.center {
+  text-align: center;
+  list-style-position: inside;
+}
+
+button {
+  display: block;
+  background: #10A7BB;
+  border-radius: 50px;
+  width: 238px;
+  height: 47px;
+  color: white;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="topnav">
+<div class="container">
+<br><br><br><br>
+<h3 align=center>Please complete your registration</h3>
+<br>
+<form action="">
+<ul class="center" type="1" style="display: inline-block; list-style-type: none;">
+<li align="left"><b>First Name</b>
+<li align="left"><input name="first" id="first">
+<li><br><li align="left"><b>Last</b>
+<li align="left"><input name="last" id="last">
+<li><br><li align="left"><b>Email</b>
+<li align="left"><input name="email" id="email">
+<li><br><li align="left"><b>Password</b>
+<li align="left"><input type="password" name="pass" id="pass">
+<li><br><li align="center"><input type=submit value"register">
+</ul>
+</form>
+</div></div>

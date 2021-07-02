@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description" content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>Sisu VR</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
+            <div class="header-inner sisu-header-bkg">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+                        <a href="{% url 'home' %}"></a>
+                    </div>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/public-menu.html' %}
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Content -->
+        <section style="padding-bottom:32px">
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div style="padding-bottom: 20px;">
+                        <img src="{% static 'public/assets/svg/logo-text-colored.svg' %}">
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-124px">
+                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
+                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
+                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
+                    </div>
+                    <span class="lead">Frequently Asked Questions</span>
+                    <hr class="sisu-hr">
+                </div>
+        </section>
+        <section id="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="content col-lg-12" style="padding-left:12%; padding-right:12%">
+                        <!-- Accordion -->
+                        <div class="bg-cube-container" style="margin-left:-124px">
+                            <div class="bg-cube-element" style="width:22px; height:16px; margin-top:32%"></div>
+                        </div>
+                        <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                            <div class="bg-cube-element" style="width:38px; height:24px; margin-top:10%"></div>
+                        </div>
+                        <div class="bg-cube-container" style="float: right; margin-right: -68px;">
+                            <div class="bg-cube-element" style="width:30px; height:18px; margin-top:36%"></div>
+                        </div>
+                        
+                        <div class="accordion accordion-flat">
+                            <div class="ac-item">
+                                <h5 class="ac-title">How does Sisu VR’s training work?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The Empower Now Program is an immersive anti-harassment training experience based on real field cases. The user experiences the training from multiple perspectives (i.e. victim, perpetrator, and observer) and educates the user on how to handle misconduct through escape, confrontation, and de-escalation techniques.
+                                    </p>
+                                    <p>
+                                        Contact us to schedule your free demo!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Why should I choose Sisu?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Studies show training in virtual reality has increased user retention of information and comprehension, as well as empathy. Most training solutions are passively administered via videos or manuals and have been surveyed to be unengaging. 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">How does pricing work?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The yearly training costs are $49.99 per user for a non-supervisory license, and $99.99 per user for a supervisory license.  
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Do I have to provide VR headsets?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Yes, employers are responsible for purchasing VR headsets. We recommend the Pico VR G2 4K.  
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Is there a non-VR version available?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Yes! A desktop version of our training (compatible with Windows and Mac operating systems) is available. 
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">What if my workplace is remote?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        We provide recommendations on how to deploy headsets to your remote workforce. We also have a non-VR version of the training available (see answer to Question 5).
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Who creates Sisu VR’s content and how is it created?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The training is based on real harassment cases and developed in-house with the help of our team of HR and training expert(s).
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Does this training meet certified standards and regulations?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Yes, we meet requirements for all 50 U.S. states.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end: Accordion -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-84px">
+                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <span class="lead">Still have questions?</span>
+                    </div>
+                    <p>Feel free to reach out to us directly.</p>
+                    <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="{% url 'contact' %}" style="color:#fff">Contact Us</a></button>
+                </div>
+        </section>
+        <!-- end: Content -->
+         <!-- Footer -->
+         <footer id="footer" class="sisu-footer-bg"></footer>
+
+            
+
+         <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
+             style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
+             class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}" data-ll-status="loaded">
+             <div class="grid-system-demo-live vertical-center">
+                 <div class="footer-content">
+                     <div class="container">
+                         <div class="row" style="padding-bottom:0px">
+                             <div class="col-md-4 col-xl-4">
+                                 <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}" alt="Sisu VR"></a></p>
+                                 <p class="sisu-footer-text">Designed to deliver immersive workplace training.</p>
+                             </div>
+                             <div class="col-4 col-md-4 col-xl-4">
+                                 <div class="widget" style="margin-bottom:0px">
+                                     <ul class="list">
+                                         <li><a class="sisu-footer-link" href="{% url 'faq' %}">About</a></li>
+                                         <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a></li>
+                                         <li><a class="sisu-footer-link"
+                                                 href="{% url 'home_portal' %}">Customer Portal</a></li>
+                                         <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy Policy</a></li>
+                                         <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms & Conditions</a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="col-4 col-md-4 col-xl-4">
+                                 <br>
+                                 <h5 style="color: #fff">FOLLOW US</h5>
+                                 <div class="social-icons social-icons-colored social-icons-rounded float-left">
+                                     <ul>
+                                         <li class="social-facebook"><a href="https://www.facebook.com/sisuvr"
+                                                 target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                         <li class="social-twitter"><a href="https://twitter.com/sisuvr"
+                                                 target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                         <li class="social-linkedin"><a
+                                                 href="https://www.linkedin.com/company/sisuvr" target="_blank"><i
+                                                     class="fab fa-linkedin"></i></a></li>
+                                     </ul>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
+                             Copyright © 2021 Sisu VR Inc. All
+                             Rights Reserved.</div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         </footer>
+        <!-- end: Footer -->
+    </div>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+
+</body>
+
+</html>

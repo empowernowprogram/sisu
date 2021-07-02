@@ -1,0 +1,53 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/navbar.css' %}">
+
+<style>
+.center {
+  text-align: center;
+  list-style-position: inside;
+}
+
+button {
+  display: block;
+  background: #10A7BB;
+  border-radius: 50px;
+  width: 238px;
+  height: 47px;
+  color: white;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<h3 align="center"><b>Welcome back, {{ player.full_name }}</b></h3>
+<form action="{% url 'logout' %}">
+<button type="submit" style="position: absolute; top: 0; left: 90%; width: 5%;" value="Log Out">Log Out</button>
+</form>
+
+<div class="topnav">
+<div class="child">
+<a class="tab first inactive" href="{% url 'employee_reg' %}"><p>Employee Registration</p></a>
+  <a class="tab second active" href="{% url 'modules_s' %}"><p>Training Modules</p></a>
+  <a class="tab third inactive" href="{% url 'nonsupervisorprogress' %}"><p>Non-Supervisor Progress</p></a>
+  <a class="tab forth inactive" href="{% url 'supervisorprogress' %}"><p>Supervisor Progress</p></a>
+</div>
+<div class="container">
+<br><br><br><br>
+<h3 align=center> Download Supervisor Modules</h3>
+<br>
+<h4 align=center><a href="http://www.mediafire.com/file/xe6cuuw4qd6coym/Sisu_VR_-_ENP_Trial_0.2_-_Windows.zip/file">Download Empower Now Program: Supervisor Edition - Windows</a></h4>
+<br>
+<h4 align=center><a href="http://www.mediafire.com/file/ptu2igrx62jdjob/SisuVR_-_ENP_Trial_-_MacOs.zip/file">Download Empower Now Program: Supervisor Edition - MacOs</a></h4>
+<br><br>
+<h3 align=center> Download Directions</h3>
+<br>
+<ol class="center" type="1" style="display: inline-block">
+<li align="left">Click on the download button corresponding to the your operating system
+<li align="left">Solve the captcha
+<li align="left">Save file to target directory
+<li align="left">Unzip file into target directory
+<li align="left">Open target directory and double click ENP.exe (Windows) or ENP.app (Mac)
+<li align="left">Use your assigned email and password to sign in and begin the training
+</ol>
+</div></div>

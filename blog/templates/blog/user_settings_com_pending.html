@@ -1,0 +1,29 @@
+{% load staticfiles %}
+{% if user_pending %}
+<div class="story-content">
+    <h3>You commented on these cases, pending approval:</h3>
+    <!-- story entry insert story id -->
+    {% for ct in user_pending %}
+    <a href="{% url 'story_entry' pk=ct.post.pk %}">
+        <div class="story-content-entry custom-row">
+            <div class="story-text">
+                <h5 style="text-transform: uppercase;">{{ ct.created_date }} </h5>
+                <!-- <h5>{{ ct.post.category_name }}	</h5> -->
+                <h4>{{ ct.post }}</h4>
+                <!-- <p>{{ ct.post.short_desc|linebreaksbr }}</p> -->
+                <h6>Your comment:"{{ ct.text|linebreaksbr }}"</h6> 
+            </div>
+            <div class="story-img-list">
+                <img src="{% static '/img/blog/main-blog/' %}{{ ct.post.pk }}.jpg" alt="" align="case">
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="story-content">
+    <h3>You have 0 pending comment.</h3> 
+    <h3>Leave another comment <a href="{% url 'get_all_category' %}"><u>here</u></a>! </h3>  
+
+</div> 
+{% endif %}

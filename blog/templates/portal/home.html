@@ -1,0 +1,158 @@
+{% load staticfiles %}
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Sisu VR Inc">
+
+        <!-- Title -->
+        <title>Sisu VR - Training Portal</title>
+
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+
+        <!-- Theme Styles -->
+        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+    </head>
+    <body>
+
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Sidebar Start -->
+            {% if player.admin is True %}
+                {% include 'components/portal_sidebar_admin.html' %}
+            {% else %}
+                {% include 'components/portal_sidebar_employee.html' %}
+            {% endif %}
+            <!-- Page Sidebar End -->
+
+            <!-- Page Content Start -->
+            <div class="page-content">
+                <!-- Page Sidebar / Navigation Elements Start -->
+                <div class="page-header">
+                    <!-- Collapsed / Mobile Navigation Bar Start -->
+                    {% include 'components/portal_mobilenav.html' %}
+                    <!-- Collapsed / Mobile Navigation Bar End -->
+                </div>
+                <!-- Page Sidebar / Navigation Elements End -->
+
+                <!-- Page Inner Start -->
+                <div class="page-inner">
+                    <!-- Page Top Bar Start -->
+                    <div id="portal-home" class="page-title">
+                        <div style="float: right; margin-bottom: 10px">
+                            <h4>
+                                {% if player.admin is True %}
+                                    Admin
+                                {% else %}
+                                    {% if player.supervisor is True %}
+                                        Supervisor
+                                    {% elif player.supervisor is False %}
+                                        Non-supervisor
+                                    {% endif %}
+                                {% endif %}                             
+                            </h4>
+                        </div>
+                        <h2>Welcome, {{ player.full_name }}.</h2>
+                        <hr>
+                    </div>
+                    <!-- Page Top Bar End -->
+                    
+                    <!-- Main Content Start -->
+                    <div id="main-wrapper">
+                        {% if player.admin == False %}
+                            {% if play_sessions.count != 0 %}
+                                <div class="row">
+                                        <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span></h3>
+                                        <p>All modules must be completed by June 15, 2021.</p>
+                                        <br><br>
+                                        <div class="table-responsive">
+                                            <table class="table-sisu-overview">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Module</th>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <th>{{ play_session.module_id }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Status</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <td>
+                                                            {% if play_session.success is True %} <span class="table-sisu-completed">Completed</span> 
+                                                            {% elif play_session.success is False %} <span class="table-sisu-notstarted">Not Started</span> 
+                                                            {% endif %}
+                                                        </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Date Completed</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                            {% if play_session.success is True %}
+                                                                <td>{{ play_session.date_modified }}</td>
+                                                            {% else %}
+                                                                <td>-</td>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Training Type</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <td>{{ play_session.training_type }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
+                                        {% if play_sessions_completed.count is play_sessions.count %}
+                                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">View Certificate</a>
+                                        <!-- {% url 'edit-registration' %} -->
+                                        {% endif %}
+                                        
+                                </div>                            
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Page Footer Start -->
+                    <div class="page-footer">
+                        <p>Sisu VR Inc.</p>
+                    </div>
+                    <!-- Page Footer End -->
+                </div>
+                <!-- Page Inner End -->
+            </div>
+            <!-- Page Content End -->
+        </div>
+        <!-- /Page Content -->
+
+
+        <!-- Scripts -->
+        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+        <script src="{% static 'portal/js/space.js' %}"></script>
+        <script src="{% static 'portal/js/scripts.js' %}"></script>
+    </body>
+
+</html>

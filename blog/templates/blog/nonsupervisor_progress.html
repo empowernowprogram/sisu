@@ -1,0 +1,58 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/navbar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'blog/table.css' %}">
+<style>
+button {
+  display: block;
+  background: #10A7BB;
+  border-radius: 50px;
+  width: 238px;
+  height: 47px;
+  color: white;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<h3 align="center"><b>Welcome back, {{ player.full_name }}</b></h3>
+<form action="{% url 'logout' %}">
+<button type="submit" style="position: absolute; top: 0; left: 90%; width: 5%;" value="Log Out">Log Out</button>
+</form>
+<div class="topnav">
+<div class="child">
+  <a class="tab first inactive" href="{% url 'employee_reg' %}"><p>Employee Registration</p></a>
+  <a class="tab second inactive" href="{% url 'modules_s' %}"><p>Training Modules</p></a>
+  <a class="tab third active" href="{% url 'nonsupervisorprogress' %}"><p>Non-Supervisor Progress</p></a>
+  <a class="tab forth inactive" href="{% url 'supervisorprogress' %}"><p>Supervisor Progress</p></a>
+</div>
+
+<div class="container">
+<br><br><br><h2 align="center">Non-Supervisor Progress</h2>
+<!--Max 4 modules per employee, no duplicates, check each name -->
+<br><br>
+<table class=center>
+<th colspan="4" class="tabletop_tab">Completion Status</th>
+<tr>
+<th class="tabletopside_tab">Employee Name</th>
+<th class="tabletop_th">Module 1</td>
+<th class="tabletop_th">Module 2</td>
+<th class="tabletop_th">Module 3 </td>
+<th class="tabletop_th">Module 4</td>
+
+{% for player in players.all %}
+<tr>
+<td>{{ player.full_name }}</td>
+{% for session in player.playsession_set.all %}
+<td>{{ session.success }}</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+
+{% for player in players.all %}
+<p>{{ player.full_name }}</p>
+{% endfor %}
+

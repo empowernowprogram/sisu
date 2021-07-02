@@ -1,0 +1,142 @@
+{% load staticfiles %}
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Sisu VR Inc">
+
+        <!-- Title -->
+        <title>Sisu VR - Training Portal</title>
+
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+
+        <!-- Styles - DataTables -->
+        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" />
+
+        <!-- Theme Styles -->
+        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+    </head>
+    
+    <body>
+        <!-- Page Container -->
+        <div class="page-container">
+
+            <!-- Page Sidebar Start -->
+            {% include 'components/portal_sidebar_supervisor.html' %}
+            <!-- Page Sidebar End -->
+
+            <!-- Page Content Start -->
+            <div class="page-content">
+                <!-- Page Sidebar / Navigation Elements Start -->
+                <div class="page-header">
+                    <!-- Collapsed / Mobile Navigation Bar Start -->
+                    {% include 'components/portal_mobilenav.html' %}
+                    <!-- Collapsed / Mobile Navigation Bar End -->
+                </div>
+                <!-- Page Sidebar / Navigation Elements End -->
+
+                <!-- Page Inner Start -->
+                <div class="page-inner">
+                    <!-- Page Top Bar Start -->
+                    <div class="page-title">
+                        <h2>Employee Progress</h2>
+                        <hr>
+                    </div>
+                    <!-- Page Top Bar End -->
+                    
+                    <!-- Main Content Start -->
+                    <div id="main-wrapper">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <div id="table-search">
+                                    </div>
+                                    <table id="employee-progress" class="display table" style="width: 100%; cellspacing: 0;">
+                                        <thead class="tbl-sisu-header">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Registration</th>
+                                                <th>Modules Completed</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            {% for player_obj in players_obj %}
+                                                <tr>
+                                                    <td>{{ player_obj.name }}</td>
+                                                    <td>{{ player_obj.email }}</td>
+                                                    <td>{{ player_obj.registration }}</td>
+                                                    <td>{{ player_obj.modules_completed }} </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                       </table>  
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Page Footer Start -->
+                    <div class="page-footer">
+                        <p>Sisu VR Inc.</p>
+                    </div>
+                    <!-- Page Footer End -->
+                </div>
+                <!-- Page Inner End -->
+            </div>
+            <!-- Page Content End -->
+
+        </div>
+        <!-- /Page Content -->
+
+
+        <!-- Scripts -->
+        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+        <script src="{% static 'portal/js/space.min.js' %}"></script>
+        <script src="{% static 'portal/js/scripts.js' %}"></script>
+        
+        <script src="{% static 'portal/plugins/datatables/js/jquery.datatables.min.js' %}"></script>
+        <script src="{% static 'portal/js/table-data.js' %}"></script>
+
+        <script>
+            
+            $(document).ready(function(){
+                $('#search-id-1').val($("#search-id-1 option:first").text('All'));
+                $("#search-id-1").val($("#search-id-1 option:first").val());
+
+                $('#search-id-2').val($("#search-id-2 option:first").text('All'));
+                $("#search-id-2").val($("#search-id-2 option:first").val());
+                
+
+            });
+        </script>
+        
+    </body>
+
+</html>

@@ -1,0 +1,41 @@
+{% load staticfiles %}
+{% load static %}
+
+<div class="page-sidebar">
+    <a class="logo-box" href="{% url 'home_portal' %}">
+        <img src="{% static 'portal/img/logo-sisu.svg' %}" width="100px" height="auto" alt="Sisu VR">
+        <i class="icon-close" id="sidebar-toggle-button-close"></i>
+    </a>
+    <div class="page-sidebar-inner">
+        <div class="page-sidebar-menu">
+            <ul class="accordion-menu">
+                <li>
+                    <a href="{% url 'home_portal' %}">
+                        <i class="menu-icon icon-home4"></i><span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'downloads' %}">
+                        <i class="menu-icon icon-users"></i><span>Training Downloads</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'settings' %}">
+                        <i class="menu-icon icon-settings"></i><span>Settings</span>
+                    </a>
+                </li>
+                <li class="menu-divider"></li>
+                <li>
+                    <a href="mailto:hello@sisuvr.com">
+                        <i class="menu-icon"></i><span>Email Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'portal_logout' %}">
+                        <i class="menu-icon"></i><span>Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

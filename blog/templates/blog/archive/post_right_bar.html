@@ -1,0 +1,51 @@
+{% load staticfiles %}
+
+<div class="col-lg-4">
+  <div class="blog_right_sidebar">
+    <aside class="single_sidebar_widget popular_post_widget">
+      <h4 class="widget_title">Popular Cases</h4>
+      {% for post in pop_cases %}
+        {% for p in post %}
+        <div class="media post_item">
+          <a href="{% url 'post_detail' pk=p.pk %}">
+            <img src="{% static '/img/blog/popular-post/' %}{{ p.pk }}.png" alt="post"> </a>
+                
+          <div class="media-body">
+                  <a href="{% url 'post_detail' pk=p.pk %}"><h3>{{ p.title }} </h3></a>
+                  <p><i class="lnr lnr-bubble"></i> {{ cases|dict_key:p.pk }} Comments </p>
+                  <p>{{ p.category_name }}</p>
+           </div>
+         </div>
+       {% endfor %}
+      {% endfor %}       
+        <div class="br"></div>	
+      </aside>
+               
+      {% if rec_post_list %}               
+      <aside class="single-sidebar-widget popular_post_widget">
+         <h4 class="widget_title">You May Wanna Say Something</h4>
+         
+           {% for post in rec_post_list %}  
+           <div class="media post_item">
+            <a href="{% url 'post_detail' pk=post.pk %}">
+            <img src="{% static '/img/blog/popular-post/' %}{{ post.pk }}.png" alt="post"> </a>
+            
+            <div class="media-body">
+              <a href="{% url 'post_detail' pk=post.pk %}"><h3>{{ post.title }}</h3></a>
+              <p>{{ post.category_name }}</p>
+            </div>
+           </div>
+           {% endfor%}
+         
+         <div class="br"></div>							
+      </aside>
+      {% endif %}
+      
+      <!--
+      <aside class="single-sidebar-widget tag_cloud_widget">
+       <h4 class="widget_title">Polls</h4>
+      </aside>
+      -->
+   </div>
+</div>
+                
