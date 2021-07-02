@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="48px" viewBox="0 0 64 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Regular/chart-bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M62.5,42 C63.325,42 64,42.675 64,43.5 L64,46.5 C64,47.325 63.325,48 62.5,48 L1.5,48 C0.675,48 0,47.325 0,46.5 L0,1.5 C0,0.675 0.675,0 1.5,0 L4.5,0 C5.325,0 6,0.675 6,1.5 L6,42 L62.5,42 Z M18,34.5 L18,25.5 C18,24.675 17.325,24 16.5,24 L13.5,24 C12.675,24 12,24.675 12,25.5 L12,34.5 C12,35.325 12.675,36 13.5,36 L16.5,36 C17.325,36 18,35.325 18,34.5 Z M30,34.5 L30,9.5 C30,8.675 29.325,8 28.5,8 L25.5,8 C24.675,8 24,8.675 24,9.5 L24,34.5 C24,35.325 24.675,36 25.5,36 L28.5,36 C29.325,36 30,35.325 30,34.5 Z M42,34.5 L42,17.5 C42,16.675 41.325,16 40.5,16 L37.5,16 C36.675,16 36,16.675 36,17.5 L36,34.5 C36,35.325 36.675,36 37.5,36 L40.5,36 C41.325,36 42,35.325 42,34.5 Z M54,34.5 L54,5.5 C54,4.675 53.325,4 52.5,4 L49.5,4 C48.675,4 48,4.675 48,5.5 L48,34.5 C48,35.325 48.675,36 49.5,36 L52.5,36 C53.325,36 54,35.325 54,34.5 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Page-Copy" transform="translate(-1116.000000, -1304.000000)">
+            <g id="Regular/chart-bar" transform="translate(1116.000000, 1304.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#D18C00" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
