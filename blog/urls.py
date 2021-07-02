@@ -4,9 +4,7 @@ from . import views
 #from .views import IndexView
 
 urlpatterns = [
-    path('', views.index, name='index' ),
-    # url(r'^$', views.about_sisu, name='about'),
-    
+    path('', views.index, name='home' ),    
     path('about-us/', views.about_us, name='about-us'),
 
     path('about_us/team', views.about_team, name='about_team'),

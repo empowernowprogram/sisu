@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'blog',
     'users',
-    'pages',
+    # 'pages',
     'hitcount',
     'enpApi',
     'rest_framework',
