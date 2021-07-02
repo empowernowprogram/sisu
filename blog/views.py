@@ -13,7 +13,7 @@ from .forms import PostForm, CommentForm, ContactForm, SearchForm, ReplyToCommen
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, BadHeaderError, EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
@@ -51,39 +51,12 @@ def index(request):
         data = {
             'email': request.POST['email_signup']
         }
-
         payload = json.dumps(data)
-
         headers = {
             'content-type': "application/json",
             'x-mailerlite-apikey': "cdf788da5a461f34b95459a22160a4ee"
         }
-
         response = requests.request("POST", url, data=payload, headers=headers)
-
-    #    email_signup = request.GET.get('email_signup')
-    #    EmailList.objects.create(email = email_signup)
-    #    print (os.environ.get('SENDGRID_API_KEY'))  
-    #    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-    #    print("Set sendgrid instance")
-    #    from_email = Email("Hello@sisuvr.com")
-    #    print("Set from email")
-    #    to_email = Email(i)
-    #    print("Set to email")
-    #    subject = "Register for the Empower Now Program from Sisu VR"
-        #subject = sender + form.cleaned_data['subject']
-    #    print("Set subject")
-    #    html = render_to_string('email-templates/email-newsletter.html')
-    #    content = Content("text/html", html)
-                    
-    #    print("Creating mail structure")
-    #    mail = Mail(from_email, subject, to_email, content)
-    #    print("Attempting to send mail")
-    #    response = sg.client.mail.send.post(request_body=mail.get())
-
-    #    print("\trequest.method == GET")
-        #form = ContactForm()
-        #return render(request, 'blog/home.html', {'form' : form})
     return render(request, 'blog/home.html', context)
 
 
@@ -111,11 +84,7 @@ def pretty_request(request):
 
 
 # Create your views here.
-def login_portal(request):
-    print('======== LOGIN PORTAL (login_portal) ========')
-    
-    print(request.method)
-
+def login_portal(request): 
     if request.method == 'POST':
         print('WORKING?')
     else:
@@ -237,6 +206,7 @@ def forgot_password(request):
     #response = sg.client.mail.send.post(request_body=mail.get())
     return render(request, 'auth/login.html')
 
+
 def recover_password(request):
     if request.method == 'POST':
 
@@ -259,6 +229,7 @@ def recover_password(request):
             context = {usr : request.GET['user']}
             render(request, 'auth/recover.html', context)
     return render(request, 'auth/recover.html')
+
 
 def supervisor_progress(request):
     if request.user.is_authenticated:
@@ -487,18 +458,16 @@ def contact(request):
                 # send mail
                 try:
                     send_mail(
-                        f'Contact - {str(input_first_name)} {str(input_last_name)}',    # subject
-                        email_message,                                                  # message
-                        'sisu.contact.us@gmail.com',                                    # from email
-                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],                # to email
+                        f'Contact - {str(input_first_name)} {str(input_last_name)}',            # subject
+                        email_message,                                                          # message
+                        'sisu.contact.us@gmail.com',                                            # from email
+                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],               # to email
                     )
                     context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
                     return render(request, 'blog/contact.html', context)
                 except:
                     context = {'message_submit': {'type': "failed", "message": f'Message could not be sent due to an error. If this error persists please email hello@sisuvr.com'}}
                     return render(request, 'blog/contact.html', context)
-
-                
 
     return render(request, 'blog/contact.html')
 
@@ -523,7 +492,6 @@ def portal_login(request):
             return render(request, 'auth/login.html', context)
     else:    
         return render(request, 'auth/login.html')
-    
     return render(request, 'auth/login.html')
  
 def portal_login_trial(request):
@@ -545,7 +513,6 @@ def portal_login_trial(request):
             return render(request, 'auth/login_trial.html', context)
     else:    
         return render(request, 'auth/login_trial.html')
-    
     return render(request, 'auth/login_trial.html')
    
 
@@ -623,6 +590,27 @@ def split_emails(email_string):
     return emails
 
 
+
+def send_html_email(template, content, subject, to_emails, from_email='hello@sisuvr.com'):
+    """
+    Sends .html email base on template and returns a boolean if the email was successfully sent.
+
+    `to_emails` should be a list (i.e. [my@email.com,...])
+    """    
+    email_sent = False
+    try:
+        msg_html = render_to_string(template, content)
+        msg = EmailMessage(subject=subject, body=msg_html, to=to_emails, from_email=from_email)
+        msg.content_subtype = "html"
+        msg.send()
+        email_sent = True
+        return email_sent
+    except:
+        return email_sent
+
+
+
+
 def portal_register(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -631,21 +619,23 @@ def portal_register(request):
         emp = Employer.objects.get(employer_id=player.employer)
         employer = emp.company_name
         
-        if request.method == 'POST':
-            print('---- PORTAL_REGISTER - POST.REQUEST ----') 
-            # vr | non-supervisor and supervisor
-            emails_vr_nonsupervisor = request.POST['vr-nonsupervisor']
-            emails_vr_nonsupervisor = split_emails(emails_vr_nonsupervisor)
-            print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
-            print(len(emails_vr_nonsupervisor))
-            emails_vr_supervisor = request.POST['vr-supervisor']
-            emails_vr_supervisor = split_emails(emails_vr_supervisor)
-            # desktop | non-supervisor and supervisor            
-            emails_desktop_nonsupervisor = request.POST['desktop-nonsupervisor']
-            emails_desktop_nonsupervisor = split_emails(emails_desktop_nonsupervisor)
-            emails_desktop_supervisor = request.POST['desktop-supervisor']
-            emails_desktop_supervisor = split_emails(emails_desktop_supervisor)
+         
+        if request.is_ajax():
+            print('request - is ajax')
+            # get inputs
+            emails_vr_nonsupervisor         = request.GET.get('vr_nonsupervisor')
+            emails_vr_supervisor            = request.GET.get('vr_supervisor')
+            emails_desktop_nonsupervisor    = request.GET.get('desktop_nonsupervisor')
+            emails_desktop_supervisor       = request.GET.get('desktop_supervisor')
 
+            # convert email strings to lists
+            emails_vr_nonsupervisor         = split_emails(emails_vr_nonsupervisor)
+            emails_vr_supervisor            = split_emails(emails_vr_supervisor)
+            emails_desktop_nonsupervisor    = split_emails(emails_desktop_nonsupervisor)
+            emails_desktop_supervisor       = split_emails(emails_desktop_supervisor)
+
+            # send emails
+            # TODO - needs to be fixed, emails do not send due to internal server error
             if len(emails_vr_nonsupervisor) > 0:
                 for i in emails_vr_nonsupervisor:
                     if i == '':
@@ -656,7 +646,7 @@ def portal_register(request):
                     print (os.environ.get('SENDGRID_API_KEY'))  
                     sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    from_email = Email("hello@sisuvr.com")
                     print("Set from email")
                     to_email = Email(i)
                     print("Set to email")
@@ -740,12 +730,12 @@ def portal_register(request):
                     print("Creating mail structure")
                     mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    response = sg.client.mail.send.post(request_body=mail.get())                
 
-            # print('emails_vr_nonsupervisor = {}'.format(emails_vr_nonsupervisor))
-            # print('emails_vr_supervisor = {}'.format(emails_vr_supervisor))
-            # print('emails_desktop_nonsupervisor = {}'.format(emails_desktop_nonsupervisor))
-            # print('emails_desktop_supervisor = {}'.format(emails_desktop_supervisor))
+
+            print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
+            context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
+            return JsonResponse(context, status=200)
 
         return render(request, 'portal/register.html', context)
     else:
