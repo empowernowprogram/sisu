@@ -85,15 +85,51 @@ class ModuleDownloadLink(models.Model):
         ordering = ['training_type', 'platform_category']
 
 
-class TrainingSurvey(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
+# ComparisonRating holds current available comparison rating options in the survey
+class ComparisonRating(models.Model):
+    comparison_rating_id = models.IntegerField()
+    description = models.CharField(max_length=255, null=False, blank=False)
+    creation_date = models.DateField(auto_now_add=True, null=True)
 
-    overall_experience = models.IntegerField()
-    overall_experience_feedback = models.TextField(max_length=3000, null=True, blank=True)
+    def __str__(self):
+        return self.description
 
-    selected_features = models.CharField(max_length=255, null=False, blank=False)
-    comparison_rating = models.CharField(max_length=255, null=False, blank=False)
+# Adjectives holds currently available adjectives user can choose in the survey
+class Adjective(models.Model):
+    adj_id = models.IntegerField(blank=False)
+    description = models.CharField(max_length=255, null=False, blank=False)
+    creation_date = models.DateField(auto_now_add=True, null=True)
 
-    general_feedback = models.TextField(max_length=3000, null=True, blank=True)
-    email = models.CharField(max_length=255, null=False, blank=False)           # likely redundant since we already have their email
+    def __str__(self):
+        return self.description
+
+# AdjectivesSelected holds every adjective user chose in the survey
+class SelectedAdjective(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
+    adj_id = models.ManyToManyField(Adjective, blank=False, null=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+
+# PostProgramSurvey holds user feedbacks in the post program survey
+class PostProgramSurvey(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
+    overall_rating = models.IntegerField(blank=False)
+    overall_feedback = models.TextField(max_length=3000, null=True, blank=True)
+    comparison_rating_id = models.ForeignKey(ComparisonRating, on_delete=models.DO_NOTHING, null=True, blank=True)
+    comments = models.TextField(max_length=3000, null=True, blank=True)
+    contact = models.TextField(max_length=3000, null=True, blank=True)
     has_completed = models.BooleanField(default=False)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+
+# PostProgramSurveySupervisor holds user (a supervisor) feedbacks in the post program survey
+class PostProgramSurveySupervisor(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
+    recommend_friend_scale = models.IntegerField(blank=False)
+    recommend_friend_reason = models.TextField(max_length=3000, null=True, blank=True)
+    info_retention_scale = models.IntegerField(blank=False)
+    confidence_scale = models.IntegerField(blank=False)
+    comparison_rating_id = models.ForeignKey(ComparisonRating, on_delete=models.DO_NOTHING, null=True, blank=True)
+    recommend_manager_scale = models.IntegerField(blank=False)
+    recommend_employee_scale = models.IntegerField(blank=False)
+    comments = models.TextField(max_length=3000, null=True, blank=True)
+    has_completed = models.BooleanField(default=False)
+    creation_date = models.DateField(auto_now_add=True, null=True)

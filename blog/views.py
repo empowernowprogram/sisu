@@ -25,7 +25,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
-from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink
+from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -893,6 +893,92 @@ def portal_certificate(request):
         return render(request, 'portal/certificate.html', context)
     else:
         return render(request, 'auth/login.html')
+
+
+def post_program_survey(request, pk):
+    isSupervisor = Player.objects.get(user=request.user).supervisor
+
+    if pk == "supervisor" and isSupervisor:
+        # show certificate if user already completed the survey
+        try:
+            PostProgramSurveySupervisor.objects.get(user=request.user)
+            return redirect('/portal/certificate/')
+
+        except PostProgramSurveySupervisor.DoesNotExist:
+            scale5 = range(1,6)
+            scale10 = range(1,11)
+            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+            
+            context = {'scale5': scale5, 'scale10': scale10, 'experienceFeatures': experienceFeatures, 'preference': preference}
+
+            return render(request, 'portal/post-program-survey-supervisor.html', context)
+
+    elif pk == "nonsupervisor" and not isSupervisor:
+        # show certificate if user already completed the survey
+        try:
+            PostProgramSurvey.objects.get(user=request.user)
+            return redirect('/portal/certificate/')
+
+        except PostProgramSurvey.DoesNotExist:
+            starRange = range(1, 6)
+            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+            
+            context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+
+            return render(request, 'portal/post-program-survey.html', context)
+    
+    else:
+        return redirect('/portal/home/')
+
+
+def save_survey(request, pk):
+    isSupervisor = Player.objects.get(user=request.user).supervisor
+
+    if request.method == 'POST':
+        if pk == "supervisor" and isSupervisor:
+            postProgramSurvey = PostProgramSurveySupervisor()
+
+            postProgramSurvey.recommend_friend_scale = request.POST.get('recommendScore')
+            postProgramSurvey.recommend_friend_reason = request.POST.get('recommendFriendReason')
+            postProgramSurvey.info_retention_scale = request.POST.get('retainScore')
+            postProgramSurvey.confidence_scale = request.POST.get('confidenceScore')
+            postProgramSurvey.recommend_manager_scale = request.POST.get('recommendManagerScore')
+            postProgramSurvey.recommend_employee_scale = request.POST.get('recommendEmployeeScore')
+
+        elif pk == "nonsupervisor" and not isSupervisor:
+            postProgramSurvey = PostProgramSurvey()
+
+            postProgramSurvey.overall_rating = request.POST.get('overallStars')
+            postProgramSurvey.overall_feedback = request.POST.get('overallFeedback')
+            postProgramSurvey.contact = request.POST.get('contact')
+
+        else:
+            return redirect('/portal/home/')
+
+
+        # common fields for both nonsupervisor / supervisor
+        postProgramSurvey.user = request.user
+        postProgramSurvey.comments = request.POST.get('comments')
+
+        if request.POST.get('preference'):
+            postProgramSurvey.comparison_rating_id = ComparisonRating.objects.get(comparison_rating_id=request.POST.get('preference'))
+
+        postProgramSurvey.has_completed = True
+        postProgramSurvey.save()
+
+        # record the selected adjective from user (both supervisor and nonsupervisor have this question)
+        selectedAdj = SelectedAdjective(user=request.user)
+        selectedAdj.save()
+
+        for adjId in request.POST.getlist('features'):
+            selectedAdj.adj_id.add(Adjective.objects.get(adj_id=adjId))
+
+        return render(request, 'portal/save-survey.html')
+
+    else:
+        return redirect('/portal/home/')
 
 # Training Portal - END
 
