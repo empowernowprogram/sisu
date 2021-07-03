@@ -163,9 +163,15 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'mail.sisuvr.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'sisu.contact.us@gmail.com'
 DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
 SERVER_EMAIL = 'sisu.contact.us@gmail.com'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # demo_project/settings.py
 LOGIN_REDIRECT_URL = '/'
