@@ -7,8 +7,9 @@ from django.contrib.auth.models import User
 class Player(models.Model):
     email = models.CharField(max_length=50, primary_key=True)
     employer = models.IntegerField()
+    
     full_name = models.CharField(max_length=60)
-    supervisor = models.BooleanField()
+    supervisor = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     registration_type = models.CharField(default='', max_length=16)
     has_signed = models.BooleanField(default=False)
@@ -19,7 +20,7 @@ class Player(models.Model):
 
 class Employer(models.Model):
     company_name = models.CharField(max_length=60)
-    employer_id = models.IntegerField()
+    employer_id = models.IntegerField(null=True)
 
 class Modules(models.Model):
     code = models.CharField(max_length=10)
@@ -37,7 +38,6 @@ class PlaySession(models.Model):
     success = models.BooleanField()
     time_taken = models.IntegerField()
     training_type = models.CharField(default='', max_length=16)
-
     
 class LoginSessions(models.Model):
     email = models.CharField(max_length=50)

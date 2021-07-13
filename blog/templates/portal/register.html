@@ -156,6 +156,8 @@
                 let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
                 let desktop_supervisor = $('#desktop-supervisor').val();
 
+                console.log('vr_nonsupervisor = ', vr_nonsupervisor)
+
                 $.ajax({
                     url: '',
                     type: 'GET',
@@ -171,8 +173,6 @@
                         $('#vr-supervisor').val("");
                         $('#desktop-nonsupervisor').val("");
                         $('#desktop-supervisor').val("");
-
-                        
                         $('#alert-emails-sent').removeClass('hidden');
                     }
                 })

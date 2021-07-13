@@ -12,7 +12,6 @@ djangorestframework==3.11.0
 djangorestframework-api-key==1.4.1
 gunicorn==19.9.0
 idna==2.8
-numpy==1.15.2
 oauthlib==3.0.1
 psycopg2==2.7.7
 psycopg2-binary==2.7.7
@@ -24,8 +23,6 @@ python3-openid==3.1.0
 pytz==2018.4
 requests==2.21.0
 requests-oauthlib==1.2.0
-scikit-learn==0.20.0
-scipy==1.1.0
 sendgrid==5.6.0
 six==1.11.0
 sqlparse==0.3.0

@@ -8,16 +8,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="author" content="Sisu VR" />
-        <meta name="description"
-            content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
-        <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+        <meta name="description" content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+        
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@id": "https://www.sisuvr.com",
+                "@type": "Organization",
+                "name": "Sisu VR",
+                "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
+                "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
+                "sameAs": [
+                    "https://www.linkedin.com/company/sisuvr",
+                    "https://www.facebook.com/sisuvr",
+                    "https://www.twitter.com/sisuvr",
+                ]
+            }
+        </script>
+
         <!-- Document title -->
         <title>Sisu VR</title>
         <!-- Stylesheets & Fonts -->
         <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
         <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
         <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        {% include 'components/ga-tracking-code.html' %}
     </head>
 
     <body>

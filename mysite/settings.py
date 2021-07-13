@@ -17,6 +17,7 @@ import dj_database_url
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', cast=bool)
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 #DEBUG = True
@@ -162,9 +163,15 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'mail.sisuvr.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'sisu.contact.us@gmail.com'
 DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
 SERVER_EMAIL = 'sisu.contact.us@gmail.com'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # demo_project/settings.py
 LOGIN_REDIRECT_URL = '/'
