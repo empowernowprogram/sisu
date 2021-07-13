@@ -8,26 +8,27 @@ class Migration(migrations.Migration):
     dependencies = [
         ('enpApi', '0010_invite_loginsessions'),
     ]
-
+    
+    # comment out duplicate added fields
     operations = [
-        migrations.AddField(
-            model_name='player',
-            name='admin',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='player',
-            name='has_signed',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AddField(
-            model_name='player',
-            name='registration_type',
-            field=models.CharField(default='', max_length=16),
-        ),
-        migrations.AddField(
-            model_name='playsession',
-            name='training_type',
-            field=models.CharField(default='', max_length=16),
-        ),
+        # migrations.AddField(
+        #     model_name='player',
+        #     name='admin',
+        #     field=models.BooleanField(default=False),
+        # ),
+        # migrations.AddField(
+        #     model_name='player',
+        #     name='has_signed',
+        #     field=models.BooleanField(default=False),
+        # ),
+        # migrations.AddField(
+        #     model_name='player',
+        #     name='registration_type',
+        #     field=models.CharField(default='', max_length=16),
+        # ),
+        # migrations.AddField(
+        #     model_name='playsession',
+        #     name='training_type',
+        #     field=models.CharField(default='', max_length=16),
+        # ),
     ]
