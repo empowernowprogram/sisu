@@ -75,4 +75,48 @@ $(document).ready(function() {
     });
 
 
+    /**
+     * Post-program-survey
+     */
+
+    // when click on continue button
+    $('.continueBtn').click(function(event) {
+        // hide current question and show the next question
+        if (event.target.id == "continue1") {
+            $('#continue1').remove();
+            $('#question2').show();
+        } else if (event.target.id == "continue2") {
+            $('#question1').hide();
+            $('#question2').hide();
+            $('#question3').show();
+        }
+    });
+    
+    // rating stars
+    var $star_rating = $('.star-rating .fa');
+
+    var SetRatingStar = function() {
+        return $star_rating.each(function() {
+            if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+                return $(this).removeClass('fa-star-o').addClass('fa-star');
+            } else {
+                return $(this).removeClass('fa-star').addClass('fa-star-o');
+            }
+        });
+    };
+
+    $star_rating.on('click', function() {
+        $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+        $('#continue1').removeClass('disabled');
+        return SetRatingStar();
+    });
+
+    // disable button for required field
+    $("a").on("click", function(event){
+        if ($(this).hasClass("disabled")) {
+            event.preventDefault();
+        }
+    });
+
+
 })
