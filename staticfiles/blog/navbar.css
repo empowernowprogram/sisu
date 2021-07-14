@@ -1,0 +1,89 @@
+.tab {
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 20px 20px 0px 0px;
+  vertical-align: middle;
+}
+
+.tab p, a {
+  vertical-align: middle;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0;
+}
+
+.tab p.inactive, a.inactive {
+  color: black;
+}
+
+.tab.first {
+  position:absolute;
+  width: 15vw;
+  height: 74px;
+  left: 20vw;
+}
+
+
+.tab.second {
+  position:absolute;
+  width: 15vw;
+  height: 74px;
+  left: 35vw;
+}
+.tab.third {
+  position:absolute;
+  width: 15vw;
+  height: 74px;
+  left: 50vw;
+}
+
+.tab.forth {
+  position:absolute;
+  width: 15vw;
+  height: 74px;
+  left: 65vw;
+}
+
+.topnav a.active {
+  background-color: #6C7CB4;
+  color: white;
+}
+
+.tab.active {
+  background-color: #6C7CB4;
+  color: white;
+}
+
+.tab p.active, a.active {
+  background-color: #6C7CB4;
+  color: white;
+}
+
+.topnav {
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  top: 10;
+  padding: 0;
+  margin: 50;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.child {
+  position: absolute;
+  left: 0%;
+  border-bottom: solid 1px black;
+}
+
+.container {
+  padding-top: 50;
+}
+
