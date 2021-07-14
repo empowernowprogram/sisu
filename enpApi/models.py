@@ -123,13 +123,13 @@ class PostProgramSurvey(models.Model):
 # PostProgramSurveySupervisor holds user (a supervisor) feedbacks in the post program survey
 class PostProgramSurveySupervisor(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
-    recommend_friend_scale = models.IntegerField(blank=False)
+    recommend_friend_scale = models.IntegerField(null=True, blank=False)
     recommend_friend_reason = models.TextField(max_length=3000, null=True, blank=True)
-    info_retention_scale = models.IntegerField(blank=False)
-    confidence_scale = models.IntegerField(blank=False)
+    info_retention_scale = models.IntegerField(null=True, blank=False)
+    confidence_scale = models.IntegerField(null=True, blank=False)
     comparison_rating_id = models.ForeignKey(ComparisonRating, on_delete=models.DO_NOTHING, null=True, blank=True)
-    recommend_manager_scale = models.IntegerField(blank=False)
-    recommend_employee_scale = models.IntegerField(blank=False)
+    recommend_manager_scale = models.IntegerField(null=True, blank=False)
+    recommend_employee_scale = models.IntegerField(null=True, blank=False)
     comments = models.TextField(max_length=3000, null=True, blank=True)
     has_completed = models.BooleanField(default=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
