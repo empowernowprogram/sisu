@@ -1,0 +1,65 @@
+[
+    {
+        "model": "enpApi.playerrole",
+        "pk": 1,
+        "fields": {
+            "module": "1",
+            "scene": 1,
+            "role": "victim"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 2,
+        "fields": {
+            "module": "1",
+            "scene": 2,
+            "role": "victim"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 3,
+        "fields": {
+            "module": "1",
+            "scene": 3,
+            "role": "bystander"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 4,
+        "fields": {
+            "module": "1",
+            "scene": 4,
+            "role": "perpetrator"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 5,
+        "fields": {
+            "module": "1",
+            "scene": 5,
+            "role": "victim"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 6,
+        "fields": {
+            "module": "1",
+            "scene": 6,
+            "role": "victim"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 7,
+        "fields": {
+            "module": "1",
+            "scene": 7,
+            "role": "perpetrator"
+        }
+    }
+]
