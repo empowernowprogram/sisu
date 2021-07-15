@@ -133,3 +133,26 @@ class PostProgramSurveySupervisor(models.Model):
     comments = models.TextField(max_length=3000, null=True, blank=True)
     has_completed = models.BooleanField(default=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
+
+# Behavior holds available behavior: hostile/passive/confident
+class Behavior(models.Model):
+    behavior_id = models.IntegerField(blank=False)
+    description = models.CharField(max_length=255, null=False, blank=False)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.description
+
+# PlayerRole holds the role player plays in each scene
+class PlayerRole(models.Model):
+    module = models.CharField(max_length=255, blank=False)
+    scene = models.IntegerField(blank=False)
+    role = models.CharField(max_length=255, blank=False)
+
+# EthicalFeedback holds user's ethical performance during training
+class EthicalFeedback(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
+    module = models.CharField(max_length=255, blank=False)
+    scene = models.IntegerField(blank=False)
+    emotion = models.IntegerField(blank=False)
+    behavior_id = models.ForeignKey(Behavior, on_delete=models.DO_NOTHING, blank=False)

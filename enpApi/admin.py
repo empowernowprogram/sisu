@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from django.contrib import admin
-from .models import Player, Employer, PlaySession, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from .models import Player, Employer, PlaySession, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, PlayerRole, EthicalFeedback
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('user', 'employer', 'supervisor', 'admin')
@@ -35,6 +35,15 @@ class ComparisonRatingAdmin(admin.ModelAdmin):
 class SelectedAdjectiveAdmin(admin.ModelAdmin):
     list_display = ('id', 'user')
 
+class BehaviorAdmin(admin.ModelAdmin):
+    list_display = ('behavior_id', 'description')
+
+class PlayerRoleAdmin(admin.ModelAdmin):
+    list_display = ('module', 'scene', 'role')
+
+class EthicalFeedbackAdmin(admin.ModelAdmin):
+    list_display = ('user', 'module', 'scene')
+
 
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Employer, EmployerAdmin)
@@ -45,3 +54,6 @@ admin.site.register(PostProgramSurveySupervisor, PostProgramSurveySupervisorAdmi
 admin.site.register(Adjective, AdjectiveAdmin)
 admin.site.register(ComparisonRating, ComparisonRatingAdmin)
 admin.site.register(SelectedAdjective, SelectedAdjectiveAdmin)
+admin.site.register(Behavior, BehaviorAdmin)
+admin.site.register(PlayerRole, PlayerRoleAdmin)
+admin.site.register(EthicalFeedback, EthicalFeedbackAdmin)
