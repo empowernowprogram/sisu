@@ -40,7 +40,7 @@ To provide initial data for models, load data from individual fixture:
 ```
 python manage.py loaddata post-program-survey-choices.json
 python manage.py loaddata behavior.json
-python manage.py loaddata player-role.json
+python manage.py loaddata mock-player-role.json
 python manage.py loaddata mock-ethical-feedback.json
 ```
 
