@@ -18,6 +18,12 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf.urls import url
 from django.contrib.auth import views
+from django.contrib.sitemaps.views import sitemap
+from mysite.sitemaps import StaticViewSitemap
+
+sitemaps = {
+    'sitemap': StaticViewSitemap
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +33,6 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')), # new
     path('accounts/', include('allauth.urls')), 
     path('', include('enpApi.urls')),  
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 

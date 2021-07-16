@@ -54,7 +54,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',                            # new
     'allauth.socialaccount.providers.google',           # new
     'allauth.socialaccount.providers.linkedin_oauth2',  # new
+
+    'django.contrib.sitemaps',
 ]
+
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
