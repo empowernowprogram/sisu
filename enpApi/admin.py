@@ -42,7 +42,7 @@ class PlayerRoleAdmin(admin.ModelAdmin):
     list_display = ('module', 'scene', 'role')
 
 class EthicalFeedbackAdmin(admin.ModelAdmin):
-    list_display = ('user', 'module', 'scene')
+    list_display = ('user', 'module', 'scene', 'emotion', 'behavior_id', 'timestamp')
 
 
 admin.site.register(Player, PlayerAdmin)

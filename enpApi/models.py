@@ -156,3 +156,4 @@ class EthicalFeedback(models.Model):
     scene = models.IntegerField(blank=False)
     emotion = models.IntegerField(blank=False)
     behavior_id = models.ForeignKey(Behavior, on_delete=models.DO_NOTHING, blank=False)
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)
