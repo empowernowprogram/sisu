@@ -8,3 +8,4 @@ db.json
 /static
 .DS_Store
 .vscode/
+.coverage
