@@ -900,7 +900,7 @@ def post_program_survey(request, pk):
 
     if pk == "supervisor" and isSupervisor:
         # show certificate if user already completed the survey
-        if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
+        if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
             return redirect('/portal/certificate/')
 
         else:
