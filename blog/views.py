@@ -912,40 +912,40 @@ def portal_ethical_report(request):
 
         roles = PlayerRole.objects.filter(module=1) # TO DO: hard code for now
 
-        labels = []
-        data = []
-        behavior = []
-        color = []
-        username = request.user.username
-
-        queryset = EthicalFeedback.objects.filter(user__username=username)
-
-        for column in queryset:
-            labels.append(column.scene)
-            data.append(column.emotion)
-            behavior.append(column.behavior_id.description)
-
-        for b in behavior:
-            color.append(getColor(b))
-
-        context = {
-            'player': player, 
-            'play_sessions': play_sessions, 
-            'play_sessions_completed': play_sessions_completed,
-            'roles': roles,
-            'labels': labels,  # scene
-            'data': data,  # emotion
-            'color': color,  # color
-            'behavior': list(set(behavior))  # behavior
-        }
-
+        # supervisor
         if player.supervisor:
             # aggregate data
             pass
+
+        # not supervisor
         else:
-            # get individual data
-            feedbacks = EthicalFeedback.objects.filter(user=request.user)
-            context['feedbacks'] = feedbacks
+            labels = []
+            data = []
+            behavior = []
+            color = []
+            username = request.user.username
+
+            queryset = EthicalFeedback.objects.filter(user__username=username)
+
+            for column in queryset:
+                labels.append(column.scene)
+                data.append(column.emotion)
+                behavior.append(column.behavior_id.description)
+
+            for b in behavior:
+                color.append(getColor(b))
+
+            context = {
+                'player': player, 
+                'play_sessions': play_sessions, 
+                'play_sessions_completed': play_sessions_completed,
+                'roles': roles,
+                'labels': labels,  # scene
+                'data': data,  # emotion
+                'color': color,  # color
+                'behavior': list(set(behavior))  # behavior
+            }
+            
         return render(request, 'portal/ethical-report.html', context)
     else:
         return render(request, 'auth/login.html')
