@@ -354,17 +354,21 @@ tfoot {
 }
 
 .ethi-container{
+    width: 1280px;
     padding-top: 110px;
     padding-bottom: 110px;
     padding-right: 15%;
     padding-left: 15%;
+    background: #4E657A;
 }
 
 .ethi-container-thin{
+    width: 1280px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 5%;
     padding-left: 5%;
+    background: #4E657A;
 }
 
 .ethi-text-lg {

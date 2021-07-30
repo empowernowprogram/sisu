@@ -75,9 +75,7 @@ $(document).ready(function() {
     });
 
 
-    /**
-     * Post-program-survey
-     */
+    /* POST PROGRAM SURVEY SCRIPT - START */
 
     // when click on continue button
     $('.continueBtn').click(function(event) {
@@ -118,5 +116,28 @@ $(document).ready(function() {
         }
     });
 
+    /* POST PROGRAM SURVEY SCRIPT - END */
+
+
+    /* ETHICAL FRAMEWORK REPORT SCRIPT - START */
+    console.log("ETHICAL");
+    // when click on continue button
+    $('.ethicalBtn').click(function(event) {
+        // hide current question and show the next question
+        if (event.target.id == "ethiNext1") {
+            $('#page1').hide();
+            $('#page2').show();
+        } else if (event.target.id == "ethiNext2") {
+            $('#page2').hide();
+            $('#page3').show();
+        } else if (event.target.id == "ethiBack2") {
+            $('#page2').hide();
+            $('#page1').show();
+        } else if (event.target.id == "ethiBack3") {
+            $('#page3').hide();
+            $('#page2').show();
+        }
+    });
+    /* ETHICAL FRAMEWORK REPORT SCRIPT - END */
 
 })

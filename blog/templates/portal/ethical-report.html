@@ -32,17 +32,14 @@
     <div class="page-container">
         <div class="row" style="margin: auto;">
             {% if play_sessions_completed.count is play_sessions.count %}
-            <div id="page1" class="panel panel-white ethi-container" style="background: #4E657A;">
+            <div id="page1" class="panel panel-white ethi-container" >
                 <div class="panel-body">
-
                     <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">Congratulations on completing the module!</h1>
                     <br/><br/>
-                    <p class="ethical-report ethi-text-reg">You will now be shown an overview of how you responded and acted throughout the module.</p>
-                    <br/>
-                    <p class="ethical-report ethi-text-reg">This information is designed to provide insights in how your emotions can shape how you respond to harassment scenarios.</p>
+                    <p class="ethical-report ethi-text-reg">You will now be shown an overview of how you responded and acted throughout the module.<br/>
+                        This information is designed to provide insights in how your emotions can shape how you respond to harassment scenarios.</p>
                     <br/><br/><br/><br/>
                     <a id="ethiNext1" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-center ethicalBtn">Next</a>
-
                 </div>
             </div>
             {% elif play_sessions_completed.count is not play_sessions.count %}
@@ -53,8 +50,7 @@
                         modules are completed</p>
 
                     <div style="margin: auto; text-align: center;">
-                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
-                            href="/portal/home/">Return to training</a>
+                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="/portal/home/">Return to training</a>
                     </div>
                 </div>
             </div>
@@ -121,7 +117,7 @@
                 <a id="ethiNext2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-right ethicalBtn">Next</a>
             </div>
             {% else %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="background: #4E657A;">
+            <div id="page2" class="panel panel-white ethi-container-thin" hidden>
                 <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module 1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <p class="ethical-report ethi-text-sm">[supervisor bar chart here]</p>
@@ -132,15 +128,18 @@
             {% endif %}
 
 
-            <div id="page3" class="panel panel-white ethi-container" style="background: #4E657A;">
-                
-                <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">You’re all set! How did you do?</h1>
-                <br/><br/>
-                <p class="ethical-report ethi-text-reg">You can click BACK to review your results again, or close the tab to exit.</p>
-                <br/><br/><br/><br/><br/><br/>
-                <a id="ethiBack2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-center ethicalBtn">Back</a>
+            <div id="page3" class="panel panel-white ethi-container" hidden>
+                <div class="panel-body">
+                    <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">You’re all set! How did you do?</h1>
+                    <br/><br/>
+                    <p class="ethical-report ethi-text-reg">You can click BACK to review your results again, or exit to the Training Portal.</p>
+                    <br/><br/><br/><br/><br/><br/>
+                    <a id="ethiBack3" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-left ethicalBtn">Back</a>
+                    <a id="ethiExit3" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-right ethicalBtn">Exit</a>
+                </div>
             </div>
         </div>
+    </div>
 
 
         <!-- /Page Content -->
