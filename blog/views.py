@@ -895,6 +895,14 @@ def portal_certificate(request):
     else:
         return render(request, 'auth/login.html')
 
+
+def getColor(behavior):
+    colorDict = {"hostile": 'rgb(196, 106, 108)',
+                 "passive": 'rgb(204,155,63)', "confident": 'rgb(120,158,93)'}
+
+    return colorDict[behavior]
+
+
 def portal_ethical_report(request):
     if request.user.is_authenticated:
 
@@ -904,12 +912,32 @@ def portal_ethical_report(request):
 
         roles = PlayerRole.objects.filter(module=1) # TO DO: hard code for now
 
+        labels = []
+        data = []
+        behavior = []
+        color = []
+        username = request.user.username
+
+        queryset = EthicalFeedback.objects.filter(user__username=username)
+
+        for column in queryset:
+            labels.append(column.scene)
+            data.append(column.emotion)
+            behavior.append(column.behavior_id.description)
+
+        for b in behavior:
+            color.append(getColor(b))
+
         context = {
             'player': player, 
             'play_sessions': play_sessions, 
             'play_sessions_completed': play_sessions_completed,
-            'roles': roles
-            }
+            'roles': roles,
+            'labels': labels,  # scene
+            'data': data,  # emotion
+            'color': color,  # color
+            'behavior': list(set(behavior))  # behavior
+        }
 
         if player.supervisor:
             # aggregate data
@@ -918,7 +946,6 @@ def portal_ethical_report(request):
             # get individual data
             feedbacks = EthicalFeedback.objects.filter(user=request.user)
             context['feedbacks'] = feedbacks
-    
         return render(request, 'portal/ethical-report.html', context)
     else:
         return render(request, 'auth/login.html')

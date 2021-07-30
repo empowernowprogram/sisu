@@ -61,21 +61,62 @@
             {% endif %}
 
             {% if not player.supervisor %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="background: #4E657A;">
-                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the course of Module 1.</p>
-                <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
-                <p class="ethical-report ethi-text-sm">[!!TODO: put nonsupervisor bar chart here]</p>
-                <br/>
-                <p class="ethical-report ethi-text-sm">Roles in each scene (raw):</p>
-                <p class="ethical-report ethi-text-sm">{{roles}}</p>
-
-                <p class="ethical-report ethi-text-sm">Roles in each scene (extracted):</p>
-                {% for r in roles %}
-                <p class="ethical-report ethi-text-sm">Module {{r.module}} Scene {{r.scene}}: {{r.role}}</p>
-                {% endfor %}
-                <br/>
-                <p class="ethical-report ethi-text-sm">{{feedbacks}}</p>
-                <br/>
+            <div id="page2" class="panel panel-white ethi-container-thin" ">
+                <!-- style="background: #4E657A; -->
+                <div id="container" style="width: 75%;">
+                    <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
+                    <canvas id="efr" ></canvas>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
+                integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
+                <script>
+                    var ctx = document.getElementById('efr').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: "{{labels}}".replace('[','').replace(']','').split(","),
+                            datasets: [{
+                                label: "{{behavior}}".replace('[','').replace(']','').replaceAll('&#39;','').split(","),
+                                data: "{{data}}".replace('[','').replace(']','').split(","),
+                                backgroundColor: "{{color}}".replace('[','').replace(']','').split(","),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Ethical Framework Report Bar Chart'
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Scene',
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Emotion',
+                                    },
+                                    min: 0,
+                                    max: 10
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    title: {
+                                        display: true,
+                                    }
+                                }
+                            }
+                        }
+                    })
+                </script>
                 <a id="ethiBack2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-left ethicalBtn">Back</a>
                 <a id="ethiNext2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethi-btn-right ethicalBtn">Next</a>
             </div>
