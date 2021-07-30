@@ -26,6 +26,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from enpApi.models import Behavior, PlayerRole, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -894,6 +895,33 @@ def portal_certificate(request):
     else:
         return render(request, 'auth/login.html')
 
+def portal_ethical_report(request):
+    if request.user.is_authenticated:
+
+        player = Player.objects.get(user=request.user)
+        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+
+        roles = PlayerRole.objects.filter(module=1) # TO DO: hard code for now
+
+        context = {
+            'player': player, 
+            'play_sessions': play_sessions, 
+            'play_sessions_completed': play_sessions_completed,
+            'roles': roles
+            }
+
+        if player.supervisor:
+            # aggregate data
+            pass
+        else:
+            # get individual data
+            feedbacks = EthicalFeedback.objects.filter(user=request.user)
+            context['feedbacks'] = feedbacks
+    
+        return render(request, 'portal/ethical-report.html', context)
+    else:
+        return render(request, 'auth/login.html')
 
 def post_program_survey(request, pk):
     isSupervisor = Player.objects.get(user=request.user).supervisor
