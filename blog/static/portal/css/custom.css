@@ -346,6 +346,64 @@ tfoot {
 /* CERTIFICATE STYLING - END */
 
 
+/* ETHICAL FRAMEWORK REPORT STYLING - START */
+.ethical-report{
+    text-align: left;
+    font-family: Jost, sans-serif;
+    color: white;
+}
+
+.ethi-container{
+    padding-top: 110px;
+    padding-bottom: 110px;
+    padding-right: 15%;
+    padding-left: 15%;
+}
+
+.ethi-container-thin{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.ethi-text-lg {
+    font-size: 35px;
+}
+
+.ethi-text-reg {
+    font-size: 22px;
+}
+
+.ethi-text-sm {
+    font-size: 18px;
+    padding: 0px;
+}
+
+.ethi-btn {
+    background: #0A55C8;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
+    border-radius: 100px;
+    padding: 8px 50px 8px 50px;
+    margin: 0 auto;
+    position:relative;
+}
+
+.ethi-btn-center {
+    left:40%;
+}
+
+.ethi-btn-left {
+    left:15%;
+}
+.ethi-btn-right {
+    left:55%;
+}
+/* ETHICAL FRAMEWORK REPORT STYLING - END */
+
+
 /* POST PROGRAM SURVEY STYLING - START */
 .star-rating {
     line-height:32px;
