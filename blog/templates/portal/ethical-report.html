@@ -34,13 +34,18 @@
             {% if play_sessions_completed.count is play_sessions.count %}
             <div id="page1" class="panel panel-white ethi-container" style="height: 720px;">
                 <div class="panel-body">
-                    <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">Congratulations on completing the module!</h1>
-                    <br/><br/>
-                    <p class="ethical-report ethi-text-reg">You will now be shown an overview of how you responded and acted throughout the module.<br/>
-                        This information is designed to provide insights in how your emotions can shape how you respond to harassment scenarios.</p>
-                    
+                    <h1 class="ethical-report ethi-text-lg"
+                        style="color: #FFDD64; font-weight: bold; text-align: center;">Congratulations on completing the
+                        module!</h1>
+                    <br /><br />
+                    <p class="ethical-report ethi-text-reg">You will now be shown an overview of how you responded and
+                        acted throughout the module.<br />
+                        This information is designed to provide insights in how your emotions can shape how you respond
+                        to harassment scenarios.</p>
+
                     <div class="vertical-btn-pos ethi-btn-center">
-                        <a id="ethiNext1" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Next</a>
+                        <a id="ethiNext1" style="margin-bottom:15px; " type="button"
+                            class="btn ethi-btn ethicalBtn">Next</a>
                     </div>
                 </div>
             </div>
@@ -48,38 +53,42 @@
             <div class="panel panel-white cert-container">
                 <div class="panel-body">
                     <h1 class="ethical-report cert-title">Nice Try!</h1>
-                    <p class="ethical-report cert-text-reg">The ethical framework report will be generated once all<br>training
+                    <p class="ethical-report cert-text-reg">The ethical framework report will be generated once
+                        all<br>training
                         modules are completed</p>
 
                     <div style="margin: auto; text-align: center;">
-                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="/portal/home/">Return to training</a>
+                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
+                            href="/portal/home/">Return to training</a>
                     </div>
                 </div>
             </div>
             {% endif %}
 
             {% if not player.supervisor %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #ffffff" hidden>
-                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the course of Module 1.</p>
+            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #ffffff"
+                hidden>
+                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
+                    course of Module 1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <!-- style="background: #4E657A; -->
                 <div id="container" style="width: 75%">
                     <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
-                    <canvas id="efr" ></canvas>
+                    <canvas id="efr"></canvas>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
-                integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
+                    integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
                 <script>
                     var ctx = document.getElementById('efr').getContext('2d');
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: "{{labels}}".replace('[','').replace(']','').split(","),
+                            labels: "{{labels}}".replace('[', '').replace(']', '').split(","),
                             datasets: [{
-                                label: "{{behavior}}".replace('[','').replace(']','').replaceAll('&#39;','').split(","),
-                                data: "{{data}}".replace('[','').replace(']','').split(","),
-                                backgroundColor: "{{color}}".replace('[','').replace(']','').split(","),
+                                label: "{{behavior}}".replace('[', '').replace(']', '').replaceAll('&#39;', '').split(","),
+                                data: "{{data}}".replace('[', '').replace(']', '').split(","),
+                                backgroundColor: "{{color}}".replace('[', '').replace(']', '').split(","),
                                 borderWidth: 1
                             }]
                         },
@@ -119,57 +128,66 @@
                 </script>
 
                 <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Back</a>
+                    <a id="ethiBack2" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Back</a>
                 </div>
                 <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiNext2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Next</a>
+                    <a id="ethiNext2" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Next</a>
                 </div>
             </div>
             {% else %}
             <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px;" hidden>
-                <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module 1.</p>
+                <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module
+                    1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <p class="ethical-report ethi-text-sm">[supervisor bar chart here]</p>
-                <br/>
-                
+                <br />
+
                 <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Back</a>
+                    <a id="ethiBack2" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Back</a>
                 </div>
                 <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiNext2" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Next</a>
+                    <a id="ethiNext2" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Next</a>
                 </div>
             </div>
             {% endif %}
 
 
             <div id="page3" class="panel panel-white ethi-container" style="height: 720px;" hidden>
-                <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">You’re all set! How did you do?</h1>
-                <br/><br/>
-                <p class="ethical-report ethi-text-reg">You can click BACK to review your results again, or exit to the Training Portal.</p>
+                <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">
+                    You’re all set! How did you do?</h1>
+                <br /><br />
+                <p class="ethical-report ethi-text-reg">You can click BACK to review your results again, or exit to the
+                    Training Portal.</p>
 
                 <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack3" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Back</a>
+                    <a id="ethiBack3" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Back</a>
                 </div>
                 <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiExit3" style="margin-bottom:15px; " type="button" class="btn ethi-btn ethicalBtn">Exit</a>
+                    <a id="ethiExit3" style="margin-bottom:15px; " type="button"
+                        class="btn ethi-btn ethicalBtn">Exit</a>
                 </div>
-                
+
             </div>
         </div>
     </div>
 
 
-        <!-- /Page Content -->
+    <!-- /Page Content -->
 
 
-        <!-- Scripts -->
-        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+    <!-- Scripts -->
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
 
-        <script src="{% static 'portal/js/space.js' %}"></script>
-        <script src="{% static 'portal/js/scripts.js' %}"></script>
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
 </body>
 
 </html>
