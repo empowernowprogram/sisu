@@ -897,8 +897,8 @@ def portal_certificate(request):
 
 
 def getColor(behavior):
-    colorDict = {"hostile": 'rgb(196, 106, 108)',
-                 "passive": 'rgb(204,155,63)', "confident": 'rgb(120,158,93)'}
+    colorDict = {"hostile": 'rgb(255, 100, 100)',
+                 "passive": 'rgb(255, 171, 8)', "confident": 'rgb(119, 180, 71)'}
 
     return colorDict[behavior]
 
