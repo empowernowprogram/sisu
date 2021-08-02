@@ -1,47 +1,47 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // once dom is loaded and ready
     console.log('LOADED')
-   
-    let url  = window.location.href;
+
+    let url = window.location.href;
     let page = (url.split('/'));
     page_pathname = window.location.pathname;
 
     // // next get accordion side menu:
     let menu_hrefs = $('.page-sidebar-menu li a');
-    for(let i=0; i<menu_hrefs.length; i++){
+    for (let i = 0; i < menu_hrefs.length; i++) {
         let menu_href = $(menu_hrefs[i]).attr('href');
 
-        if(menu_href === page_pathname){
+        if (menu_href === page_pathname) {
             menu_class = $(menu_hrefs[i]).parent().parent().attr('class');
 
-            if(menu_class === 'accordion-menu'){
+            if (menu_class === 'accordion-menu') {
                 // no nested menu
                 $(menu_hrefs[i]).parent().addClass('active-page');
-            } else if (menu_class === 'sub-menu'){
+            } else if (menu_class === 'sub-menu') {
                 $(menu_hrefs[i]).parent().parent().parent().addClass('open');
                 $(menu_hrefs[i]).parent().parent().parent().attr('style', 'display: block;');
                 $(menu_hrefs[i]).parent().parent().attr('style', 'display: block;');
-                
+
                 let menu_sub_li = $(menu_hrefs[i]).parent().parent().find('li');
 
-                for(let j=0; j<menu_sub_li.length; j++){
+                for (let j = 0; j < menu_sub_li.length; j++) {
                     $(menu_sub_li[j]).addClass('animation');
                 }
-                
+
                 $(menu_hrefs[i]).parent().addClass('active-page');
 
             } else {
                 console.log('error - could not find')
-            }          
+            }
             break;
         }
     }
 
 
-    
+
 
     // edit registration
-    $('.fa-edit').click(function() {
+    $('.fa-edit').click(function () {
         $('#edit-reg-modal').modal('show');
 
         // assumption is table column count is static [name, email, registration]
@@ -50,10 +50,10 @@ $(document).ready(function() {
 
         html_registration = `<select style="padding: 6px 6px; border: 1px solid #C1C7CD; border-radius: 4px">`
 
-        if(user_registration.toLowerCase() === 'supervisor'){
+        if (user_registration.toLowerCase() === 'supervisor') {
             html_registration += `<option value="supervisor" selected>Supervisor</option>`
             html_registration += '<option value="non-supervisor">Non-supervisor</option>'
-        } else if (user_registration.toLowerCase() === 'non-supervisor'){
+        } else if (user_registration.toLowerCase() === 'non-supervisor') {
             html_registration += `<option value="supervisor">Supervisor</option>`
             html_registration += '<option value="non-supervisor" selected>Non-supervisor</option>'
         } else {
@@ -78,7 +78,7 @@ $(document).ready(function() {
     /* POST PROGRAM SURVEY SCRIPT - START */
 
     // when click on continue button
-    $('.continueBtn').click(function(event) {
+    $('.continueBtn').click(function (event) {
         // hide current question and show the next question
         if (event.target.id == "continue1") {
             $('#continue1').remove();
@@ -89,12 +89,12 @@ $(document).ready(function() {
             $('#question3').show();
         }
     });
-    
+
     // rating stars
     var $star_rating = $('.star-rating .fa');
 
-    var SetRatingStar = function() {
-        return $star_rating.each(function() {
+    var SetRatingStar = function () {
+        return $star_rating.each(function () {
             if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
                 return $(this).removeClass('fa-star-o').addClass('fa-star');
             } else {
@@ -103,14 +103,14 @@ $(document).ready(function() {
         });
     };
 
-    $star_rating.on('click', function() {
+    $star_rating.on('click', function () {
         $star_rating.siblings('input.rating-value').val($(this).data('rating'));
         $('#continue1').removeClass('disabled');
         return SetRatingStar();
     });
 
     // disable button for required field
-    $("a").on("click", function(event){
+    $("a").on("click", function (event) {
         if ($(this).hasClass("disabled")) {
             event.preventDefault();
         }
@@ -121,8 +121,8 @@ $(document).ready(function() {
 
     /* ETHICAL FRAMEWORK REPORT SCRIPT - START */
     console.log("ETHICAL");
-    // when click on continue button
-    $('.ethicalBtn').click(function(event) {
+    // when click on continue/exit button
+    $('.ethicalBtn').click(function (event) {
         // hide current question and show the next question
         if (event.target.id == "ethiNext1") {
             $('#page1').hide();
@@ -136,6 +136,9 @@ $(document).ready(function() {
         } else if (event.target.id == "ethiBack3") {
             $('#page3').hide();
             $('#page2').show();
+        } else if (event.target.id == "ethiExit3") {
+            console.log("!!EXIT!!");
+            close();
         }
     });
     /* ETHICAL FRAMEWORK REPORT SCRIPT - END */
