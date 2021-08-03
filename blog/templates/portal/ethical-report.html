@@ -24,6 +24,11 @@
     <!-- Theme Styles -->
     <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
     <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+
+    <!-- ChartJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
+        integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
 </head>
 
 <body style="background: #e0e0e0;">
@@ -141,8 +146,95 @@
                 <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module
                     1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
-                <p class="ethical-report ethi-text-sm">[supervisor bar chart here]</p>
-                <br />
+                <div id="container" style="position: relative; width: 75%;">
+                    <canvas id="efr_supervisor"></canvas>
+                </div>
+                <script>
+                    var ctx = document.getElementById('efr_supervisor');
+
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: JSON.parse('{{labels}}'),
+                            datasets: [
+                                {
+                                    label: 'hostile',
+                                    data: JSON.parse('{{hostile_dataset}}'),
+                                    backgroundColor: '{{hostile_color}}',
+                                    borderWidth: 0
+                                },
+                                {
+                                    label: 'passive',
+                                    data: JSON.parse('{{passive_dataset}}'),
+                                    backgroundColor: '{{passive_color}}',
+                                    borderWidth: 0
+                                },
+                                {
+                                    label: 'confident',
+                                    data: JSON.parse('{{confident_dataset}}'),
+                                    backgroundColor: '{{confident_color}}',
+                                    borderWidth: 0
+                                }
+                            ]
+                        },
+                        options: {
+                            color: 'white',
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Ethical Framework Report Bar Chart'
+                            },
+                            scales: {
+                                x: {
+                                    grid: {
+                                        display: false,
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        z: 1,
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        display: true,
+                                        text: 'Scene',
+                                    },
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        drawTicks: false,
+                                        color: 'rgba(255,255,255, 0.3)'
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        display: true,
+                                        text: 'Avg. Emotion',
+                                    },
+                                    ticks: {
+                                        color: 'white',
+                                        padding: 15
+                                    },
+                                    min: 0,
+                                    max: 10
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    title: {
+                                        display: true,
+                                    }
+                                }
+                            }
+                        }
+                    });
+                </script>
 
                 <div class="vertical-btn-pos ethi-btn-left">
                     <a id="ethiBack2" style="margin-bottom:15px; " type="button"

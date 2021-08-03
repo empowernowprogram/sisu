@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import sendgrid
 import os, urllib
 import requests, json
+from collections import defaultdict
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -897,8 +898,8 @@ def portal_certificate(request):
 
 
 def getColor(behavior):
-    colorDict = {"hostile": 'rgb(196, 106, 108)',
-                 "passive": 'rgb(204,155,63)', "confident": 'rgb(120,158,93)'}
+    colorDict = {"hostile": 'rgba(196, 106, 108, 0.75)',
+                 "passive": 'rgba(204, 155, 63, 0.75)', "confident": 'rgba(120, 158, 93, 0.75)'}
 
     return colorDict[behavior]
 
@@ -915,7 +916,50 @@ def portal_ethical_report(request):
         # supervisor
         if player.supervisor:
             # aggregate data
-            pass
+            # get all data for now, need to filter out a supervisor's employees
+            
+            data = []
+            color = []
+
+            queryset = EthicalFeedback.objects.all()
+            # calulate average emotion value for each scene
+            emotionSum = defaultdict(int) # {scene nb: sum of employees' emotion}
+            behaviorCount = defaultdict(dict) # {hostile: {scene nb: count}, ...}
+            for entry in queryset:
+                emotionSum[entry.scene] += entry.emotion
+                behaviorCount[entry.behavior_id.description][entry.scene] = behaviorCount[entry.behavior_id.description].get(entry.scene, 0) + 1
+
+            datasets = {}
+            sceneCnt = len(emotionSum)
+            employeeCnt = len(queryset) / sceneCnt
+
+            for behavior in behaviorCount:
+                sceneData = [0] * len(emotionSum)
+                for scene, emoSum in emotionSum.items():
+                    behaviorPercentage = behaviorCount[behavior].get(scene, 0) / employeeCnt
+                    avgEmotion = emoSum / employeeCnt
+                    sceneData[scene-1] = avgEmotion * behaviorPercentage
+
+                behaviorData = {
+                    "data": sceneData,
+                    "backgroundColor": getColor(behavior)
+                }
+
+                datasets[behavior] = behaviorData
+
+            context = {
+                'player': player, 
+                'play_sessions': play_sessions, 
+                'play_sessions_completed': play_sessions_completed,
+                'roles': roles,
+                'labels': list(range(1,len(emotionSum)+1)),  # scene
+                'hostile_dataset': datasets['hostile']['data'],
+                'passive_dataset': datasets['passive']['data'],
+                'confident_dataset': datasets['confident']['data'],
+                'hostile_color': datasets['hostile']['backgroundColor'],
+                'passive_color': datasets['passive']['backgroundColor'],
+                'confident_color': datasets['confident']['backgroundColor'],
+            }
 
         # not supervisor
         else:
@@ -945,7 +989,7 @@ def portal_ethical_report(request):
                 'color': color,  # color
                 'behavior': list(set(behavior))  # behavior
             }
-            
+
         return render(request, 'portal/ethical-report.html', context)
     else:
         return render(request, 'auth/login.html')
