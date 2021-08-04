@@ -919,31 +919,33 @@ def portal_ethical_report(request):
 
         # not supervisor
         else:
-            labels = []
-            data = []
-            behavior = []
-            color = []
+            scenes = []
+            emotions = []
+            behaviors = []
+            colors = []
+            threeColors = ['rgb(255, 100, 100)', 'rgb(255, 171, 8)', 'rgb(119, 180, 71)']
             username = request.user.username
 
             queryset = EthicalFeedback.objects.filter(user__username=username)
 
             for column in queryset:
-                labels.append(column.scene)
-                data.append(column.emotion)
-                behavior.append(column.behavior_id.description)
+                scenes.append(column.scene)
+                emotions.append(column.emotion)
+                behaviors.append(column.behavior_id.description)
 
-            for b in behavior:
-                color.append(getColor(b))
+            for b in behaviors:
+                colors.append(getColor(b))
 
             context = {
                 'player': player, 
                 'play_sessions': play_sessions, 
                 'play_sessions_completed': play_sessions_completed,
                 'roles': roles,
-                'labels': labels,  # scene
-                'data': data,  # emotion
-                'color': color,  # color
-                'behavior': list(set(behavior))  # behavior
+                'behaviors': behaviors, 
+                'scenes': scenes, 
+                'emotions': emotions, 
+                'colors': colors, 
+                'three_colors': threeColors,
             }
             
         return render(request, 'portal/ethical-report.html', context)
