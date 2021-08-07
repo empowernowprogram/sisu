@@ -1,0 +1,171 @@
+@@ -0,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+{% load static %}
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Sisu VR" />
+  <meta name="description"
+    content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@id": "https://www.sisuvr.com",
+      "@type": "Organization",
+      "name": "Sisu VR",
+      "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
+      "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
+      "sameAs": [
+        "https://www.linkedin.com/company/sisuvr",
+        "https://www.facebook.com/sisuvr",
+        "https://www.twitter.com/sisuvr",
+      ]
+    }
+  </script>
+
+  <!-- Document title -->
+  <title>500 Error | Sisu VR</title>
+  <!-- Stylesheets & Fonts -->
+  <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+  <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+  <style>
+  html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+.footer {
+  flex-shrink: 0;
+
+  </style>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+
+  <!-- Body Inner -->
+  <div class="body-inner">
+
+
+    <!-- Header -->
+    <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+      <div class="header-inner sisu-header-bkg">
+        <div class="container">
+          <!--Logo-->
+          <div id="logo">
+            <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+            <a href="{% url 'home' %}"></a>
+          </div>
+          <!--End: Logo-->
+          <!--Navigation Resposnive Trigger-->
+          <div id="mainMenu-trigger">
+            <a class="lines-button x"><span class="lines"></span></a>
+          </div>
+          <!--end: Navigation Resposnive Trigger-->
+          <!--Navigation-->
+          {% include 'components/public-menu.html' %}
+          <!--end: Navigation-->
+        </div>
+      </div>
+    </header>
+    <!-- end: Header -->
+
+
+
+    <section class="m-t-80 p-b-150">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="page-error-404">500</div>
+          </div>
+          <div class="col-lg-6">
+            <div class="text-start">
+              <h1 class="text-medium">Ooops, This Page Could Not Be Delivered!</h1>
+              <p class="lead">The page you are looking for could not be delivered due to invalid authentication credentials.</p>
+              <div class="seperator m-t-20 m-b-20"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="sisu-footer-bg footer">
+      <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
+        style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
+        class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}" data-ll-status="loaded">
+        <div class="grid-system-demo-live vertical-center">
+          <div class="footer-content">
+            <div class="container">
+              <div class="row" style="padding-bottom:0px">
+                <div class="col-md-4 col-xl-4">
+                  <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}" alt="Sisu VR"></a></p>
+                  <p class="sisu-footer-text">Designed to deliver immersive workplace training.</p>
+                </div>
+                <div class="col-4 col-md-4 col-xl-4">
+                  <div class="widget" style="margin-bottom:0px">
+                    <ul class="list">
+                      <li><a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a></li>
+                      <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a></li>
+                      <li><a class="sisu-footer-link" href="{% url 'home_portal' %}">Customer Portal</a></li>
+                      <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy Policy</a></li>
+                      <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms & Conditions</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-4 col-md-4 col-xl-4">
+                  <br>
+                  <h5 style="color: #fff">FOLLOW US</h5>
+                  <div class="social-icons social-icons-colored social-icons-rounded float-left">
+                    <ul>
+                      <li class="social-facebook"><a href="https://www.facebook.com/sisuvr" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a></li>
+                      <li class="social-twitter"><a href="https://twitter.com/sisuvr" target="_blank"><i
+                            class="fab fa-twitter"></i></a></li>
+                      <li class="social-linkedin"><a href="https://www.linkedin.com/company/sisuvr" target="_blank"><i
+                            class="fab fa-linkedin"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
+                Copyright © 2021 Sisu VR Inc. All
+                Rights Reserved.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- end: Footer -->
+
+    </section>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+
+
+</body>
+
+</html>

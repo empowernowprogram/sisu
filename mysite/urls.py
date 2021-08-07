@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include
-from django.conf.urls import url
 from django.contrib.auth import views
 from django.contrib.sitemaps.views import sitemap
+from django.conf.urls import include, url, handler400, handler403, handler500
+from django.urls import path
 from mysite.sitemaps import StaticViewSitemap
 
 sitemaps = {
@@ -36,3 +35,9 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
+
+# Page Error Handling
+handler400 = 'main.views.handle400'
+handler403 = 'main.views.handle403'
+handler404 = 'main.views.handle404'
+handler500 = 'main.views.handle500'

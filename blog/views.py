@@ -13,7 +13,7 @@ from .forms import PostForm, CommentForm, ContactForm, SearchForm, ReplyToCommen
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import send_mail, BadHeaderError, EmailMessage
+from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
@@ -634,6 +634,21 @@ def portal_register(request):
             emails_desktop_nonsupervisor    = split_emails(emails_desktop_nonsupervisor)
             emails_desktop_supervisor       = split_emails(emails_desktop_supervisor)
 
+            print(emails_vr_nonsupervisor)
+            email_subject = 'test subject'
+            email_message = 'test email message body'
+            
+            print('attempt to send email')
+            send_mail(
+                'EMAIL SUBJECT',                                            # subject
+                'TEST MESSAGE',                                                  # message
+                'hello@sisuvr.com',                                             # from email
+                ['robert.miller@sisuvr.com'],                                   # to email
+            )
+            print('email sent')
+
+            '''
+
             # send emails
             # TODO - needs to be fixed, emails do not send due to internal server error
             if len(emails_vr_nonsupervisor) > 0:
@@ -732,7 +747,7 @@ def portal_register(request):
                     print("Attempting to send mail")
                     response = sg.client.mail.send.post(request_body=mail.get())                
 
-
+            '''
             print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
             context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
             return JsonResponse(context, status=200)
@@ -1460,3 +1475,19 @@ class IndexView(TemplateView):
           context['formset'] = formset
           
           return context
+
+
+def handle400(request, exception):
+    return render(request, 'blog/statuscode/401.html')
+
+
+def handle403(request, exception):
+    return render(request, 'blog/statuscode/403.html')
+
+
+def handle404(request, exception):
+    return render(request, 'blog/statuscode/404.html')
+
+
+def handle500(request, *args, **argv):
+    return render(request, 'blog/statuscode/500.html')

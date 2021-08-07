@@ -112,14 +112,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-
-#DATABASES = {
-#    'default': dj_database_url.config(
-#        default=config('DATABASE_URL')
-#    )
-#}
-
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.sqlite3',
@@ -169,12 +161,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# email system settings v1.0
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'mail.sisuvr.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'sisu.contact.us@gmail.com'
+# DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
+# SERVER_EMAIL = 'sisu.contact.us@gmail.com'
+
+# email system settings v2.0
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'hello@sisuvr.com'
 EMAIL_HOST = 'mail.sisuvr.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'sisu.contact.us@gmail.com'
-DEFAULT_FROM_EMAIL = 'sisu.contact.us@gmail.com'
-SERVER_EMAIL = 'sisu.contact.us@gmail.com'
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'hello@sisuvr.com'
+EMAIL_HOST_PASSWORD = '**Sisuvr88'
 
 
 # demo_project/settings.py
