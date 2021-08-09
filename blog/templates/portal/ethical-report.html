@@ -84,19 +84,87 @@
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
                     integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
                 <script>
+                    function hoverHandler(e, item) {
+                        console.log(item);
+                    }
+
                     var ctx = document.getElementById('efr').getContext('2d');
+                    var rawScene = {{ scenes| safe }};
+                    var rawEmo = {{ emotions| safe }};
+                    var rawBehavior = {{ behaviors| safe }};
+                    var rawColor = {{ colors| safe }};
+                    var threeColor = {{ three_colors| safe }};
+
+                    function HostileObj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+                    function PassiveObj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+                    function Confidentobj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+
+                    var hostileArray = new Array();
+                    var hostileColor = new Array();
+                    var passiveArray = new Array();
+                    var passiveColor = new Array();
+                    var confidentArray = new Array();
+                    var confidentColor = new Array();
+
+                    for (var i = 0; i < rawBehavior.length; i++) {
+                        if (rawBehavior[i] == "hostile") {
+                            hostileArray.push(new HostileObj(rawScene[i], rawEmo[i], rawBehavior[i]));
+                            passiveArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                            confidentArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                        }
+                        else if (rawBehavior[i] == "passive") {
+                            passiveArray.push(new PassiveObj(rawScene[i], rawEmo[i], rawBehavior[i]));
+                            hostileArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                            confidentArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                        }
+                        else {
+                            confidentArray.push(new Confidentobj(rawScene[i], rawEmo[i], rawBehavior[i]));
+                            passiveArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                            hostileArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                        }
+                        hostileColor.push(threeColor[0]);
+                        passiveColor.push(threeColor[1]);
+                        confidentColor.push(threeColor[2]);
+                    }
+
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: "{{labels}}".replace('[', '').replace(']', '').split(","),
+                            labels: rawScene, //scenes
                             datasets: [{
-                                label: "{{behavior}}".replace('[', '').replace(']', '').replaceAll('&#39;', '').split(","),
-                                data: "{{data}}".replace('[', '').replace(']', '').split(","),
-                                backgroundColor: "{{color}}".replace('[', '').replace(']', '').replaceAll('&#39;', '').split(/\,\s?(?![^\(]*\))/),
-                                borderWidth: 1
-                            }]
+                                label: "hostile",
+                                data: hostileArray,
+                                backgroundColor: hostileColor,
+                                borderWidth: 1,
+                            }, {
+                                label: "passive",
+                                data: passiveArray,
+                                backgroundColor: passiveColor,
+                                borderWidth: 1,
+                            }, {
+                                label: "confident",
+                                data: confidentArray,
+                                backgroundColor: confidentColor,
+                                borderWidth: 1,
+                            },]
                         },
                         options: {
+                            parsing: {
+                                xAxisKey: 'scene',
+                                yAxisKey: 'emotion',
+                            },
                             responsive: true,
                             title: {
                                 display: false,
@@ -113,7 +181,8 @@
                                     },
                                     grid: {
                                         display: false,
-                                    }
+                                    },
+                                    stacked: true,
                                 },
 
                                 y: {
@@ -136,9 +205,17 @@
                                 legend: {
                                     onClick: false,
                                     position: 'right',
-                                    color: 'white',
+                                    labels: {
+                                        color: 'white',
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: false,
                                 }
-                            }
+                            },
+                            mode: 'nearest',
+                            intersect: false,
+                            onHover: hoverHandler,
                         }
                     })
                 </script>
