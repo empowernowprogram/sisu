@@ -974,8 +974,13 @@ def portal_ethical_report(request):
             emotions = []
             behaviors = []
             colors = []
-            threeColors = ['rgb(255, 100, 100)', 'rgb(255, 171, 8)', 'rgb(119, 180, 71)']
+            threeColors = ['rgba(255, 100, 100, 0.75)', 'rgba(255, 171, 8, 0.75)', 'rgba(119, 180, 71, 0.75)']
             username = request.user.username
+
+            roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now
+            sceneRoles = [''] * len(roles)
+            for obj in roles:
+                sceneRoles[obj.scene-1] = obj.role
 
             queryset = EthicalFeedback.objects.filter(user__username=username)
 
@@ -991,7 +996,7 @@ def portal_ethical_report(request):
                 'player': player, 
                 'play_sessions': play_sessions, 
                 'play_sessions_completed': play_sessions_completed,
-                'roles': roles,
+                'roles': sceneRoles,
                 'behaviors': behaviors, 
                 'scenes': scenes, 
                 'emotions': emotions, 
