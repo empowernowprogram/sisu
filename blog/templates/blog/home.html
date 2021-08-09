@@ -1,114 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    {% load staticfiles %}
-    {% load static %}
+{% load staticfiles %}
+{% load static %}
 
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="author" content="Sisu VR" />
-        <meta name="description" content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
-        
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@id": "https://www.sisuvr.com",
-                "@type": "Organization",
-                "name": "Sisu VR",
-                "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
-                "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
-                "sameAs": [
-                    "https://www.linkedin.com/company/sisuvr",
-                    "https://www.facebook.com/sisuvr",
-                    "https://www.twitter.com/sisuvr",
-                ]
-            }
-        </script>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description"
+        content="Sisu VR provides immersive workplace training through desktop and VR headsets designed to train your workplace using realistic scenarios and events.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
 
-        <!-- Document title -->
-        <title>Sisu VR</title>
-        <!-- Stylesheets & Fonts -->
-        <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
-        <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
-        <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@id": "https://www.sisuvr.com",
+            "@type": "Organization",
+            "name": "Sisu VR",
+            "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
+            "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
+            "sameAs": [
+                "https://www.linkedin.com/company/sisuvr",
+                "https://www.facebook.com/sisuvr",
+                "https://www.twitter.com/sisuvr",
+            ]
+        }
+    </script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        {% include 'components/ga-tracking-code.html' %}
-    </head>
+    <!-- Document title -->
+    <title>Sisu VR</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
 
-    <body>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
 
-        <!-- Body Inner -->
-        <div class="body-inner">
+<body>
+
+    <!-- Body Inner -->
+    <div class="body-inner">
 
 
-            <!-- Header -->
-            <header id="header" data-transparent="true" data-fullwidth="true" data-responsive-fixed="true" data-sticky-active="500" class="dark submenu-light header-fixed home">
-                <div id="header-inner" class="header-inner sisu-header-transparent-bkg">
-                    <div class="container">
-                        <!--Logo-->
-                        <div id="logo">
-                            <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
-                            <a href="index.html">
-                            </a>
-                        </div>
-                        <!--End: Logo-->
-
-                        <!--Navigation Resposnive Trigger-->
-                        <div id="mainMenu-trigger"> <a class="lines-button x"><span id="menu-trigger-lines" class="lines lines-dark"></span></a> </div>
-                        <!--end: Navigation Resposnive Trigger-->
-                        <!--Navigation-->
-                        <div id="mainMenu">
-                            <div class="container">
-                                <nav>
-                                    <ul id="header-link" class="sisu-header-link-mobile">
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Home</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'faq' %}">FAQ</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}#blog">News</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'about-us' %}">About</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'home_portal' %}">Customer Portal</a></li>
-                                        <li><a class="sisu-menu-link-mobile" href="{% url 'contact' %}">Contact Sales</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <!--end: Navigation-->
+        <!-- Header -->
+        <header id="header" data-transparent="true" data-fullwidth="true" data-responsive-fixed="true"
+            data-sticky-active="500" class="dark submenu-light header-fixed home">
+            <div id="header-inner" class="header-inner sisu-header-transparent-bkg">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+                        <a href="index.html">
+                        </a>
                     </div>
-                </div>
-            </header>
-            <!-- end: Header -->
+                    <!--End: Logo-->
 
-            <!-- Inspiro Slider -->
-            <div id="slider" class="inspiro-slider" style="top:-162px; margin-bottom: -162px">
-                <div class="slide" data-bg-image="{% static 'public/assets/img/landing-bg-2.png' %}">
-                    <div class="shape-divider" data-style="12" style="z-index: 0; opacity: 1;"><svg
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 120" preserveAspectRatio="none"
-                            style="height:105px">
-                            <path
-                                d="M630,34.5a54,54,0,0,1-9,2.3C578.3,46.1,556.1,24,517.2,12.5c-22.9-6.7-47.9-9.8-71-3.9C395.8,21.7,340.3,102,285.1,102.4c-45.4.3-72.6-26.5-102.3-46.1-21.8-14.4-44-30.8-67.4-42.1C84.2-.9,50.9-7.2,13.2,11.8l-1.2.6c-3.5,1.9-8.2,3.9-12,5.9V120H630Z"
-                                style="fill:#fff"></path>
-                        </svg></div>
-                    <div class="container">
-                        <div class="slide-captions text-left text-light">
-                            <!-- Captions -->
-                            <h2 class="sisu-header-title">Take one step closer to an empowered workplace</h2>
-                            <p>Sexual harassment prevention training through VR</p>
-                            <button style="font-size:16px; margin-top:12px" type="button"
-                                class="btn btn-rounded btn-sisu-primary"><a href="#learn-more">Learn More</a></button>
-
-                            <!-- end: Captions -->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger"> <a class="lines-button x"><span id="menu-trigger-lines"
+                                class="lines lines-dark"></span></a> </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    <div id="mainMenu">
+                        <div class="container">
+                            <nav>
+                                <ul id="header-link" class="sisu-header-link-mobile">
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}">Home</a></li>
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'faq' %}">FAQ</a></li>
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'home' %}#blog">News</a></li>
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'about-us' %}">About</a></li>
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'home_portal' %}">Customer
+                                            Portal</a></li>
+                                    <li><a class="sisu-menu-link-mobile" href="{% url 'contact' %}">Contact Sales</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
+                    <!--end: Navigation-->
                 </div>
-
-                <!-- end: Slide 2 -->
-
             </div>
-            <!--end: Inspiro Slider -->
+        </header>
+        <!-- end: Header -->
 
+        <!-- Inspiro Slider -->
+        <div id="slider" class="inspiro-slider" style="top:-162px; margin-bottom: -162px">
+            <div class="slide" data-bg-image="{% static 'public/assets/img/landing-bg-2.png' %}">
+                <div class="shape-divider" data-style="12" style="z-index: 0; opacity: 1;"><svg
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630 120" preserveAspectRatio="none"
+                        style="height:105px">
+                        <path
+                            d="M630,34.5a54,54,0,0,1-9,2.3C578.3,46.1,556.1,24,517.2,12.5c-22.9-6.7-47.9-9.8-71-3.9C395.8,21.7,340.3,102,285.1,102.4c-45.4.3-72.6-26.5-102.3-46.1-21.8-14.4-44-30.8-67.4-42.1C84.2-.9,50.9-7.2,13.2,11.8l-1.2.6c-3.5,1.9-8.2,3.9-12,5.9V120H630Z"
+                            style="fill:#fff"></path>
+                    </svg></div>
+                <div class="container">
+                    <div class="slide-captions text-left text-light">
+                        <!-- Captions -->
+                        <h2 class="sisu-header-title">Take one step closer to an empowered workplace</h2>
+                        <p>Sexual harassment prevention training through VR</p>
+                        <button style="font-size:16px; margin-top:12px" type="button" class="btn btn-sisu-primary"><a
+                                href="#learn-more">Learn More</a></button>
+                        <button style="font-size:16px; margin-top:12px" type="button" class="btn btn-sisu-primary"
+                            style="background-color: #3c3c3c" id="btn-view-demo">View Demo</button>
+                        <!-- end: Captions -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- end: Slide 2 -->
+        </div>
+        <!--end: Inspiro Slider -->
+
+
+
+        <div class="modal fade" id="modal-demo-video" tabindex="-1" role="modal" aria-labelledby="modal-label-3"
+            aria-hidden="true">
+            {% comment %} <div class="modal fade show" id="modal-3" tabindex="-1" aria-labelledby="modal-label-3"
+                style="display: block; padding-right: 17px;" aria-modal="true"> {% endcomment %}
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <section style="padding: 24px 0">
+                                <div class="container mb12">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="ratio ratio-16x9">
+                                                <iframe width="1375" height="782"
+                                                    src="https://www.youtube.com/embed/WPjf_wDVt7g"
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="modal-demo-video-close" data-bs-dismiss="modal" class="btn btn-b btn-sisu-primary" type="button">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="container" style="padding-top:64px">
                 <div class="bg-cube-container" style="margin-left:-48px">
@@ -128,7 +164,8 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <h3 id="learn-more" style="font-weight: 600; color:#494949; animation-duration: 100ms"><span class="sisu-color-purple">One in two
+                        <h3 id="learn-more" style="font-weight: 600; color:#494949; animation-duration: 100ms"><span
+                                class="sisu-color-purple">One in two
                                 women</span>
                             has or will face sexual harassment.</h3>
                         <p style="font-size:16px">Harassment has profound psychological effects. It also causes
@@ -164,20 +201,28 @@
                     </div>
                     <div class="bg-cube-container" style="float: right;">
                         <div class="bg-cube-element"
-                            style="width:120px; height:96px; margin-top:160px; margin-left:42px"></div>
+                            style="width:120px; height:96px; margin-top:160px; margin-left:42px">
+                        </div>
                     </div>
                     <hr class="space">
 
                     <div class="col-lg-6">
                         <div class="bg-cube-container" style="float: left; margin-right: 0%;">
                             <div class="bg-cube-element"
-                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px">
+                            </div>
                         </div>
-                        <h3 style="font-weight: 600; color:#494949">Experience <span class="sisu-color-purple">Immersive
-                                Virtual Reality</span> Training.</h3>
-                        <p style="font-size:16px">Engage in VR simulations based on real-life scenarios. Studies show
-                            that
-                            VR increases retention by up to 80%.*</p>
+                        <h3 style="font-weight: 600; color:#494949">Experience <span class="sisu-color-purple">immersive
+                                Virtual Reality</span> training based on real-life scenarios.</h3>
+                        <p style="font-size:16px">Virtual reality (VR) training significantly increases retention and
+                            empathy.
+                            It can <strong>improve performance by more than 200%</strong>, is <strong>36% less
+                                expensive</strong>, and takes <strong>53% less time</strong> than classroom training.
+                            <small>(PwC Soft Skills Study, 2020)</small></p>
+                        <br />
+                        <a href="https://sisuvr.medium.com/increase-user-retention-comprehension-and-empathy-using-virtual-reality-training-7099a470e1f1"
+                            class="sisu-color-purple" style="text-decoration: underline;">
+                            Learn more about VR training here.</a>
                         <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
                     </div>
                     <div class="col-lg-6">
@@ -210,7 +255,8 @@
                         </div>
                         <div class="bg-cube-container" style="float: left; margin-right: 0%;">
                             <div class="bg-cube-element"
-                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px">
+                            </div>
                         </div>
                     </div>
 
@@ -227,7 +273,8 @@
 
                         <div class="bg-cube-container" style="float: left; margin-right: 0%;">
                             <div class="bg-cube-element"
-                                style="width:26px; height:18px; margin-top:34%; margin-left:80px"></div>
+                                style="width:26px; height:18px; margin-top:34%; margin-left:80px">
+                            </div>
                         </div>
                         <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
                     </div>
@@ -251,20 +298,41 @@
 
                             <div class="col-lg-4">
                                 <div class="blockquote blockquote-fancy">
-                                    <p>Sisu VR's Empower Now Program made me feel uncomfortable (as it should!). The experience placed me in positions where I made choices through a variety of perspectives. It's a great solution for employees to learn about sexual harassment in an engaging way</p>
-                                    <p class="text-center"><strong><cite>Neilda Pacquing</cite></strong><br>CEO of MindGlow Inc.</p>
+                                    <p>Sisu VR's Empower Now Program made me feel uncomfortable (as it should!). The
+                                        experience placed me in positions where I made choices through a variety of
+                                        perspectives. It's a great solution for employees to learn about sexual
+                                        harassment
+                                        in an engaging way</p>
+                                    <p class="text-center"><strong><cite>Neilda Pacquing</cite></strong><br>CEO of
+                                        MindGlow
+                                        Inc.</p>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="blockquote blockquote-fancy">
-                                    <p>The moment I heard about Sisu VR I became excited about the possibilities! I have been working in the area of workplace psychological harassment and psychological violence for 11 years, training in all industries. This product allows participants to observe in real terms, the often-complex dynamics of harassment. With this immersive experience building more awareness and skills, long term positive changes will occur.</p>
-                                    <p class="text-center"><strong><cite>Linda Crockett</cite></strong><br>Founder of ABRC</p>
+                                    <p>The moment I heard about Sisu VR I became excited about the possibilities! I have
+                                        been working in the area of workplace psychological harassment and psychological
+                                        violence for 11 years, training in all industries. This product allows
+                                        participants
+                                        to observe in real terms, the often-complex dynamics of harassment. With this
+                                        immersive experience building more awareness and skills, long term positive
+                                        changes
+                                        will occur.</p>
+                                    <p class="text-center"><strong><cite>Linda Crockett</cite></strong><br>Founder of
+                                        ABRC
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="blockquote blockquote-fancy">
-                                    <p>Sisu VR’s training provides a surreal training experience, something I have never personally experienced before. I was faced with realistic workplace scenarios from a series of different perspectives. I definitely felt more engaged with Sisu’s training package compared to the traditional training methods.</p>
-                                    <p class="text-center"><strong><cite>Robert M.</cite></strong><br>Founder of SatCatalog</p>
+                                    <p>Sisu VR’s training provides a surreal training experience, something I have never
+                                        personally experienced before. I was faced with realistic workplace scenarios
+                                        from a
+                                        series of different perspectives. I definitely felt more engaged with Sisu’s
+                                        training package compared to the traditional training methods.</p>
+                                    <p class="text-center"><strong><cite>Robert M.</cite></strong><br>Founder of
+                                        SatCatalog
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -273,22 +341,29 @@
             </div>
 
 
-                <section data-bg-image="{% static 'public/assets/img/featured-05.png' %}"
-                    style="height: 364px; background-image: url(&quot;{% static 'public/assets/img/divider-curved-01.png' %}&quot;);"
-                    class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/divider-curved-01.png' %}" data-ll-status="loaded">
-                    <div class="grid-system-demo-live vertical-center">
-                        <div class="row row align-items-center">
-                            <div class="col-lg-12 text-center">
-                                <h3 class="text-center" style="font-weight: 600; color:#fff; font-size: 24px">Stay updated with our free newsletter!</h3>
-                                <div style=" justify-content: center; display: flex;">
+            <section data-bg-image="{% static 'public/assets/img/featured-05.png' %}"
+                style="height: 364px; background-image: url(&quot;{% static 'public/assets/img/divider-curved-01.png' %}&quot;);"
+                class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/divider-curved-01.png' %}"
+                data-ll-status="loaded">
+                <div class="grid-system-demo-live vertical-center">
+                    <div class="row row align-items-center">
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-weight: 600; color:#fff; font-size: 24px">Stay updated
+                                with
+                                our free newsletter!</h3>
+                            <div style=" justify-content: center; display: flex;">
 
-                                    <form class="site-search" method="POST" action=".">
-                                        {% csrf_token %}
-                                        <div class="input-group">
-                                            <input class="form-control" style="border: 0px solid #ced4da; font-size: 16px; width: 346px" placeholder="Email address" type="text" name="email_signup"> 
-                                            <span><button class="btn btn-sisu-primary" style="border-radius: 0px 4px 4px 0px; border: 1px solid #ced4da; font-size: 16px" type="submit"> Sign up</button></span>
-                                        </div>
-                                    </form>
+                                <form class="site-search" method="POST" action=".">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input class="form-control"
+                                            style="border: 0px solid #ced4da; font-size: 16px; width: 346px"
+                                            placeholder="Email address" type="text" name="email_signup">
+                                        <span><button class="btn btn-sisu-primary"
+                                                style="border-radius: 0px 4px 4px 0px; border: 1px solid #ced4da; font-size: 16px"
+                                                type="submit"> Sign up</button></span>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -338,7 +413,8 @@
                         <div class="col-lg-2">
                             <div class="team-member">
                                 <div class="team-image">
-                                    <img src="{% static 'public/assets/img/partner-logo-abrcca.png' %}" style="width:138px">
+                                    <img src="{% static 'public/assets/img/partner-logo-abrcca.png' %}"
+                                        style="width:138px">
                                 </div>
                                 <div class="team-desc">
                                     <!-- <h3>Relay How</h3> -->
@@ -348,7 +424,8 @@
                         <div class="col-lg-2">
                             <div class="team-member">
                                 <div class="team-image">
-                                    <img src="{% static 'public/assets/img/partner-logo-redlinevr.jpg' %}" style="width:138px">
+                                    <img src="{% static 'public/assets/img/partner-logo-redlinevr.jpg' %}"
+                                        style="width:138px">
                                 </div>
                                 <div class="team-desc">
                                     <!-- <h3>Relay How</h3> -->
@@ -358,7 +435,8 @@
                         <div class="col-lg-2">
                             <div class="team-member">
                                 <div class="team-image">
-                                    <img src="{% static 'public/assets/img/partner-logo-vrproductions.jpg' %}" style="width:138px">
+                                    <img src="{% static 'public/assets/img/partner-logo-vrproductions.jpg' %}"
+                                        style="width:138px">
                                 </div>
                                 <div class="team-desc">
                                     <!-- <h3>Relay How</h3> -->
@@ -366,41 +444,51 @@
                             </div>
                         </div>
                     </div>
-                 
+
 
 
                     <div class="heading-text heading-line text-center">
                         <div class="bg-cube-container" style="float: left; margin-right: 0%;">
                             <div class="bg-cube-element"
-                                style="width:42px; height:28px; margin-top:0%; margin-left:80px"></div>
+                                style="width:42px; height:28px; margin-top:0%; margin-left:80px">
+                            </div>
                         </div>
                         <h4 id="blog">What's Happening at Sisu VR?</h4>
                     </div>
-                    
+
 
                     <div class="mobile-hide">
                         <div class="row team-members team-members-shadow m-b-40">
                             <div class="col-lg-3">
                                 <div class="team-member">
                                     <div class="team-image">
-                                        <img src="{% static 'public/assets/img/blog-new-sexual-harassment-prevention.png' %}">
+                                        <img
+                                            src="{% static 'public/assets/img/blog-new-sexual-harassment-prevention.png' %}">
                                     </div>
                                     <div class="team-desc">
                                         <h3>New Sexual Harassment Prevention Training</h3>
-                                        <p>Requirement that employees must take be provided and take anti-sexual harassment training.</p>
-                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>Requirement that employees must take be provided and take anti-sexual
+                                            harassment
+                                            training.</p>
+                                        <button type="button" class="btn btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="team-member">
                                     <div class="team-image">
-                                        <img src="{% static 'public/assets/img/blog-increase-user-retention-comprehension.png' %}">
+                                        <img
+                                            src="{% static 'public/assets/img/blog-increase-user-retention-comprehension.png' %}">
                                     </div>
                                     <div class="team-desc">
                                         <h3>Increase User Retention and Comprehension</h3>
-                                        <p>VR technology has increased benefits compared to traditional training videos.</p>
-                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/increase-user-retention-comprehension-and-empathy-using-virtual-reality-training-7099a470e1f1" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>VR technology has increased benefits compared to traditional training videos.
+                                        </p>
+                                        <button type="button" class="btn btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/increase-user-retention-comprehension-and-empathy-using-virtual-reality-training-7099a470e1f1"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +500,9 @@
                                     <div class="team-desc">
                                         <h3>VR Productivity Apps to Try</h3>
                                         <p>Whether you are a small or large enterprise, VR applications increase.</p>
-                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/the-future-of-work-is-now-vr-productivity-apps-to-try-out-3c894290df8e" target="_blank" style="color:#fff">Read more</a></button>
+                                        <button type="button" class="btn btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/the-future-of-work-is-now-vr-productivity-apps-to-try-out-3c894290df8e"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
@@ -423,8 +513,11 @@
                                     </div>
                                     <div class="team-desc">
                                         <h3>Virtual Morality</h3>
-                                        <p>Santa Clara Magazine features Sisu VR as an ethical approach to compliance training.</p>
-                                            <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://magazine.scu.edu/magazines/spring-2020/virtual-morality/" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>Santa Clara Magazine features Sisu VR as an ethical approach to compliance
+                                            training.</p>
+                                        <button type="button" class="btn btn-sisu-primary"><a
+                                                href="https://magazine.scu.edu/magazines/spring-2020/virtual-morality/"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
@@ -438,14 +531,19 @@
                                 <div class="post-item-wrap">
                                     <div class="post-image">
                                         <a href="#">
-                                            <img alt="" src="{% static 'public/assets/img/blog-new-sexual-harassment-prevention.png' %}"></a>
+                                            <img alt=""
+                                                src="{% static 'public/assets/img/blog-new-sexual-harassment-prevention.png' %}"></a>
                                     </div>
                                     <div class="post-item-description">
                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
                                         <h2><a href="#">New Sexual Harassment Prevention Training</a></h2>
-                                        <p>Requirement that employees must take be provided and take anti-sexual harassment training.</p>
-    
-                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>Requirement that employees must take be provided and take anti-sexual
+                                            harassment
+                                            training.</p>
+
+                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
@@ -455,18 +553,22 @@
                                 <div class="post-item-wrap">
                                     <div class="post-image">
                                         <a href="#">
-                                            <img alt="" src="{% static 'public/assets/img/blog-increase-user-retention-comprehension.png' %}"></a>
+                                            <img alt=""
+                                                src="{% static 'public/assets/img/blog-increase-user-retention-comprehension.png' %}"></a>
                                     </div>
                                     <div class="post-item-description">
                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
                                         <h2><a href="#">Increase User Retention and Comprehension</a></h2>
-                                        <p>VR technology has increased benefits compared to traditional training videos.</p>
-                                            <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>VR technology has increased benefits compared to traditional training videos.
+                                        </p>
+                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
                             <!-- end: Post item-->
-    
+
                             <!-- Post item-->
                             <div class="post-item border">
                                 <div class="post-item-wrap">
@@ -478,12 +580,14 @@
                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
                                         <h2><a href="#">VR Productivity Apps to Try</a></h2>
                                         <p>Whether you are a small or large enterprise, VR applications increase.</p>
-                                            <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f" target="_blank" style="color:#fff">Read more</a></button>
+                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a
+                                                href="https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
                             <!-- end: Post item-->
-    
+
                             <!-- Post item-->
                             <div class="post-item border">
                                 <div class="post-item-wrap">
@@ -494,16 +598,19 @@
                                     <div class="post-item-description">
                                         <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
                                         <h2><a href="#">Virtual Morality</a></h2>
-                                        <p>Santa Clara Magazine features Sisu VR as an ethical approach to compliance training.</p>
-                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="https://magazine.scu.edu/magazines/spring-2020/virtual-morality/" target="_blank" style="color:#fff">Read more</a></button>
+                                        <p>Santa Clara Magazine features Sisu VR as an ethical approach to compliance
+                                            training.</p>
+                                        <button type="button" class="btn btn-rounded btn-sisu-primary"><a
+                                                href="https://magazine.scu.edu/magazines/spring-2020/virtual-morality/"
+                                                target="_blank" style="color:#fff">Read more</a></button>
                                     </div>
                                 </div>
                             </div>
                             <!-- end: Post item-->
                         </div>
-    
+
                     </div>
-                    
+
 
 
 
@@ -516,67 +623,99 @@
             <!-- Footer -->
             <footer id="footer" class="sisu-footer-bg">
 
-            <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
-                style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
-                class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}" data-ll-status="loaded">
-                <div class="grid-system-demo-live vertical-center">
-                    <div class="footer-content">
-                        <div class="container">
-                            <div class="row" style="padding-bottom:0px">
-                                <div class="col-md-4 col-xl-4">
-                                    <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}" alt="Sisu VR"></a></p>
-                                    <p class="sisu-footer-text">Designed to deliver immersive workplace training.</p>
-                                </div>
-                                <div class="col-4 col-md-4 col-xl-4">
-                                    <div class="widget" style="margin-bottom:0px">
-                                        <ul class="list">
-                                            <li><a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a></li>
-                                            <li><a class="sisu-footer-link"
-                                                    href="{% url 'home_portal' %}">Customer Portal</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy Policy</a></li>
-                                            <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms & Conditions</a></li>
-                                        </ul>
+                <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
+                    style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
+                    class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}"
+                    data-ll-status="loaded">
+                    <div class="grid-system-demo-live vertical-center">
+                        <div class="footer-content">
+                            <div class="container">
+                                <div class="row" style="padding-bottom:0px">
+                                    <div class="col-md-4 col-xl-4">
+                                        <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}"
+                                                    alt="Sisu VR"></a></p>
+                                        <p class="sisu-footer-text">Designed to deliver immersive workplace training.
+                                        </p>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-xl-4">
+                                        <div class="widget" style="margin-bottom:0px">
+                                            <ul class="list">
+                                                <li><a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a></li>
+                                                <li><a class="sisu-footer-link" href="{% url 'contact' %}">Contact</a>
+                                                </li>
+                                                <li><a class="sisu-footer-link" href="{% url 'home_portal' %}">Customer
+                                                        Portal</a></li>
+                                                <li><a class="sisu-footer-link" href="{% url 'p_p' %}">Privacy
+                                                        Policy</a>
+                                                </li>
+                                                <li><a class="sisu-footer-link" href="{% url 't_c' %}">Terms &
+                                                        Conditions</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-4 col-xl-4">
+                                        <br>
+                                        <h5 style="color: #fff">FOLLOW US</h5>
+                                        <div class="social-icons social-icons-colored social-icons-rounded float-left">
+                                            <ul>
+                                                <li class="social-facebook"><a href="https://www.facebook.com/sisuvr"
+                                                        target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li class="social-twitter"><a href="https://twitter.com/sisuvr"
+                                                        target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                <li class="social-linkedin"><a
+                                                        href="https://www.linkedin.com/company/sisuvr"
+                                                        target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-4 col-md-4 col-xl-4">
-                                    <br>
-                                    <h5 style="color: #fff">FOLLOW US</h5>
-                                    <div class="social-icons social-icons-colored social-icons-rounded float-left">
-                                        <ul>
-                                            <li class="social-facebook"><a href="https://www.facebook.com/sisuvr"
-                                                    target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li class="social-twitter"><a href="https://twitter.com/sisuvr"
-                                                    target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                            <li class="social-linkedin"><a
-                                                    href="https://www.linkedin.com/company/sisuvr" target="_blank"><i
-                                                        class="fab fa-linkedin"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
+                                    Copyright © 2021 Sisu VR Inc. All
+                                    Rights Reserved.</div>
                             </div>
-                            <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
-                                Copyright © 2021 Sisu VR Inc. All
-                                Rights Reserved.</div>
                         </div>
                     </div>
                 </div>
-            </div>
             </footer>
             <!-- end: Footer -->
 
-        </section>
-        <!-- end: Body Inner -->
+            </section>
+            <!-- end: Body Inner -->
 
-        <!--Plugins-->
-        <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
-        <script src="{% static 'public/js/jquery.js' %}"></script>
-        <script src="{% static 'public/js/plugins.js' %}"></script>
+            <!--Plugins-->
+            <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+            <script src="{% static 'public/js/jquery.js' %}"></script>
+            <script src="{% static 'public/js/plugins.js' %}"></script>
 
-        <!--Template functions-->
-        <script src="{% static 'public/js/functions.js' %}"></script>
+            <!--Template functions-->
+            <script src="{% static 'public/js/functions.js' %}"></script>
+            <script>
+                // Get the modal
+                let modal = document.getElementById("modal-demo-video");
+                let btn = document.getElementById("btn-view-demo");
+                let close = document.getElementById("modal-demo-video-close");
+
+                // When the user clicks the button, open the modal 
+                btn.onclick = function () {
+                    $("#modal-demo-video").addClass("show")
+                    $("#modal-demo-video").css("display", "block");
+                    $("#modal-demo-video").css("padding-right", "17px");
+                }
+
+                // When the user clicks on <close> (x), close the modal
+                close.onclick = function () {
+                    $("#modal-demo-video").fadeOut("fast");
+                }
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        $("#modal-demo-video").fadeOut("fast");
+                    }
+                }
+            </script>
 
 
-    </body>
+</body>
 
 </html>
