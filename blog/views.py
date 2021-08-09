@@ -19,7 +19,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
 from django.template import Context
-import re, random
+import re, random, math
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -911,7 +911,10 @@ def portal_ethical_report(request):
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
 
-        roles = PlayerRole.objects.filter(module=1) # TO DO: hard code for now
+        rolesObject = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now
+        sceneRoles = [''] * len(rolesObject)
+        for obj in rolesObject:
+            sceneRoles[obj.scene-1] = obj.role
 
         # supervisor
         if player.supervisor:
@@ -932,12 +935,15 @@ def portal_ethical_report(request):
             datasets = {}
             sceneCnt = len(emotionSum)
             employeeCnt = len(queryset) / sceneCnt
+            avgEmotions = [0] * len(emotionSum)
 
             for behavior in behaviorCount:
                 sceneData = [0] * len(emotionSum)
                 for scene, emoSum in emotionSum.items():
                     behaviorPercentage = behaviorCount[behavior].get(scene, 0) / employeeCnt
                     avgEmotion = emoSum / employeeCnt
+
+                    avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
                     sceneData[scene-1] = avgEmotion * behaviorPercentage
 
                 behaviorData = {
@@ -951,7 +957,6 @@ def portal_ethical_report(request):
                 'player': player, 
                 'play_sessions': play_sessions, 
                 'play_sessions_completed': play_sessions_completed,
-                'roles': roles,
                 'labels': list(range(1,len(emotionSum)+1)),  # scene
                 'hostile_dataset': datasets['hostile']['data'],
                 'passive_dataset': datasets['passive']['data'],
@@ -959,6 +964,8 @@ def portal_ethical_report(request):
                 'hostile_color': datasets['hostile']['backgroundColor'],
                 'passive_color': datasets['passive']['backgroundColor'],
                 'confident_color': datasets['confident']['backgroundColor'],
+                'roles': sceneRoles,
+                'avgEmotions': avgEmotions,
             }
 
         # not supervisor

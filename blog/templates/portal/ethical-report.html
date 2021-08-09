@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
 
     <!-- ChartJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
         integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
 </head>
@@ -71,8 +70,10 @@
             {% endif %}
 
             {% if not player.supervisor %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A" hidden>
-                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the course of Module 1.</p>
+            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A"
+                hidden>
+                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
+                    course of Module 1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <!-- style="background: #4E657A; -->
                 <div id="container" style="width: 75%">
@@ -89,9 +90,9 @@
                         data: {
                             labels: "{{labels}}".replace('[', '').replace(']', '').split(","),
                             datasets: [{
-                                label: "{{behavior}}".replace('[','').replace(']','').replaceAll('&#39;','').split(","),
-                                data: "{{data}}".replace('[','').replace(']','').split(","),
-                                backgroundColor: "{{color}}".replace('[','').replace(']','').replaceAll('&#39;','').split(/\,\s?(?![^\(]*\))/),
+                                label: "{{behavior}}".replace('[', '').replace(']', '').replaceAll('&#39;', '').split(","),
+                                data: "{{data}}".replace('[', '').replace(']', '').split(","),
+                                backgroundColor: "{{color}}".replace('[', '').replace(']', '').replaceAll('&#39;', '').split(/\,\s?(?![^\(]*\))/),
                                 borderWidth: 1
                             }]
                         },
@@ -114,7 +115,7 @@
                                         display: false,
                                     }
                                 },
-                                
+
                                 y: {
                                     title: {
                                         display: true,
@@ -156,12 +157,208 @@
                 <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module
                     1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
-                <div id="container" style="position: relative; width: 75%;">
+                <div id="container" style="position: relative; width: 75%; z-index: 2;">
                     <canvas id="efr_supervisor"></canvas>
                 </div>
                 <script>
-                    var ctx = document.getElementById('efr_supervisor');
+                    // external html tooltip
+                    const getOrCreateTooltip = (chart) => {
+                        let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.style.background = 'white';
+                            tooltipEl.style.fontSize = '14px';
+                            tooltipEl.style.width = '280px';
+                            tooltipEl.style.borderRadius = '3px';
+                            tooltipEl.style.color = 'gray';
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.pointerEvents = 'none';
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.transform = 'translate(10%, -60%)';
+                            tooltipEl.style.transition = 'all .1s ease';
+
+                            const table = document.createElement('table');
+                            table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
+                            table.style.width = '255px';
+
+                            tooltipEl.appendChild(table);
+                            chart.canvas.parentNode.appendChild(tooltipEl);
+                        }
+
+                        return tooltipEl;
+                    };
+
+                    const externalTooltipHandler = (context) => {
+                        // Tooltip Element
+                        const { chart, tooltip } = context;
+                        const tooltipEl = getOrCreateTooltip(chart);
+
+                        // Hide if no tooltip
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        // Styling
+                        const contentPadding = '10px';
+
+                        // Set Text
+                        // input data from views
+                        roleInScene = '{{roles}}'.replace('[', '').replace(']', '').replaceAll('&#39;', '').split(",");
+                        avgEmotionInScene = JSON.parse('{{avgEmotions}}');
+                        confidentInScene = JSON.parse('{{confident_dataset}}');
+                        sceneId = parseInt(tooltip.title[0]) - 1
+
+                        if (tooltip.body) {
+                            // title: Scene Review
+                            const tableHead = document.createElement('thead');
+
+                            const tr = document.createElement('tr');
+                            const th = document.createElement('th');
+                            const strong = document.createElement('strong');
+                            th.colSpan = '2';
+                            th.style.textAlign = 'center';
+                            th.style.height = '30px';
+
+                            const text = document.createTextNode('Scene Review');
+                            strong.appendChild(text);
+                            th.appendChild(strong);
+                            tr.appendChild(th);
+                            tableHead.appendChild(tr);
+
+                            const tableBody = document.createElement('tbody');
+
+                            // scene image
+                            const sceneImg = document.createElement('img');
+                            sceneImg.src = '/static/img/demo.gif';
+                            sceneImg.style.width = '180px';
+                            sceneImg.style.margin = '10px';
+                            const imgtr = document.createElement('tr');
+                            const imgtd = document.createElement('td');
+                            imgtd.colSpan = '2';
+                            imgtd.style.textAlign = 'center';
+
+                            imgtd.append(sceneImg);
+                            imgtr.append(imgtd);
+
+                            tableBody.appendChild(imgtr);
+
+                            // scene script
+                            const scripttr = document.createElement('tr');
+                            const scripttd = document.createElement('td');
+                            const scriptstrong = document.createElement('strong');
+                            scripttd.colSpan = '2';
+                            scripttd.style.textAlign = 'center';
+                            scripttd.style.color = '#007E9A';
+
+                            const scriptText1 = document.createTextNode("Andy");
+                            const scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+
+                            scriptstrong.appendChild(scriptText1);
+                            scripttd.appendChild(scriptstrong);
+                            scripttd.appendChild(scriptText2);
+                            scripttr.appendChild(scripttd);
+
+                            tableBody.appendChild(scripttr);
+
+                            // gray line
+                            const emptytr = document.createElement('tr');
+                            const emptytd = document.createElement('td');
+                            emptytd.colSpan = '2';
+
+                            const grayLine = document.createElement('hr');
+                            emptytd.appendChild(grayLine);
+                            emptytr.appendChild(emptytd);
+
+                            tableBody.appendChild(emptytr);
+
+                            // Employees' role
+                            const roletr = document.createElement('tr');
+                            const roletd1 = document.createElement('td');
+                            const roletd2 = document.createElement('td');
+                            const rolestrong = document.createElement('strong');
+                            roletd1.style.paddingLeft = contentPadding;
+                            roletd2.style.paddingRight = contentPadding;
+                            roletd2.align = 'right';
+
+                            const roleText1 = document.createTextNode("Employees' role: ");
+                            const roleText2 = document.createTextNode(roleInScene[sceneId]);
+
+                            roletd1.appendChild(roleText1);
+                            rolestrong.appendChild(roleText2);
+                            roletd2.appendChild(rolestrong);
+
+                            roletr.appendChild(roletd1);
+                            roletr.appendChild(roletd2);
+                            tableBody.appendChild(roletr);
+
+                            // Employees felt
+                            const emotiontr = document.createElement('tr');
+                            const emotiontd1 = document.createElement('td');
+                            const emotiontd2 = document.createElement('td');
+                            const emotionstrong = document.createElement('strong');
+                            emotiontd1.style.paddingLeft = contentPadding;
+                            emotiontd2.style.paddingRight = contentPadding;
+                            emotiontd2.align = 'right';
+
+                            const emotionText1 = document.createTextNode("Employees felt: ");
+                            const emotionText2 = document.createTextNode(avgEmotionInScene[sceneId] + " out of 10");
+
+                            emotiontd1.appendChild(emotionText1);
+                            emotionstrong.appendChild(emotionText2);
+                            emotiontd2.appendChild(emotionstrong);
+
+                            emotiontr.appendChild(emotiontd1);
+                            emotiontr.appendChild(emotiontd2);
+                            tableBody.appendChild(emotiontr);
+
+                            // Employees acted
+                            const acttr = document.createElement('tr');
+                            const acttd1 = document.createElement('td');
+                            const acttd2 = document.createElement('td');
+                            const actstrong = document.createElement('strong');
+                            acttd1.style.paddingLeft = contentPadding;
+                            acttd2.style.paddingRight = contentPadding;
+                            acttd2.align = 'right';
+                            acttd2.style.color = '#77B447';
+
+                            const actText1 = document.createTextNode("Employees acted: ");
+                            const actText2 = document.createTextNode(parseInt(confidentInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% confident");
+
+                            acttd1.appendChild(actText1);
+                            actstrong.appendChild(actText2);
+                            acttd2.appendChild(actstrong);
+
+                            acttr.appendChild(acttd1);
+                            acttr.appendChild(acttd2);
+                            tableBody.appendChild(acttr);
+
+
+                            const tableRoot = tooltipEl.querySelector('table');
+
+                            // Remove old children
+                            while (tableRoot.firstChild) {
+                                tableRoot.firstChild.remove();
+                            }
+
+                            // Add new children
+                            tableRoot.appendChild(tableHead);
+                            tableRoot.appendChild(tableBody);
+                        }
+
+                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                        // Display, position, and set styles for font
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                        tooltipEl.style.font = tooltip.options.bodyFont.string;
+                        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                    };
+
+                    // render chart
+                    var ctx = document.getElementById('efr_supervisor');
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
@@ -240,6 +437,10 @@
                                     title: {
                                         display: true,
                                     }
+                                },
+                                tooltip: {
+                                    enabled: false,
+                                    external: externalTooltipHandler,
                                 }
                             }
                         }
