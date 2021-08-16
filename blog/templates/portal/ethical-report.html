@@ -460,6 +460,8 @@
                         roleInScene = '{{roles}}'.replace('[', '').replace(']', '').replaceAll('&#39;', '').split(",");
                         avgEmotionInScene = JSON.parse('{{avgEmotions}}');
                         confidentInScene = JSON.parse('{{confident_dataset}}');
+                        passiveInScene = JSON.parse('{{passive_dataset}}');
+                        hostileInScene = JSON.parse('{{hostile_dataset}}');
                         sceneId = parseInt(tooltip.title[0]) - 1
 
                         if (tooltip.body) {
@@ -567,25 +569,68 @@
 
                             // Employees acted
                             const acttr = document.createElement('tr');
+                            const acttr3 = document.createElement('tr');
+                            const acttr4 = document.createElement('tr');
                             const acttd1 = document.createElement('td');
                             const acttd2 = document.createElement('td');
-                            const actstrong = document.createElement('strong');
+                            const acttd3 = document.createElement('td');
+                            const acttd4 = document.createElement('td');
+                            const actstrong2 = document.createElement('strong');
+                            const actstrong3 = document.createElement('strong');
+                            const actstrong4 = document.createElement('strong');
                             acttd1.style.paddingLeft = contentPadding;
                             acttd2.style.paddingRight = contentPadding;
+                            acttd3.style.paddingRight = contentPadding;
+                            acttd4.style.paddingRight = contentPadding;
+
                             acttd2.align = 'right';
                             acttd2.style.color = '#77B447';
+                            acttd3.align = 'right';
+                            acttd3.style.color = '#FFAB08';
+                            acttd3.colSpan = '2';
+                            acttd4.align = 'right';
+                            acttd4.style.color = '#FF6464';
+                            acttd4.colSpan = '2';
 
                             const actText1 = document.createTextNode("Employees acted: ");
-                            const actText2 = document.createTextNode(parseInt(confidentInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% confident");
 
                             acttd1.appendChild(actText1);
-                            actstrong.appendChild(actText2);
-                            acttd2.appendChild(actstrong);
-
                             acttr.appendChild(acttd1);
-                            acttr.appendChild(acttd2);
-                            tableBody.appendChild(acttr);
 
+                            if (confidentInScene[sceneId] > 0) {
+                                actText2 = document.createTextNode(parseInt(confidentInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% confident");
+                                actstrong2.appendChild(actText2);
+                                acttd2.appendChild(actstrong2);
+                                acttr.appendChild(acttd2);
+                                tableBody.appendChild(acttr);
+                            }
+                            
+
+                            if (passiveInScene[sceneId] > 0) {
+                                actText3 = document.createTextNode(parseInt(passiveInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% passive");
+                                actstrong3.appendChild(actText3);
+                                acttd3.appendChild(actstrong3);
+                                if (confidentInScene[sceneId] == 0) {
+                                    acttr.appendChild(acttd3);
+                                    tableBody.appendChild(acttr);
+                                } else {
+                                    acttr3.appendChild(acttd3);
+                                    tableBody.appendChild(acttr3);
+                                }
+                            }
+
+                            if (hostileInScene[sceneId] > 0) {
+                                actText4 = document.createTextNode(parseInt(hostileInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% hostile");
+                                actstrong4.appendChild(actText4);
+                                acttd4.appendChild(actstrong4);
+                                if (confidentInScene[sceneId] == 0 && passiveInScene[sceneId] == 0) {
+                                    acttr.appendChild(acttd4);
+                                    tableBody.appendChild(acttr);
+                                } else {
+                                    acttr4.appendChild(acttd4);
+                                    tableBody.appendChild(acttr4);
+                                }
+                            }
 
                             const tableRoot = tooltipEl.querySelector('table');
 
@@ -642,6 +687,12 @@
                             title: {
                                 display: true,
                                 text: 'Ethical Framework Report Bar Chart'
+                            },
+                            elements: {
+                                bar: {
+                                    hoverBorderColor: 'rgba(255,255,255, 0.7)',
+                                    hoverBorderWidth: 2
+                                }
                             },
                             scales: {
                                 x: {
