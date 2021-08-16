@@ -387,37 +387,6 @@ tfoot {
     font-size: 18px;
     padding: 0px;
 }
-
-.ethi-btn {
-    background: #0A55C8;
-    color: #fff;
-    font-size: 22px;
-    font-weight: 400;
-    border-radius: 100px;
-    padding: 8px 50px 8px 50px;
-    margin: 0 auto;
-    position:relative;
-    top: 80%;
-}
-
-.vertical-btn-pos {
-    margin: 0;
-    position: absolute;
-    top: 90%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-
-.ethi-btn-center {
-    left:45%;
-}
-
-.ethi-btn-left {
-    left:20%;
-}
-.ethi-btn-right {
-    right:20%;
-}
 /* ETHICAL FRAMEWORK REPORT STYLING - END */
 
 

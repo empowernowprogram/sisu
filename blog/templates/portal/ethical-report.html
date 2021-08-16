@@ -35,25 +35,7 @@
     <!-- Page Container -->
     <div class="page-container">
         <div class="row" style="margin: auto;">
-            {% if play_sessions_completed.count is play_sessions.count %}
-            <div id="page1" class="panel panel-white ethi-container" style="height: 720px;">
-                <div class="panel-body">
-                    <h1 class="ethical-report ethi-text-lg"
-                        style="color: #FFDD64; font-weight: bold; text-align: center;">Congratulations on completing the
-                        module!</h1>
-                    <br /><br />
-                    <p class="ethical-report ethi-text-reg">You will now be shown an overview of how you responded and
-                        acted throughout the module.<br />
-                        This information is designed to provide insights in how your emotions can shape how you respond
-                        to harassment scenarios.</p>
-
-                    <div class="vertical-btn-pos ethi-btn-center">
-                        <a id="ethiNext1" style="margin-bottom:15px; " type="button"
-                            class="btn ethi-btn ethicalBtn">Next</a>
-                    </div>
-                </div>
-            </div>
-            {% elif play_sessions_completed.count is not play_sessions.count %}
+            {% if play_sessions_completed.count is not play_sessions.count %}
             <div class="panel panel-white cert-container">
                 <div class="panel-body">
                     <h1 class="ethical-report cert-title">Nice Try!</h1>
@@ -70,13 +52,12 @@
             {% endif %}
 
             {% if not player.supervisor %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A"
-                hidden>
+            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
                     course of Module 1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <!-- style="background: #4E657A; -->
-                <div id="container" style="width: 75%">
+                <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
                     <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
                     <canvas id="efr"></canvas>
                 </div>
@@ -422,21 +403,13 @@
                     })
                 </script>
 
-                <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack2" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Back</a>
-                </div>
-                <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiNext2" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Next</a>
-                </div>
             </div>
             {% else %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px;" hidden>
+            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px;">
                 <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module
                     1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
-                <div id="container" style="position: relative; width: 75%; z-index: 2;">
+                <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
                     <canvas id="efr_supervisor"></canvas>
                 </div>
                 <script>
@@ -726,36 +699,8 @@
                         }
                     });
                 </script>
-
-                <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack2" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Back</a>
-                </div>
-                <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiNext2" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Next</a>
-                </div>
             </div>
             {% endif %}
-
-
-            <div id="page3" class="panel panel-white ethi-container" style="height: 720px;" hidden>
-                <h1 class="ethical-report ethi-text-lg" style="color: #FFDD64; font-weight: bold; text-align: center;">
-                    You’re all set! How did you do?</h1>
-                <br /><br />
-                <p class="ethical-report ethi-text-reg">You can click BACK to review your results again, or exit to the
-                    Training Portal.</p>
-
-                <div class="vertical-btn-pos ethi-btn-left">
-                    <a id="ethiBack3" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Back</a>
-                </div>
-                <div class="vertical-btn-pos ethi-btn-right">
-                    <a id="ethiExit3" style="margin-bottom:15px; " type="button"
-                        class="btn ethi-btn ethicalBtn">Exit</a>
-                </div>
-
-            </div>
         </div>
     </div>
 
