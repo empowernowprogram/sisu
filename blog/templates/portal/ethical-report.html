@@ -427,7 +427,7 @@
                             tooltipEl = document.createElement('div');
                             tooltipEl.style.background = 'white';
                             tooltipEl.style.fontSize = '14px';
-                            tooltipEl.style.width = '280px';
+                            tooltipEl.style.width = '290px';
                             tooltipEl.style.borderRadius = '3px';
                             tooltipEl.style.color = tooltipLightGray;
                             tooltipEl.style.opacity = 1;
@@ -438,7 +438,7 @@
 
                             const table = document.createElement('table');
                             table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
-                            table.style.width = '255px';
+                            table.style.width = '265px';
 
                             tooltipEl.appendChild(table);
                             chart.canvas.parentNode.appendChild(tooltipEl);
@@ -543,6 +543,7 @@
                             roletd1.style.paddingLeft = contentPadding;
                             roletd2.style.paddingRight = contentPadding;
                             roletd2.style.color = tooltipDarkGray;
+                            roletd2.style.width = '280px';
                             roletd2.align = 'right';
 
                             const roleText1 = document.createTextNode("Role: ");

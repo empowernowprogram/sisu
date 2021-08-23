@@ -5,7 +5,7 @@
         "fields": {
             "module": "1",
             "scene": 1,
-            "role": "victim"
+            "role": "Complainant (Victim)"
         }
     },
     {
@@ -14,7 +14,7 @@
         "fields": {
             "module": "1",
             "scene": 2,
-            "role": "victim"
+            "role": "Complainant (Victim)"
         }
     },
     {
@@ -23,7 +23,7 @@
         "fields": {
             "module": "1",
             "scene": 3,
-            "role": "bystander"
+            "role": "Witness (Bystander)"
         }
     },
     {
@@ -32,7 +32,7 @@
         "fields": {
             "module": "1",
             "scene": 4,
-            "role": "perpetrator"
+            "role": "Respondent (Perpetrator)"
         }
     },
     {
@@ -41,7 +41,7 @@
         "fields": {
             "module": "1",
             "scene": 5,
-            "role": "victim"
+            "role": "Complainant (Victim)"
         }
     },
     {
@@ -50,7 +50,7 @@
         "fields": {
             "module": "1",
             "scene": 6,
-            "role": "victim"
+            "role": "Complainant (Victim)"
         }
     },
     {
@@ -59,7 +59,7 @@
         "fields": {
             "module": "1",
             "scene": 7,
-            "role": "perpetrator"
+            "role": "Respondent (Perpetrator)"
         }
     }
 ]
