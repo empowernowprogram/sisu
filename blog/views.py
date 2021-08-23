@@ -915,11 +915,10 @@ def post_program_survey(request, pk):
 
     if pk == "supervisor" and isSupervisor:
         # show certificate if user already completed the survey
-        try:
-            PostProgramSurveySupervisor.objects.get(user=request.user)
+        if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
             return redirect('/portal/certificate/')
 
-        except PostProgramSurveySupervisor.DoesNotExist:
+        else:
             scale5 = range(1,6)
             scale10 = range(1,11)
             experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
@@ -931,17 +930,16 @@ def post_program_survey(request, pk):
 
     elif pk == "nonsupervisor" and not isSupervisor:
         # show certificate if user already completed the survey
-        try:
-            PostProgramSurvey.objects.get(user=request.user)
+        if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
             return redirect('/portal/certificate/')
 
-        except PostProgramSurvey.DoesNotExist:
+        else:
             starRange = range(1, 6)
             experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
             preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
             
             context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
-
+            
             return render(request, 'portal/post-program-survey.html', context)
     
     else:
