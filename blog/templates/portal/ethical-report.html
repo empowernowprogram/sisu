@@ -406,7 +406,7 @@
             </div>
             {% else %}
             <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px;">
-                <p class="ethical-report ethi-text-lg">Let’s see employees’ <strong>average responses</strong> in Module
+                <p class="ethical-report ethi-text-lg">Let’s see {{employeeCnt}} employees’ <strong>average responses</strong> in Module
                     1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
@@ -417,7 +417,7 @@
                     const emotionTickMapping = ["negative", "neutral", "positive"];
                     const emotionDescriptionMapping = ["slightly negative", "slightly positive"];
                     const tooltipLightGray = '#838383';
-                    const tooltipDarkGray = '#565656'; 
+                    const tooltipDarkGray = '#565656';
 
                     // external html tooltip
                     const getOrCreateTooltip = (chart) => {
@@ -709,7 +709,7 @@
                             color: 'white',
                             responsive: true,
                             title: {
-                                display: true,
+                                display: false,
                                 text: 'Ethical Framework Report Bar Chart'
                             },
                             elements: {

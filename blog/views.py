@@ -911,7 +911,7 @@ def portal_ethical_report(request):
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
 
-        roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now
+        roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now, need a database model for storing the module ids
         sceneRoles = [''] * len(roles)
         for obj in roles:
             sceneRoles[obj.scene-1] = obj.role
@@ -966,6 +966,7 @@ def portal_ethical_report(request):
                 'confident_color': datasets['confident']['backgroundColor'],
                 'roles': sceneRoles,
                 'avgEmotions': avgEmotions,
+                'employeeCnt': int(employeeCnt)
             }
 
         # not supervisor
