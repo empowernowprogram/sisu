@@ -413,6 +413,12 @@
                     <canvas id="efr_supervisor"></canvas>
                 </div>
                 <script>
+                    // some constants for plotting
+                    const emotionTickMapping = ["negative", "neutral", "positive"];
+                    const emotionDescriptionMapping = ["slightly negative", "slightly positive"];
+                    const tooltipLightGray = '#838383';
+                    const tooltipDarkGray = '#565656'; 
+
                     // external html tooltip
                     const getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
@@ -423,7 +429,7 @@
                             tooltipEl.style.fontSize = '14px';
                             tooltipEl.style.width = '280px';
                             tooltipEl.style.borderRadius = '3px';
-                            tooltipEl.style.color = 'gray';
+                            tooltipEl.style.color = tooltipLightGray;
                             tooltipEl.style.opacity = 1;
                             tooltipEl.style.pointerEvents = 'none';
                             tooltipEl.style.position = 'absolute';
@@ -473,6 +479,7 @@
                             const strong = document.createElement('strong');
                             th.colSpan = '2';
                             th.style.textAlign = 'center';
+                            th.style.color = tooltipDarkGray;
                             th.style.height = '30px';
 
                             const text = document.createTextNode('Scene Review');
@@ -531,37 +538,54 @@
                             const roletr = document.createElement('tr');
                             const roletd1 = document.createElement('td');
                             const roletd2 = document.createElement('td');
-                            const rolestrong = document.createElement('strong');
+                            const rolestrong1 = document.createElement('strong');
+                            const rolestrong2 = document.createElement('strong');
                             roletd1.style.paddingLeft = contentPadding;
                             roletd2.style.paddingRight = contentPadding;
+                            roletd2.style.color = tooltipDarkGray;
                             roletd2.align = 'right';
 
-                            const roleText1 = document.createTextNode("Employees' role: ");
+                            const roleText1 = document.createTextNode("Role: ");
                             const roleText2 = document.createTextNode(roleInScene[sceneId]);
 
-                            roletd1.appendChild(roleText1);
-                            rolestrong.appendChild(roleText2);
-                            roletd2.appendChild(rolestrong);
+                            rolestrong1.appendChild(roleText1);
+                            roletd1.appendChild(rolestrong1);
+
+                            rolestrong2.appendChild(roleText2);
+                            roletd2.appendChild(rolestrong2);
 
                             roletr.appendChild(roletd1);
                             roletr.appendChild(roletd2);
                             tableBody.appendChild(roletr);
 
                             // Employees felt
+                            const emotionDescriptionHandler = (emotionScore) => {
+                                if (emotionScore % 5 == 0) {
+                                    return `${emotionScore} (${emotionTickMapping[Math.floor(emotionScore/5)]})`;
+                                } else {
+                                    return `${emotionScore} (${emotionDescriptionMapping[Math.floor(emotionScore/5)]})`;
+                                }
+                            }
+
                             const emotiontr = document.createElement('tr');
                             const emotiontd1 = document.createElement('td');
                             const emotiontd2 = document.createElement('td');
-                            const emotionstrong = document.createElement('strong');
+                            const emotionstrong1 = document.createElement('strong');
+                            const emotionstrong2 = document.createElement('strong');
                             emotiontd1.style.paddingLeft = contentPadding;
+                            
                             emotiontd2.style.paddingRight = contentPadding;
+                            emotiontd2.style.color = tooltipDarkGray;
                             emotiontd2.align = 'right';
 
-                            const emotionText1 = document.createTextNode("Employees felt: ");
-                            const emotionText2 = document.createTextNode(avgEmotionInScene[sceneId] + " out of 10");
+                            const emotionText1 = document.createTextNode("Emotion: ");
+                            const emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene[sceneId]));
 
-                            emotiontd1.appendChild(emotionText1);
-                            emotionstrong.appendChild(emotionText2);
-                            emotiontd2.appendChild(emotionstrong);
+                            emotionstrong1.appendChild(emotionText1);
+                            emotiontd1.appendChild(emotionstrong1);
+
+                            emotionstrong2.appendChild(emotionText2);
+                            emotiontd2.appendChild(emotionstrong2);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
@@ -575,6 +599,7 @@
                             const acttd2 = document.createElement('td');
                             const acttd3 = document.createElement('td');
                             const acttd4 = document.createElement('td');
+                            const actstrong1 = document.createElement('strong');
                             const actstrong2 = document.createElement('strong');
                             const actstrong3 = document.createElement('strong');
                             const actstrong4 = document.createElement('strong');
@@ -592,9 +617,10 @@
                             acttd4.style.color = '#FF6464';
                             acttd4.colSpan = '2';
 
-                            const actText1 = document.createTextNode("Employees acted: ");
+                            const actText1 = document.createTextNode("Responded: ");
 
-                            acttd1.appendChild(actText1);
+                            actstrong1.appendChild(actText1)
+                            acttd1.appendChild(actstrong1);
                             acttr.appendChild(acttd1);
 
                             if (confidentInScene[sceneId] > 0) {
@@ -665,19 +691,16 @@
                                     label: 'hostile',
                                     data: JSON.parse('{{hostile_dataset}}'),
                                     backgroundColor: '{{hostile_color}}',
-                                    borderWidth: 0
                                 },
                                 {
                                     label: 'passive',
                                     data: JSON.parse('{{passive_dataset}}'),
                                     backgroundColor: '{{passive_color}}',
-                                    borderWidth: 0
                                 },
                                 {
                                     label: 'confident',
                                     data: JSON.parse('{{confident_dataset}}'),
                                     backgroundColor: '{{confident_color}}',
-                                    borderWidth: 0
                                 }
                             ]
                         },
@@ -723,11 +746,18 @@
                                     title: {
                                         color: 'white',
                                         display: true,
-                                        text: 'Avg. Emotion',
+                                        text: 'Emotion',
                                     },
                                     ticks: {
                                         color: 'white',
-                                        padding: 15
+                                        padding: 15,
+                                        // Include a dollar sign in the ticks
+                                        callback: function(value, index, values) {
+                                            if (value % 5 == 0) {
+                                                return emotionTickMapping[Math.floor(value/5)] + "    " + value;
+                                            }
+                                            return value;
+                                        }
                                     },
                                     min: 0,
                                     max: 10
