@@ -2,6 +2,7 @@ from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from blog.views import index, about_us, contact, faq # for public pages
 from blog.views import portal_home, portal_register, portal_edit_registration, portal_training_dl, portal_training_dl_trial, portal_employee_progress, portal_settings, post_program_survey, save_survey, portal_certificate, portal_edit, portal_remove, portal_change_password # for training pages
+from blog.views import portal_login, portal_login_trial, portal_logout, portal_signup, key_redeem # for training portal authentication
 
 class TestUrls(SimpleTestCase):
     
@@ -27,6 +28,27 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(resolve(url).func, contact)
        
     """Training Portal"""
+    # Authentication
+    def test_training_auth_login(self):
+        url = reverse('portal_login')
+        self.assertEquals(resolve(url).func, portal_login)
+
+    def test_training_auth_login_trial(self):
+        url = reverse('portal_login_trial')
+        self.assertEquals(resolve(url).func, portal_login_trial)
+        
+    def test_training_auth_logout(self):
+        url = reverse('portal_logout')
+        self.assertEquals(resolve(url).func, portal_logout)
+        
+    def test_training_auth_signup(self):
+        url = reverse('portal_signup')
+        self.assertEquals(resolve(url).func, portal_signup)
+        
+    def test_training_key_redeem(self):
+        url = reverse('key_redeem')
+        self.assertEquals(resolve(url).func, key_redeem)
+
     # Home
     def test_training_home_url_resolves(self):
         url = reverse('home_portal')
