@@ -4,6 +4,52 @@ from enpApi.models import Player, PlaySession, Adjective, ComparisonRating, Post
 from users.models import CustomUser
 import json
 
+class TestPortalAuthentication(TestCase):
+
+    def setUp(self):
+
+        self.client = Client()
+
+        # authorization related urls
+        self.login_url = reverse('portal_login')
+
+        # create user
+        self.user = CustomUser.objects.create(username='testuser')
+        self.user.set_password('12345') # hash '12345'
+        self.user.save()
+
+        # create player
+        self.player = Player.objects.create(
+            email='test@mail.com',
+            employer=0,
+            full_name='testName',
+            user=self.user
+        )
+
+    def test_login_GET(self):
+        response = self.client.get(self.login_url)
+
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'auth/login.html')
+
+    def test_login_success_POST(self):
+        response = self.client.post(self.login_url, {
+            'username': 'testuser',
+            'password': '12345'
+        })
+
+        self.assertRedirects(response, '/portal/home/')
+        
+    def test_login_fail_POST(self):
+        response = self.client.post(self.login_url, {
+            'username': 'otheruser',
+            'password': '12345'
+        })
+
+        self.assertEquals(response.context['bad_login_is'], True)
+        self.assertTemplateUsed(response, 'auth/login.html')
+
+
 
 class TestPostProgramSurveyViews(TestCase):
 
