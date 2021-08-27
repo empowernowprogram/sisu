@@ -560,11 +560,11 @@ def portal_signup(request):
     
     return render(request, 'auth/register.html')
 
-
+"""
 def key_redeem(request):
     context = {'key': '1111-2222-3333-4444'}
     return render(request, 'auth/key-redeem.html', context)
-
+"""
 # Training Portal Authentication / Login, Logout - END
 
 

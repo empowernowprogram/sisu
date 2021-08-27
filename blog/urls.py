@@ -62,7 +62,7 @@ urlpatterns = [
     path('auth-login-trial/', views.portal_login_trial, name='portal_login_trial'),
     path('auth-logout/', views.portal_logout, name='portal_logout'),
     path('auth-register/', views.portal_signup, name='portal_signup'),
-    path('redeem/', views.key_redeem, name='key_redeem'),
+    #path('redeem/', views.key_redeem, name='key_redeem'),
     # Training Portal Authentication / Login / Logout - START
 
 
