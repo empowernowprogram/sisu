@@ -276,8 +276,7 @@
                     var rawScene = {{ scenes| safe }};
                     var rawEmo = {{ emotions| safe }};
                     var rawBehavior = {{ behaviors| safe }};
-                    var rawColor = {{ colors| safe }};
-                    var threeColor = {{ three_colors| safe }};
+                    var threeColor = {{ colors| safe }};
 
                     function HostileObj(scene, emotion, behavior) {
                         this.scene = scene;
@@ -355,31 +354,44 @@
                             },
                             scales: {
                                 x: {
-                                    title: {
-                                        display: true,
-                                        text: 'Scene',
-                                        color: 'white'
-                                    },
-                                    ticks: {
-                                        color: 'white',
-                                    },
                                     grid: {
                                         display: false,
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        z: 1,
                                     },
                                     stacked: true,
-                                },
-
-                                y: {
                                     title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 15
+                                        },
+                                        display: true,
+                                        text: 'Scene',
+                                    },
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        drawTicks: false,
+                                        color: 'rgba(255,255,255, 0.3)'
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 15
+                                        },
                                         display: true,
                                         text: 'Emotion',
-                                        color: 'white'
                                     },
                                     ticks: {
                                         color: 'white',
-                                    },
-                                    grid: {
-                                        color: 'rgba(255,255,255,0.2)'
+                                        padding: 15,
                                     },
                                     min: 0,
                                     max: 10

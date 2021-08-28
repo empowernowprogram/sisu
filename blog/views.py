@@ -975,7 +975,6 @@ def portal_ethical_report(request):
             emotions = []
             behaviors = []
             colors = []
-            threeColors = ['rgba(255, 100, 100, 0.75)', 'rgba(255, 171, 8, 0.75)', 'rgba(119, 180, 71, 0.75)']
             username = request.user.username
 
             roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now
@@ -1001,8 +1000,7 @@ def portal_ethical_report(request):
                 'behaviors': behaviors, 
                 'scenes': scenes, 
                 'emotions': emotions, 
-                'colors': colors, 
-                'three_colors': threeColors,
+                'colors': colors,
             }
 
         return render(request, 'portal/ethical-report.html', context)
