@@ -5,7 +5,7 @@ _**Sisu VR provides an experience immersive Virtual Reality training based on re
 Sisu VR&emsp;|&emsp;[www.sisuvr.com](https://www.sisuvr.com/)
 
 ## Build Branches
-[![](https://img.shields.io/static/v1?label=build%20type&message=production&color=brightgreen)](https://github.com/empowernowprogram/sisu/tree/heroku-production) [![](https://img.shields.io/static/v1?label=build%20type&message=Staging&color=blue)](https://github.com/empowernowprogram/sisu/tree/heroku-staging) [![](https://img.shields.io/static/v1?label=build%20type&message=Development&color=yellow)](https://github.com/empowernowprogram/sisu/tree/heroku-dev-temp)
+[![](https://img.shields.io/static/v1?label=build%20type&message=production&color=brightgreen)](https://github.com/empowernowprogram/sisu/tree/heroku-production) [![](https://img.shields.io/static/v1?label=build%20type&message=Staging&color=blue)](https://github.com/empowernowprogram/sisu/tree/heroku-staging) [![](https://img.shields.io/static/v1?label=build%20type&message=Development&color=yellow)](https://github.com/empowernowprogram/sisu/tree/heroku-dev)
 
 ### Production
 Live production branch of the code that the website runs on. Code pushed to production should be thoroughly evaluated and tested for issues.
