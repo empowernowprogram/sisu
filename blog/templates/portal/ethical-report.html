@@ -65,6 +65,18 @@
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
                     integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
                 <script>
+
+                    // yellow face image list needed on y-axis and in tooltips
+                    var positiveFace = new Image(25,25);
+                    positiveFace.src = '/static/img/icon/positiveFace.png';
+                    var neutralFace = new Image(25,25);
+                    neutralFace.src = '/static/img/icon/neutralFace.png';
+                    var negativeFace = new Image(25,25);
+                    negativeFace.src = '/static/img/icon/negativeFace.png';
+
+                    var imageList = [negativeFace, neutralFace, positiveFace];
+
+
                     const getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
@@ -180,7 +192,8 @@
                             const roletr = document.createElement('tr');
                             const roletd1 = document.createElement('td');
                             const roletd2 = document.createElement('td');
-                            const rolestrong = document.createElement('strong');
+                            const rolestrong1 = document.createElement('strong');
+                            const rolestrong2 = document.createElement('strong');
                             roletd1.style.paddingLeft = contentPadding;
                             roletd2.style.paddingRight = contentPadding;
                             roletd2.align = 'right';
@@ -188,9 +201,11 @@
                             const roleText1 = document.createTextNode("Your role: ");
                             const roleText2 = document.createTextNode(roleInScene[sceneId].charAt(0).toUpperCase() + roleInScene[sceneId].slice(1));
 
-                            roletd1.appendChild(roleText1);
-                            rolestrong.appendChild(roleText2);
-                            roletd2.appendChild(rolestrong);
+                            rolestrong1.appendChild(roleText1);
+                            roletd1.appendChild(rolestrong1);
+
+                            rolestrong2.appendChild(roleText2);
+                            roletd2.appendChild(rolestrong2);
 
                             roletr.appendChild(roletd1);
                             roletr.appendChild(roletd2);
@@ -206,11 +221,10 @@
                             emotiontd2.align = 'right';
 
                             const emotionText1 = document.createTextNode("You felt: ");
-                            const emotionText2 = document.createTextNode(emotionInScene[sceneId]);
 
-                            emotiontd1.appendChild(emotionText1);
-                            emotionstrong.appendChild(emotionText2);
-                            emotiontd2.appendChild(emotionstrong);
+                            emotionstrong.appendChild(emotionText1);
+                            emotiontd1.appendChild(emotionstrong);
+                            emotiontd2.appendChild(imageList[parseInt(emotionInScene[sceneId]/5)]);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
@@ -220,7 +234,8 @@
                             const acttr = document.createElement('tr');
                             const acttd1 = document.createElement('td');
                             const acttd2 = document.createElement('td');
-                            const actstrong = document.createElement('strong');
+                            const actstrong1 = document.createElement('strong');
+                            const actstrong2 = document.createElement('strong');
                             acttd1.style.paddingLeft = contentPadding;
                             acttd2.style.paddingRight = contentPadding;
                             acttd2.align = 'right';
@@ -228,21 +243,19 @@
                             const actText1 = document.createTextNode("You acted: ");
                             const actText2 = document.createTextNode((behaviortInScene[sceneId].toUpperCase()));
                             if (actText2.textContent == "HOSTILE") {
-                                console.log("HOSTILE");
                                 acttd2.style.color = "#FF6464";
                             }
                             if (actText2.textContent == "CONFIDENT") {
-                                console.log("CONFIDENT");
                                 acttd2.style.color = "#77B447";
                             }
                             if (actText2.textContent == "PASSIVE") {
-                                console.log("PASSIVE");
                                 acttd2.style.color = "#FFAB08";
                             }
 
-                            acttd1.appendChild(actText1);
-                            actstrong.appendChild(actText2);
-                            acttd2.appendChild(actstrong);
+                            actstrong1.appendChild(actText1)
+                            acttd1.appendChild(actstrong1);
+                            actstrong2.appendChild(actText2);
+                            acttd2.appendChild(actstrong2);
 
                             acttr.appendChild(acttd1);
                             acttr.appendChild(acttd2);
@@ -322,8 +335,24 @@
                         confidentColor.push(threeColor[2]);
                     }
 
-                    var myChart = new Chart(ctx, {
+
+                    var yellowFacePlugin = {
+                        afterDraw: chart => {
+                            var xAxis = chart.scales.x;
+                            var yAxis = chart.scales.y;
+
+                            yAxis.ticks.forEach((value, index) => {
+                                if (index % 5 == 0) {
+                                    var y = yAxis.getPixelForTick(index);
+                                    ctx.drawImage(imageList[parseInt(index/5)], 40, Math.min(375, Math.max(5, y-25)), 50, 50);
+                                }
+                            })
+                        }
+                    }
+
+                    var myChart = new Chart(document.getElementById('efr'), {
                         type: 'bar',
+                        plugins: [yellowFacePlugin],
                         data: {
                             labels: rawScene, //scenes
                             datasets: [{
@@ -392,6 +421,10 @@
                                     ticks: {
                                         color: 'white',
                                         padding: 15,
+                                        //display: false,
+                                        callback: function(value, index, values) {
+                                            return "              ";
+                                        }
                                     },
                                     min: 0,
                                     max: 10
