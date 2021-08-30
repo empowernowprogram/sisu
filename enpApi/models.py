@@ -14,6 +14,7 @@ class Player(models.Model):
     registration_type = models.CharField(default='', max_length=16)
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
+    is_provisional = models.BooleanField(default=True)
 
     def __str__(self):
         return self.email
