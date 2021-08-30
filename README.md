@@ -29,7 +29,7 @@ Heroku App: [sisu-dev](https://dashboard.heroku.com/apps/sisu-dev)
 Database: Localhost / Heroku Postgres (can be run locally or on heroku)
 
 ## Build and Release Flow Diagram
-
+![image](https://user-images.githubusercontent.com/16641866/131380627-6646b1a1-30fb-4967-bafb-07b72ba2f87c.png)
 
 
 ## Setup Process
