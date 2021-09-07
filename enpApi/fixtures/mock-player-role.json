@@ -61,5 +61,59 @@
             "scene": 7,
             "role": "Respondent (Perpetrator)"
         }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 8,
+        "fields": {
+            "module": "3",
+            "scene": 1,
+            "role": "Complainant (Victim)"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 9,
+        "fields": {
+            "module": "3",
+            "scene": 2,
+            "role": "Complainant (Victim)"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 10,
+        "fields": {
+            "module": "3",
+            "scene": 3,
+            "role": "Witness (Bystander)"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 11,
+        "fields": {
+            "module": "3",
+            "scene": 4,
+            "role": "Witness (Bystander)"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 12,
+        "fields": {
+            "module": "3",
+            "scene": 5,
+            "role": "Complainant (Victim)"
+        }
+    },
+    {
+        "model": "enpApi.playerrole",
+        "pk": 13,
+        "fields": {
+            "module": "3",
+            "scene": 6,
+            "role": "Respondent (Perpetrator)"
+        }
     }
 ]
