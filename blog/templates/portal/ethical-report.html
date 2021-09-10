@@ -75,11 +75,6 @@
                     const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
                     const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
                     var threeColors = {{ colors| safe }};
-                    console.log('moduleId', moduleId)
-                    console.log('roles', rolesList_{{module}})
-                    console.log('emotions', emotionsList_{{module}})
-                    console.log('behaviors', behaviorsList_{{module}})
-                    console.log('scenes', scenesList_{{module}})
 
                     // yellow face image list needed on y-axis and in tooltips
                     var positiveFace = new Image(25,25);
@@ -90,7 +85,6 @@
                     negativeFace.src = '/static/img/icon/negativeFace.png';
 
                     var imageList = [negativeFace, neutralFace, positiveFace];
-                    console.log('imageList', imageList)
 
                     var getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
@@ -479,14 +473,11 @@
                     var tooltipDarkGray = '#565656';
 
                     // datasets
-                    var roleInScene = {{ roles|safe }}[moduleId];
-                    var avgEmotionInScene = {{ avgEmotions|safe }}[moduleId];
-                    var confidentInScene = {{ confident_dataset|safe }}[moduleId];
-                    var passiveInScene = {{ passive_dataset|safe }}[moduleId];
-                    var hostileInScene = {{ hostile_dataset|safe }}[moduleId];
-                    console.log(roleInScene)
-                    console.log(passiveInScene)
-                    console.log(hostileInScene)
+                    var roleInScene_{{module}} = {{ roles|safe }}[moduleId];
+                    var avgEmotionInScene_{{module}} = {{ avgEmotions|safe }}[moduleId];
+                    var confidentInScene_{{module}} = {{ confident_dataset|safe }}[moduleId];
+                    var passiveInScene_{{module}} = {{ passive_dataset|safe }}[moduleId];
+                    var hostileInScene_{{module}} = {{ hostile_dataset|safe }}[moduleId];
 
                     // external html tooltip
                     var getOrCreateTooltip = (chart) => {
@@ -611,7 +602,7 @@
                             roletd2.align = 'right';
 
                             var roleText1 = document.createTextNode("Role: ");
-                            var roleText2 = document.createTextNode(roleInScene[sceneId]);
+                            var roleText2 = document.createTextNode(roleInScene_{{module}}[sceneId]);
 
                             rolestrong1.appendChild(roleText1);
                             roletd1.appendChild(rolestrong1);
@@ -644,7 +635,7 @@
                             emotiontd2.align = 'right';
 
                             var emotionText1 = document.createTextNode("Emotion: ");
-                            var emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene[sceneId]));
+                            var emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene_{{module}}[sceneId]));
 
                             emotionstrong1.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong1);
@@ -688,8 +679,8 @@
                             acttd1.appendChild(actstrong1);
                             acttr.appendChild(acttd1);
 
-                            if (confidentInScene[sceneId] > 0) {
-                                actText2 = document.createTextNode(parseInt(confidentInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% confident");
+                            if (confidentInScene_{{module}}[sceneId] > 0) {
+                                actText2 = document.createTextNode(parseInt(confidentInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% confident");
                                 actstrong2.appendChild(actText2);
                                 acttd2.appendChild(actstrong2);
                                 acttr.appendChild(acttd2);
@@ -697,11 +688,11 @@
                             }
                             
 
-                            if (passiveInScene[sceneId] > 0) {
-                                actText3 = document.createTextNode(parseInt(passiveInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% passive");
+                            if (passiveInScene_{{module}}[sceneId] > 0) {
+                                actText3 = document.createTextNode(parseInt(passiveInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% passive");
                                 actstrong3.appendChild(actText3);
                                 acttd3.appendChild(actstrong3);
-                                if (confidentInScene[sceneId] == 0) {
+                                if (confidentInScene_{{module}}[sceneId] == 0) {
                                     acttr.appendChild(acttd3);
                                     tableBody.appendChild(acttr);
                                 } else {
@@ -710,11 +701,11 @@
                                 }
                             }
 
-                            if (hostileInScene[sceneId] > 0) {
-                                actText4 = document.createTextNode(parseInt(hostileInScene[sceneId] * 100 / avgEmotionInScene[sceneId]) + "% hostile");
+                            if (hostileInScene_{{module}}[sceneId] > 0) {
+                                actText4 = document.createTextNode(parseInt(hostileInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% hostile");
                                 actstrong4.appendChild(actText4);
                                 acttd4.appendChild(actstrong4);
-                                if (confidentInScene[sceneId] == 0 && passiveInScene[sceneId] == 0) {
+                                if (confidentInScene_{{module}}[sceneId] == 0 && passiveInScene_{{module}}[sceneId] == 0) {
                                     acttr.appendChild(acttd4);
                                     tableBody.appendChild(acttr);
                                 } else {
@@ -754,17 +745,17 @@
                             datasets: [
                                 {
                                     label: 'hostile',
-                                    data: hostileInScene,
+                                    data: hostileInScene_{{module}},
                                     backgroundColor: '{{hostile_color}}',
                                 },
                                 {
                                     label: 'passive',
-                                    data: passiveInScene,
+                                    data: passiveInScene_{{module}},
                                     backgroundColor: '{{passive_color}}',
                                 },
                                 {
                                     label: 'confident',
-                                    data: confidentInScene,
+                                    data: confidentInScene_{{module}},
                                     backgroundColor: '{{confident_color}}',
                                 }
                             ]
