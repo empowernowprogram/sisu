@@ -35,24 +35,28 @@
     <!-- Page Container -->
     <div class="page-container">
         <div class="row" style="margin: auto;">
-            {% if play_sessions_completed.count is not play_sessions.count %}
-            <div class="panel panel-white cert-container">
+            {% if not completedTraining %}
+            <script>
+                console.log('{{completedTraining}}')
+                console.log('{{play_sessions}}')
+                console.log('{{play_sessions_completed}}')
+            </script>
+            <div class="panel panel-white ethi-container-thin">
                 <div class="panel-body">
                     <h1 class="ethical-report cert-title">Nice Try!</h1>
                     <p class="ethical-report cert-text-reg">The ethical framework report will be generated once
                         all<br>training
                         modules are completed</p>
 
-                    <div style="margin: auto; text-align: center;">
+                    <div style="margin: auto; margin-top: 200px; text-align: center;">
                         <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
                             href="/portal/home/">Return to training</a>
                     </div>
                 </div>
             </div>
-            {% endif %}
 
-            {% if not player.supervisor %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
+            {% elif not player.supervisor %}
+            <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
                     course of Module 1.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
@@ -381,6 +385,12 @@
                             title: {
                                 display: false,
                             },
+                            elements: {
+                                bar: {
+                                    hoverBorderColor: 'rgba(255,255,255, 0.7)',
+                                    hoverBorderWidth: 2
+                                }
+                            },
                             scales: {
                                 x: {
                                     grid: {
@@ -393,7 +403,7 @@
                                     title: {
                                         color: 'white',
                                         font: {
-                                            size: 15
+                                            size: 16
                                         },
                                         display: true,
                                         text: 'Scene',
@@ -413,7 +423,7 @@
                                     title: {
                                         color: 'white',
                                         font: {
-                                            size: 15
+                                            size: 16
                                         },
                                         display: true,
                                         text: 'Emotion',
@@ -450,22 +460,34 @@
 
             </div>
             {% else %}
-            <div id="page2" class="panel panel-white ethi-container-thin" style="height: 720px;">
-                <p class="ethical-report ethi-text-lg">Let’s see {{employeeCnt}} employees’ <strong>average responses</strong> in Module
-                    1.</p>
+            {% for module in modules %}
+            <div class="panel panel-white ethi-container-thin" style="height: 720px;">
+                <p class="ethical-report ethi-text-lg">Let’s see  {% for key, value in employeeCnt.items %} {% if key == module %} {{value}} {% endif %} {% endfor %} employees’ 
+                    <strong>average responses</strong> in Module {{module}}.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
-                    <canvas id="efr_supervisor"></canvas>
+                    <canvas id="efr_supervisor_module{{module}}"></canvas>
                 </div>
                 <script>
                     // some constants for plotting
-                    const emotionTickMapping = ["negative", "neutral", "positive"];
-                    const emotionDescriptionMapping = ["slightly negative", "slightly positive"];
-                    const tooltipLightGray = '#838383';
-                    const tooltipDarkGray = '#565656';
+                    var moduleId = '{{module}}';
+                    var emotionTickMapping = ["negative", "neutral", "positive"];
+                    var emotionDescriptionMapping = ["slightly negative", "slightly positive"];
+                    var tooltipLightGray = '#838383';
+                    var tooltipDarkGray = '#565656';
+
+                    // datasets
+                    var roleInScene = {{ roles|safe }}[moduleId];
+                    var avgEmotionInScene = {{ avgEmotions|safe }}[moduleId];
+                    var confidentInScene = {{ confident_dataset|safe }}[moduleId];
+                    var passiveInScene = {{ passive_dataset|safe }}[moduleId];
+                    var hostileInScene = {{ hostile_dataset|safe }}[moduleId];
+                    console.log(roleInScene)
+                    console.log(passiveInScene)
+                    console.log(hostileInScene)
 
                     // external html tooltip
-                    const getOrCreateTooltip = (chart) => {
+                    var getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
                         if (!tooltipEl) {
@@ -481,7 +503,7 @@
                             tooltipEl.style.transform = 'translate(10%, -60%)';
                             tooltipEl.style.transition = 'all .1s ease';
 
-                            const table = document.createElement('table');
+                            var table = document.createElement('table');
                             table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
                             table.style.width = '265px';
 
@@ -492,10 +514,10 @@
                         return tooltipEl;
                     };
 
-                    const externalTooltipHandler = (context) => {
+                    var externalTooltipHandler = (context) => {
                         // Tooltip Element
-                        const { chart, tooltip } = context;
-                        const tooltipEl = getOrCreateTooltip(chart);
+                        var { chart, tooltip } = context;
+                        var tooltipEl = getOrCreateTooltip(chart);
 
                         // Hide if no tooltip
                         if (tooltip.opacity === 0) {
@@ -504,44 +526,39 @@
                         }
 
                         // Styling
-                        const contentPadding = '10px';
+                        var contentPadding = '10px';
 
                         // Set Text
                         // input data from views
-                        roleInScene = '{{roles}}'.replace('[', '').replace(']', '').replaceAll('&#39;', '').split(",");
-                        avgEmotionInScene = JSON.parse('{{avgEmotions}}');
-                        confidentInScene = JSON.parse('{{confident_dataset}}');
-                        passiveInScene = JSON.parse('{{passive_dataset}}');
-                        hostileInScene = JSON.parse('{{hostile_dataset}}');
                         sceneId = parseInt(tooltip.title[0]) - 1
 
                         if (tooltip.body) {
                             // title: Scene Review
-                            const tableHead = document.createElement('thead');
+                            var tableHead = document.createElement('thead');
 
-                            const tr = document.createElement('tr');
-                            const th = document.createElement('th');
-                            const strong = document.createElement('strong');
+                            var tr = document.createElement('tr');
+                            var th = document.createElement('th');
+                            var strong = document.createElement('strong');
                             th.colSpan = '2';
                             th.style.textAlign = 'center';
                             th.style.color = tooltipDarkGray;
                             th.style.height = '30px';
 
-                            const text = document.createTextNode('Scene Review');
+                            var text = document.createTextNode('Scene Review');
                             strong.appendChild(text);
                             th.appendChild(strong);
                             tr.appendChild(th);
                             tableHead.appendChild(tr);
 
-                            const tableBody = document.createElement('tbody');
+                            var tableBody = document.createElement('tbody');
 
                             // scene image
-                            const sceneImg = document.createElement('img');
+                            var sceneImg = document.createElement('img');
                             sceneImg.src = '/static/img/demo.gif';
                             sceneImg.style.width = '180px';
                             sceneImg.style.margin = '10px';
-                            const imgtr = document.createElement('tr');
-                            const imgtd = document.createElement('td');
+                            var imgtr = document.createElement('tr');
+                            var imgtd = document.createElement('td');
                             imgtd.colSpan = '2';
                             imgtd.style.textAlign = 'center';
 
@@ -551,15 +568,15 @@
                             tableBody.appendChild(imgtr);
 
                             // scene script
-                            const scripttr = document.createElement('tr');
-                            const scripttd = document.createElement('td');
-                            const scriptstrong = document.createElement('strong');
+                            var scripttr = document.createElement('tr');
+                            var scripttd = document.createElement('td');
+                            var scriptstrong = document.createElement('strong');
                             scripttd.colSpan = '2';
                             scripttd.style.textAlign = 'center';
                             scripttd.style.color = '#007E9A';
 
-                            const scriptText1 = document.createTextNode("Andy");
-                            const scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+                            var scriptText1 = document.createTextNode("Andy");
+                            var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
 
                             scriptstrong.appendChild(scriptText1);
                             scripttd.appendChild(scriptstrong);
@@ -569,30 +586,30 @@
                             tableBody.appendChild(scripttr);
 
                             // gray line
-                            const emptytr = document.createElement('tr');
-                            const emptytd = document.createElement('td');
+                            var emptytr = document.createElement('tr');
+                            var emptytd = document.createElement('td');
                             emptytd.colSpan = '2';
 
-                            const grayLine = document.createElement('hr');
+                            var grayLine = document.createElement('hr');
                             emptytd.appendChild(grayLine);
                             emptytr.appendChild(emptytd);
 
                             tableBody.appendChild(emptytr);
 
                             // Employees' role
-                            const roletr = document.createElement('tr');
-                            const roletd1 = document.createElement('td');
-                            const roletd2 = document.createElement('td');
-                            const rolestrong1 = document.createElement('strong');
-                            const rolestrong2 = document.createElement('strong');
+                            var roletr = document.createElement('tr');
+                            var roletd1 = document.createElement('td');
+                            var roletd2 = document.createElement('td');
+                            var rolestrong1 = document.createElement('strong');
+                            var rolestrong2 = document.createElement('strong');
                             roletd1.style.paddingLeft = contentPadding;
                             roletd2.style.paddingRight = contentPadding;
                             roletd2.style.color = tooltipDarkGray;
                             roletd2.style.width = '280px';
                             roletd2.align = 'right';
 
-                            const roleText1 = document.createTextNode("Role: ");
-                            const roleText2 = document.createTextNode(roleInScene[sceneId]);
+                            var roleText1 = document.createTextNode("Role: ");
+                            var roleText2 = document.createTextNode(roleInScene[sceneId]);
 
                             rolestrong1.appendChild(roleText1);
                             roletd1.appendChild(rolestrong1);
@@ -605,7 +622,7 @@
                             tableBody.appendChild(roletr);
 
                             // Employees felt
-                            const emotionDescriptionHandler = (emotionScore) => {
+                            var emotionDescriptionHandler = (emotionScore) => {
                                 if (emotionScore % 5 == 0) {
                                     return `${emotionScore} (${emotionTickMapping[Math.floor(emotionScore/5)]})`;
                                 } else {
@@ -613,19 +630,19 @@
                                 }
                             }
 
-                            const emotiontr = document.createElement('tr');
-                            const emotiontd1 = document.createElement('td');
-                            const emotiontd2 = document.createElement('td');
-                            const emotionstrong1 = document.createElement('strong');
-                            const emotionstrong2 = document.createElement('strong');
+                            var emotiontr = document.createElement('tr');
+                            var emotiontd1 = document.createElement('td');
+                            var emotiontd2 = document.createElement('td');
+                            var emotionstrong1 = document.createElement('strong');
+                            var emotionstrong2 = document.createElement('strong');
                             emotiontd1.style.paddingLeft = contentPadding;
                             
                             emotiontd2.style.paddingRight = contentPadding;
                             emotiontd2.style.color = tooltipDarkGray;
                             emotiontd2.align = 'right';
 
-                            const emotionText1 = document.createTextNode("Emotion: ");
-                            const emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene[sceneId]));
+                            var emotionText1 = document.createTextNode("Emotion: ");
+                            var emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene[sceneId]));
 
                             emotionstrong1.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong1);
@@ -638,17 +655,17 @@
                             tableBody.appendChild(emotiontr);
 
                             // Employees acted
-                            const acttr = document.createElement('tr');
-                            const acttr3 = document.createElement('tr');
-                            const acttr4 = document.createElement('tr');
-                            const acttd1 = document.createElement('td');
-                            const acttd2 = document.createElement('td');
-                            const acttd3 = document.createElement('td');
-                            const acttd4 = document.createElement('td');
-                            const actstrong1 = document.createElement('strong');
-                            const actstrong2 = document.createElement('strong');
-                            const actstrong3 = document.createElement('strong');
-                            const actstrong4 = document.createElement('strong');
+                            var acttr = document.createElement('tr');
+                            var acttr3 = document.createElement('tr');
+                            var acttr4 = document.createElement('tr');
+                            var acttd1 = document.createElement('td');
+                            var acttd2 = document.createElement('td');
+                            var acttd3 = document.createElement('td');
+                            var acttd4 = document.createElement('td');
+                            var actstrong1 = document.createElement('strong');
+                            var actstrong2 = document.createElement('strong');
+                            var actstrong3 = document.createElement('strong');
+                            var actstrong4 = document.createElement('strong');
                             acttd1.style.paddingLeft = contentPadding;
                             acttd2.style.paddingRight = contentPadding;
                             acttd3.style.paddingRight = contentPadding;
@@ -663,7 +680,7 @@
                             acttd4.style.color = '#FF6464';
                             acttd4.colSpan = '2';
 
-                            const actText1 = document.createTextNode("Responded: ");
+                            var actText1 = document.createTextNode("Responded: ");
 
                             actstrong1.appendChild(actText1)
                             acttd1.appendChild(actstrong1);
@@ -704,7 +721,7 @@
                                 }
                             }
 
-                            const tableRoot = tooltipEl.querySelector('table');
+                            var tableRoot = tooltipEl.querySelector('table');
 
                             // Remove old children
                             while (tableRoot.firstChild) {
@@ -716,7 +733,7 @@
                             tableRoot.appendChild(tableBody);
                         }
 
-                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+                        var { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
 
                         // Display, position, and set styles for font
                         tooltipEl.style.opacity = 1;
@@ -727,25 +744,25 @@
                     };
 
                     // render chart
-                    var ctx = document.getElementById('efr_supervisor');
+                    var ctx = document.getElementById('efr_supervisor_module{{module}}');
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: JSON.parse('{{labels}}'),
+                            labels: {{ labels|safe }}[moduleId],
                             datasets: [
                                 {
                                     label: 'hostile',
-                                    data: JSON.parse('{{hostile_dataset}}'),
+                                    data: hostileInScene,
                                     backgroundColor: '{{hostile_color}}',
                                 },
                                 {
                                     label: 'passive',
-                                    data: JSON.parse('{{passive_dataset}}'),
+                                    data: passiveInScene,
                                     backgroundColor: '{{passive_color}}',
                                 },
                                 {
                                     label: 'confident',
-                                    data: JSON.parse('{{confident_dataset}}'),
+                                    data: confidentInScene,
                                     backgroundColor: '{{confident_color}}',
                                 }
                             ]
@@ -774,6 +791,9 @@
                                     stacked: true,
                                     title: {
                                         color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
                                         display: true,
                                         text: 'Scene',
                                     },
@@ -791,6 +811,9 @@
                                     stacked: true,
                                     title: {
                                         color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
                                         display: true,
                                         text: 'Emotion',
                                     },
@@ -827,6 +850,7 @@
                     });
                 </script>
             </div>
+            {% endfor %}
             {% endif %}
         </div>
     </div>

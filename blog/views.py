@@ -911,62 +911,79 @@ def portal_ethical_report(request):
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
 
-        roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now, need a database model for storing the module ids
-        sceneRoles = [''] * len(roles)
-        for obj in roles:
-            sceneRoles[obj.scene-1] = obj.role
+        if len(play_sessions) != len(play_sessions_completed):
+            return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
+
 
         # supervisor
         if player.supervisor:
             # aggregate data
             # get all data for now, need to filter out a supervisor's employees
-            
-            data = []
-            color = []
-
             queryset = EthicalFeedback.objects.all()
+
             # calulate average emotion value for each scene
-            emotionSum = defaultdict(int) # {scene nb: sum of employees' emotion}
-            behaviorCount = defaultdict(dict) # {hostile: {scene nb: count}, ...}
+            emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
+            behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
             for entry in queryset:
-                emotionSum[entry.scene] += entry.emotion
-                behaviorCount[entry.behavior_id.description][entry.scene] = behaviorCount[entry.behavior_id.description].get(entry.scene, 0) + 1
+                emotionSumInModule[entry.module][entry.scene] += entry.emotion
+                behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
 
-            datasets = {}
-            sceneCnt = len(emotionSum)
-            employeeCnt = len(queryset) / sceneCnt
-            avgEmotions = [0] * len(emotionSum)
+            # aggregate data by module
+            moduleCnt = len(emotionSumInModule)
+            avgEmotionsInModule = {}
+            employeeCntInModule = {}
+            sceneLabelsInModule = {}
+            rolesInModule = {}
 
-            for behavior in behaviorCount:
-                sceneData = [0] * len(emotionSum)
-                for scene, emoSum in emotionSum.items():
-                    behaviorPercentage = behaviorCount[behavior].get(scene, 0) / employeeCnt
-                    avgEmotion = emoSum / employeeCnt
+            datasets = defaultdict(dict)
 
-                    avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
-                    sceneData[scene-1] = avgEmotion * behaviorPercentage
+            for moduleId, emotionSum in emotionSumInModule.items():
+                employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
 
-                behaviorData = {
-                    "data": sceneData,
-                    "backgroundColor": getColor(behavior)
-                }
+                
+                sceneCnt = len(emotionSum)
+                avgEmotions = [0] * sceneCnt
 
-                datasets[behavior] = behaviorData
+                behaviorCount = behaviorCountInModule[moduleId]
+
+                for behavior in behaviorCount:
+                    sceneData = [0] * sceneCnt
+                    for scene, emoSum in emotionSum.items():
+                        behaviorPercentage = behaviorCount[behavior].get(scene, 0) / employeeCnt
+                        avgEmotion = emoSum / employeeCnt
+
+                        avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
+                        sceneData[scene-1] = avgEmotion * behaviorPercentage
+
+                    datasets[behavior][moduleId] = sceneData[:]
+
+
+                employeeCntInModule[moduleId] = int(employeeCnt)
+                avgEmotionsInModule[moduleId] = avgEmotions[:]
+                sceneLabelsInModule[moduleId] = list(range(1, sceneCnt+1))
+
+                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                roles = {}
+                for obj in queryRoles:
+                    roles[obj.scene-1] = obj.role
+                rolesInModule[moduleId] = roles
+
+            modules = sorted(list(emotionSumInModule.keys()))
 
             context = {
+                'completedTraining': True,
                 'player': player, 
-                'play_sessions': play_sessions, 
-                'play_sessions_completed': play_sessions_completed,
-                'labels': list(range(1,len(emotionSum)+1)),  # scene
-                'hostile_dataset': datasets['hostile']['data'],
-                'passive_dataset': datasets['passive']['data'],
-                'confident_dataset': datasets['confident']['data'],
-                'hostile_color': datasets['hostile']['backgroundColor'],
-                'passive_color': datasets['passive']['backgroundColor'],
-                'confident_color': datasets['confident']['backgroundColor'],
-                'roles': sceneRoles,
-                'avgEmotions': avgEmotions,
-                'employeeCnt': int(employeeCnt)
+                'modules': modules,
+                'labels': sceneLabelsInModule,
+                'hostile_dataset': datasets['hostile'],
+                'passive_dataset': datasets['passive'],
+                'confident_dataset': datasets['confident'],
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
+                'roles': rolesInModule,
+                'avgEmotions': avgEmotionsInModule,
+                'employeeCnt': employeeCntInModule
             }
 
         # not supervisor
@@ -993,9 +1010,8 @@ def portal_ethical_report(request):
                 colors.append(getColor(b))
 
             context = {
-                'player': player, 
-                'play_sessions': play_sessions, 
-                'play_sessions_completed': play_sessions_completed,
+                'completedTraining': True,
+                'player': player,
                 'roles': sceneRoles,
                 'behaviors': behaviors, 
                 'scenes': scenes, 
