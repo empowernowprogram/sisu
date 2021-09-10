@@ -59,7 +59,7 @@
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
-                    course of Module {{module}}.</p>
+                    course of <strong>Module {{module}}</strong>.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <!-- style="background: #4E657A; -->
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
@@ -459,7 +459,7 @@
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px;">
                 <p class="ethical-report ethi-text-lg">Let’s see  {% for key, value in employeeCnt.items %} {% if key == module %} {{value}} {% endif %} {% endfor %} employees’ 
-                    <strong>average responses</strong> in Module {{module}}.</p>
+                    <strong>average responses</strong> in <strong>Module {{module}}</strong>.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
                     <canvas id="efr_supervisor_module{{module}}"></canvas>
