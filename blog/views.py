@@ -988,35 +988,57 @@ def portal_ethical_report(request):
 
         # not supervisor
         else:
-            scenes = []
-            emotions = []
-            behaviors = []
-            colors = []
+
             username = request.user.username
 
-            roles = PlayerRole.objects.filter(module=1) # TO DO: hard code module id for now
-            sceneRoles = [''] * len(roles)
-            for obj in roles:
-                sceneRoles[obj.scene-1] = obj.role
+            scenesInModules = {}
+            emotionsInModules = {}
+            behaviorsInModules = {}
+            rolesInModule = {}
 
-            queryset = EthicalFeedback.objects.filter(user__username=username)
+            for field in play_sessions.all():
+                moduleId = field.module_id
 
-            for column in queryset:
-                scenes.append(column.scene)
-                emotions.append(column.emotion)
-                behaviors.append(column.behavior_id.description)
+                # fetch ethical feedbacks in this module
+                scenes = []
+                emotions = []
+                behaviors = []
 
+                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module=moduleId)
+
+                for column in queryset:
+                    scenes.append(column.scene)
+                    emotions.append(column.emotion)
+                    behaviors.append(column.behavior_id.description)
+                
+                # fetch player roles in this module
+                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                roles = {}
+                for obj in queryRoles:
+                    roles[obj.scene-1] = obj.role
+
+                # store scene, emotion, behaviors, roles by module
+                scenesInModules[moduleId] = scenes
+                emotionsInModules[moduleId] = emotions
+                behaviorsInModules[moduleId] = behaviors
+                rolesInModule[moduleId] = roles
+
+            modules = sorted(list(rolesInModule.keys()))
+
+            # colors for bars
+            colors = []
             for b in behaviors:
                 colors.append(getColor(b))
 
             context = {
                 'completedTraining': True,
                 'player': player,
-                'roles': sceneRoles,
-                'behaviors': behaviors, 
-                'scenes': scenes, 
-                'emotions': emotions, 
-                'colors': colors,
+                'modules': modules,
+                'roles': rolesInModule,
+                'scenes': scenesInModules, 
+                'emotions': emotionsInModules, 
+                'behaviors': behaviorsInModules, 
+                'colors': colors
             }
 
         return render(request, 'portal/ethical-report.html', context)

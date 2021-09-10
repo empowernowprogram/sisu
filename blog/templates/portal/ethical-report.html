@@ -56,19 +56,30 @@
             </div>
 
             {% elif not player.supervisor %}
+            {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
-                    course of Module 1.</p>
+                    course of Module {{module}}.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
                 <!-- style="background: #4E657A; -->
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
                     <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
-                    <canvas id="efr"></canvas>
+                    <canvas id="efr_module{{module}}"></canvas>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
-                    integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
                 <script>
+                    // variables needed in chart
+                    var moduleId = '{{module}}';
+                    const rolesList_{{module}} = {{ roles | safe }}[moduleId];
+                    const emotionsList_{{module}} = {{ emotions | safe }}[moduleId];
+                    const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
+                    const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
+                    var threeColors = {{ colors| safe }};
+                    console.log('moduleId', moduleId)
+                    console.log('roles', rolesList_{{module}})
+                    console.log('emotions', emotionsList_{{module}})
+                    console.log('behaviors', behaviorsList_{{module}})
+                    console.log('scenes', scenesList_{{module}})
 
                     // yellow face image list needed on y-axis and in tooltips
                     var positiveFace = new Image(25,25);
@@ -79,9 +90,9 @@
                     negativeFace.src = '/static/img/icon/negativeFace.png';
 
                     var imageList = [negativeFace, neutralFace, positiveFace];
+                    console.log('imageList', imageList)
 
-
-                    const getOrCreateTooltip = (chart) => {
+                    var getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
                         if (!tooltipEl) {
@@ -97,7 +108,7 @@
                             tooltipEl.style.transform = 'translate(10%, -60%)';
                             tooltipEl.style.transition = 'all .1s ease';
 
-                            const table = document.createElement('table');
+                            var table = document.createElement('table');
                             table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
                             table.style.width = '255px';
 
@@ -108,10 +119,10 @@
                         return tooltipEl;
                     };
 
-                    const externalTooltipHandler = (context) => {
+                    var externalTooltipHandler = (context) => {
                         // Tooltip Element
-                        const { chart, tooltip } = context;
-                        const tooltipEl = getOrCreateTooltip(chart);
+                        var { chart, tooltip } = context;
+                        var tooltipEl = getOrCreateTooltip(chart);
 
                         // Hide if no tooltip
                         if (tooltip.opacity === 0) {
@@ -120,41 +131,36 @@
                         }
 
                         // Styling
-                        const contentPadding = '10px';
+                        var contentPadding = '10px';
 
-                        // Set Text
-                        // input data from views
-                        roleInScene = {{roles | safe}};
-                        emotionInScene = {{ emotions| safe }};
-                        behaviortInScene = {{ behaviors| safe }};
-                        sceneId = parseInt(tooltip.title[0]) - 1;
+                        var sceneId = parseInt(tooltip.title[0]) - 1;
 
                         if (tooltip.body) {
                             // title: Scene Review
-                            const tableHead = document.createElement('thead');
+                            var tableHead = document.createElement('thead');
 
-                            const tr = document.createElement('tr');
-                            const th = document.createElement('th');
-                            const strong = document.createElement('strong');
+                            var tr = document.createElement('tr');
+                            var th = document.createElement('th');
+                            var strong = document.createElement('strong');
                             th.colSpan = '2';
                             th.style.textAlign = 'center';
                             th.style.height = '30px';
 
-                            const text = document.createTextNode('Scene Review');
+                            var text = document.createTextNode('Scene Review');
                             strong.appendChild(text);
                             th.appendChild(strong);
                             tr.appendChild(th);
                             tableHead.appendChild(tr);
 
-                            const tableBody = document.createElement('tbody');
+                            var tableBody = document.createElement('tbody');
 
                             // scene image
-                            const sceneImg = document.createElement('img');
+                            var sceneImg = document.createElement('img');
                             sceneImg.src = '/static/img/demo.gif';
                             sceneImg.style.width = '180px';
                             sceneImg.style.margin = '10px';
-                            const imgtr = document.createElement('tr');
-                            const imgtd = document.createElement('td');
+                            var imgtr = document.createElement('tr');
+                            var imgtd = document.createElement('td');
                             imgtd.colSpan = '2';
                             imgtd.style.textAlign = 'center';
 
@@ -164,15 +170,15 @@
                             tableBody.appendChild(imgtr);
 
                             // scene script
-                            const scripttr = document.createElement('tr');
-                            const scripttd = document.createElement('td');
-                            const scriptstrong = document.createElement('strong');
+                            var scripttr = document.createElement('tr');
+                            var scripttd = document.createElement('td');
+                            var scriptstrong = document.createElement('strong');
                             scripttd.colSpan = '2';
                             scripttd.style.textAlign = 'center';
                             scripttd.style.color = '#007E9A';
 
-                            const scriptText1 = document.createTextNode("Andy");
-                            const scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+                            var scriptText1 = document.createTextNode("Andy");
+                            var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
 
                             scriptstrong.appendChild(scriptText1);
                             scripttd.appendChild(scriptstrong);
@@ -182,28 +188,28 @@
                             tableBody.appendChild(scripttr);
 
                             // gray line
-                            const emptytr = document.createElement('tr');
-                            const emptytd = document.createElement('td');
+                            var emptytr = document.createElement('tr');
+                            var emptytd = document.createElement('td');
                             emptytd.colSpan = '2';
 
-                            const grayLine = document.createElement('hr');
+                            var grayLine = document.createElement('hr');
                             emptytd.appendChild(grayLine);
                             emptytr.appendChild(emptytd);
 
                             tableBody.appendChild(emptytr);
 
                             // Your role
-                            const roletr = document.createElement('tr');
-                            const roletd1 = document.createElement('td');
-                            const roletd2 = document.createElement('td');
-                            const rolestrong1 = document.createElement('strong');
-                            const rolestrong2 = document.createElement('strong');
+                            var roletr = document.createElement('tr');
+                            var roletd1 = document.createElement('td');
+                            var roletd2 = document.createElement('td');
+                            var rolestrong1 = document.createElement('strong');
+                            var rolestrong2 = document.createElement('strong');
                             roletd1.style.paddingLeft = contentPadding;
                             roletd2.style.paddingRight = contentPadding;
                             roletd2.align = 'right';
 
-                            const roleText1 = document.createTextNode("Your role: ");
-                            const roleText2 = document.createTextNode(roleInScene[sceneId].charAt(0).toUpperCase() + roleInScene[sceneId].slice(1));
+                            var roleText1 = document.createTextNode("Your role: ");
+                            var roleText2 = document.createTextNode(rolesList_{{module}}[sceneId]);
 
                             rolestrong1.appendChild(roleText1);
                             roletd1.appendChild(rolestrong1);
@@ -216,43 +222,43 @@
                             tableBody.appendChild(roletr);
 
                             // You felt
-                            const emotiontr = document.createElement('tr');
-                            const emotiontd1 = document.createElement('td');
-                            const emotiontd2 = document.createElement('td');
-                            const emotionstrong = document.createElement('strong');
+                            var emotiontr = document.createElement('tr');
+                            var emotiontd1 = document.createElement('td');
+                            var emotiontd2 = document.createElement('td');
+                            var emotionstrong = document.createElement('strong');
                             emotiontd1.style.paddingLeft = contentPadding;
                             emotiontd2.style.paddingRight = contentPadding;
                             emotiontd2.align = 'right';
 
-                            const emotionText1 = document.createTextNode("You felt: ");
+                            var emotionText1 = document.createTextNode("You felt: ");
 
                             emotionstrong.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong);
-                            emotiontd2.appendChild(imageList[parseInt(emotionInScene[sceneId]/5)]);
+                            emotiontd2.appendChild(imageList[parseInt(emotionsList_{{module}}[sceneId]/5)]);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
                             tableBody.appendChild(emotiontr);
 
                             // You acted
-                            const acttr = document.createElement('tr');
-                            const acttd1 = document.createElement('td');
-                            const acttd2 = document.createElement('td');
-                            const actstrong1 = document.createElement('strong');
-                            const actstrong2 = document.createElement('strong');
+                            var acttr = document.createElement('tr');
+                            var acttd1 = document.createElement('td');
+                            var acttd2 = document.createElement('td');
+                            var actstrong1 = document.createElement('strong');
+                            var actstrong2 = document.createElement('strong');
                             acttd1.style.paddingLeft = contentPadding;
                             acttd2.style.paddingRight = contentPadding;
                             acttd2.align = 'right';
                             acttd2.style.color = '#FF6464';
-                            const actText1 = document.createTextNode("You acted: ");
-                            const actText2 = document.createTextNode((behaviortInScene[sceneId].toUpperCase()));
-                            if (actText2.textContent == "HOSTILE") {
+                            var actText1 = document.createTextNode("You acted: ");
+                            var actText2 = document.createTextNode((behaviorsList_{{module}}[sceneId]));
+                            if (actText2.textContent == "hostile") {
                                 acttd2.style.color = "#FF6464";
                             }
-                            if (actText2.textContent == "CONFIDENT") {
+                            if (actText2.textContent == "confident") {
                                 acttd2.style.color = "#77B447";
                             }
-                            if (actText2.textContent == "PASSIVE") {
+                            if (actText2.textContent == "passive") {
                                 acttd2.style.color = "#FFAB08";
                             }
 
@@ -266,7 +272,7 @@
                             tableBody.appendChild(acttr);
 
 
-                            const tableRoot = tooltipEl.querySelector('table');
+                            var tableRoot = tooltipEl.querySelector('table');
 
                             // Remove old children
                             while (tableRoot.firstChild) {
@@ -278,7 +284,7 @@
                             tableRoot.appendChild(tableBody);
                         }
 
-                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+                        var { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
 
                         // Display, position, and set styles for font
                         tooltipEl.style.opacity = 1;
@@ -287,13 +293,6 @@
                         tooltipEl.style.font = tooltip.options.bodyFont.string;
                         tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
                     };
-
-
-                    var ctx = document.getElementById('efr').getContext('2d');
-                    var rawScene = {{ scenes| safe }};
-                    var rawEmo = {{ emotions| safe }};
-                    var rawBehavior = {{ behaviors| safe }};
-                    var threeColor = {{ colors| safe }};
 
                     function HostileObj(scene, emotion, behavior) {
                         this.scene = scene;
@@ -318,29 +317,30 @@
                     var confidentArray = new Array();
                     var confidentColor = new Array();
 
-                    for (var i = 0; i < rawBehavior.length; i++) {
-                        if (rawBehavior[i] == "hostile") {
-                            hostileArray.push(new HostileObj(rawScene[i], rawEmo[i], rawBehavior[i]));
-                            passiveArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
-                            confidentArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                    for (var i = 0; i < behaviorsList_{{module}}.length; i++) {
+                        if (behaviorsList_{{module}}[i] == "hostile") {
+                            hostileArray.push(new HostileObj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            confidentArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                         }
-                        else if (rawBehavior[i] == "passive") {
-                            passiveArray.push(new PassiveObj(rawScene[i], rawEmo[i], rawBehavior[i]));
-                            hostileArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
-                            confidentArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                        else if (behaviorsList_{{module}}[i] == "passive") {
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            confidentArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                         }
                         else {
-                            confidentArray.push(new Confidentobj(rawScene[i], rawEmo[i], rawBehavior[i]));
-                            passiveArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
-                            hostileArray.push(new PassiveObj(rawScene[i], 0, rawBehavior[i]));
+                            confidentArray.push(new Confidentobj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                         }
-                        hostileColor.push(threeColor[0]);
-                        passiveColor.push(threeColor[1]);
-                        confidentColor.push(threeColor[2]);
+                        hostileColor.push(threeColors[0]);
+                        passiveColor.push(threeColors[1]);
+                        confidentColor.push(threeColors[2]);
                     }
 
+                    const ctx_{{module}} = document.getElementById('efr_module{{module}}').getContext('2d');
 
-                    var yellowFacePlugin = {
+                    const yellowFacePlugin_{{module}} = {
                         afterDraw: chart => {
                             var xAxis = chart.scales.x;
                             var yAxis = chart.scales.y;
@@ -348,17 +348,17 @@
                             yAxis.ticks.forEach((value, index) => {
                                 if (index % 5 == 0) {
                                     var y = yAxis.getPixelForTick(index);
-                                    ctx.drawImage(imageList[parseInt(index/5)], 40, Math.min(375, Math.max(5, y-25)), 50, 50);
+                                    ctx_{{module}}.drawImage(imageList[parseInt(index/5)], 40, Math.min(375, Math.max(5, y-25)), 50, 50);
                                 }
                             })
                         }
                     }
 
-                    var myChart = new Chart(document.getElementById('efr'), {
+                    var myChart = new Chart(document.getElementById('efr_module{{module}}'), {
                         type: 'bar',
-                        plugins: [yellowFacePlugin],
+                        plugins: [yellowFacePlugin_{{module}}],
                         data: {
-                            labels: rawScene, //scenes
+                            labels: scenesList_{{module}},
                             datasets: [{
                                 label: "hostile",
                                 data: hostileArray,
@@ -459,6 +459,8 @@
                 </script>
 
             </div>
+            {% endfor %}
+
             {% else %}
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px;">
