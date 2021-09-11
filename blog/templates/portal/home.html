@@ -121,13 +121,18 @@
                                         <br>
                                         <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
 
-                                        {% if play_sessions_completed.count is play_sessions.count and player.is_provisional is False %}
+                                        {% if play_sessions_completed.count is play_sessions.count %}
+                                        {% if player.is_provisional is False %}
                                         <!-- <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{%url 'certificate' %}" target="_blank">Print Certificate</a> -->
                                             {% if player.supervisor is True %}
                                             <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}" target="_blank">Print Certificate</a>
                                             {% elif player.supervisor is False %}
                                             <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='nonsupervisor' %}" target="_blank">Print Certificate</a>
                                             {% endif %}
+                                        {% else %}
+                                            <p><strong>Unable to download certificate due to accounts provisional status, contact your HR administrator to resolve issue.</strong></p>
+                                        {% endif %}
+                                        
                                         {% endif %}
                                         
                                 </div>                            
