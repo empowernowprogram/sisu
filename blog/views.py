@@ -576,9 +576,8 @@ def portal_home(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-
         context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
-    
+        
         return render(request, 'portal/home.html', context)
     else:
         return render(request, 'auth/login.html')
