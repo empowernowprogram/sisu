@@ -74,6 +74,9 @@
                     const emotionsList_{{module}} = {{ emotions | safe }}[moduleId];
                     const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
                     const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
+                    const scenesIdicesMap_{{module}} = {{ scenesIdices| safe }}[moduleId];
+
+                    
 
                     // yellow face image list needed on y-axis and in tooltips
                     var positiveFace = new Image(25,25);
@@ -259,7 +262,7 @@
 
                             emotionstrong.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong);
-                            emotiontd2.appendChild(imageList[parseInt((emotionsList_{{module}}[sceneId]+2)/5)]);
+                            emotiontd2.appendChild(imageList[parseInt((emotionsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]+2)/5)]);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
@@ -276,7 +279,7 @@
                             acttd2.align = 'right';
                             acttd2.style.color = '#FF6464';
                             var actText1 = document.createTextNode("You acted: ");
-                            var actText2 = document.createTextNode((behaviorsList_{{module}}[sceneId]));
+                            var actText2 = document.createTextNode((behaviorsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]));
                             if (actText2.textContent == "hostile") {
                                 acttd2.style.color = "#FF6464";
                             }

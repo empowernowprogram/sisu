@@ -998,6 +998,7 @@ def portal_ethical_report(request):
             username = request.user.username
 
             scenesInModules = {}
+            sceneIndicesInModules = {}
             emotionsInModules = {}
             behaviorsInModules = {}
             rolesInModule = {}
@@ -1023,6 +1024,9 @@ def portal_ethical_report(request):
                 emotions = list(map(lambda x: x[1], sortedData))
                 behaviors = list(map(lambda x: x[2], sortedData))
                 
+                scenesIdices = {}
+                for i, scene in enumerate(scenes):
+                    scenesIdices[scene-1] = i
 
                 # fetch player roles in this module
                 queryRoles = SceneInfo.objects.filter(module=moduleId)
@@ -1032,6 +1036,7 @@ def portal_ethical_report(request):
 
                 # store scene, emotion, behaviors, roles by module
                 scenesInModules[moduleId] = scenes
+                sceneIndicesInModules[moduleId] = scenesIdices
                 emotionsInModules[moduleId] = emotions
                 behaviorsInModules[moduleId] = behaviors
                 rolesInModule[moduleId] = roles
@@ -1048,7 +1053,8 @@ def portal_ethical_report(request):
                 'player': player,
                 'modules': modules,
                 'roles': rolesInModule,
-                'scenes': scenesInModules, 
+                'scenes': scenesInModules,
+                'scenesIdices': sceneIndicesInModules, 
                 'emotions': emotionsInModules, 
                 'behaviors': behaviorsInModules, 
                 'hostile_color': getColor('hostile'),
