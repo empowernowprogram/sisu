@@ -1011,6 +1011,13 @@ def portal_ethical_report(request):
                     emotions.append(column.emotion)
                     behaviors.append(column.behavior_id.description)
                 
+                # sort according to scene id
+                sortedData = list(sorted(zip(scenes, emotions, behaviors)))
+                scenes = list(map(lambda x: x[0], sortedData))
+                emotions = list(map(lambda x: x[1], sortedData))
+                behaviors = list(map(lambda x: x[2], sortedData))
+                
+
                 # fetch player roles in this module
                 queryRoles = PlayerRole.objects.filter(module=moduleId)
                 roles = {}
