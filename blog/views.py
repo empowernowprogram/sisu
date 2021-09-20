@@ -1038,7 +1038,9 @@ def portal_ethical_report(request):
                 'scenes': scenesInModules, 
                 'emotions': emotionsInModules, 
                 'behaviors': behaviorsInModules, 
-                'colors': colors
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
             }
 
         return render(request, 'portal/ethical-report.html', context)

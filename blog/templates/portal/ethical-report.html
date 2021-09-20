@@ -74,7 +74,6 @@
                     const emotionsList_{{module}} = {{ emotions | safe }}[moduleId];
                     const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
                     const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
-                    var threeColors = {{ colors| safe }};
 
                     // yellow face image list needed on y-axis and in tooltips
                     var positiveFace = new Image(25,25);
@@ -359,9 +358,9 @@
                             passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                             hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                         }
-                        hostileColor.push(threeColors[0]);
-                        passiveColor.push(threeColors[1]);
-                        confidentColor.push(threeColors[2]);
+                        hostileColor.push('{{hostile_color}}');
+                        passiveColor.push('{{passive_color}}');
+                        confidentColor.push('{{confident_color}}');
                     }
 
                     const ctx_{{module}} = document.getElementById('efr_module{{module}}').getContext('2d');
