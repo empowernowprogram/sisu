@@ -27,7 +27,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
-from enpApi.models import Behavior, PlayerRole, EthicalFeedback # for ethical framework report
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -962,10 +962,10 @@ def portal_ethical_report(request):
                 avgEmotionsInModule[moduleId] = avgEmotions[:]
                 sceneLabelsInModule[moduleId] = list(range(1, sceneCnt+1))
 
-                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
                 for obj in queryRoles:
-                    roles[obj.scene-1] = obj.role
+                    roles[obj.scene-1] = obj.player_role
                 rolesInModule[moduleId] = roles
 
             modules = sorted(list(emotionSumInModule.keys()))
@@ -1019,10 +1019,10 @@ def portal_ethical_report(request):
                 
 
                 # fetch player roles in this module
-                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
                 for obj in queryRoles:
-                    roles[obj.scene-1] = obj.role
+                    roles[obj.scene-1] = obj.player_role
 
                 # store scene, emotion, behaviors, roles by module
                 scenesInModules[moduleId] = scenes
