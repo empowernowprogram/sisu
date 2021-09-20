@@ -149,6 +149,10 @@ class SceneInfo(models.Model):
     scene = models.IntegerField(blank=False)
     is_required = models.BooleanField(default=True)
     player_role = models.CharField(max_length=255, blank=False)
+    ethical_screenshot = models.TextField(max_length=3000, null=True, blank=True)
+    ethical_npc_name = models.CharField(max_length=255, null=True, blank=True)
+    ethical_script = models.TextField(max_length=3000, null=True, blank=True)
+    
 
 # EthicalFeedback holds user's ethical performance during training
 class EthicalFeedback(models.Model):
