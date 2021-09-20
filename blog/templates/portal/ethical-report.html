@@ -502,9 +502,17 @@
                     var emotionDescriptionMapping = ["slightly negative", "slightly positive"];
                     var tooltipLightGray = '#838383';
                     var tooltipDarkGray = '#565656';
+                    var scriptColor = '#007E9A';
+                    var confidentFontColor = '#77B447';
+                    var passiveFontColor = '#FFAB08';
+                    var hostileFontColor = '#FF6464';
+                    
+                    var True = true;
+                    var False = false;
 
                     // datasets
                     var roleInScene_{{module}} = {{ roles|safe }}[moduleId];
+                    var isRequiredScene_{{module}} = {{ is_required_scene|safe }}[moduleId];
                     var avgEmotionInScene_{{module}} = {{ avgEmotions|safe }}[moduleId];
                     var confidentInScene_{{module}} = {{ confident_dataset|safe }}[moduleId];
                     var passiveInScene_{{module}} = {{ passive_dataset|safe }}[moduleId];
@@ -562,16 +570,36 @@
 
                             var tr = document.createElement('tr');
                             var th = document.createElement('th');
-                            var strong = document.createElement('strong');
-                            th.colSpan = '2';
-                            th.style.textAlign = 'center';
-                            th.style.color = tooltipDarkGray;
                             th.style.height = '30px';
+                            th.style.color = tooltipDarkGray;
 
                             var text = document.createTextNode('Scene Review');
+                            var strong = document.createElement('strong');
                             strong.appendChild(text);
                             th.appendChild(strong);
-                            tr.appendChild(th);
+
+                            // add *Optional* tag for optional scenes; otherwise, center the "Scene Review"
+                            if (isRequiredScene_{{module}}[sceneId]) {
+                                th.colSpan = '2';
+                                th.style.textAlign = 'center';
+                                tr.appendChild(th);
+
+                            } else {
+                                var thOptional = document.createElement('th');
+                                var textOptional = document.createTextNode('*Optional*');
+                                var strongOptional = document.createElement('strong');
+                                strongOptional.appendChild(textOptional);
+                                thOptional.appendChild(strongOptional);
+
+                                th.width = '120px';
+                                th.style.textAlign = 'left';
+                                thOptional.style.textAlign = 'right';
+                                thOptional.style.color = passiveFontColor;
+                                
+                                tr.appendChild(th);
+                                tr.appendChild(thOptional);
+                            }
+
                             tableHead.appendChild(tr);
 
                             var tableBody = document.createElement('tbody');
@@ -597,7 +625,7 @@
                             var scriptstrong = document.createElement('strong');
                             scripttd.colSpan = '2';
                             scripttd.style.textAlign = 'center';
-                            scripttd.style.color = '#007E9A';
+                            scripttd.style.color = scriptColor;
 
                             var scriptText1 = document.createTextNode("Andy");
                             var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
@@ -696,12 +724,12 @@
                             acttd4.style.paddingRight = contentPadding;
 
                             acttd2.align = 'right';
-                            acttd2.style.color = '#77B447';
+                            acttd2.style.color = confidentFontColor;
                             acttd3.align = 'right';
-                            acttd3.style.color = '#FFAB08';
+                            acttd3.style.color = passiveFontColor;
                             acttd3.colSpan = '2';
                             acttd4.align = 'right';
-                            acttd4.style.color = '#FF6464';
+                            acttd4.style.color = hostileFontColor;
                             acttd4.colSpan = '2';
 
                             var actText1 = document.createTextNode("Responded: ");

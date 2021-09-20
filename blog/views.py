@@ -934,6 +934,7 @@ def portal_ethical_report(request):
             employeeCntInModule = {}
             sceneLabelsInModule = {}
             rolesInModule = {}
+            isRequiredInModule = {}
 
             datasets = defaultdict(dict)
 
@@ -964,9 +965,13 @@ def portal_ethical_report(request):
 
                 queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
+                isRequired = {}
                 for obj in queryRoles:
                     roles[obj.scene-1] = obj.player_role
+                    isRequired[obj.scene-1] = obj.is_required
+
                 rolesInModule[moduleId] = roles
+                isRequiredInModule[moduleId] = isRequired
 
             modules = sorted(list(emotionSumInModule.keys()))
 
@@ -982,6 +987,7 @@ def portal_ethical_report(request):
                 'passive_color': getColor('passive'),
                 'confident_color': getColor('confident'),
                 'roles': rolesInModule,
+                'is_required_scene': isRequiredInModule,
                 'avgEmotions': avgEmotionsInModule,
                 'employeeCnt': employeeCntInModule
             }
