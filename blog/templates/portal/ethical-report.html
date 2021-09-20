@@ -86,6 +86,37 @@
 
                     var imageList = [negativeFace, neutralFace, positiveFace];
 
+                    // screenshots link
+                    var screenshotSrc = [
+                        "https://lh3.googleusercontent.com/jtwP8SiobhM8wq4_cIm5BmeZnVSbslVdZPsS78cpugBk6Z-EgNQPQ7rLUtPI-tmlxNby8PtX3piFaNX2hhhW5FRI_EP_TPTYvY90XEm32PXyt8VMq7BJv9iySAE6VHZCh0gFKo8l=w2400",
+                        "https://lh3.googleusercontent.com/F9uiKI1MFZ5vRXDuyscOpfaeq0jhH2C0HaJRjAI2XfVwbAtf-mOgLyryrqrqIp_SwVosIEIz8JAOmDHc1LskPy0k2DPIkH-Fw8s-n3UzpqFzVzpzg6MIKrFCkVtC8hFrkWuTu3Vs=w2400",
+                        "https://lh3.googleusercontent.com/tusuZi2Q5rTFe8Nf24a5DjRGc_QKPgNGnj6cLBIwVzmZCXa9D265sCba9EW__kcrzmULBlPo7N-B6tfBdQAzi3lfJogKKUN89P8vtTkAjxcQrChMCVndZaoJc7hwv8tLVWl3VQXV=w2400",
+                        "https://lh3.googleusercontent.com/JIIAa9Fm9LpAJRe5o_-SkY7Cg-Cwf73lThKSU5G2RodNhECIurNu9TafcOEFIT6M8LnrIPoZ20W6G2Nfu0h9J9_e_mRpQvvPsxDrXAi-_7t3UFzfrNBKKjyE9e6UNqz6wcm_TwH2=w2400",
+                        "https://lh3.googleusercontent.com/VVq3Im8IfiDLsOfmahn5Xej4TR1fzgYfKnprF2qxoebSlU-92QjOkvDfoxSKsgNw2fu3FWeNaJZHFugQJcmLIp0HLYv7jR7hsRnPKfxeXhhK8sTlGx8Gn-RvqNdMklNq0YjDJsQE=w2400",
+                        "https://lh3.googleusercontent.com/9yfvZcphCz6vKIVbZJkwI46nv4OIB5pGMu64ZDUPTHq1EYdqhZAqqFkoC_nMtvz_MqwCl72T3FI5a4BLpMwhekcNelhmORE3eMjxsxLuJAK1jxZlEsl4EuoRr55ovc_j_CKiWXPZ=w2400",
+                        "https://lh3.googleusercontent.com/F9uiKI1MFZ5vRXDuyscOpfaeq0jhH2C0HaJRjAI2XfVwbAtf-mOgLyryrqrqIp_SwVosIEIz8JAOmDHc1LskPy0k2DPIkH-Fw8s-n3UzpqFzVzpzg6MIKrFCkVtC8hFrkWuTu3Vs=w2400",
+                        ]
+
+                    var npcNames = [
+                        "Promela",
+                        "Nicole",
+                        "Mari",
+                        "Mari",
+                        "Mari",
+                        "Promela",
+                        "Unknown"
+                    ]
+
+                    var lines = [
+                        '(Forwards email from Chris says "Why is the product not deployed this year? Looks like the project is moving backwards because Mari took over the project!")',
+                        "I see, well your mood may be affecting your quality of work, I don't want that to happen so try not to think about this too much.",
+                        "We've even met Milestone #1 quite early and--",
+                        "Something about Lumine moving backwards...",
+                        "Could you refrain from making those types of statements in the future?",
+                        "I'm glad you resolved it. Acutally Chris has been giving me a hard time too.",
+                        "Unknown"
+                    ]
+
                     var getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
@@ -150,7 +181,8 @@
 
                             // scene image
                             var sceneImg = document.createElement('img');
-                            sceneImg.src = '/static/img/demo.gif';
+                            //sceneImg.src = '/static/img/demo.gif';
+                            sceneImg.src = screenshotSrc[sceneId];
                             sceneImg.style.width = '180px';
                             sceneImg.style.margin = '10px';
                             var imgtr = document.createElement('tr');
@@ -171,8 +203,8 @@
                             scripttd.style.textAlign = 'center';
                             scripttd.style.color = '#007E9A';
 
-                            var scriptText1 = document.createTextNode("Andy");
-                            var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+                            var scriptText1 = document.createTextNode(npcNames[sceneId]);
+                            var scriptText2 = document.createTextNode(": " + lines[sceneId]);
 
                             scriptstrong.appendChild(scriptText1);
                             scripttd.appendChild(scriptstrong);
@@ -228,7 +260,7 @@
 
                             emotionstrong.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong);
-                            emotiontd2.appendChild(imageList[parseInt(emotionsList_{{module}}[sceneId]/5)]);
+                            emotiontd2.appendChild(imageList[parseInt((emotionsList_{{module}}[sceneId]+2)/5)]);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
