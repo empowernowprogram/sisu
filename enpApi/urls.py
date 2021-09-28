@@ -13,6 +13,6 @@ urlpatterns = [
     path('api', include(router.urls)),
     path('employees/', views.login),
     path('addSession/', views.addSession),
-    path('api-auth/', include('rest_framework.urls',
-namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls',namespace='rest_framework')),
+    path('addEthicalData/', views.addEthicalData),
 ]

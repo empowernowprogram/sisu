@@ -8,8 +8,10 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
-from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules
+from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer
+from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback
+from rest_framework.parsers import JSONParser 
+from rest_framework import status
 
 # Create your views here.
 
@@ -35,6 +37,28 @@ class ModulesViewSet(viewsets.ModelViewSet):
     serializer_class = ModulesSerializer
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
+def addEthicalData(request):
+    if request.method == 'POST':
+        inputData = JSONParser().parse(request)
+        user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
+        module = inputData["data"]["session"]["Module"]
+        timestamp = inputData["data"]["session"]["Date"]
+        for ethical in inputData["data"]["ethical"]:
+            scene = ethical["Scene"]
+            behavior_id = ethical["Action"]
+            emotion = ethical["Emotion"]
+            data = {'user': user, 'module': module, 
+                    'timestamp': timestamp, 'scene': scene, 'behavior_id' : behavior_id, 'emotion': emotion}
+            ethical_serializer = EthicalFeedbackSerializer(data=data)
+            if ethical_serializer.is_valid():
+                ethical_serializer.save()
+            else:
+                return JsonResponse(ethical_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(status=status.HTTP_201_CREATED) 
+ 
+
+
 @api_view(['GET', 'POST'])
 def addSession(request):
     #session = request.data
