@@ -74,7 +74,9 @@
                     const emotionsList_{{module}} = {{ emotions | safe }}[moduleId];
                     const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
                     const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
-                    var threeColors = {{ colors| safe }};
+                    const scenesIdicesMap_{{module}} = {{ scenesIdices| safe }}[moduleId];
+
+                    
 
                     // yellow face image list needed on y-axis and in tooltips
                     var positiveFace = new Image(25,25);
@@ -85,6 +87,37 @@
                     negativeFace.src = '/static/img/icon/negativeFace.png';
 
                     var imageList = [negativeFace, neutralFace, positiveFace];
+
+                    // screenshots link
+                    var screenshotSrc = [
+                        "https://lh3.googleusercontent.com/jtwP8SiobhM8wq4_cIm5BmeZnVSbslVdZPsS78cpugBk6Z-EgNQPQ7rLUtPI-tmlxNby8PtX3piFaNX2hhhW5FRI_EP_TPTYvY90XEm32PXyt8VMq7BJv9iySAE6VHZCh0gFKo8l=w2400",
+                        "https://lh3.googleusercontent.com/F9uiKI1MFZ5vRXDuyscOpfaeq0jhH2C0HaJRjAI2XfVwbAtf-mOgLyryrqrqIp_SwVosIEIz8JAOmDHc1LskPy0k2DPIkH-Fw8s-n3UzpqFzVzpzg6MIKrFCkVtC8hFrkWuTu3Vs=w2400",
+                        "https://lh3.googleusercontent.com/tusuZi2Q5rTFe8Nf24a5DjRGc_QKPgNGnj6cLBIwVzmZCXa9D265sCba9EW__kcrzmULBlPo7N-B6tfBdQAzi3lfJogKKUN89P8vtTkAjxcQrChMCVndZaoJc7hwv8tLVWl3VQXV=w2400",
+                        "https://lh3.googleusercontent.com/JIIAa9Fm9LpAJRe5o_-SkY7Cg-Cwf73lThKSU5G2RodNhECIurNu9TafcOEFIT6M8LnrIPoZ20W6G2Nfu0h9J9_e_mRpQvvPsxDrXAi-_7t3UFzfrNBKKjyE9e6UNqz6wcm_TwH2=w2400",
+                        "https://lh3.googleusercontent.com/VVq3Im8IfiDLsOfmahn5Xej4TR1fzgYfKnprF2qxoebSlU-92QjOkvDfoxSKsgNw2fu3FWeNaJZHFugQJcmLIp0HLYv7jR7hsRnPKfxeXhhK8sTlGx8Gn-RvqNdMklNq0YjDJsQE=w2400",
+                        "https://lh3.googleusercontent.com/9yfvZcphCz6vKIVbZJkwI46nv4OIB5pGMu64ZDUPTHq1EYdqhZAqqFkoC_nMtvz_MqwCl72T3FI5a4BLpMwhekcNelhmORE3eMjxsxLuJAK1jxZlEsl4EuoRr55ovc_j_CKiWXPZ=w2400",
+                        "https://lh3.googleusercontent.com/F9uiKI1MFZ5vRXDuyscOpfaeq0jhH2C0HaJRjAI2XfVwbAtf-mOgLyryrqrqIp_SwVosIEIz8JAOmDHc1LskPy0k2DPIkH-Fw8s-n3UzpqFzVzpzg6MIKrFCkVtC8hFrkWuTu3Vs=w2400",
+                        ]
+
+                    var npcNames = [
+                        "Promela",
+                        "Nicole",
+                        "Mari",
+                        "Mari",
+                        "Mari",
+                        "Promela",
+                        "Unknown"
+                    ]
+
+                    var lines = [
+                        '(Forwards email from Chris says "Why is the product not deployed this year? Looks like the project is moving backwards because Mari took over the project!")',
+                        "I see, well your mood may be affecting your quality of work, I don't want that to happen so try not to think about this too much.",
+                        "We've even met Milestone #1 quite early and--",
+                        "Something about Lumine moving backwards...",
+                        "Could you refrain from making those types of statements in the future?",
+                        "I'm glad you resolved it. Acutally Chris has been giving me a hard time too.",
+                        "Unknown"
+                    ]
 
                     var getOrCreateTooltip = (chart) => {
                         let tooltipEl = chart.canvas.parentNode.querySelector('div');
@@ -150,7 +183,8 @@
 
                             // scene image
                             var sceneImg = document.createElement('img');
-                            sceneImg.src = '/static/img/demo.gif';
+                            //sceneImg.src = '/static/img/demo.gif';
+                            sceneImg.src = screenshotSrc[sceneId];
                             sceneImg.style.width = '180px';
                             sceneImg.style.margin = '10px';
                             var imgtr = document.createElement('tr');
@@ -171,8 +205,8 @@
                             scripttd.style.textAlign = 'center';
                             scripttd.style.color = '#007E9A';
 
-                            var scriptText1 = document.createTextNode("Andy");
-                            var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+                            var scriptText1 = document.createTextNode(npcNames[sceneId]);
+                            var scriptText2 = document.createTextNode(": " + lines[sceneId]);
 
                             scriptstrong.appendChild(scriptText1);
                             scripttd.appendChild(scriptstrong);
@@ -228,7 +262,7 @@
 
                             emotionstrong.appendChild(emotionText1);
                             emotiontd1.appendChild(emotionstrong);
-                            emotiontd2.appendChild(imageList[parseInt(emotionsList_{{module}}[sceneId]/5)]);
+                            emotiontd2.appendChild(imageList[parseInt((emotionsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]+2)/5)]);
 
                             emotiontr.appendChild(emotiontd1);
                             emotiontr.appendChild(emotiontd2);
@@ -245,7 +279,7 @@
                             acttd2.align = 'right';
                             acttd2.style.color = '#FF6464';
                             var actText1 = document.createTextNode("You acted: ");
-                            var actText2 = document.createTextNode((behaviorsList_{{module}}[sceneId]));
+                            var actText2 = document.createTextNode((behaviorsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]));
                             if (actText2.textContent == "hostile") {
                                 acttd2.style.color = "#FF6464";
                             }
@@ -327,9 +361,9 @@
                             passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                             hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
                         }
-                        hostileColor.push(threeColors[0]);
-                        passiveColor.push(threeColors[1]);
-                        confidentColor.push(threeColors[2]);
+                        hostileColor.push('{{hostile_color}}');
+                        passiveColor.push('{{passive_color}}');
+                        confidentColor.push('{{confident_color}}');
                     }
 
                     const ctx_{{module}} = document.getElementById('efr_module{{module}}').getContext('2d');
@@ -471,9 +505,17 @@
                     var emotionDescriptionMapping = ["slightly negative", "slightly positive"];
                     var tooltipLightGray = '#838383';
                     var tooltipDarkGray = '#565656';
+                    var scriptColor = '#007E9A';
+                    var confidentFontColor = '#77B447';
+                    var passiveFontColor = '#FFAB08';
+                    var hostileFontColor = '#FF6464';
+                    
+                    var True = true;
+                    var False = false;
 
                     // datasets
                     var roleInScene_{{module}} = {{ roles|safe }}[moduleId];
+                    var isRequiredScene_{{module}} = {{ is_required_scene|safe }}[moduleId];
                     var avgEmotionInScene_{{module}} = {{ avgEmotions|safe }}[moduleId];
                     var confidentInScene_{{module}} = {{ confident_dataset|safe }}[moduleId];
                     var passiveInScene_{{module}} = {{ passive_dataset|safe }}[moduleId];
@@ -531,16 +573,36 @@
 
                             var tr = document.createElement('tr');
                             var th = document.createElement('th');
-                            var strong = document.createElement('strong');
-                            th.colSpan = '2';
-                            th.style.textAlign = 'center';
-                            th.style.color = tooltipDarkGray;
                             th.style.height = '30px';
+                            th.style.color = tooltipDarkGray;
 
                             var text = document.createTextNode('Scene Review');
+                            var strong = document.createElement('strong');
                             strong.appendChild(text);
                             th.appendChild(strong);
-                            tr.appendChild(th);
+
+                            // add *Optional* tag for optional scenes; otherwise, center the "Scene Review"
+                            if (isRequiredScene_{{module}}[sceneId]) {
+                                th.colSpan = '2';
+                                th.style.textAlign = 'center';
+                                tr.appendChild(th);
+
+                            } else {
+                                var thOptional = document.createElement('th');
+                                var textOptional = document.createTextNode('*Optional*');
+                                var strongOptional = document.createElement('strong');
+                                strongOptional.appendChild(textOptional);
+                                thOptional.appendChild(strongOptional);
+
+                                th.width = '120px';
+                                th.style.textAlign = 'left';
+                                thOptional.style.textAlign = 'right';
+                                thOptional.style.color = passiveFontColor;
+                                
+                                tr.appendChild(th);
+                                tr.appendChild(thOptional);
+                            }
+
                             tableHead.appendChild(tr);
 
                             var tableBody = document.createElement('tbody');
@@ -566,7 +628,7 @@
                             var scriptstrong = document.createElement('strong');
                             scripttd.colSpan = '2';
                             scripttd.style.textAlign = 'center';
-                            scripttd.style.color = '#007E9A';
+                            scripttd.style.color = scriptColor;
 
                             var scriptText1 = document.createTextNode("Andy");
                             var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
@@ -665,12 +727,12 @@
                             acttd4.style.paddingRight = contentPadding;
 
                             acttd2.align = 'right';
-                            acttd2.style.color = '#77B447';
+                            acttd2.style.color = confidentFontColor;
                             acttd3.align = 'right';
-                            acttd3.style.color = '#FFAB08';
+                            acttd3.style.color = passiveFontColor;
                             acttd3.colSpan = '2';
                             acttd4.align = 'right';
-                            acttd4.style.color = '#FF6464';
+                            acttd4.style.color = hostileFontColor;
                             acttd4.colSpan = '2';
 
                             var actText1 = document.createTextNode("Responded: ");

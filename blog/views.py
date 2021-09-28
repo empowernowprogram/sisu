@@ -27,7 +27,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
-from enpApi.models import Behavior, PlayerRole, EthicalFeedback # for ethical framework report
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -934,6 +934,7 @@ def portal_ethical_report(request):
             employeeCntInModule = {}
             sceneLabelsInModule = {}
             rolesInModule = {}
+            isRequiredInModule = {}
 
             datasets = defaultdict(dict)
 
@@ -962,11 +963,15 @@ def portal_ethical_report(request):
                 avgEmotionsInModule[moduleId] = avgEmotions[:]
                 sceneLabelsInModule[moduleId] = list(range(1, sceneCnt+1))
 
-                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
+                isRequired = {}
                 for obj in queryRoles:
-                    roles[obj.scene-1] = obj.role
+                    roles[obj.scene-1] = obj.player_role
+                    isRequired[obj.scene-1] = obj.is_required
+
                 rolesInModule[moduleId] = roles
+                isRequiredInModule[moduleId] = isRequired
 
             modules = sorted(list(emotionSumInModule.keys()))
 
@@ -982,6 +987,7 @@ def portal_ethical_report(request):
                 'passive_color': getColor('passive'),
                 'confident_color': getColor('confident'),
                 'roles': rolesInModule,
+                'is_required_scene': isRequiredInModule,
                 'avgEmotions': avgEmotionsInModule,
                 'employeeCnt': employeeCntInModule
             }
@@ -992,6 +998,7 @@ def portal_ethical_report(request):
             username = request.user.username
 
             scenesInModules = {}
+            sceneIndicesInModules = {}
             emotionsInModules = {}
             behaviorsInModules = {}
             rolesInModule = {}
@@ -1011,14 +1018,25 @@ def portal_ethical_report(request):
                     emotions.append(column.emotion)
                     behaviors.append(column.behavior_id.description)
                 
+                # sort according to scene id
+                sortedData = list(sorted(zip(scenes, emotions, behaviors)))
+                scenes = list(map(lambda x: x[0], sortedData))
+                emotions = list(map(lambda x: x[1], sortedData))
+                behaviors = list(map(lambda x: x[2], sortedData))
+                
+                scenesIdices = {}
+                for i, scene in enumerate(scenes):
+                    scenesIdices[scene-1] = i
+
                 # fetch player roles in this module
-                queryRoles = PlayerRole.objects.filter(module=moduleId)
+                queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
                 for obj in queryRoles:
-                    roles[obj.scene-1] = obj.role
+                    roles[obj.scene-1] = obj.player_role
 
                 # store scene, emotion, behaviors, roles by module
                 scenesInModules[moduleId] = scenes
+                sceneIndicesInModules[moduleId] = scenesIdices
                 emotionsInModules[moduleId] = emotions
                 behaviorsInModules[moduleId] = behaviors
                 rolesInModule[moduleId] = roles
@@ -1035,10 +1053,13 @@ def portal_ethical_report(request):
                 'player': player,
                 'modules': modules,
                 'roles': rolesInModule,
-                'scenes': scenesInModules, 
+                'scenes': scenesInModules,
+                'scenesIdices': sceneIndicesInModules, 
                 'emotions': emotionsInModules, 
                 'behaviors': behaviorsInModules, 
-                'colors': colors
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
             }
 
         return render(request, 'portal/ethical-report.html', context)

@@ -143,11 +143,12 @@ class Behavior(models.Model):
     def __str__(self):
         return self.description
 
-# PlayerRole holds the role player plays in each scene
-class PlayerRole(models.Model):
+# SceneInfo (original name: PlayerRole) holds the role player plays in each scene
+class SceneInfo(models.Model):
     module = models.CharField(max_length=255, blank=False)
     scene = models.IntegerField(blank=False)
-    role = models.CharField(max_length=255, blank=False)
+    is_required = models.BooleanField(default=True)
+    player_role = models.CharField(max_length=255, blank=False)
 
 # EthicalFeedback holds user's ethical performance during training
 class EthicalFeedback(models.Model):
