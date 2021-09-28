@@ -55,7 +55,7 @@ def addEthicalData(request):
                 ethical_serializer.save()
             else:
                 return JsonResponse(ethical_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return JsonResponse(status=status.HTTP_201_CREATED) 
+        return JsonResponse(user, safe=False, status=status.HTTP_201_CREATED) 
  
 
 
