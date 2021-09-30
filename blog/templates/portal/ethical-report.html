@@ -520,6 +520,9 @@
                     var confidentInScene_{{module}} = {{ confident_dataset|safe }}[moduleId];
                     var passiveInScene_{{module}} = {{ passive_dataset|safe }}[moduleId];
                     var hostileInScene_{{module}} = {{ hostile_dataset|safe }}[moduleId];
+                    var screenshots_{{module}} = {{ screenshots|safe }}[moduleId];
+                    var npcs_{{module}} = {{ npcs|safe }}[moduleId];
+                    var scripts_{{module}} = {{ scripts|safe }}[moduleId];
 
                     // external html tooltip
                     var getOrCreateTooltip = (chart) => {
@@ -609,7 +612,7 @@
 
                             // scene image
                             var sceneImg = document.createElement('img');
-                            sceneImg.src = '/static/img/demo.gif';
+                            sceneImg.src = screenshots_{{module}}[sceneId];
                             sceneImg.style.width = '180px';
                             sceneImg.style.margin = '10px';
                             var imgtr = document.createElement('tr');
@@ -630,8 +633,8 @@
                             scripttd.style.textAlign = 'center';
                             scripttd.style.color = scriptColor;
 
-                            var scriptText1 = document.createTextNode("Andy");
-                            var scriptText2 = document.createTextNode(": “I’m sorry. I won’t do it again, I promise. Please don’t report to HR.”");
+                            var scriptText1 = document.createTextNode(npcs_{{module}}[sceneId]);
+                            var scriptText2 = document.createTextNode(": “" + scripts_{{module}}[sceneId] + "”");
 
                             scriptstrong.appendChild(scriptText1);
                             scripttd.appendChild(scriptstrong);

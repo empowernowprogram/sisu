@@ -922,10 +922,12 @@ def portal_ethical_report(request):
             queryset = EthicalFeedback.objects.all()
 
             # calulate average emotion value for each scene
+            feedbackCountInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: count of feedbacks}}
             emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
             behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
             for entry in queryset:
                 emotionSumInModule[entry.module][entry.scene] += entry.emotion
+                feedbackCountInModule[entry.module][entry.scene] += 1
                 behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
 
             # aggregate data by module
@@ -935,6 +937,9 @@ def portal_ethical_report(request):
             sceneLabelsInModule = {}
             rolesInModule = {}
             isRequiredInModule = {}
+            screenshotsInModule = {}
+            npcsInModule = {}
+            scriptsInModule = {}
 
             datasets = defaultdict(dict)
 
@@ -942,7 +947,7 @@ def portal_ethical_report(request):
                 employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
 
                 
-                sceneCnt = len(emotionSum)
+                sceneCnt = len(emotionSum) # todo: scene count should be obtained elsewhere to have accurate number
                 avgEmotions = [0] * sceneCnt
 
                 behaviorCount = behaviorCountInModule[moduleId]
@@ -950,8 +955,8 @@ def portal_ethical_report(request):
                 for behavior in behaviorCount:
                     sceneData = [0] * sceneCnt
                     for scene, emoSum in emotionSum.items():
-                        behaviorPercentage = behaviorCount[behavior].get(scene, 0) / employeeCnt
-                        avgEmotion = emoSum / employeeCnt
+                        behaviorPercentage = behaviorCount[behavior].get(scene, 0) / feedbackCountInModule[moduleId][scene]
+                        avgEmotion = emoSum / feedbackCountInModule[moduleId][scene]
 
                         avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
                         sceneData[scene-1] = avgEmotion * behaviorPercentage
@@ -966,12 +971,21 @@ def portal_ethical_report(request):
                 queryRoles = SceneInfo.objects.filter(module=moduleId)
                 roles = {}
                 isRequired = {}
+                screenshots = {}
+                npcs = {}
+                scripts = {}
                 for obj in queryRoles:
                     roles[obj.scene-1] = obj.player_role
                     isRequired[obj.scene-1] = obj.is_required
+                    screenshots[obj.scene-1] = obj.ethical_screenshot
+                    npcs[obj.scene-1] = obj.ethical_npc_name
+                    scripts[obj.scene-1] = obj.ethical_script
 
                 rolesInModule[moduleId] = roles
                 isRequiredInModule[moduleId] = isRequired
+                screenshotsInModule[moduleId] = screenshots
+                npcsInModule[moduleId] = npcs
+                scriptsInModule[moduleId] = scripts
 
             modules = sorted(list(emotionSumInModule.keys()))
 
@@ -989,7 +1003,11 @@ def portal_ethical_report(request):
                 'roles': rolesInModule,
                 'is_required_scene': isRequiredInModule,
                 'avgEmotions': avgEmotionsInModule,
-                'employeeCnt': employeeCntInModule
+                'employeeCnt': employeeCntInModule,
+                'screenshots': screenshotsInModule,
+                'npcs': npcsInModule,
+                'scripts': scriptsInModule,
+
             }
 
         # not supervisor
