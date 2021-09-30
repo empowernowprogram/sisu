@@ -4164,10 +4164,10 @@ h6.font-parisienne {
   text-align: left;
 }
 .inspiro-slider .slide .slide-captions h1 {
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 700;
   line-height: 68px;
-  margin-top: 50px;
+  margin-top: 60px;
   margin-bottom: 30px;
   color: #ffffff;
 }
@@ -4311,53 +4311,11 @@ h6.font-parisienne {
 /* ----------------------------------------------------------------
     Inspiro Slider - Responsive Classes
 -----------------------------------------------------------------*/
-@media (max-width: 1024px) {
-  .inspiro-slider .flickity-button:hover {
-    background-color: transparent;
-  }
-  .inspiro-slider .flickity-button.next, .inspiro-slider .flickity-button.next:hover {
-    right: -5px !important;
-    opacity: 1;
-  }
-  .inspiro-slider .flickity-button.previous, .inspiro-slider .flickity-button.previous:hover {
-    left: -5px !important;
-    opacity: 1;
-  }
-  .inspiro-slider .container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-  .inspiro-slider .slide .slide-captions {
-    text-align: center;
-  }
-  .inspiro-slider .slide .slide-captions .strong::after {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .inspiro-slider .slide .slide-captions h1,
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 35px;
-    line-height: 40px;
-    margin-bottom: 14px;
-  }
-  .inspiro-slider .slide .slide-captions > p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    margin-bottom: 16px;
-  }
-  .inspiro-slider .slide .slide-captions h3,
-  .inspiro-slider .slide .slide-captions h4,
-  .inspiro-slider .slide .slide-captions h5,
-  .inspiro-slider .slide .slide-captions h6 {
-    color: #ffffff;
-  }
-}
 @media (max-width: 1100px) {
   .inspiro-slider .slide .slide-captions h1 {
-    font-size: 35px;
-    line-height: 40px;
-    margin-top: 20px;
+    font-size: 45px;
+    line-height: 50px;
+    margin-top: 50px;
     margin-bottom: 14px;
   }
   .inspiro-slider .slide .slide-captions h2 {
@@ -4371,7 +4329,7 @@ h6.font-parisienne {
     padding-left: 10px;
   }
   .inspiro-slider .slide .slide-captions h1 {
-    font-size: 35px;
+    font-size: 40px;
     line-height: 40px;
     margin-top: 50px;
     margin-bottom: 14px;
@@ -4387,9 +4345,9 @@ h6.font-parisienne {
     padding-left: 20px;
   }
   .inspiro-slider .slide .slide-captions h1 {
-    font-size: 32px;
+    font-size: 35px;
     line-height: 34px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 14px;
   }
   .inspiro-slider .slide .slide-captions h2 {
@@ -4437,7 +4395,7 @@ h6.font-parisienne {
   .inspiro-slider .slide .slide-captions h1 {
     font-size: 25px;
     line-height: 34px;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 14px;
   }
   .inspiro-slider .slide .slide-captions h2 {
