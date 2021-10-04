@@ -229,6 +229,11 @@
 
 
 
+ @media (max-width: 500px) {
+    .inspiro-slider {
+        height: 70vh !important;
+    }
+ }
 
  @media (min-width: 1198px) {
     .inspiro-slider {
