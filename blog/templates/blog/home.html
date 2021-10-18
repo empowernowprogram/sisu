@@ -703,8 +703,8 @@
         <!-- Footer -->
         <footer id="footer" class="sisu-footer-bg">
 
-            <div data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
-                style="height: 280px; background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
+            <div id="footer-lazy-bg" data-bg-image="{% static 'public/assets/img/footer-bg.png' %}"
+                style="background-image: url(&quot;{% static 'public/assets/img/footer-bg.png' %}&quot;);"
                 class="lazy-bg bg-loaded" data-bg="{% static 'public/assets/img/footer-bg.png' %}"
                 data-ll-status="loaded">
                 <div class="grid-system-demo-live vertical-center">
@@ -712,7 +712,7 @@
                         <div class="container">
                             <div class="row" style="padding-bottom:0px">
                                 <div class="col-md-4 col-xl-4">
-                                    <p><a href="#"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}"
+                                    <p><a href=" #"><img src="{% static 'public/assets/svg/logo-text-light.svg' %}"
                                                 alt="Sisu VR"></a></p>
                                     <p class="sisu-footer-text">Designed to deliver immersive workplace training.
                                     </p>
@@ -733,7 +733,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-4 col-md-4 col-xl-4">
+                                <div class="col-auto col-md-4 col-xl-4">
                                     <br>
                                     <h5 style="color: #fff">FOLLOW US</h5>
                                     <div class="social-icons social-icons-colored social-icons-rounded float-left">
@@ -749,7 +749,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
+                            <div class="copyright-text text-center sisu-footer-copyright">
                                 Copyright © 2021 Sisu VR Inc. All
                                 Rights Reserved.</div>
                         </div>
