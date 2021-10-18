@@ -62,6 +62,8 @@
                     <div id="main-wrapper">
                         <div class="row">
                             {% comment %} Instructions {% endcomment %}
+                            {% if player.is_provisional == False %}
+
                             {% if player.admin is False %}
                                 {% if player.registration_type == 'Desktop'%}
                                     {% include 'components/dl-instructions-desktop.html' %}
@@ -72,9 +74,8 @@
                                 {% include 'components/dl-instructions-desktop.html' %}
                                 {% include 'components/dl-instructions-vr.html' %}
                             {% endif %}
-                            
                             <hr>
-                            
+
                             {% if player.admin is False %}
                                 {% if player.supervisor is False %}
                                     {% comment %} TRAINING - NON-SUPERVISOR {% endcomment %}
@@ -128,6 +129,21 @@
                                 </div>
 
                             {% endif %}
+                            
+                            {% else %}
+                                <!-- download instructions for desktop -->
+                                <h3>Provisional Account</h3>
+                                <p>Contact your HR administrator regarding the accounts provisional status.</p>
+                                <p>Once the accounts provisional status is cleared, the training module download links will be displayed.</p>
+                            {% endif %}
+                            
+                            
+                            
+
+                            
+                            
+                            
+                            
                         </div>
                     </div>
                     <!-- Main Content End -->

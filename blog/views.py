@@ -14,7 +14,7 @@ from .forms import PostForm, CommentForm, ContactForm, SearchForm, ReplyToCommen
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import send_mail, BadHeaderError, EmailMessage
+from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
@@ -578,9 +578,8 @@ def portal_home(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-
         context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
-    
+        
         return render(request, 'portal/home.html', context)
     else:
         return render(request, 'auth/login.html')
@@ -635,6 +634,21 @@ def portal_register(request):
             emails_vr_supervisor            = split_emails(emails_vr_supervisor)
             emails_desktop_nonsupervisor    = split_emails(emails_desktop_nonsupervisor)
             emails_desktop_supervisor       = split_emails(emails_desktop_supervisor)
+
+            print(emails_vr_nonsupervisor)
+            email_subject = 'test subject'
+            email_message = 'test email message body'
+            
+            print('attempt to send email')
+            send_mail(
+                'EMAIL SUBJECT',                                            # subject
+                'TEST MESSAGE',                                                  # message
+                'hello@sisuvr.com',                                             # from email
+                ['robert.miller@sisuvr.com'],                                   # to email
+            )
+            print('email sent')
+
+            '''
 
             # send emails
             # TODO - needs to be fixed, emails do not send due to internal server error
@@ -734,7 +748,7 @@ def portal_register(request):
                     print("Attempting to send mail")
                     response = sg.client.mail.send.post(request_body=mail.get())                
 
-
+            '''
             print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
             context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
             return JsonResponse(context, status=200)
@@ -1089,11 +1103,10 @@ def post_program_survey(request, pk):
 
     if pk == "supervisor" and isSupervisor:
         # show certificate if user already completed the survey
-        try:
-            PostProgramSurveySupervisor.objects.get(user=request.user)
+        if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
             return redirect('/portal/certificate/')
 
-        except PostProgramSurveySupervisor.DoesNotExist:
+        else:
             scale5 = range(1,6)
             scale10 = range(1,11)
             experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
@@ -1105,17 +1118,16 @@ def post_program_survey(request, pk):
 
     elif pk == "nonsupervisor" and not isSupervisor:
         # show certificate if user already completed the survey
-        try:
-            PostProgramSurvey.objects.get(user=request.user)
+        if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
             return redirect('/portal/certificate/')
 
-        except PostProgramSurvey.DoesNotExist:
+        else:
             starRange = range(1, 6)
             experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
             preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
             
             context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
-
+            
             return render(request, 'portal/post-program-survey.html', context)
     
     else:
@@ -1649,3 +1661,19 @@ class IndexView(TemplateView):
           context['formset'] = formset
           
           return context
+
+
+def handle400(request, exception):
+    return render(request, 'blog/statuscode/401.html')
+
+
+def handle403(request, exception):
+    return render(request, 'blog/statuscode/403.html')
+
+
+def handle404(request, exception):
+    return render(request, 'blog/statuscode/404.html')
+
+
+def handle500(request, *args, **argv):
+    return render(request, 'blog/statuscode/500.html')
