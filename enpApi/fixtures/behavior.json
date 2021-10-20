@@ -1,0 +1,29 @@
+[
+    {
+        "model": "enpApi.behavior",
+        "pk": 1,
+        "fields": {
+            "behavior_id": 0,
+            "description": "hostile",
+            "creation_date": "2021-07-15"
+        }
+    },
+    {
+        "model": "enpApi.behavior",
+        "pk": 2,
+        "fields": {
+            "behavior_id": 1,
+            "description": "passive",
+            "creation_date": "2021-07-15"
+        }
+    },
+    {
+        "model": "enpApi.behavior",
+        "pk": 3,
+        "fields": {
+            "behavior_id": 2,
+            "description": "confident",
+            "creation_date": "2021-07-15"
+        }
+    }
+]
