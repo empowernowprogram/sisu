@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import sendgrid
 import os, urllib
 import requests, json
+from collections import defaultdict
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -18,7 +19,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
 from django.template import Context
-import re, random
+import re, random, math
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -26,6 +27,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -908,6 +910,210 @@ def portal_certificate(request):
     else:
         return render(request, 'auth/login.html')
 
+
+def getColor(behavior):
+    colorDict = {"hostile": 'rgba(196, 106, 108, 0.75)',
+                 "passive": 'rgba(204, 155, 63, 0.75)', "confident": 'rgba(120, 158, 93, 0.75)'}
+
+    return colorDict[behavior]
+
+
+def portal_ethical_report(request):
+    if request.user.is_authenticated:
+
+        player = Player.objects.get(user=request.user)
+        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+
+        if len(play_sessions) != len(play_sessions_completed):
+            return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
+
+
+        # supervisor
+        if player.supervisor:
+            # aggregate data
+            # get all data for now, need to filter out a supervisor's employees
+            queryset = EthicalFeedback.objects.all()
+
+            # calulate average emotion value for each scene
+            feedbackCountInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: count of feedbacks}}
+            emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
+            behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
+            for entry in queryset:
+                emotionSumInModule[entry.module][entry.scene] += entry.emotion
+                feedbackCountInModule[entry.module][entry.scene] += 1
+                behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
+
+            # aggregate data by module
+            moduleCnt = len(emotionSumInModule)
+            avgEmotionsInModule = {}
+            employeeCntInModule = {}
+            sceneLabelsInModule = {}
+            rolesInModule = {}
+            isMandatoryInModule = {}
+            screenshotsInModule = {}
+            npcsInModule = {}
+            scriptsInModule = {}
+
+            datasets = defaultdict(dict)
+
+            for moduleId, emotionSum in emotionSumInModule.items():
+                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneCnt = sceneInfoQueries.count() # get scene count from scene info table
+
+                employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
+
+                avgEmotions = [0] * sceneCnt
+
+                behaviorCount = behaviorCountInModule[moduleId]
+
+                for behavior in behaviorCount:
+                    sceneData = [0] * sceneCnt
+                    for scene, emoSum in emotionSum.items():
+                        behaviorPercentage = behaviorCount[behavior].get(scene, 0) / feedbackCountInModule[moduleId][scene]
+                        avgEmotion = emoSum / feedbackCountInModule[moduleId][scene]
+
+                        avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
+                        sceneData[scene-1] = avgEmotion * behaviorPercentage
+
+                    datasets[behavior][moduleId] = sceneData[:]
+
+
+                employeeCntInModule[moduleId] = int(employeeCnt)
+                avgEmotionsInModule[moduleId] = avgEmotions[:]
+                sceneLabelsInModule[moduleId] = list(range(1, sceneCnt+1))
+
+
+                roles = {}
+                isMandatory = {}
+                screenshots = {}
+                npcs = {}
+                scripts = {}
+
+                for obj in sceneInfoQueries:
+                    roles[obj.scene-1] = obj.player_role
+                    isMandatory[obj.scene-1] = obj.is_mandatory
+                    screenshots[obj.scene-1] = obj.ethical_screenshot
+                    npcs[obj.scene-1] = obj.ethical_npc_name
+                    scripts[obj.scene-1] = obj.ethical_script
+
+                rolesInModule[moduleId] = roles
+                isMandatoryInModule[moduleId] = isMandatory
+                screenshotsInModule[moduleId] = screenshots
+                npcsInModule[moduleId] = npcs
+                scriptsInModule[moduleId] = scripts
+
+            modules = sorted(list(emotionSumInModule.keys()))
+
+            context = {
+                'completedTraining': True,
+                'player': player, 
+                'modules': modules,
+                'labels': sceneLabelsInModule,
+                'hostile_dataset': datasets['hostile'],
+                'passive_dataset': datasets['passive'],
+                'confident_dataset': datasets['confident'],
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
+                'roles': rolesInModule,
+                'is_mandatory_scene': isMandatoryInModule,
+                'avgEmotions': avgEmotionsInModule,
+                'employeeCnt': employeeCntInModule,
+                'screenshots': screenshotsInModule,
+                'npcs': npcsInModule,
+                'scripts': scriptsInModule,
+
+            }
+
+        # not supervisor
+        else:
+
+            username = request.user.username
+
+            scenesInModules = {}
+            sceneIndicesInModules = {}
+            emotionsInModules = {}
+            behaviorsInModules = {}
+            rolesInModule = {}
+            screenshotsInModule = {}
+            npcsInModule = {}
+            scriptsInModule = {}
+
+            for field in play_sessions.all():
+                moduleId = field.module_id
+
+                # fetch ethical feedbacks in this module
+                scenes = []
+                emotions = []
+                behaviors = []
+
+                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module=moduleId)
+
+                for column in queryset:
+                    scenes.append(column.scene)
+                    emotions.append(column.emotion)
+                    behaviors.append(column.behavior_id.description)
+                
+                # sort according to scene id
+                sortedData = list(sorted(zip(scenes, emotions, behaviors)))
+                scenes = list(map(lambda x: x[0], sortedData))
+                emotions = list(map(lambda x: x[1], sortedData))
+                behaviors = list(map(lambda x: x[2], sortedData))
+                
+                scenesIdices = {}
+                for i, scene in enumerate(scenes):
+                    scenesIdices[scene-1] = i
+
+                # fetch player roles in this module
+                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                roles = {}
+                screenshots = {}
+                npcs = {}
+                scripts = {}
+                for obj in sceneInfoQueries:
+                    roles[obj.scene-1] = obj.player_role
+                    screenshots[obj.scene-1] = obj.ethical_screenshot
+                    npcs[obj.scene-1] = obj.ethical_npc_name
+                    scripts[obj.scene-1] = obj.ethical_script
+
+                # store scene, emotion, behaviors, roles by module
+                scenesInModules[moduleId] = scenes
+                sceneIndicesInModules[moduleId] = scenesIdices
+                emotionsInModules[moduleId] = emotions
+                behaviorsInModules[moduleId] = behaviors
+                rolesInModule[moduleId] = roles
+                screenshotsInModule[moduleId] = screenshots
+                npcsInModule[moduleId] = npcs
+                scriptsInModule[moduleId] = scripts
+
+            modules = sorted(list(rolesInModule.keys()))
+
+            # colors for bars
+            colors = []
+            for b in behaviors:
+                colors.append(getColor(b))
+
+            context = {
+                'completedTraining': True,
+                'player': player,
+                'modules': modules,
+                'roles': rolesInModule,
+                'scenes': scenesInModules,
+                'scenesIdices': sceneIndicesInModules, 
+                'emotions': emotionsInModules, 
+                'behaviors': behaviorsInModules, 
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
+                'screenshots': screenshotsInModule,
+                'npcs': npcsInModule,
+                'scripts': scriptsInModule,
+            }
+
+        return render(request, 'portal/ethical-report.html', context)
+    else:
+        return render(request, 'auth/login.html')
 
 def post_program_survey(request, pk):
     isSupervisor = Player.objects.get(user=request.user).supervisor
