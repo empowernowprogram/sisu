@@ -903,8 +903,10 @@ def portal_certificate(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+        company = player.employer.company_name
+        logoLink = player.employer.logo
 
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed, 'company': company, 'logo': logoLink}
     
         return render(request, 'portal/certificate.html', context)
     else:
