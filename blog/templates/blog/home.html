@@ -28,6 +28,15 @@
             ]
         }
     </script>
+    <script>
+       function displayCookie(){
+           const cookieBanner = document.querySelector('#cookie-consent-banner');
+           const yesButtor = document.querySelector('#cookie-consent-banner__cta');
+           yesButtor.addEventListener('click', () =>{
+               cookieBanner.classList.add('hidden');
+           }
+           )}
+    </script>
 
     <!-- Document title -->
     <title>Sisu VR</title>
@@ -618,7 +627,26 @@
                 </div>
             </section>
 
-
+            <!-- Cookies -->
+            <div class="cookie-consent-banner">
+                <div class="cookie-consent-banner__inner">
+                  <div class="cookie-consent-banner__copy">
+                    <div class="cookie-consent-banner__header">THIS WEBSITE USES COOKIES</div>
+                    <div class="cookie-consent-banner__description">Sisu.com uses cookies to provide necessary website functionality, improve your experience and analyze our traffic. By using our website, you agree to our Privacy Policy and our cookies usage.</div>
+                  </div>
+              
+                  <div class="cookie-consent-banner__actions">
+                    <button class="cookie-consent-banner__cta">
+                      OK
+                    </button>
+                    
+                    <button class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary">
+                      Decline
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
 
             <!-- Footer -->
             <footer id="footer" class="sisu-footer-bg">
