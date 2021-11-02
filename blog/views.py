@@ -461,18 +461,18 @@ def contact(request):
 
                 # send mail
                 try:
-                    #mail.send_mail(
-                    #    f'Contact - {str(input_first_name)} {str(input_last_name)}',  # subject
-                    #    email_message,                                                  # message
-                    #    'input_email',                                             # from email
-                    #    ['hello@sisuvr.com' 'sean.rossi@sisuvr.com'],                                   # to email
-                    #)
-                    send_mail(
-                        f'Contact - {str(input_first_name)} {str(input_last_name)}',            # subject
-                        email_message,                                                          # message
-                        'sisu.contact.us@gmail.com',                                            # from email
-                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],               # to email
+                    mail.send_mail(
+                        f'Contact - {str(input_first_name)} {str(input_last_name)}',  # subject
+                        email_message,                                                  # message
+                        'input_email',                                             # from email
+                        ['hello@sisuvr.com' 'sean.rossi@sisuvr.com'],                                   # to email
                     )
+                    #send_mail(
+                    #    f'Contact - {str(input_first_name)} {str(input_last_name)}',            # subject
+                    #    email_message,                                                          # message
+                    #    'sisu.contact.us@gmail.com',                                            # from email
+                    #    ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],               # to email
+                    #)
                     context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
                     return render(request, 'blog/contact.html', context)
                 except:
