@@ -14,7 +14,7 @@ from .forms import PostForm, CommentForm, ContactForm, SearchForm, ReplyToCommen
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail
+from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail, EmailMultiAlternatives
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
@@ -186,9 +186,10 @@ def nonsupervisor_progress(request):
 
 
 def forgot_password(request):
-    #email_signup = request.Get.get('email_signup')
+    email_signup = request.Get.get('email_signup')
     #EmailList.objects.create(email = email_signup)
     #context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
+    context = {'user': "Sisu VR User", 'company_name': "Sisu VR", 'key': "New Password Key"}
     #print (os.environ.get('SENDGRID_API_KEY'))  
     #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     #print("Set sendgrid instance")
@@ -199,13 +200,16 @@ def forgot_password(request):
     #subject = "Register for the Empower Now Program from Sisu VR"
     #subject = sender + form.cleaned_data['subject']
     #print("Set subject")
-    #html = render_to_string('email-templates/email-training-signup.html', context)
+    html = render_to_string('email-templates/email-forgot-password.html', context)
     #content = Content("text/html", html)
                 
     #print("Creating mail structure")
     #mail = Mail(from_email, subject, to_email, content)
     #print("Attempting to send mail")
     #response = sg.client.mail.send.post(request_body=mail.get())
+    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [email_signup])
+    message.attach_alternative(html, "text/html")
+    message.send()
     return render(request, 'auth/login.html')
 
 
@@ -459,6 +463,12 @@ def contact(request):
 
                 # send mail
                 try:
+                    #mail.send_mail(
+                    #    f'Contact - {str(input_first_name)} {str(input_last_name)}',  # subject
+                    #    email_message,                                                  # message
+                    #    'input_email',                                             # from email
+                    #    ['hello@sisuvr.com' 'sean.rossi@sisuvr.com'],                                   # to email
+                    #)
                     send_mail(
                         f'Contact - {str(input_first_name)} {str(input_last_name)}',            # subject
                         email_message,                                                          # message
@@ -605,6 +615,7 @@ def send_html_email(template, content, subject, to_emails, from_email='hello@sis
         msg.content_subtype = "html"
         msg.send()
         email_sent = True
+        #send_mail('Testing SMTP from Django', 'Please respond via Slack if this works', settings.EMAIL_HOST_USER, ['jocelyn.tan@sisuvr.com'])
         return email_sent
     except:
         return email_sent
@@ -640,41 +651,59 @@ def portal_register(request):
             email_message = 'test email message body'
             
             print('attempt to send email')
-            send_mail(
-                'EMAIL SUBJECT',                                            # subject
-                'TEST MESSAGE',                                                  # message
-                'hello@sisuvr.com',                                             # from email
-                ['robert.miller@sisuvr.com'],                                   # to email
-            )
+            #send_mail(
+            #    'EMAIL SUBJECT',                                            # subject
+            #    'TEST MESSAGE',                                                  # message
+            #    'hello@sisuvr.com',                                             # from email
+            #    ['srossi455@gmail.com'],                                   # to email
+            #)
             print('email sent')
 
-            '''
+           
 
             # send emails
             # TODO - needs to be fixed, emails do not send due to internal server error
             if len(emails_vr_nonsupervisor) > 0:
+                print("Should attempt to send email")
                 for i in emails_vr_nonsupervisor:
                     if i == '':
                         break
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
                     from_email = Email("hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
+                    print(i)
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
                     print("Set subject")
                     html = render_to_string('email-templates/email-training-signup.html', context)
+                    #plain_message = strip_tags(html)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+                    #from_email, to = 'hello@sisuvr.com', i
+                    #html_content = str(content)
+                    #msg = EmailMessage(subject, html_content, from_email, [to])
+                    #msg.content_subtype = "html"
+                    #msg.send()                    
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
+                    #mail.send_mail(
+                    #    subject,                                            # subject
+                    #    plain_message,                                                  # message
+                    #    'hello@sisuvr.com',                                             # from email
+                    #    [i],                                   # to email
+                    #    html_message=html
+                    #)
                 
             if len(emails_vr_supervisor) > 0:
                 for i in emails_vr_supervisor:
@@ -683,12 +712,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -696,9 +725,13 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
 
             if len(emails_desktop_nonsupervisor) > 0:
                 for i in emails_desktop_nonsupervisor:
@@ -707,12 +740,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -720,9 +753,13 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
 
             if len(emails_desktop_supervisor) > 0:
                 for i in emails_desktop_supervisor:
@@ -731,12 +768,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -744,12 +781,15 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())                
+                    #response = sg.client.mail.send.post(request_body=mail.get())                
 
-            '''
-            print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
+            
+            #print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
             context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
             return JsonResponse(context, status=200)
 
