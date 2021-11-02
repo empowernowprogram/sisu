@@ -18,6 +18,7 @@ import dj_database_url
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', cast=bool)
+#SECURE_SSL_REDIRECT = False
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 #DEBUG = True
@@ -172,11 +173,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # email system settings v2.0
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'hello@sisuvr.com'
-EMAIL_HOST = 'mail.sisuvr.com'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'hello@sisuvr.com'
-EMAIL_HOST_PASSWORD = '**Sisuvr88'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'sean.rossi@sisuvr.com'
+EMAIL_HOST_PASSWORD = 'relwotpiwfsijgle'
 
 
 # demo_project/settings.py
