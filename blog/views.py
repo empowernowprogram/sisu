@@ -15,6 +15,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail, EmailMultiAlternatives
+from django.utils.safestring import mark_safe
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
@@ -472,18 +473,21 @@ def contact(request):
             if len(input_first_name) != 0 and len(input_last_name) != 0 and "@" in input_email and len(input_message) != 0:
                 
                 try:
-                    # send mail to company's email
-                    message = EmailMultiAlternatives(subject, '', settings.EMAIL_HOST_USER, [settings.DEFAULT_FROM_EMAIL])
-                    message.attach_alternative(html_content, "text/html")
-                    message.send()
+                    #send mail to company's email
+                    mail = EmailMultiAlternatives(subject, '', settings.EMAIL_HOST_USER, [settings.DEFAULT_FROM_EMAIL])
+                    mail.attach_alternative(html_content, "text/html")
+                    mail.send()
 
-                    context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
-                    messages.success(request, 'Form submission successful')
-                    return render(request, 'blog/contact.html', context)
+                    messages.success(request, mark_safe('<strong>Message sent!</strong> Thank you for contacting SisuVR, we will reply to you shortly!'))
+                    return redirect('/contact')
 
                 except:
-                    context = {'message_submit': {'type': "failed", "message": f'Message could not be sent due to an error. If this error persists please email hello@sisuvr.com'}}
-                    return render(request, 'blog/contact.html', context)
+                    messages.error(request, mark_safe('<strong>Error occurred.</strong> Message could not be sent due to an error. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                    return redirect('/contact')
+            
+            else:
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you filled out all required fields. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                return redirect('/contact')
 
     return render(request, 'blog/contact.html')
 
