@@ -1,0 +1,20 @@
+{% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-custom alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <style>
+        .alert-custom{
+            background-color: rgba(92, 16, 71, 0.8); /* #5D1049 */
+            color:#fff;
+        }
+    </style>
+    
+
+{% endif %}
