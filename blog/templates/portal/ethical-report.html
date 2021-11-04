@@ -1,0 +1,901 @@
+{% load staticfiles %}
+{% load socialaccount %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
+
+    <!-- Title -->
+    <title>Sisu VR - Training Portal</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
+        integrity="sha256-yz7K02nILYEeRDwEfzu/1zI9SpBKod/nLYMTFh7vszs=" crossorigin="anonymous"></script>
+</head>
+
+<body style="background: #e0e0e0;">
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <div class="row" style="margin: auto;">
+            {% if not completedTraining %}
+            <script>
+                console.log('{{completedTraining}}')
+                console.log('{{play_sessions}}')
+                console.log('{{play_sessions_completed}}')
+            </script>
+            <div class="panel panel-white ethi-container-thin">
+                <div class="panel-body">
+                    <h1 class="ethical-report cert-title">Nice Try!</h1>
+                    <p class="ethical-report cert-text-reg">The ethical framework report will be generated once
+                        all<br>training
+                        modules are completed</p>
+
+                    <div style="margin: auto; margin-top: 200px; text-align: center;">
+                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
+                            href="/portal/home/">Return to training</a>
+                    </div>
+                </div>
+            </div>
+
+            {% elif not player.supervisor %}
+            {% for module in modules %}
+            <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
+                <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
+                    course of <strong>Module {{module}}</strong>.</p>
+                <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
+                <!-- style="background: #4E657A; -->
+                <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
+                    <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
+                    <canvas id="efr_module{{module}}"></canvas>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                    // variables needed in chart
+                    var moduleId = '{{module}}';
+                    const rolesList_{{module}} = {{ roles | safe }}[moduleId];
+                    const emotionsList_{{module}} = {{ emotions | safe }}[moduleId];
+                    const behaviorsList_{{module}} = {{ behaviors | safe }}[moduleId];
+                    const scenesList_{{module}} = {{ scenes| safe }}[moduleId];
+                    const scenesIdicesMap_{{module}} = {{ scenesIdices| safe }}[moduleId];
+                    var screenshots_{{module}} = {{ screenshots|safe }}[moduleId];
+                    var npcs_{{module}} = {{ npcs|safe }}[moduleId];
+                    var scripts_{{module}} = {{ scripts|safe }}[moduleId];
+
+                    
+
+                    // yellow face image list needed on y-axis and in tooltips
+                    var positiveFace = new Image(25,25);
+                    positiveFace.src = '/static/img/icon/positiveFace.png';
+                    var neutralFace = new Image(25,25);
+                    neutralFace.src = '/static/img/icon/neutralFace.png';
+                    var negativeFace = new Image(25,25);
+                    negativeFace.src = '/static/img/icon/negativeFace.png';
+
+                    var imageList = [negativeFace, neutralFace, positiveFace];
+
+                    var getOrCreateTooltip = (chart) => {
+                        let tooltipEl = chart.canvas.parentNode.querySelector('div');
+
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.style.background = 'white';
+                            tooltipEl.style.fontSize = '14px';
+                            tooltipEl.style.width = '280px';
+                            tooltipEl.style.borderRadius = '3px';
+                            tooltipEl.style.color = 'gray';
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.pointerEvents = 'none';
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.transform = 'translate(10%, -60%)';
+                            tooltipEl.style.transition = 'all .1s ease';
+
+                            var table = document.createElement('table');
+                            table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
+                            table.style.width = '255px';
+
+                            tooltipEl.appendChild(table);
+                            chart.canvas.parentNode.appendChild(tooltipEl);
+                        }
+
+                        return tooltipEl;
+                    };
+
+                    var externalTooltipHandler = (context) => {
+                        // Tooltip Element
+                        var { chart, tooltip } = context;
+                        var tooltipEl = getOrCreateTooltip(chart);
+
+                        // Hide if no tooltip
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        // Styling
+                        var contentPadding = '10px';
+
+                        var sceneId = parseInt(tooltip.title[0]) - 1;
+
+                        if (tooltip.body) {
+                            // title: Scene Review
+                            var tableHead = document.createElement('thead');
+
+                            var tr = document.createElement('tr');
+                            var th = document.createElement('th');
+                            var strong = document.createElement('strong');
+                            th.colSpan = '2';
+                            th.style.textAlign = 'center';
+                            th.style.height = '30px';
+
+                            var text = document.createTextNode('Scene Review');
+                            strong.appendChild(text);
+                            th.appendChild(strong);
+                            tr.appendChild(th);
+                            tableHead.appendChild(tr);
+
+                            var tableBody = document.createElement('tbody');
+
+                            // scene image
+                            var sceneImg = document.createElement('img');
+                            sceneImg.src = screenshots_{{module}}[sceneId];
+                            sceneImg.style.width = '180px';
+                            sceneImg.style.margin = '10px';
+                            var imgtr = document.createElement('tr');
+                            var imgtd = document.createElement('td');
+                            imgtd.colSpan = '2';
+                            imgtd.style.textAlign = 'center';
+
+                            imgtd.append(sceneImg);
+                            imgtr.append(imgtd);
+
+                            tableBody.appendChild(imgtr);
+
+                            // scene script
+                            var scripttr = document.createElement('tr');
+                            var scripttd = document.createElement('td');
+                            var scriptstrong = document.createElement('strong');
+                            scripttd.colSpan = '2';
+                            scripttd.style.textAlign = 'center';
+                            scripttd.style.color = '#007E9A';
+
+                            var scriptText1 = document.createTextNode(npcs_{{module}}[sceneId]);
+                            var scriptText2 = document.createTextNode(": " + scripts_{{module}}[sceneId]);
+
+                            scriptstrong.appendChild(scriptText1);
+                            scripttd.appendChild(scriptstrong);
+                            scripttd.appendChild(scriptText2);
+                            scripttr.appendChild(scripttd);
+
+                            tableBody.appendChild(scripttr);
+
+                            // gray line
+                            var emptytr = document.createElement('tr');
+                            var emptytd = document.createElement('td');
+                            emptytd.colSpan = '2';
+
+                            var grayLine = document.createElement('hr');
+                            emptytd.appendChild(grayLine);
+                            emptytr.appendChild(emptytd);
+
+                            tableBody.appendChild(emptytr);
+
+                            // Your role
+                            var roletr = document.createElement('tr');
+                            var roletd1 = document.createElement('td');
+                            var roletd2 = document.createElement('td');
+                            var rolestrong1 = document.createElement('strong');
+                            var rolestrong2 = document.createElement('strong');
+                            roletd1.style.paddingLeft = contentPadding;
+                            roletd2.style.paddingRight = contentPadding;
+                            roletd2.align = 'right';
+
+                            var roleText1 = document.createTextNode("Your role: ");
+                            var roleText2 = document.createTextNode(rolesList_{{module}}[sceneId]);
+
+                            rolestrong1.appendChild(roleText1);
+                            roletd1.appendChild(rolestrong1);
+
+                            rolestrong2.appendChild(roleText2);
+                            roletd2.appendChild(rolestrong2);
+
+                            roletr.appendChild(roletd1);
+                            roletr.appendChild(roletd2);
+                            tableBody.appendChild(roletr);
+
+                            // You felt
+                            var emotiontr = document.createElement('tr');
+                            var emotiontd1 = document.createElement('td');
+                            var emotiontd2 = document.createElement('td');
+                            var emotionstrong = document.createElement('strong');
+                            emotiontd1.style.paddingLeft = contentPadding;
+                            emotiontd2.style.paddingRight = contentPadding;
+                            emotiontd2.align = 'right';
+
+                            var emotionText1 = document.createTextNode("You felt: ");
+
+                            emotionstrong.appendChild(emotionText1);
+                            emotiontd1.appendChild(emotionstrong);
+                            emotiontd2.appendChild(imageList[parseInt((emotionsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]+2)/5)]);
+
+                            emotiontr.appendChild(emotiontd1);
+                            emotiontr.appendChild(emotiontd2);
+                            tableBody.appendChild(emotiontr);
+
+                            // You acted
+                            var acttr = document.createElement('tr');
+                            var acttd1 = document.createElement('td');
+                            var acttd2 = document.createElement('td');
+                            var actstrong1 = document.createElement('strong');
+                            var actstrong2 = document.createElement('strong');
+                            acttd1.style.paddingLeft = contentPadding;
+                            acttd2.style.paddingRight = contentPadding;
+                            acttd2.align = 'right';
+                            acttd2.style.color = '#FF6464';
+                            var actText1 = document.createTextNode("You acted: ");
+                            var actText2 = document.createTextNode((behaviorsList_{{module}}[scenesIdicesMap_{{module}}[sceneId]]));
+                            if (actText2.textContent == "hostile") {
+                                acttd2.style.color = "#FF6464";
+                            }
+                            if (actText2.textContent == "confident") {
+                                acttd2.style.color = "#77B447";
+                            }
+                            if (actText2.textContent == "passive") {
+                                acttd2.style.color = "#FFAB08";
+                            }
+
+                            actstrong1.appendChild(actText1)
+                            acttd1.appendChild(actstrong1);
+                            actstrong2.appendChild(actText2);
+                            acttd2.appendChild(actstrong2);
+
+                            acttr.appendChild(acttd1);
+                            acttr.appendChild(acttd2);
+                            tableBody.appendChild(acttr);
+
+
+                            var tableRoot = tooltipEl.querySelector('table');
+
+                            // Remove old children
+                            while (tableRoot.firstChild) {
+                                tableRoot.firstChild.remove();
+                            }
+
+                            // Add new children
+                            tableRoot.appendChild(tableHead);
+                            tableRoot.appendChild(tableBody);
+                        }
+
+                        var { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                        // Display, position, and set styles for font
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                        tooltipEl.style.font = tooltip.options.bodyFont.string;
+                        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                    };
+
+                    function HostileObj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+                    function PassiveObj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+                    function Confidentobj(scene, emotion, behavior) {
+                        this.scene = scene;
+                        this.emotion = emotion;
+                        this.behavior = behavior;
+                    }
+
+                    var hostileArray = new Array();
+                    var hostileColor = new Array();
+                    var passiveArray = new Array();
+                    var passiveColor = new Array();
+                    var confidentArray = new Array();
+                    var confidentColor = new Array();
+
+                    for (var i = 0; i < behaviorsList_{{module}}.length; i++) {
+                        if (behaviorsList_{{module}}[i] == "hostile") {
+                            hostileArray.push(new HostileObj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            confidentArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                        }
+                        else if (behaviorsList_{{module}}[i] == "passive") {
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            confidentArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                        }
+                        else {
+                            confidentArray.push(new Confidentobj(scenesList_{{module}}[i], emotionsList_{{module}}[i], behaviorsList_{{module}}[i]));
+                            passiveArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                            hostileArray.push(new PassiveObj(scenesList_{{module}}[i], 0, behaviorsList_{{module}}[i]));
+                        }
+                        hostileColor.push('{{hostile_color}}');
+                        passiveColor.push('{{passive_color}}');
+                        confidentColor.push('{{confident_color}}');
+                    }
+
+                    const ctx_{{module}} = document.getElementById('efr_module{{module}}').getContext('2d');
+
+                    const yellowFacePlugin_{{module}} = {
+                        afterDraw: chart => {
+                            var xAxis = chart.scales.x;
+                            var yAxis = chart.scales.y;
+
+                            yAxis.ticks.forEach((value, index) => {
+                                if (index % 5 == 0) {
+                                    var y = yAxis.getPixelForTick(index);
+                                    ctx_{{module}}.drawImage(imageList[parseInt(index/5)], 40, Math.min(375, Math.max(5, y-25)), 50, 50);
+                                }
+                            })
+                        }
+                    }
+
+                    var myChart = new Chart(document.getElementById('efr_module{{module}}'), {
+                        type: 'bar',
+                        plugins: [yellowFacePlugin_{{module}}],
+                        data: {
+                            labels: scenesList_{{module}},
+                            datasets: [{
+                                label: "hostile",
+                                data: hostileArray,
+                                backgroundColor: hostileColor,
+                                borderWidth: 1,
+                            }, {
+                                label: "passive",
+                                data: passiveArray,
+                                backgroundColor: passiveColor,
+                                borderWidth: 1,
+                            }, {
+                                label: "confident",
+                                data: confidentArray,
+                                backgroundColor: confidentColor,
+                                borderWidth: 1,
+                            },]
+                        },
+                        options: {
+                            parsing: {
+                                xAxisKey: 'scene',
+                                yAxisKey: 'emotion',
+                            },
+                            responsive: true,
+                            title: {
+                                display: false,
+                            },
+                            elements: {
+                                bar: {
+                                    hoverBorderColor: 'rgba(255,255,255, 0.7)',
+                                    hoverBorderWidth: 2
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: {
+                                        display: false,
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        z: 1,
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
+                                        display: true,
+                                        text: 'Scene',
+                                    },
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        drawTicks: false,
+                                        color: 'rgba(255,255,255, 0.3)'
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
+                                        display: true,
+                                        text: 'Emotion',
+                                    },
+                                    ticks: {
+                                        color: 'white',
+                                        padding: 15,
+                                        //display: false,
+                                        callback: function(value, index, values) {
+                                            return "              ";
+                                        }
+                                    },
+                                    min: 0,
+                                    max: 10
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    onClick: false,
+                                    position: 'right',
+                                    reverse: true,
+                                    labels: {
+                                        color: 'white',
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: false,
+                                    external: externalTooltipHandler,
+                                },
+                            }
+                        }
+                    })
+                </script>
+
+            </div>
+            {% endfor %}
+
+            {% else %}
+            {% for module in modules %}
+            <div class="panel panel-white ethi-container-thin" style="height: 720px;">
+                <p class="ethical-report ethi-text-lg">Let’s see  {% for key, value in employeeCnt.items %} {% if key == module %} {{value}} {% endif %} {% endfor %} employees’ 
+                    <strong>average responses</strong> in <strong>Module {{module}}</strong>.</p>
+                <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
+                <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
+                    <canvas id="efr_supervisor_module{{module}}"></canvas>
+                </div>
+                <script>
+                    // some constants for plotting
+                    var moduleId = '{{module}}';
+                    var emotionTickMapping = ["negative", "neutral", "positive"];
+                    var emotionDescriptionMapping = ["slightly negative", "slightly positive"];
+                    var tooltipLightGray = '#838383';
+                    var tooltipDarkGray = '#565656';
+                    var scriptColor = '#007E9A';
+                    var confidentFontColor = '#77B447';
+                    var passiveFontColor = '#FFAB08';
+                    var hostileFontColor = '#FF6464';
+                    
+                    var True = true;
+                    var False = false;
+
+                    // datasets
+                    var roleInScene_{{module}} = {{ roles|safe }}[moduleId];
+                    var isRequiredScene_{{module}} = {{ is_mandatory_scene|safe }}[moduleId];
+                    var avgEmotionInScene_{{module}} = {{ avgEmotions|safe }}[moduleId];
+                    var confidentInScene_{{module}} = {{ confident_dataset|safe }}[moduleId];
+                    var passiveInScene_{{module}} = {{ passive_dataset|safe }}[moduleId];
+                    var hostileInScene_{{module}} = {{ hostile_dataset|safe }}[moduleId];
+                    var screenshots_{{module}} = {{ screenshots|safe }}[moduleId];
+                    var npcs_{{module}} = {{ npcs|safe }}[moduleId];
+                    var scripts_{{module}} = {{ scripts|safe }}[moduleId];
+
+                    // external html tooltip
+                    var getOrCreateTooltip = (chart) => {
+                        let tooltipEl = chart.canvas.parentNode.querySelector('div');
+
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.style.background = 'white';
+                            tooltipEl.style.fontSize = '14px';
+                            tooltipEl.style.width = '290px';
+                            tooltipEl.style.borderRadius = '3px';
+                            tooltipEl.style.color = tooltipLightGray;
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.pointerEvents = 'none';
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.transform = 'translate(10%, -60%)';
+                            tooltipEl.style.transition = 'all .1s ease';
+
+                            var table = document.createElement('table');
+                            table.style.margin = '5px 5px 15px'; // top margin, left & right margin, bottom margin
+                            table.style.width = '265px';
+
+                            tooltipEl.appendChild(table);
+                            chart.canvas.parentNode.appendChild(tooltipEl);
+                        }
+
+                        return tooltipEl;
+                    };
+
+                    var externalTooltipHandler = (context) => {
+                        // Tooltip Element
+                        var { chart, tooltip } = context;
+                        var tooltipEl = getOrCreateTooltip(chart);
+
+                        // Hide if no tooltip
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        // Styling
+                        var contentPadding = '10px';
+
+                        // Set Text
+                        // input data from views
+                        sceneId = parseInt(tooltip.title[0]) - 1
+
+                        if (tooltip.body) {
+                            // title: Scene Review
+                            var tableHead = document.createElement('thead');
+
+                            var tr = document.createElement('tr');
+                            var th = document.createElement('th');
+                            th.style.height = '30px';
+                            th.style.color = tooltipDarkGray;
+
+                            var text = document.createTextNode('Scene Review');
+                            var strong = document.createElement('strong');
+                            strong.appendChild(text);
+                            th.appendChild(strong);
+
+                            // add *Optional* tag for optional scenes; otherwise, center the "Scene Review"
+                            if (isRequiredScene_{{module}}[sceneId]) {
+                                th.colSpan = '2';
+                                th.style.textAlign = 'center';
+                                tr.appendChild(th);
+
+                            } else {
+                                var thOptional = document.createElement('th');
+                                var textOptional = document.createTextNode('*Optional*');
+                                var strongOptional = document.createElement('strong');
+                                strongOptional.appendChild(textOptional);
+                                thOptional.appendChild(strongOptional);
+
+                                th.width = '120px';
+                                th.style.textAlign = 'left';
+                                thOptional.style.textAlign = 'right';
+                                thOptional.style.color = passiveFontColor;
+                                
+                                tr.appendChild(th);
+                                tr.appendChild(thOptional);
+                            }
+
+                            tableHead.appendChild(tr);
+
+                            var tableBody = document.createElement('tbody');
+
+                            // scene image
+                            var sceneImg = document.createElement('img');
+                            sceneImg.src = screenshots_{{module}}[sceneId];
+                            sceneImg.style.width = '180px';
+                            sceneImg.style.margin = '10px';
+                            var imgtr = document.createElement('tr');
+                            var imgtd = document.createElement('td');
+                            imgtd.colSpan = '2';
+                            imgtd.style.textAlign = 'center';
+
+                            imgtd.append(sceneImg);
+                            imgtr.append(imgtd);
+
+                            tableBody.appendChild(imgtr);
+
+                            // scene script
+                            var scripttr = document.createElement('tr');
+                            var scripttd = document.createElement('td');
+                            var scriptstrong = document.createElement('strong');
+                            scripttd.colSpan = '2';
+                            scripttd.style.textAlign = 'center';
+                            scripttd.style.color = scriptColor;
+
+                            var scriptText1 = document.createTextNode(npcs_{{module}}[sceneId]);
+                            var scriptText2 = document.createTextNode(": “" + scripts_{{module}}[sceneId] + "”");
+
+                            scriptstrong.appendChild(scriptText1);
+                            scripttd.appendChild(scriptstrong);
+                            scripttd.appendChild(scriptText2);
+                            scripttr.appendChild(scripttd);
+
+                            tableBody.appendChild(scripttr);
+
+                            // gray line
+                            var emptytr = document.createElement('tr');
+                            var emptytd = document.createElement('td');
+                            emptytd.colSpan = '2';
+
+                            var grayLine = document.createElement('hr');
+                            emptytd.appendChild(grayLine);
+                            emptytr.appendChild(emptytd);
+
+                            tableBody.appendChild(emptytr);
+
+                            // Employees' role
+                            var roletr = document.createElement('tr');
+                            var roletd1 = document.createElement('td');
+                            var roletd2 = document.createElement('td');
+                            var rolestrong1 = document.createElement('strong');
+                            var rolestrong2 = document.createElement('strong');
+                            roletd1.style.paddingLeft = contentPadding;
+                            roletd2.style.paddingRight = contentPadding;
+                            roletd2.style.color = tooltipDarkGray;
+                            roletd2.style.width = '280px';
+                            roletd2.align = 'right';
+
+                            var roleText1 = document.createTextNode("Role: ");
+                            var roleText2 = document.createTextNode(roleInScene_{{module}}[sceneId]);
+
+                            rolestrong1.appendChild(roleText1);
+                            roletd1.appendChild(rolestrong1);
+
+                            rolestrong2.appendChild(roleText2);
+                            roletd2.appendChild(rolestrong2);
+
+                            roletr.appendChild(roletd1);
+                            roletr.appendChild(roletd2);
+                            tableBody.appendChild(roletr);
+
+                            // Employees felt
+                            var emotionDescriptionHandler = (emotionScore) => {
+                                if (emotionScore % 5 == 0) {
+                                    return `${emotionScore} (${emotionTickMapping[Math.floor(emotionScore/5)]})`;
+                                } else {
+                                    return `${emotionScore} (${emotionDescriptionMapping[Math.floor(emotionScore/5)]})`;
+                                }
+                            }
+
+                            var emotiontr = document.createElement('tr');
+                            var emotiontd1 = document.createElement('td');
+                            var emotiontd2 = document.createElement('td');
+                            var emotionstrong1 = document.createElement('strong');
+                            var emotionstrong2 = document.createElement('strong');
+                            emotiontd1.style.paddingLeft = contentPadding;
+                            
+                            emotiontd2.style.paddingRight = contentPadding;
+                            emotiontd2.style.color = tooltipDarkGray;
+                            emotiontd2.align = 'right';
+
+                            var emotionText1 = document.createTextNode("Emotion: ");
+                            var emotionText2 = document.createTextNode(emotionDescriptionHandler(avgEmotionInScene_{{module}}[sceneId]));
+
+                            emotionstrong1.appendChild(emotionText1);
+                            emotiontd1.appendChild(emotionstrong1);
+
+                            emotionstrong2.appendChild(emotionText2);
+                            emotiontd2.appendChild(emotionstrong2);
+
+                            emotiontr.appendChild(emotiontd1);
+                            emotiontr.appendChild(emotiontd2);
+                            tableBody.appendChild(emotiontr);
+
+                            // Employees acted
+                            var acttr = document.createElement('tr');
+                            var acttr3 = document.createElement('tr');
+                            var acttr4 = document.createElement('tr');
+                            var acttd1 = document.createElement('td');
+                            var acttd2 = document.createElement('td');
+                            var acttd3 = document.createElement('td');
+                            var acttd4 = document.createElement('td');
+                            var actstrong1 = document.createElement('strong');
+                            var actstrong2 = document.createElement('strong');
+                            var actstrong3 = document.createElement('strong');
+                            var actstrong4 = document.createElement('strong');
+                            acttd1.style.paddingLeft = contentPadding;
+                            acttd2.style.paddingRight = contentPadding;
+                            acttd3.style.paddingRight = contentPadding;
+                            acttd4.style.paddingRight = contentPadding;
+
+                            acttd2.align = 'right';
+                            acttd2.style.color = confidentFontColor;
+                            acttd3.align = 'right';
+                            acttd3.style.color = passiveFontColor;
+                            acttd3.colSpan = '2';
+                            acttd4.align = 'right';
+                            acttd4.style.color = hostileFontColor;
+                            acttd4.colSpan = '2';
+
+                            var actText1 = document.createTextNode("Responded: ");
+
+                            actstrong1.appendChild(actText1)
+                            acttd1.appendChild(actstrong1);
+                            acttr.appendChild(acttd1);
+
+                            if (confidentInScene_{{module}}[sceneId] > 0) {
+                                actText2 = document.createTextNode(parseInt(confidentInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% confident");
+                                actstrong2.appendChild(actText2);
+                                acttd2.appendChild(actstrong2);
+                                acttr.appendChild(acttd2);
+                                tableBody.appendChild(acttr);
+                            }
+                            
+
+                            if (passiveInScene_{{module}}[sceneId] > 0) {
+                                actText3 = document.createTextNode(parseInt(passiveInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% passive");
+                                actstrong3.appendChild(actText3);
+                                acttd3.appendChild(actstrong3);
+                                if (confidentInScene_{{module}}[sceneId] == 0) {
+                                    acttr.appendChild(acttd3);
+                                    tableBody.appendChild(acttr);
+                                } else {
+                                    acttr3.appendChild(acttd3);
+                                    tableBody.appendChild(acttr3);
+                                }
+                            }
+
+                            if (hostileInScene_{{module}}[sceneId] > 0) {
+                                actText4 = document.createTextNode(parseInt(hostileInScene_{{module}}[sceneId] * 100 / avgEmotionInScene_{{module}}[sceneId]) + "% hostile");
+                                actstrong4.appendChild(actText4);
+                                acttd4.appendChild(actstrong4);
+                                if (confidentInScene_{{module}}[sceneId] == 0 && passiveInScene_{{module}}[sceneId] == 0) {
+                                    acttr.appendChild(acttd4);
+                                    tableBody.appendChild(acttr);
+                                } else {
+                                    acttr4.appendChild(acttd4);
+                                    tableBody.appendChild(acttr4);
+                                }
+                            }
+
+                            var tableRoot = tooltipEl.querySelector('table');
+
+                            // Remove old children
+                            while (tableRoot.firstChild) {
+                                tableRoot.firstChild.remove();
+                            }
+
+                            // Add new children
+                            tableRoot.appendChild(tableHead);
+                            tableRoot.appendChild(tableBody);
+                        }
+
+                        var { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                        // Display, position, and set styles for font
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                        tooltipEl.style.font = tooltip.options.bodyFont.string;
+                        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                    };
+
+                    // render chart
+                    var ctx = document.getElementById('efr_supervisor_module{{module}}');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: {{ labels|safe }}[moduleId],
+                            datasets: [
+                                {
+                                    label: 'hostile',
+                                    data: hostileInScene_{{module}},
+                                    backgroundColor: '{{hostile_color}}',
+                                },
+                                {
+                                    label: 'passive',
+                                    data: passiveInScene_{{module}},
+                                    backgroundColor: '{{passive_color}}',
+                                },
+                                {
+                                    label: 'confident',
+                                    data: confidentInScene_{{module}},
+                                    backgroundColor: '{{confident_color}}',
+                                }
+                            ]
+                        },
+                        options: {
+                            color: 'white',
+                            responsive: true,
+                            title: {
+                                display: false,
+                                text: 'Ethical Framework Report Bar Chart'
+                            },
+                            elements: {
+                                bar: {
+                                    hoverBorderColor: 'rgba(255,255,255, 0.7)',
+                                    hoverBorderWidth: 2
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: {
+                                        display: false,
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        z: 1,
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
+                                        display: true,
+                                        text: 'Scene',
+                                    },
+                                    ticks: {
+                                        color: 'white'
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        borderColor: 'white',
+                                        borderWidth: 2,
+                                        drawTicks: false,
+                                        color: 'rgba(255,255,255, 0.3)'
+                                    },
+                                    stacked: true,
+                                    title: {
+                                        color: 'white',
+                                        font: {
+                                            size: 16
+                                        },
+                                        display: true,
+                                        text: 'Emotion',
+                                    },
+                                    ticks: {
+                                        color: 'white',
+                                        padding: 15,
+                                        // Include a dollar sign in the ticks
+                                        callback: function(value, index, values) {
+                                            if (value % 5 == 0) {
+                                                return emotionTickMapping[Math.floor(value/5)] + "    " + value;
+                                            }
+                                            return value;
+                                        }
+                                    },
+                                    min: 0,
+                                    max: 10
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    reverse: true,
+                                    title: {
+                                        display: true,
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: false,
+                                    external: externalTooltipHandler,
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- /Page Content -->
+
+
+    <!-- Scripts -->
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
+</body>
+
+</html>

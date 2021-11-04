@@ -1,0 +1,416 @@
+/* Write your custom CSS here */
+
+
+body,
+html {
+    font-size: 1rem;
+}
+
+.logo-box,
+.page-sidebar {
+    width: 280px;
+    background: #F7F9FA;
+    color: #9F3688 !important;
+}
+
+.page-sidebar-menu ul li.active-page>a {
+    color: #9F3688;
+    font-weight: 600;
+}
+
+.page-sidebar-menu ul li.active-page>a i,
+.page-sidebar-menu ul li.active-page>a i.accordion-icon {
+    color: #9F3688;
+}
+
+/* sidebar font size */
+.page-sidebar-menu ul li a {
+    font-size: 18px;
+}
+
+.page-sidebar-menu ul li a i.accordion-icon {
+    float: right;
+    font-size: 18px;
+    margin-top: 7px;
+}
+
+.logo-box {
+    padding: 40px 40px 60px;
+}
+
+.btn-sisu-primary {
+    background-color: #EC7F00;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 100px;
+    padding: 8px 20px 8px 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.sisu-badge-secondary {
+    font-weight: 500;
+    border-radius: .2rem;
+    background: #2B2B2B;
+}
+
+.page-inner {
+    padding: 5px 70px 42px 70px;
+}
+
+.sisu-h3 {
+    color: #9F3688;
+    font-weight: 600;
+}
+
+.bootstrap-tagsinput {
+    border-radius: 4px;
+    box-shadow: none;
+    padding: 6px 12px;
+    height: 120px;
+    width: 100%;
+}
+
+.accordion-menu .sub-menu li.animation a {
+    font-size: 18px;
+}
+
+
+.btn-default {
+    border-color: #EC7F00;
+    color: #EC7F00;
+    border-radius: 100px;
+}
+
+.btn-sisu-lined {
+    border-color: #EC7F00;
+    color: #EC7F00;
+    background-color: transparent;
+    border-radius: 100px;
+    padding: 7px 19px 7px 19px;
+}
+
+
+.btn-sisu-lined.active.focus,
+.btn-sisu-lined.active:focus,
+.btn-sisu-lined.active:hover,
+.btn-sisu-lined.focus,
+.btn-sisu-lined:active.focus,
+.btn-sisu-lined:active:focus,
+.btn-sisu-lined:active:hover,
+.btn-sisu-lined:focus,
+.btn-sisu-lined:hover,
+.open>.dropdown-toggle.btn-sisu-lined.focus,
+.open>.dropdown-toggle.btn-sisu-lined:focus,
+.open>.dropdown-toggle.btn-sisu-lined:hover {
+    border-color: #EC7F00;
+    color: #747474;
+    border-radius: 100px;
+
+}
+
+.tbl-sisu-header {
+    background-color: #FFF2D1;
+    text-transform: uppercase;
+}
+
+
+.table>caption+thead>tr:first-child>td,
+.table>caption+thead>tr:first-child>th,
+.table>colgroup+thead>tr:first-child>td,
+.table>colgroup+thead>tr:first-child>th,
+.table>thead:first-child>tr:first-child>td,
+.table>thead:first-child>tr:first-child>th {
+    border-top: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+
+
+.tbl-sisu-header tr {
+    background-color: #FFF2D1;
+    text-transform: uppercase;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    border: none;
+    box-shadow: none;
+    background: #EC7F00;
+    color: #fff !important;
+    border-radius: 4px;
+}
+
+
+
+
+table.table-sisu-overview {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 350px;
+}
+
+table.table-sisu-overview tr th,
+table.table-sisu-overview tr td {
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    padding: 16px;
+}
+
+table.table-sisu-overview tr th:first-child,
+table.table-sisu-overview tr td:first-child {
+    border-left: 1px solid #fff !important;
+}
+
+
+
+table.table-sisu-overview thead {
+    background: #FFDF8B;
+    text-align: left;
+}
+
+table.table-sisu-overview td:first-child {
+    background: #AC579A;
+    color: #fff;
+    padding-left: 18px;
+    text-align: left;
+}
+
+table.table-sisu-overview th:first-child {
+    background: #AC579A;
+    color: #fff;
+    padding-left: 18px;
+    text-align: left;
+}
+
+
+table.table-sisu-overview tr th {
+    text-align: center;
+    font-size: 16px;
+}
+
+table.table-sisu-overview {
+    text-align: center;
+    font-size: 16px;
+}
+
+/* top-left border-radius */
+table.table-sisu-overview thead tr:first-child th:first-child {
+    border-top-left-radius: 18px;
+}
+
+table.table-sisu-overview thead tr:first-child th:last-child {
+    border-top-right-radius: 18px;
+}
+
+table.table-sisu-overview tr:last-child td:first-child {
+    border-bottom-left-radius: 18px;
+}
+
+table.table-sisu-overview tr:last-child td:last-child {
+    border-bottom-right-radius: 18px;
+}
+
+
+.table-sisu-completed{
+    color: #298509;
+}
+
+.table-sisu-inprogress{
+    color: #BE6700;
+}
+
+.table-sisu-notstarted{
+    color: #797979;
+}
+
+
+.row {
+        padding: 5px 16px 42px 16px;
+}
+
+
+@media (max-width: 991px){
+.page-inner:not(.login-page) {
+    padding: 16px 40px 400px 70px;
+}}
+
+.table-td-icon {
+    text-align: center;
+    font-size: 24px;
+    padding-right: 6px;
+    padding-left: 6px;
+    cursor: pointer;
+}
+
+.bootstrap-tagsinput .tag {
+    background: #AC579A;
+    margin-right: 2px;
+    color: white;
+    border-radius: 4px;
+  }
+
+tfoot {
+    display: table-header-group;
+}
+
+
+.table-sisu-select-option {
+    padding: 6px 12px;
+    border: 1px solid #C1C7CD;
+    border-radius: 4px;
+    height: 32px;
+}
+
+.dataTables_length select {
+    padding: 6px 6px;
+    border: 1px solid #C1C7CD;
+    border-radius: 4px;
+    height: 32px;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 4px;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.next, .dataTables_wrapper .dataTables_paginate .paginate_button.previous {
+    border-radius: 4px;
+}
+
+
+.row-sm {
+    padding: 5px 16px 16px 16px !important;
+}
+
+
+
+
+/* CERTIFICATE STYLING - START */
+.cert{
+    text-align: center;
+    padding: 12px;
+    font-family: 'Sahitya', sans-serif;
+}
+
+.cert-container{
+    padding-top: 110px;
+    padding-bottom: 110px;
+    padding-right: 260px;
+    padding-left: 260px;
+}
+
+.cert-player-name{
+    font-family: 'Reem Kufi';
+    font-weight: 600;
+    font-size: 42px;
+    text-transform: uppercase;
+}
+
+.cert-text-reg {
+    font-size: 24px;
+}
+
+
+.cert-title{
+    font-size: 56px
+}
+
+.cert-col{
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding: 24px;
+}
+
+.cert-border-primary {
+    border: 24px solid transparent;
+    background-image: 
+        linear-gradient(0deg, white 0%, white 100%),
+        linear-gradient(0deg, #FFF1D5 0%, #FFF1D5 100%),
+        linear-gradient(0deg, #F3D4EA 0%, #F3D4EA 100%),
+        linear-gradient(0deg, #F3D4EA 0%, #F3D4EA 100%),
+        linear-gradient(0deg, #FFF1D5 0%, #FFF1D5 100%);
+    background-origin: padding-box, border-box, border-box, border-box, border-box;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 50% 50%, 50% 50%, 50% 50%, 50% 50%;
+    background-position: top left, top left, top right, bottom left, bottom right;
+}
+/* CERTIFICATE STYLING - END */
+
+
+/* ETHICAL FRAMEWORK REPORT STYLING - START */
+.ethical-report{
+    text-align: left;
+    font-family: Jost, sans-serif;
+    color: white;
+}
+
+.ethi-container{
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-right: 15%;
+    padding-left: 15%;
+    background: #4E657A;
+}
+
+.ethi-container-thin{
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
+    background: #4E657A;
+}
+
+.ethi-text-lg {
+    font-size: 35px;
+}
+
+.ethi-text-reg {
+    font-size: 22px;
+}
+
+.ethi-text-sm {
+    font-size: 18px;
+    padding: 0px;
+}
+/* ETHICAL FRAMEWORK REPORT STYLING - END */
+
+
+/* POST PROGRAM SURVEY STYLING - START */
+.star-rating {
+    line-height:32px;
+    font-size:1.25em;
+    cursor: pointer;
+}
+
+.yellow-star {
+    color: #ffef00;
+}
+
+.btn-group,
+.likert {
+    margin-left: 10px;
+}
+
+.likert li {
+    color: #606060;
+    float: left;
+    list-style-type: none;
+    padding-left: 10px;
+  }
+
+/* POST PROGRAM SURVEY STYLING - END */

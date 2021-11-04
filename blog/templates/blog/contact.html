@@ -56,6 +56,7 @@
         </header>
         <!-- end: Header -->
         <!-- Content -->
+        {% include 'components/message-sent.html' %}
         <section style="padding-bottom:32px">
             <div class="container">
                 <div class="sisu-divider-line text-center">
@@ -75,6 +76,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="m-t-30">
+                            <p>* required field</p>
                             <form id="form-contact" class="widget-contact-form" method="POST" action="">
                                 {% csrf_token %}
                                 <div class="bg-cube-container" style="float: right; margin-right: -88px;">
@@ -83,12 +85,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="name">First Name</label>
+                                        <label for="name">First Name *</label>
                                         <input type="text" aria-required="true" name="input-first-name"
                                             autocomplete="given-name" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="name">Last Name</label>
+                                        <label for="name">Last Name *</label>
                                         <input type="text" aria-required="true" name="input-last-name"
                                             autocomplete="family-name" required class="form-control">
                                     </div>
@@ -98,7 +100,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="subject">Email Address</label>
+                                        <label for="subject">Email Address *</label>
                                         <input type="email" aria-required="true" name="input-email" autocomplete="email"
                                             required class="form-control">
                                     </div>
@@ -119,7 +121,7 @@
                                     <div class="bg-cube-element" style="width:68px; height:42px; margin-top:12px"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message">Message</label>
+                                    <label for="message">Message *</label>
                                     <textarea type="text" name="input-message" required rows="5"
                                         class="form-control required"></textarea>
                                 </div>
