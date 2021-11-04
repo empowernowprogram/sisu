@@ -1,0 +1,478 @@
+/* 
+
+1. Add your custom Css styles below
+2. Place the this code in your template: 
+
+ <link href="css/custom.css" rel="stylesheet">
+
+*/
+
+.sisu-header-bkg {
+    /* min-height: 99px; */
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(179deg, rgba(159,54,136,1) 0%, rgba(206,68,134,1) 56%, rgba(248,207,104,1) 100%);
+}
+
+
+.sisu-header-transparent-bkg {
+    /* min-height: 99px; */
+    left: 0px;
+    top: 0px;
+
+}
+
+.sisu-header-link > li > a {
+    color: #fff !important;
+    text-transform: capitalize !important;
+    font-weight: 400 !important;
+} 
+
+.sisu-footer-text{
+    color: #fff !important;
+    /* text-transform: capitalize !important; */
+    font-weight: 300 !important;
+}
+
+.sisu-footer-copyright{
+    color: #fff !important;
+    font-weight: 300;
+}
+
+.sisu-footer-link{
+    color: #fff !important;
+    font-weight: 300 !important;
+}
+
+.sisu-footer-link:hover{
+    color: #fff !important;
+    font-weight: 300 !important;
+    text-decoration: underline !important;
+}
+
+
+.sisu-footer-bg {
+    /* min-height: 99px; */
+    left: 0px;
+    top: 0px;
+    background: linear-gradient(180deg, rgba(159,54,136,1) 2%, rgba(206,68,134,1) 46%, rgba(248,207,104,1) 100%);
+}
+
+#footer-lazy-bg {
+    height: 280px;
+}
+
+.copyright-text {
+    font-size: 12px;
+}
+
+#footer .footer-content {
+    padding: 42px 0 20px 0;
+}
+
+.sisu-hr {
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #FFB800;
+        opacity: 0.5;
+        height: 2px;
+        border-top:1px solid; /* or bottom */
+        border-top-color: #FFB800;
+        margin-top: 26px;
+}
+
+
+.heading-text.heading-section h2:before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 200px;
+    background-color: #FFB800;
+    opacity: 0.5;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+}
+
+.lead {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.btn-sisu-primary{
+    background: #EC7F00 !important;
+    border-color: #EC7F00 !important;
+    text-transform: capitalize !important;
+}
+
+
+.accordion .ac-item {
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: 1px solid #F6F6F6;
+}
+
+.accordion .ac-item .ac-title {
+    font-weight: 600;
+    font-size: 16px;
+    background: #F6F6F6;
+    padding:12px;
+    padding-right: 34px;
+    border-radius: 4px;
+}
+
+.ac-active h5 {
+    color: #9F3688;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.accordion .ac-item .ac-content {
+    padding:12px;
+}
+
+
+.accordion .ac-item.ac-active .ac-title:before {
+    content: "\e9a1";
+    padding-right: 12px;
+}
+
+.accordion .ac-item .ac-title:before {
+    padding-right: 12px;
+}
+
+
+.sisu-color-purple{
+    color: #9F3688;
+}
+
+
+
+.bg-cube-element {
+    position: absolute;
+    height: 20px;
+    min-height: 12px;
+    width: 20px;
+    min-width: 20px;
+    background-color: #FFB800;
+    border-radius: 4px;
+    opacity: 0.4;
+    z-index: -1;
+    }
+
+@media only screen and (max-width: 991px) {
+    .bg-cube-element {
+        display: none;
+    }
+}
+
+
+.center-block {
+    width: 100vw;
+    position: relative;
+  
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+
+    
+.sisu-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+ .sisu-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+ 
+ }
+ .sisu-hero-content {
+    position: relative;
+    font-family: "Monserrat", sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0.625rem;
+ }
+ 
+ .sisu-hero-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+ }
+ .sisu-hero-subtitle {
+    font-size: 2rem;
+    font-weight: 200;
+    margin-top: 1rem;
+ }
+ .sisu-hero-button {
+    background-color: #ae2d59;
+    color: white;
+    border: 1px solid #cb376a;
+    margin-top: 5rem;
+    padding: 0.9375rem1.875rem;
+    font-family: "Monserrat", sans-serif;
+    font-size: 1.125rem;
+    font-weight: 200;
+    cursor: pointer;
+ }
+ .sisu-hero-button:hover {
+    background-color: #cb376a;
+    border: 1px solid #db7598;
+ }
+
+
+
+
+
+ @media (min-width: 1198px) {
+    .inspiro-slider {
+        height: 80vh !important;
+    }
+ }
+
+
+ @media (min-width: 2000px) {
+    .inspiro-slider {
+        height: 90vh !important;
+    }
+ }
+
+ @media (max-width: 900px) {
+ .sisu-header-link > li > a {
+    color: #fff !important;
+    font-weight: 600 !important;
+    
+    }
+}
+
+
+@media (max-width: 768px) {
+    .footer-content {
+        padding-top:42px;
+       }
+    
+    #footer-lazy-bg {
+        height: 340px;
+    }
+   }
+
+@media (max-width: 455px) {
+    #footer-lazy-bg {
+        height: 400px;
+    }
+}
+
+@media (max-width: 395px) {
+    #footer-lazy-bg {
+        height: 420px;
+    }
+    .footer-content {
+        font-size: 12px;
+    }
+    .copyright-text {
+        font-size: 10px;
+    }
+}
+   
+@media (max-width: 340px) {
+    #footer-lazy-bg {
+        height: 440px;
+    }
+    .copyright-text {
+        font-size: 8px;
+    }
+}
+
+
+
+
+ .blockquote-fancy::before {
+    color: #FFB800;
+    content: '"';
+    display: block;
+    font-size: 82px;
+    left: 4px;
+    position: absolute;
+    top: 14px;
+    border-radius: 4px;
+}
+
+.vertical-center {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+
+
+  .team-members .team-member .team-image > img {
+    border-radius: 4px 4px 4px 4px;
+}
+
+
+.form-group label:not(.error) {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #545454;
+}
+
+.sisu-menu-link{
+    font-size: 14px !important;
+}
+
+
+@media (min-width: 900px) {
+    .sisu-menu-link-mobile{
+        color: #fff !important;
+        font-size: 14px !important;
+    }
+ }
+
+
+ @media (min-width: 900px) {
+    .sisu-header-link-mobile > li > a {
+        color: #000 ;
+        text-transform: capitalize !important;
+        font-weight: 400 !important;
+    }
+ }
+
+
+.lines, .lines:before, .lines:after {
+    background-color: #fff;
+}
+
+.lines-dark, .lines-dark:before, .lines-dark:after {
+    background-color: #494949;
+}
+
+
+.ac-content > p {
+    font-size: 16px;
+}
+
+.sisu-menu-link:hover{
+    text-decoration: underline !important;
+}
+
+@media (min-width: 640px) {
+    .sisu-header-title{
+        padding-right:36% !important;
+    }
+}
+
+
+.flickity-button:hover {
+    background-color: #EC7F00;
+}
+
+.mobile-show{
+    display: none;
+}
+
+.mobile-hide{
+    display: none;
+}
+
+
+@media only screen and (max-width: 425px) {
+    .mobile-show {
+      display: block;
+    }
+}
+
+
+@media only screen and (min-width: 426px) {
+    .mobile-hide {
+      display: block;
+    }
+  }
+
+
+
+
+/**********************************/
+/* For testimonial carousel start */
+/**********************************/
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  min-height: 640px;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: #EC7F00;
+  font-weight: bold;
+  font-size: 25px;
+  transition: 0.5s ease;
+  user-select: none;
+}
+
+/* Position the "prev button" to the right */
+.prev {
+    left: -8%;
+  }
+
+/* Position the "next button" to the right */
+.next {
+  right: -8%;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    font-size: 35px;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/********************************/
+/* For testimonial carousel end */
+/********************************/
