@@ -34,23 +34,50 @@ Database: Localhost / Heroku Postgres (can be run locally or on heroku)
 
 ## Setup Process
 1. Download / pull the development branch
+
 2. Create and/or activate your sisu virtual environment using conda or another virtual environment tool.
     ```
     conda create --name sisu
     conda activate sisu
     ```
+    
 3. In your termianl or cmd, navigate to the root project folder
+
 4. Install project requirements
     ```
     pip install -r requirements.txt
     ```
-5. Setting up the local server using manage.py 
+    
+5. Everytime when you start with an empty database, you need to migrate.
     ```
     python manage.py migrate
+    ```
+
+6. If you need to access admin panel (where you can see your registered models), you need to create a superuser account first; if not, you can skip this step.
+    ```
+    python manage.py createsuperuser
+    ```
+    Use the credentials you just created to login to the admin panel later.
+
+7. To provide initial data for models, load data from individual fixture:
+    ```
+    python manage.py loaddata post-program-survey-choices.json
+    python manage.py loaddata behavior.json
+    python manage.py loaddata mock-player-role.json
+    python manage.py loaddata mock-ethical-feedback.json
+    ```
+
+    Or load multiple fixtures at once:
+    ```
+    python manage.py loaddata */fixtures/*.json
+    ```
+
+8. Run the app in local server.
+    ```
     python manage.py runserver
     ```
 
-6. Open local server on computer at 
+9. Open local server on computer at 
     ```
     http://127.0.0.1:8000/
     ```

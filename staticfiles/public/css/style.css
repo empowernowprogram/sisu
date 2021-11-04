@@ -4164,16 +4164,15 @@ h6.font-parisienne {
   text-align: left;
 }
 .inspiro-slider .slide .slide-captions h1 {
-  font-size: 50px;
+  font-size: 80px;
   font-weight: 700;
-  line-height: 68px;
-  margin-top: 60px;
+  line-height: 80px;
   margin-bottom: 30px;
   color: #ffffff;
 }
 .inspiro-slider .slide .slide-captions h2 {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 60px;
+  font-weight: 700;
   line-height: 68px;
   margin-bottom: 30px;
   color: #ffffff;
@@ -4311,97 +4310,46 @@ h6.font-parisienne {
 /* ----------------------------------------------------------------
     Inspiro Slider - Responsive Classes
 -----------------------------------------------------------------*/
-@media (max-width: 1100px) {
-  .inspiro-slider .slide .slide-captions h1 {
-    font-size: 45px;
-    line-height: 50px;
-    margin-top: 110px;
-    margin-bottom: 14px;
+@media (max-width: 1024px) {
+  .inspiro-slider .flickity-button:hover {
+    background-color: transparent;
   }
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 16px;
-    line-height: 30px;
-    margin-bottom: 14px;
+  .inspiro-slider .flickity-button.next, .inspiro-slider .flickity-button.next:hover {
+    right: -5px !important;
+    opacity: 1;
   }
-}
-@media (max-width: 995px) {
+  .inspiro-slider .flickity-button.previous, .inspiro-slider .flickity-button.previous:hover {
+    left: -5px !important;
+    opacity: 1;
+  }
   .inspiro-slider .container {
-    padding-left: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
-  .inspiro-slider .slide .slide-captions h1 {
+  .inspiro-slider .slide .slide-captions {
+    text-align: center;
+  }
+  .inspiro-slider .slide .slide-captions .strong::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .inspiro-slider .slide .slide-captions h1,
+  .inspiro-slider .slide .slide-captions h2 {
     font-size: 40px;
     line-height: 40px;
-    margin-top: 100px;
     margin-bottom: 14px;
   }
-  .inspiro-slider .slide .slide-captions h2 {
+  .inspiro-slider .slide .slide-captions > p {
     font-size: 16px;
-    line-height: 30px;
-    margin-bottom: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 16px;
   }
-}
-@media (max-width: 770px) {
-  .inspiro-slider .container {
-    padding-left: 20px;
-  }
-  .inspiro-slider .slide .slide-captions h1 {
-    font-size: 35px;
-    line-height: 34px;
-    margin-top: 110px;
-    margin-bottom: 14px;
-  }
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 15px;
-    line-height: 25px;
-    margin-bottom: 14px;
-  }
-}
-@media (max-width: 550px) {
-  .inspiro-slider .container {
-    padding-left: 20px;
-  }
-  .inspiro-slider .slide .slide-captions h1 {
-    font-size: 28px;
-    line-height: 34px;
-    margin-top: 40px;
-    margin-bottom: 14px;
-  }
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 13px;
-    line-height: 25px;
-    margin-bottom: 14px;
-  }
-}
-@media (max-width: 400px) {
-  .inspiro-slider .container {
-    padding-left: 20px;
-  }
-  .inspiro-slider .slide .slide-captions h1 {
-    font-size: 25px;
-    line-height: 34px;
-    margin-top: 50px;
-    margin-bottom: 14px;
-  }
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 11px;
-    line-height: 25px;
-    margin-bottom: 14px;
-  }
-}
-@media (max-width: 330px) {
-  .inspiro-slider .container {
-    padding-left: 20px;
-  }
-  .inspiro-slider .slide .slide-captions h1 {
-    font-size: 25px;
-    line-height: 34px;
-    margin-top: 40px;
-    margin-bottom: 14px;
-  }
-  .inspiro-slider .slide .slide-captions h2 {
-    font-size: 11px;
-    line-height: 25px;
-    margin-bottom: 14px;
+  .inspiro-slider .slide .slide-captions h3,
+  .inspiro-slider .slide .slide-captions h4,
+  .inspiro-slider .slide .slide-captions h5,
+  .inspiro-slider .slide .slide-captions h6 {
+    color: #ffffff;
   }
 }
 .fullscreen {

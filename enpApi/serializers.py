@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from .models import Player, Employer, Modules, PlaySession, Employee
+from .models import Player, Employer, Modules, PlaySession, Employee, EthicalFeedback
 
+class EthicalFeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EthicalFeedback
+        fields = ('user', 'module', 'timestamp', 'scene', 'behavior_id', 'emotion')
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Player

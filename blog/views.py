@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import sendgrid
 import os, urllib
 import requests, json
+from collections import defaultdict
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -13,12 +14,13 @@ from .forms import PostForm, CommentForm, ContactForm, SearchForm, ReplyToCommen
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail
+from django.core.mail import send_mail, BadHeaderError, EmailMessage, send_mail, EmailMultiAlternatives
+from django.utils.safestring import mark_safe
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import auth
 from ipware import get_client_ip
 from django.template import Context
-import re, random
+import re, random, math
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -26,6 +28,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -184,9 +187,10 @@ def nonsupervisor_progress(request):
 
 
 def forgot_password(request):
-    #email_signup = request.Get.get('email_signup')
+    email_signup = request.Get.get('email_signup')
     #EmailList.objects.create(email = email_signup)
     #context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
+    context = {'user': "Sisu VR User", 'company_name': "Sisu VR", 'key': "New Password Key"}
     #print (os.environ.get('SENDGRID_API_KEY'))  
     #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     #print("Set sendgrid instance")
@@ -197,13 +201,16 @@ def forgot_password(request):
     #subject = "Register for the Empower Now Program from Sisu VR"
     #subject = sender + form.cleaned_data['subject']
     #print("Set subject")
-    #html = render_to_string('email-templates/email-training-signup.html', context)
+    html = render_to_string('email-templates/email-forgot-password.html', context)
     #content = Content("text/html", html)
                 
     #print("Creating mail structure")
     #mail = Mail(from_email, subject, to_email, content)
     #print("Attempting to send mail")
     #response = sg.client.mail.send.post(request_body=mail.get())
+    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [email_signup])
+    message.attach_alternative(html, "text/html")
+    message.send()
     return render(request, 'auth/login.html')
 
 
@@ -446,28 +453,41 @@ def contact(request):
         if result['success'] == True:
             input_first_name    = request.POST.get('input-first-name')
             input_last_name     = request.POST.get('input-last-name')
+            input_subject     = request.POST.get('input-subject')
             input_email         = request.POST.get('input-email')
             input_company_name  = request.POST.get('input-company-name')
             input_message       = request.POST.get('input-message')
 
+            subject = f'[Contact Us] - from {str(input_first_name)} {str(input_last_name)} - {str(input_subject)}'
+            emailContent = {
+                'input_first_name': input_first_name,
+                'input_last_name': input_last_name,
+                'input_email': input_email,
+                'input_company_name': input_company_name,
+                'input_subject': input_subject,
+                'input_message': input_message,
+            }
+            html_content = render_to_string('email-templates/email-contact-us.html', emailContent)
+
             # this is a quick fix, because for whatever reason, the "required" tag on the html page is not working.
             if len(input_first_name) != 0 and len(input_last_name) != 0 and "@" in input_email and len(input_message) != 0:
-                email_meta = f'-- META --\nRecipient name: {str(input_first_name)} {str(input_last_name)}\nCompany name: {str(input_company_name)}\nRecipient email: {str(input_email)}'
-                email_message = f'{input_message}\n\n{email_meta}'
-
-                # send mail
+                
                 try:
-                    send_mail(
-                        f'Contact - {str(input_first_name)} {str(input_last_name)}',            # subject
-                        email_message,                                                          # message
-                        'sisu.contact.us@gmail.com',                                            # from email
-                        ['sisu.contact.us@gmail.com' 'robert.miller@sisuvr.com'],               # to email
-                    )
-                    context = {'message_submit': {'type': "success", "message": f'Message has been successfully sent'}}
-                    return render(request, 'blog/contact.html', context)
+                    #send mail to company's email
+                    mail = EmailMultiAlternatives(subject, '', settings.EMAIL_HOST_USER, [settings.DEFAULT_FROM_EMAIL])
+                    mail.attach_alternative(html_content, "text/html")
+                    mail.send()
+
+                    messages.success(request, mark_safe('<strong>Message sent!</strong> Thank you for contacting Sisu VR, we will reply to you shortly!'))
+                    return redirect('/contact')
+
                 except:
-                    context = {'message_submit': {'type': "failed", "message": f'Message could not be sent due to an error. If this error persists please email hello@sisuvr.com'}}
-                    return render(request, 'blog/contact.html', context)
+                    messages.error(request, mark_safe('<strong>Error occurred.</strong> Message could not be sent due to an error. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                    return redirect('/contact')
+            
+            else:
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you filled out all required fields. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                return redirect('/contact')
 
     return render(request, 'blog/contact.html')
 
@@ -603,6 +623,7 @@ def send_html_email(template, content, subject, to_emails, from_email='hello@sis
         msg.content_subtype = "html"
         msg.send()
         email_sent = True
+        #send_mail('Testing SMTP from Django', 'Please respond via Slack if this works', settings.EMAIL_HOST_USER, ['jocelyn.tan@sisuvr.com'])
         return email_sent
     except:
         return email_sent
@@ -638,41 +659,59 @@ def portal_register(request):
             email_message = 'test email message body'
             
             print('attempt to send email')
-            send_mail(
-                'EMAIL SUBJECT',                                            # subject
-                'TEST MESSAGE',                                                  # message
-                'hello@sisuvr.com',                                             # from email
-                ['robert.miller@sisuvr.com'],                                   # to email
-            )
+            #send_mail(
+            #    'EMAIL SUBJECT',                                            # subject
+            #    'TEST MESSAGE',                                                  # message
+            #    'hello@sisuvr.com',                                             # from email
+            #    ['srossi455@gmail.com'],                                   # to email
+            #)
             print('email sent')
 
-            '''
+           
 
             # send emails
             # TODO - needs to be fixed, emails do not send due to internal server error
             if len(emails_vr_nonsupervisor) > 0:
+                print("Should attempt to send email")
                 for i in emails_vr_nonsupervisor:
                     if i == '':
                         break
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
                     from_email = Email("hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
+                    print(i)
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
                     print("Set subject")
                     html = render_to_string('email-templates/email-training-signup.html', context)
+                    #plain_message = strip_tags(html)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+                    #from_email, to = 'hello@sisuvr.com', i
+                    #html_content = str(content)
+                    #msg = EmailMessage(subject, html_content, from_email, [to])
+                    #msg.content_subtype = "html"
+                    #msg.send()                    
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
+                    #mail.send_mail(
+                    #    subject,                                            # subject
+                    #    plain_message,                                                  # message
+                    #    'hello@sisuvr.com',                                             # from email
+                    #    [i],                                   # to email
+                    #    html_message=html
+                    #)
                 
             if len(emails_vr_supervisor) > 0:
                 for i in emails_vr_supervisor:
@@ -681,12 +720,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -694,9 +733,13 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
 
             if len(emails_desktop_nonsupervisor) > 0:
                 for i in emails_desktop_nonsupervisor:
@@ -705,12 +748,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -718,9 +761,13 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())
+                    #response = sg.client.mail.send.post(request_body=mail.get())
+
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
 
             if len(emails_desktop_supervisor) > 0:
                 for i in emails_desktop_supervisor:
@@ -729,12 +776,12 @@ def portal_register(request):
                     if not get_user_model().objects.filter(email = i).exists():
                         get_user_model().objects.create_user(username=i, email=i, password="default1234")
                     context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    print (os.environ.get('SENDGRID_API_KEY'))  
-                    sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                    #print (os.environ.get('SENDGRID_API_KEY'))  
+                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                     print("Set sendgrid instance")
-                    from_email = Email("Hello@sisuvr.com")
+                    #from_email = Email("Hello@sisuvr.com")
                     print("Set from email")
-                    to_email = Email(i)
+                    #to_email = Email(i)
                     print("Set to email")
                     subject = "Register for the Empower Now Program from Sisu VR"
                     #subject = sender + form.cleaned_data['subject']
@@ -742,12 +789,15 @@ def portal_register(request):
                     html = render_to_string('email-templates/email-training-signup.html', context)
                     content = Content("text/html", html)
                     print("Creating mail structure")
-                    mail = Mail(from_email, subject, to_email, content)
+                    #mail = Mail(from_email, subject, to_email, content)
                     print("Attempting to send mail")
-                    response = sg.client.mail.send.post(request_body=mail.get())                
+                    #response = sg.client.mail.send.post(request_body=mail.get())                
 
-            '''
-            print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
+                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
+                    message.attach_alternative(html, "text/html")
+                    message.send()
+            
+            #print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
             context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
             return JsonResponse(context, status=200)
 
@@ -908,6 +958,210 @@ def portal_certificate(request):
     else:
         return render(request, 'auth/login.html')
 
+
+def getColor(behavior):
+    colorDict = {"hostile": 'rgba(196, 106, 108, 0.75)',
+                 "passive": 'rgba(204, 155, 63, 0.75)', "confident": 'rgba(120, 158, 93, 0.75)'}
+
+    return colorDict[behavior]
+
+
+def portal_ethical_report(request):
+    if request.user.is_authenticated:
+
+        player = Player.objects.get(user=request.user)
+        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+
+        if len(play_sessions) != len(play_sessions_completed):
+            return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
+
+
+        # supervisor
+        if player.supervisor:
+            # aggregate data
+            # get all data for now, need to filter out a supervisor's employees
+            queryset = EthicalFeedback.objects.all()
+
+            # calulate average emotion value for each scene
+            feedbackCountInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: count of feedbacks}}
+            emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
+            behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
+            for entry in queryset:
+                emotionSumInModule[entry.module][entry.scene] += entry.emotion
+                feedbackCountInModule[entry.module][entry.scene] += 1
+                behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
+
+            # aggregate data by module
+            moduleCnt = len(emotionSumInModule)
+            avgEmotionsInModule = {}
+            employeeCntInModule = {}
+            sceneLabelsInModule = {}
+            rolesInModule = {}
+            isMandatoryInModule = {}
+            screenshotsInModule = {}
+            npcsInModule = {}
+            scriptsInModule = {}
+
+            datasets = defaultdict(dict)
+
+            for moduleId, emotionSum in emotionSumInModule.items():
+                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneCnt = sceneInfoQueries.count() # get scene count from scene info table
+
+                employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
+
+                avgEmotions = [0] * sceneCnt
+
+                behaviorCount = behaviorCountInModule[moduleId]
+
+                for behavior in behaviorCount:
+                    sceneData = [0] * sceneCnt
+                    for scene, emoSum in emotionSum.items():
+                        behaviorPercentage = behaviorCount[behavior].get(scene, 0) / feedbackCountInModule[moduleId][scene]
+                        avgEmotion = emoSum / feedbackCountInModule[moduleId][scene]
+
+                        avgEmotions[scene-1] = math.floor(avgEmotion*10)/10
+                        sceneData[scene-1] = avgEmotion * behaviorPercentage
+
+                    datasets[behavior][moduleId] = sceneData[:]
+
+
+                employeeCntInModule[moduleId] = int(employeeCnt)
+                avgEmotionsInModule[moduleId] = avgEmotions[:]
+                sceneLabelsInModule[moduleId] = list(range(1, sceneCnt+1))
+
+
+                roles = {}
+                isMandatory = {}
+                screenshots = {}
+                npcs = {}
+                scripts = {}
+
+                for obj in sceneInfoQueries:
+                    roles[obj.scene-1] = obj.player_role
+                    isMandatory[obj.scene-1] = obj.is_mandatory
+                    screenshots[obj.scene-1] = obj.ethical_screenshot
+                    npcs[obj.scene-1] = obj.ethical_npc_name
+                    scripts[obj.scene-1] = obj.ethical_script
+
+                rolesInModule[moduleId] = roles
+                isMandatoryInModule[moduleId] = isMandatory
+                screenshotsInModule[moduleId] = screenshots
+                npcsInModule[moduleId] = npcs
+                scriptsInModule[moduleId] = scripts
+
+            modules = sorted(list(emotionSumInModule.keys()))
+
+            context = {
+                'completedTraining': True,
+                'player': player, 
+                'modules': modules,
+                'labels': sceneLabelsInModule,
+                'hostile_dataset': datasets['hostile'],
+                'passive_dataset': datasets['passive'],
+                'confident_dataset': datasets['confident'],
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
+                'roles': rolesInModule,
+                'is_mandatory_scene': isMandatoryInModule,
+                'avgEmotions': avgEmotionsInModule,
+                'employeeCnt': employeeCntInModule,
+                'screenshots': screenshotsInModule,
+                'npcs': npcsInModule,
+                'scripts': scriptsInModule,
+
+            }
+
+        # not supervisor
+        else:
+
+            username = request.user.username
+
+            scenesInModules = {}
+            sceneIndicesInModules = {}
+            emotionsInModules = {}
+            behaviorsInModules = {}
+            rolesInModule = {}
+            screenshotsInModule = {}
+            npcsInModule = {}
+            scriptsInModule = {}
+
+            for field in play_sessions.all():
+                moduleId = field.module_id
+
+                # fetch ethical feedbacks in this module
+                scenes = []
+                emotions = []
+                behaviors = []
+
+                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module=moduleId)
+
+                for column in queryset:
+                    scenes.append(column.scene)
+                    emotions.append(column.emotion)
+                    behaviors.append(column.behavior_id.description)
+                
+                # sort according to scene id
+                sortedData = list(sorted(zip(scenes, emotions, behaviors)))
+                scenes = list(map(lambda x: x[0], sortedData))
+                emotions = list(map(lambda x: x[1], sortedData))
+                behaviors = list(map(lambda x: x[2], sortedData))
+                
+                scenesIdices = {}
+                for i, scene in enumerate(scenes):
+                    scenesIdices[scene-1] = i
+
+                # fetch player roles in this module
+                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                roles = {}
+                screenshots = {}
+                npcs = {}
+                scripts = {}
+                for obj in sceneInfoQueries:
+                    roles[obj.scene-1] = obj.player_role
+                    screenshots[obj.scene-1] = obj.ethical_screenshot
+                    npcs[obj.scene-1] = obj.ethical_npc_name
+                    scripts[obj.scene-1] = obj.ethical_script
+
+                # store scene, emotion, behaviors, roles by module
+                scenesInModules[moduleId] = scenes
+                sceneIndicesInModules[moduleId] = scenesIdices
+                emotionsInModules[moduleId] = emotions
+                behaviorsInModules[moduleId] = behaviors
+                rolesInModule[moduleId] = roles
+                screenshotsInModule[moduleId] = screenshots
+                npcsInModule[moduleId] = npcs
+                scriptsInModule[moduleId] = scripts
+
+            modules = sorted(list(rolesInModule.keys()))
+
+            # colors for bars
+            colors = []
+            for b in behaviors:
+                colors.append(getColor(b))
+
+            context = {
+                'completedTraining': True,
+                'player': player,
+                'modules': modules,
+                'roles': rolesInModule,
+                'scenes': scenesInModules,
+                'scenesIdices': sceneIndicesInModules, 
+                'emotions': emotionsInModules, 
+                'behaviors': behaviorsInModules, 
+                'hostile_color': getColor('hostile'),
+                'passive_color': getColor('passive'),
+                'confident_color': getColor('confident'),
+                'screenshots': screenshotsInModule,
+                'npcs': npcsInModule,
+                'scripts': scriptsInModule,
+            }
+
+        return render(request, 'portal/ethical-report.html', context)
+    else:
+        return render(request, 'auth/login.html')
 
 def post_program_survey(request, pk):
     isSupervisor = Player.objects.get(user=request.user).supervisor

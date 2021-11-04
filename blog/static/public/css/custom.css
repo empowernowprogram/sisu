@@ -58,6 +58,13 @@
     background: linear-gradient(180deg, rgba(159,54,136,1) 2%, rgba(206,68,134,1) 46%, rgba(248,207,104,1) 100%);
 }
 
+#footer-lazy-bg {
+    height: 280px;
+}
+
+.copyright-text {
+    font-size: 12px;
+}
 
 #footer .footer-content {
     padding: 42px 0 20px 0;
@@ -256,11 +263,38 @@
     .footer-content {
         padding-top:42px;
        }
+    
+    #footer-lazy-bg {
+        height: 340px;
+    }
    }
 
+@media (max-width: 455px) {
+    #footer-lazy-bg {
+        height: 400px;
+    }
+}
 
-
+@media (max-width: 395px) {
+    #footer-lazy-bg {
+        height: 420px;
+    }
+    .footer-content {
+        font-size: 12px;
+    }
+    .copyright-text {
+        font-size: 10px;
+    }
+}
    
+@media (max-width: 340px) {
+    #footer-lazy-bg {
+        height: 440px;
+    }
+    .copyright-text {
+        font-size: 8px;
+    }
+}
 
 
 

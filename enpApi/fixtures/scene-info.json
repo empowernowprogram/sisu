@@ -1,0 +1,171 @@
+[
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 1,
+        "fields": {
+            "module": "1",
+            "scene": 1,
+            "is_mandatory": true,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/z0c1-mKc1mdwg8fEcU7OChRvEABEkToTW1wmah5qFARPkQY4-TxR5WM3Wk2vd01Q9PG4p70OryPi9p1ddupwuCM0KK5IgMxWOrfWvmqzDpmRB8Y7auYjbDJTX59K9gL3A1Y1K2aG=w2400",
+            "ethical_npc_name": "Ruben",
+            "ethical_script": "Oh, you'll be seeing a lot of her around. Just don't get distracted by her looks."
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 2,
+        "fields": {
+            "module": "1",
+            "scene": 2,
+            "is_mandatory": false,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/aeD8HZ5902fdi1j35L69_7XBk4QUxHwMnxjZUDD0vp6R_JL7YWqN6f49XDrb8vH5SUANh8pN97eOxnIqHkX4qBL5wGRreeRAZ9xQORqTNn_zlN8Rua1JqcKBHWlmO6M1gDwjwCBR=w2400",
+            "ethical_npc_name": "Andy",
+            "ethical_script": "There you are! I've been missing that gorgeous face all day! How are you, Kati?"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 3,
+        "fields": {
+            "module": "1",
+            "scene": 3,
+            "is_mandatory": false,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/psogDUjWgPqABK6Mugh1ZrldkdQSrk1spHSNIUojKlpYFshySpMLf8brROdEj1OqQAGsWIE6Nsjyi2ctuxOM_AAMFxxVsjIC2v4Tvgrw4CBIVGYRve-EckrMYs3xe2K-IthtFgCU=w2400",
+            "ethical_npc_name": "Andy",
+            "ethical_script": "I'm really sorry. I promise you that will never happen again."
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 4,
+        "fields": {
+            "module": "1",
+            "scene": 4,
+            "is_mandatory": false,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/9Rir5XzUgJZEkPLx3mNqjzhYgUTt9y4iTQpkt6DGA4mOW38nn29NTaWU7X3-sYU75NFtE9ljpXuoxlGAV6Hgo2-roD9WUeqtOH0X7ZWJiUlFm42weJHVgEBJ33qst94jd1vP6-3R=w2400",
+            "ethical_npc_name": "John",
+            "ethical_script": "Just try not to have too much fun. Know what I mean?"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 5,
+        "fields": {
+            "module": "1",
+            "scene": 5,
+            "is_mandatory": true,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/40k6wjOeC6CYkFABbmvzG0JSckFNM8ApvbFjJOOuETuteljrUj1WWTMQxVE7NCsAmhlYVuh_7OJ9ThE8Jd-io1FQUxC84RTLhDZDoyaUivjWRrgy1gAQHwrHuSqVyaMe8QFnzVy0=w2400",
+            "ethical_npc_name": "Kennedy",
+            "ethical_script": "We rely on employees like you to make us aware of any misconduct."
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 6,
+        "fields": {
+            "module": "1",
+            "scene": 6,
+            "is_mandatory": false,
+            "player_role": "Witness (Bystander)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/MaNH_hmuLA4s6-FJUJNuHfvKJimpVKTD47JaG40w504ulUqw5Ld7ETH0BD3pjoEzKOBsBrbh_jxD4xaeIeQmtDHiLZ1xAX_HLdv2Nxwt5XITa7p7QLb2TvCUrg_glKsNkwSQy3Un=w2400",
+            "ethical_npc_name": "Ruben",
+            "ethical_script": "Though I have to admit, that low-cut blouse doesn't make things any easier, does it?"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 7,
+        "fields": {
+            "module": "1",
+            "scene": 7,
+            "is_mandatory": true,
+            "player_role": "Respondent (Perpetrator)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/QB05C7AJglg6VBHTpO1DniSEjm50ydexuAm0jy9FrcLnUjNGwHBoGgc3C_D4VDd_-5g5kihfvO199NgrGyv2mlzGZcFQKaZjOEHKeJIm8NJU0lpSLlZXEZpsAj6dcQYTgY_T-Qbg=w2400",
+            "ethical_npc_name": "Alexa",
+            "ethical_script": "Why don't you ask Joyce what she's up to?"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 8,
+        "fields": {
+            "module": "3",
+            "scene": 1,
+            "is_mandatory": true,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/lr85mJG4P3pBSxBG3EYuwI5xx3I-Nr9kmWqjAdKdPBLgNiAisgdf915Pi-WNJCnyqSJuVNhUGagHgQ7gHS7R47gdeDgm1ieeXWPnqzpf8nvzq4P1ru-VJa4QXr3jAj_iy6GVV9Xu=w2400",
+            "ethical_npc_name": "Promela",
+            "ethical_script": "(Forwards email from Chris says \"Why is the product not deployed this year? Looks like the project is moving backwards because Mari took over the project!\")"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 9,
+        "fields": {
+            "module": "3",
+            "scene": 2,
+            "is_mandatory": true,
+            "player_role": "Complainant (Victim)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/8sot4Wqr3rhk_DAc0Vn5EbftrmUCpvaQCRDIQgRUx_HcbJU8z1MJrzhXrQqPboGaOR-q2zIlFIPuJsVvPfK_bD9sysvWpMboUTHViPQVHquc070kQU7v5F4R-yTBLWcA5hhxD5rR=w2400",
+            "ethical_npc_name": "Nicole",
+            "ethical_script": "I see, well your mood may be affecting your quality of work, I don't want that to happen so try not to think about this too much."
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 10,
+        "fields": {
+            "module": "3",
+            "scene": 3,
+            "is_mandatory": true,
+            "player_role": "Respondent (Perpetrator)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/NhKUbiNgFI5-RsiC2CgwoTdHny9i2Ie4DNSgxXYIOxyIAxgttlTDpQ-n96zUfYR2zgZKMMRsngfB90ISwg5slTLaOmjdiX8XFKs2NenpHWwaoRGYl5rFtOHPYC2JgmuVbTm_p63p=w2400",
+            "ethical_npc_name": "Mari",
+            "ethical_script": "We've even met Milestone #1 quite early and--"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 11,
+        "fields": {
+            "module": "3",
+            "scene": 4,
+            "is_mandatory": true,
+            "player_role": "Witness (Bystander)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/YeQOU0N44NTUaWbY6E63Oq4pWTB0sRWbKwZ77XQrv93DavNKsOotnXjxISPqcsQAUkIUJuzXiEnSxPaOx9ZibXBV2E_YutkvKoX5jQXipIavbw_TrqcxdNN0xkW0YgS_5mWGz_Co=w2400",
+            "ethical_npc_name": "Mari",
+            "ethical_script": "Something about Lumine moving backwards..."
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 12,
+        "fields": {
+            "module": "3",
+            "scene": 5,
+            "is_mandatory": true,
+            "player_role": "Respondent (Perpetrator)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/ZvpbHx2hu3LLVMk1WG-ooiouAl9acPkpeJw6UgFz8qGqEbgZpNDjfSCg15zw8ThZ9f50MVplAFtebI9KDURL4NAtSuy-mPgm2_JIWasR4-ZK7MSNICk69zgnbgjZndvzAKqkgl6b=w2400",
+            "ethical_npc_name": "Mari",
+            "ethical_script": "Could you refrain from making those types of statements in the future?"
+        }
+    },
+    {
+        "model": "enpApi.sceneinfo",
+        "pk": 13,
+        "fields": {
+            "module": "3",
+            "scene": 6,
+            "is_mandatory": true,
+            "player_role": "Witness (Bystander)",
+            "ethical_screenshot": "https://lh3.googleusercontent.com/IdbXmMoqP86d3dTqRPD-I9hEGCRku-b5oD16M7UDyGFYsT7iWMlgNcNwt_Jd3YoldRgagHTnaX0uMBeg4FIWa7_882uSfM5zsvv50Ig7ieacAtkQOk5JS29WEEfNI83HdYYZ3955=w2400",
+            "ethical_npc_name": "Promela",
+            "ethical_script": "I'm glad you resolved it. Acutally Chris has been giving me a hard time too."
+        }
+    }
+]
