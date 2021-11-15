@@ -498,55 +498,24 @@ section {
 }
 
 #consent-popup {
-    position: fixed;
+    position: fixed !important;
+    /* position: -webkit-sticky!important;
+    position: sticky!important; */
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 2rem 6rem;
-    background-color: #F6F6F6;
+    padding: 2rem 5rem;
+    background-color: #fbedface;
     transition: opacity 1s ease;
+    overflow-y:scroll;
 
     &.hidden {
         opacity: 0;
     }
 }
-  /* .cookie-consent-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 2147483645;
-    box-sizing: border-box;
-    width: 100%;
-  
-    background-color: #f2dbe7e9;
-  }
-  
-  .cookie-consent-banner__inner {     
-    max-width: 960px;
-    margin: 0 10%;
-    padding: 32px 0;
-  }
-  
-  .cookie-consent-banner__copy { 
-    margin-bottom: 16px;
-  }
-  
-  .cookie-consent-banner__header {
-    margin-bottom: 8px;
-    font-family: "CeraPRO-Bold", sans-serif, arial;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
-  .cookie-consent-banner__description {
-    font-family: "CeraPRO-Regular", sans-serif, arial;
-    font-weight: normal;
-    color: #494949;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  
+section.non-relative{
+        position:unset
+    }
   .cookie-consent-banner__cta {
     box-sizing: border-box;
     display: inline-block;
@@ -555,6 +524,7 @@ section {
       
     border-radius: 2px;
     
+    border: transparent;
     background-color: rgb(214, 178, 205);
      
     color: #FFF;
@@ -567,13 +537,11 @@ section {
   }
   
   .cookie-consent-banner__cta--secondary { 
-    padding: 9px 13px;
-    
-    border: 2px solid rgb(214, 178, 205);
+    border: transparent;
     
     background-color: transparent;
     
-    color: #494949;
+    color: #494949d1;
   }
   
   .cookie-consent-banner__cta:hover {
@@ -581,7 +549,6 @@ section {
   }
   
   .cookie-consent-banner__cta--secondary:hover {
-    border-color: #838F93;
       
     background-color: transparent;
     
@@ -590,4 +557,4 @@ section {
   
   .cookie-consent-banner__cta:last-child {
     margin-left: 16px;
-  } */
+  } 
