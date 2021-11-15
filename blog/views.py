@@ -1035,9 +1035,9 @@ def portal_ethical_report(request, pk):
 
         # supervisor can view aggregated report
         if player.supervisor and pk == "team_report":
-            # aggregate data
-            # get all data for now, need to filter out a supervisor's employees
-            queryset = EthicalFeedback.objects.all()
+            # filter team and aggregate data
+            thisTeamMembers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
+            queryset = EthicalFeedback.objects.filter(user__in=thisTeamMembers)
 
             # calulate average emotion value for each scene
             feedbackCountInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: count of feedbacks}}
