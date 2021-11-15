@@ -75,7 +75,7 @@
                             {% if play_sessions.count != 0 %}
                                 <div class="row">
                                         <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span></h3>
-                                        <p>All modules must be completed by June 15, 2021.</p>
+                                        <p>All modules must be completed by {{due_date}}.</p>
                                         <br><br>
                                         <div class="table-responsive">
                                             <table class="table-sisu-overview">
@@ -99,10 +99,19 @@
                                                         {% endfor %}
                                                     </tr>
                                                     <tr>
+                                                        <td>Mandatory</td>
+                                                        {% for play_session in play_sessions.all %}
+                                                        <td>
+                                                            {% if play_session.module_id in mandatory_modules_list %} &#10003;
+                                                            {% endif %}
+                                                        </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    <tr>
                                                         <td>Date Completed</td>
                                                         {% for play_session in play_sessions.all %}
                                                             {% if play_session.success is True %}
-                                                                <td>{{ play_session.date_modified }}</td>
+                                                                <td>{{ play_session.date_taken }}</td>
                                                             {% else %}
                                                                 <td>-</td>
                                                             {% endif %}

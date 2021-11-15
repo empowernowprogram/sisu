@@ -4,6 +4,7 @@ import sendgrid
 import os, urllib
 import requests, json
 from collections import defaultdict
+from datetime import timedelta
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -596,7 +597,22 @@ def portal_home(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+
+        due_date = player.training_deadline or player.creation_date + timedelta(days= player.employer.deadline_duration_days)
+        
+        company_mandatory_modules = player.employer.mandatory_modules.all()
+        mandatory_modules_list = []
+
+        for module in company_mandatory_modules:
+            mandatory_modules_list.append(int(module.code))
+
+        context = {
+            'player': player, 
+            'play_sessions': play_sessions, 
+            'play_sessions_completed': play_sessions_completed,
+            'due_date': due_date,
+            'mandatory_modules_list': mandatory_modules_list
+            }
         
         return render(request, 'portal/home.html', context)
     else:
