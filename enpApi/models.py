@@ -80,7 +80,7 @@ class RegKey(models.Model):
     training_duration = models.IntegerField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
 
-class ModuleDownloadLink(models.Model):
+class TrainingPackageDownloadLink(models.Model):
     # holds download links for modules
     training_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
     training_category_choices = (('None', 'None'), ('Harassment Training', 'Harassment Training'))
@@ -91,6 +91,7 @@ class ModuleDownloadLink(models.Model):
     platform_category = models.CharField(max_length=255, null=False, blank=False, choices=platform_category_choices)
     download_link = models.CharField(max_length=554, null=False, blank=False)
     description = models.TextField(max_length=1000, null=True, blank=True)
+    size = models.CharField(max_length=10, null=True, blank=True, default='1.2GB')
 
     is_supervisor = models.BooleanField(null=False, blank=False)
 

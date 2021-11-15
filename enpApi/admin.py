@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from django.contrib import admin
-from .models import Modules, Player, Employer, PlaySession, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
+from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('user', 'employer', 'supervisor', 'admin', 'creation_date')
@@ -16,7 +16,7 @@ class EmployerAdmin(admin.ModelAdmin):
     list_display = ('company_name', 'id')
 
 
-class ModuleDownloadLinkAdmin(admin.ModelAdmin):
+class TrainingPackageDownloadLinkAdmin(admin.ModelAdmin):
     list_display = ('id', 'training_type', 'platform_category', 'is_supervisor')
 
 
@@ -50,7 +50,7 @@ class ModulesAdmin(admin.ModelAdmin):
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Employer, EmployerAdmin)
 admin.site.register(PlaySession, PlaySessionAdmin)
-admin.site.register(ModuleDownloadLink, ModuleDownloadLinkAdmin)
+admin.site.register(TrainingPackageDownloadLink, TrainingPackageDownloadLinkAdmin)
 admin.site.register(PostProgramSurvey, PostProgramSurveyAdmin)
 admin.site.register(PostProgramSurveySupervisor, PostProgramSurveySupervisorAdmin) 
 admin.site.register(Adjective, AdjectiveAdmin)
