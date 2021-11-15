@@ -3,7 +3,8 @@ from django.contrib import admin
 # Register your models here.
 
 from django.contrib import admin
-from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
+from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, SupervisorMapping
+from .models import ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('user', 'employer', 'supervisor', 'admin', 'creation_date')
@@ -47,6 +48,9 @@ class EthicalFeedbackAdmin(admin.ModelAdmin):
 class ModulesAdmin(admin.ModelAdmin):
     list_display = ('code', 'creation_date', 'is_mandatory')
 
+class SupervisorMappingAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'supervisor', 'creation_date', 'modification_date')
+
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Employer, EmployerAdmin)
 admin.site.register(PlaySession, PlaySessionAdmin)
@@ -60,3 +64,4 @@ admin.site.register(Behavior, BehaviorAdmin)
 admin.site.register(SceneInfo, SceneInfoAdmin)
 admin.site.register(EthicalFeedback, EthicalFeedbackAdmin)
 admin.site.register(Modules, ModulesAdmin)
+admin.site.register(SupervisorMapping, SupervisorMappingAdmin)
