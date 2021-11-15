@@ -28,7 +28,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
-from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from enpApi.models import PlaySession, Player, Employer, Modules, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
 from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
@@ -893,18 +893,18 @@ def portal_training_dl(request):
     if request.user.is_authenticated:
       player = Player.objects.get(user=request.user)
       if player.admin == True:
-        module_download_links = ModuleDownloadLink.objects.all()
+        module_download_links = TrainingPackageDownloadLink.objects.all()
             # module_download_links = module_download_links.order_by('is_supervisor')
       else:
             # non-supervisor
         if player.supervisor == False and player.registration_type == 'Desktop':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
         elif player.supervisor == False and player.registration_type == 'VR':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
         elif player.supervisor == True and player.registration_type == 'Desktop':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
         elif player.supervisor == True and player.registration_type == 'VR':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
         else:
           module_download_links = ''
 
