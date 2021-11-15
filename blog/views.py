@@ -29,7 +29,7 @@ from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
-from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback, SupervisorMapping # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -1022,7 +1022,7 @@ def getColor(behavior):
     return colorDict[behavior]
 
 
-def portal_ethical_report(request):
+def portal_ethical_report(request, pk):
     if request.user.is_authenticated:
 
         player = Player.objects.get(user=request.user)
@@ -1033,8 +1033,8 @@ def portal_ethical_report(request):
             return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
 
 
-        # supervisor
-        if player.supervisor:
+        # supervisor can view aggregated report
+        if player.supervisor and pk == "team_report":
             # aggregate data
             # get all data for now, need to filter out a supervisor's employees
             queryset = EthicalFeedback.objects.all()
@@ -1110,6 +1110,7 @@ def portal_ethical_report(request):
             modules = sorted(list(emotionSumInModule.keys()))
 
             context = {
+                'isAggregatedReport': pk == "team_report",
                 'completedTraining': True,
                 'player': player, 
                 'modules': modules,
@@ -1130,8 +1131,8 @@ def portal_ethical_report(request):
 
             }
 
-        # not supervisor
-        else:
+        # individual report
+        elif pk == "my_report":
 
             username = request.user.username
 
@@ -1199,6 +1200,7 @@ def portal_ethical_report(request):
                 colors.append(getColor(b))
 
             context = {
+                'isAggregatedReport': pk == "team_report",
                 'completedTraining': True,
                 'player': player,
                 'modules': modules,

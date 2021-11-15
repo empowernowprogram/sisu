@@ -55,15 +55,13 @@
                 </div>
             </div>
 
-            {% elif not player.supervisor %}
+            {% elif not isAggregatedReport %}
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
                     course of <strong>Module {{module}}</strong>.</p>
                 <p class="ethical-report ethi-text-sm">Hover over each bar for details.</p>
-                <!-- style="background: #4E657A; -->
                 <div id="container" style="position: relative; width: 85%; z-index: 2; padding:2%;">
-                    <!-- <canvas id="efr" data-url="{% url 'ethical_report' %}"></canvas> -->
                     <canvas id="efr_module{{module}}"></canvas>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
