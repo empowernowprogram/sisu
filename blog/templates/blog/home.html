@@ -45,8 +45,6 @@
 
     <!-- Body Inner -->
     <div class="body-inner">
-
-
         <!-- Header -->
         <header id="header" data-transparent="true" data-fullwidth="true" data-responsive-fixed="true"
             data-sticky-active="500" class="dark submenu-light header-fixed home">
@@ -451,7 +449,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="non-relative">
             <div class="container">
                 <div class="bg-cube-container" style="float: right; margin-right: 0%;">
                     <div class="bg-cube-element" style="width:26px; height:18px; margin-top:0%; margin-left:80px">
@@ -674,7 +672,62 @@
             </div>
         </section>
 
+<!-- Cookies -->
+        <div id="consent-popup" class="hidden">
+            <p>By using this site you agree to our <a href="http://127.0.0.1:8000/terms_conditions/">Terms and Conditions</a>.
+                Please accept these before using the site.
+            </p>
+            <div class="cookie-consent-banner__actions">
+                <button class="cookie-consent-banner__cta" id="accept">
+                    OK
+                </button>
+                
+                <button class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary" id="decline">
+                    Decline
+                </button></div>
+        </div>
+        <script>
+            const cookieStorage = {
+                getItem: (item) => {
+                    const cookies = document.cookie
+                    .split(';')
+                    .map(cookie => cookie.split('='))
+                    .reduce((acc, [key, value]) => ({ ...acc, [key.trim()]: value }), {});
+                    return cookies[item];
+                },
+                setItem: (item, value) => {
+                    document.cookie = `${item}=${value};`
+                }
+            }   
 
+            const storageType = cookieStorage;
+            const consentPropertyName = 'jdc_consent';
+            const shouldShowPopup = () => !storageType.getItem(consentPropertyName);
+            const saveToStorage = () => storageType.setItem(consentPropertyName, true);
+
+            window.onload = () => {
+
+                const acceptFn = event => {
+                    saveToStorage(storageType);
+                    consentPopup.classList.add('hidden');
+                }
+                const declineFn = event =>{
+                    consentPopup.classList.add('hidden');
+                }
+                const consentPopup = document.getElementById('consent-popup');
+                const acceptBtn = document.getElementById('accept');
+                const declineBtn = document.getElementById('decline');
+                acceptBtn.addEventListener('click', acceptFn);
+                declineBtn.addEventListener('click', declineFn);
+
+                if (shouldShowPopup(storageType)) {
+                    setTimeout(() => {
+                        consentPopup.classList.remove('hidden');
+                    }, 2000);
+                }
+
+            };
+        </script>
 
         <!-- Footer -->
         <footer id="footer" class="sisu-footer-bg">
