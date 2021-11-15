@@ -39,19 +39,22 @@
                         <h1 class="cert cert-player-name">{{ player.full_name }}</h1>
                         <p class="cert cert-text-reg">has successfully completed</p>
 
-                        <p class="cert cert-text-reg"><strong>The Empower Now Program: Harassment-Free Workplace
-                                Training</strong><br>by Sisu VR</p>
-                        <p class="cert cert-text-reg">October 25, 2020</p>
+                        <p class="cert cert-text-reg"><strong>The Empower Now Program: Business Conduct Training</strong></p>
+                        <p class="cert cert-text-reg">{{date}}</p>
 
-                        <div class="col-md-6 cert-col">
-                            <img src="{% static 'portal/img/logo-sisu.svg' %}" width="56px" height="auto" alt="Sisu VR">
+                        <div class="col-md-6 cert-col" >
+                            <img src="{% static 'portal/img/logo-sisu.svg' %}" height="35" alt="Sisu VR">
                         </div>
                         <div class="col-md-6 cert-col">
-                            COMPANY LOGO / NAME
+                            {% if not logo %}
+                                <p class="cert cert-text-reg">{{company}}</p>
+                            {% else %}
+                                <img src="{{logo}}" height="50">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% elif play_sessions_completed.count is not play_sessions.count %}
+                {% else %}
                 <div class="panel panel-white cert-container">
                     <div class="panel-body">
                         <h1 class="cert cert-title">Nice Try!</h1>

@@ -951,8 +951,22 @@ def portal_certificate(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+        company = player.employer.company_name
+        logoLink = player.employer.logo
 
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+        date = None
+        for session in play_sessions_completed:
+            if not date or session.date_taken > date:
+                date = session.date_taken
+
+        context = {
+            'player': player, 
+            'play_sessions': play_sessions, 
+            'play_sessions_completed': play_sessions_completed, 
+            'company': company, 
+            'logo': logoLink,
+            'date': date
+            }
     
         return render(request, 'portal/certificate.html', context)
     else:

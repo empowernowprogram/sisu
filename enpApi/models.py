@@ -4,9 +4,18 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Employer(models.Model):
+    employer_id = models.IntegerField(null=True) # do we need this
+    company_name = models.CharField(max_length=60)
+    logo = models.TextField(max_length=1000, null=True, blank=True)
+    description = models.TextField(max_length=1000, null=True, blank=True)
+
+    def __str__(self):
+        return self.company_name
+
 class Player(models.Model):
     email = models.CharField(max_length=50, primary_key=True)
-    employer = models.IntegerField()
+    employer = models.ForeignKey(Employer, on_delete=models.DO_NOTHING, null=True)
     
     full_name = models.CharField(max_length=60)
     supervisor = models.BooleanField(default=False)
@@ -18,10 +27,6 @@ class Player(models.Model):
 
     def __str__(self):
         return self.email
-
-class Employer(models.Model):
-    company_name = models.CharField(max_length=60)
-    employer_id = models.IntegerField(null=True)
 
 class Modules(models.Model):
     code = models.CharField(max_length=10)
