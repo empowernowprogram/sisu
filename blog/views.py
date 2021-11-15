@@ -44,6 +44,8 @@ from .chart import CatPieChart, PollHorizontalBarChart
 from django.views.generic import TemplateView
 
 from django.contrib.auth.models import User, auth
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 
@@ -954,10 +956,34 @@ def portal_employee_progress(request):
 
 
 def portal_settings(request):
+
     if request.user.is_authenticated:
+
         player = Player.objects.get(user=request.user)
-        context = { 'player': player }
+
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('settings')
+
+            else:
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you filled out all required fields and followed the password rules. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+
+        else:
+            form = PasswordChangeForm(request.user)
+        
+
+        context = {
+            'player': player,
+            'form': form
+            }
+
         return render(request, 'portal/settings.html', context)
+
     else:
         return render(request, 'auth/login.html')
 

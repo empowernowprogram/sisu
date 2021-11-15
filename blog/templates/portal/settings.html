@@ -25,6 +25,18 @@
         <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
     </head>
 
+    <style>
+        th {
+            font-size: 14px;
+            vertical-align: top;
+        }
+        ul {
+            font-size: 12px;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+    </style>
+
     <body>
 
         <!-- Page Container -->
@@ -78,25 +90,16 @@
                                                 </h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form  method="post">
+                                                <form  method="post" class="space-y-6">
                                                     {% csrf_token %}
-                                                    <div class="form-group">
-                                                        <label class="control-label">Current Password</label>
-                                                        <input type="password" class="form-control" id="user-current-password" required="true">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">New Password</label>
-                                                        <input type="password" class="form-control" id="user-new-password1" required="true">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Confirm New Password</label>
-                                                        <input type="password" class="form-control" id="user-new-password2" required="true">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
-                                                        <button type="button" class="btn btn-sisu-primary" type="submit">Change Password</button>
-                                                    </div>
+                                                    <table border="0">
+                                                        {{ form.as_table }}
+                                                    </table>
+                                                    <br/>
+                                                    <button type="submit" class="btn btn-sisu-primary">Save changes</button>
+                                                    <br/>
                                                 </form>
+                                                <br/>
                                             </div>
                                         </div>
                                     </div>
