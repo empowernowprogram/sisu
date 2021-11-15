@@ -4,11 +4,23 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Modules(models.Model):
+    code = models.CharField(max_length=10)
+    case = models.IntegerField()
+    creation_date = models.DateField()
+    is_available = models.BooleanField(default=False)
+    is_mandatory = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.code
+
 class Employer(models.Model):
     employer_id = models.IntegerField(null=True) # do we need this
     company_name = models.CharField(max_length=60)
     logo = models.TextField(max_length=1000, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
+    deadline_duration_days = models.IntegerField(default=60)
+    mandatory_modules = models.ManyToManyField(Modules, blank=True, null=True)
 
     def __str__(self):
         return self.company_name
@@ -24,16 +36,11 @@ class Player(models.Model):
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
     is_provisional = models.BooleanField(default=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    training_deadline = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.email
-
-class Modules(models.Model):
-    code = models.CharField(max_length=10)
-    case = models.IntegerField()
-    creation_date = models.DateField()
-    is_available = models.BooleanField(default=False)
-    is_mandatory = models.BooleanField(default=False)
 
 class PlaySession(models.Model):
     employer = models.IntegerField()
