@@ -560,10 +560,13 @@ def portal_signup(request):
         print(request.POST['isSuper'])
         if user is not None:
             auth.login(request, user)
-            if request.POST['npassword1'] == request.POST['npassword2']:
+            npassword1 = request.POST['npassword1']
+            npassword2 = request.POST['npassword2']
+            if npassword1 == npassword2:
                 user.set_password(npassword1)
                 user.save()
-                ply = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=emp.employer_id)
+                ply = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=emp)
+                
                 PlaySession.objects.create(employer=emp.employer_id, player=ply, module_id=0, score=0, success=False, time_taken=0)
                 return redirect('/portal/home/')
             else:
@@ -571,7 +574,6 @@ def portal_signup(request):
         else:
             context = {'bad_login_is': True}
             messages.info(request, 'invalid credentials')
-            # messages.info(request, 'invalid credentials')
             return render(request, 'auth/register.html', context)
     else:
         training = request.GET['type']
@@ -635,36 +637,26 @@ def split_emails(email_string):
     return emails
 
 
-
-def send_html_email(template, content, subject, to_emails, from_email='hello@sisuvr.com'):
-    """
-    Sends .html email base on template and returns a boolean if the email was successfully sent.
-
-    `to_emails` should be a list (i.e. [my@email.com,...])
-    """    
-    email_sent = False
+# send_html_email sends email and returns True if the email is successfully sent
+def send_html_email(email_templates, context, subject, email_address, from_email='hello@sisuvr.com'):
     try:
-        msg_html = render_to_string(template, content)
-        msg = EmailMessage(subject=subject, body=msg_html, to=to_emails, from_email=from_email)
-        msg.content_subtype = "html"
-        msg.send()
-        email_sent = True
-        #send_mail('Testing SMTP from Django', 'Please respond via Slack if this works', settings.EMAIL_HOST_USER, ['jocelyn.tan@sisuvr.com'])
-        return email_sent
+        html = render_to_string(email_templates, context)
+        message = EmailMultiAlternatives(subject, '', from_email, [email_address])
+        message.attach_alternative(html, "text/html")
+        message.send()
+        return True
     except:
-        return email_sent
-
-
+        return False
 
 
 def portal_register(request):
-    if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
 
-        context = {'player': player}
-        emp = Employer.objects.get(employer_id=player.employer)
-        employer = emp.company_name
-        
+    if request.user.is_authenticated:
+
+        player = Player.objects.get(user=request.user)
+        employer = player.employer
+        employer_name = employer.company_name
+        due_date_by_days = employer.deadline_duration_days
          
         if request.is_ajax():
             print('request - is ajax')
@@ -680,154 +672,82 @@ def portal_register(request):
             emails_desktop_nonsupervisor    = split_emails(emails_desktop_nonsupervisor)
             emails_desktop_supervisor       = split_emails(emails_desktop_supervisor)
 
-            print(emails_vr_nonsupervisor)
-            email_subject = 'test subject'
-            email_message = 'test email message body'
-            
-            print('attempt to send email')
-            #send_mail(
-            #    'EMAIL SUBJECT',                                            # subject
-            #    'TEST MESSAGE',                                                  # message
-            #    'hello@sisuvr.com',                                             # from email
-            #    ['srossi455@gmail.com'],                                   # to email
-            #)
-            print('email sent')
+            # common settings for all type of users
+            default_pwd = "default1234"
+            subject = "Register for the Empower Now Program from Sisu VR"
+            email_templates = 'email-templates/email-training-signup.html'
+            context = {'company_name': employer_name, 'due_date_by_days': due_date_by_days, 'training_duration': "60 Minutes", 'pw': default_pwd}
 
-           
+            failure_list = []
 
-            # send emails
-            # TODO - needs to be fixed, emails do not send due to internal server error
-            if len(emails_vr_nonsupervisor) > 0:
-                print("Should attempt to send email")
-                for i in emails_vr_nonsupervisor:
-                    if i == '':
-                        break
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    from_email = Email("hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    print(i)
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    #plain_message = strip_tags(html)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
-                    #from_email, to = 'hello@sisuvr.com', i
-                    #html_content = str(content)
-                    #msg = EmailMessage(subject, html_content, from_email, [to])
-                    #msg.content_subtype = "html"
-                    #msg.send()                    
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
-                    #mail.send_mail(
-                    #    subject,                                            # subject
-                    #    plain_message,                                                  # message
-                    #    'hello@sisuvr.com',                                             # from email
-                    #    [i],                                   # to email
-                    #    html_message=html
-                    #)
+            # send emails for VR nonsupervisors
+            for email_address in emails_vr_nonsupervisor:
+                if email_address == '':
+                    break
+
+                if not get_user_model().objects.filter(email=email_address).exists():
+                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+
+                context['user'] = email_address
+                context['training_type'] = 'VR'
+                context['isSuper'] = 0
+
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                if not is_success:
+                    failure_list.append(email_address)
                 
-            if len(emails_vr_supervisor) > 0:
-                for i in emails_vr_supervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
+            # send emails for VR supervisors
+            for email_address in emails_vr_supervisor:
+                if email_address == '':
+                    break
+                if not get_user_model().objects.filter(email=email_address).exists():
+                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                
+                context['user'] = email_address
+                context['training_type'] = 'VR'
+                context['isSuper'] = 1
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                if not is_success:
+                    failure_list.append(email_address)
 
-            if len(emails_desktop_nonsupervisor) > 0:
-                for i in emails_desktop_nonsupervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
+            # send emails for Desktop nonsupervisors
+            for email_address in emails_desktop_nonsupervisor:
+                if email_address == '':
+                    break
+                if not get_user_model().objects.filter(email=email_address).exists():
+                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                
+                context['user'] = email_address
+                context['training_type'] = 'Desktop'
+                context['isSuper'] = 0
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                if not is_success:
+                    failure_list.append(email_address)
 
-            if len(emails_desktop_supervisor) > 0:
-                for i in emails_desktop_supervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())                
+            # send emails for Desktop supervisors
+            for email_address in emails_desktop_supervisor:
+                if email_address == '':
+                    break
+                if not get_user_model().objects.filter(email=email_address).exists():
+                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                
+                context['user'] = email_address
+                context['training_type'] = 'Desktop'
+                context['isSuper'] = 1
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                if not is_success:
+                    failure_list.append(email_address)
             
-            #print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
-            context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
+
+            context = {'status': 'success', 'failure_list': failure_list}
             return JsonResponse(context, status=200)
 
+        context = {'player': player}
         return render(request, 'portal/register.html', context)
+
     else:
         return render(request, 'auth/login.html')
 
