@@ -481,17 +481,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap');
 
 
-section {
-    &.hero {
-        background-image: linear-gradient(270deg, rgba(0,0,0,0.38559173669467783) 0%, rgba(0,0,0,0) 78%), url('img/hero.jpg');
-        background-size: cover;
-        background-position: 0  -200px ;
-        height: 900px;
-        display: flex;
-        padding: 2rem 6rem;
-    }
-}
-
 .info {
     flex: 2;
     padding: 2rem;
@@ -509,9 +498,6 @@ section {
     transition: opacity 1s ease;
     overflow-y:scroll;
 
-    &.hidden {
-        opacity: 0;
-    }
 }
 section.non-relative{
         position:unset
