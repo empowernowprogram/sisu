@@ -130,7 +130,7 @@
                                         <br>
                                         <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
 
-                                        {% if play_sessions_completed.count is play_sessions.count %}
+                                        {% if has_completed_all_mandatory %}
                                             {% if player.is_provisional is False %}
                                                 <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}" target="_blank">See my results</a>
                                                 {% if player.supervisor is True %}
@@ -144,6 +144,9 @@
                                             {% else %}
                                                 <p><strong>Unable to download certificate due to accounts provisional status, contact your HR administrator to resolve issue.</strong></p>
                                             {% endif %}
+                                        
+                                        {% else %}
+                                            <p>Please complete all mandatory modules to view your result and print certificate.</p>
                                         
                                         {% endif %}
                                         
