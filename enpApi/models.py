@@ -42,6 +42,15 @@ class Player(models.Model):
     def __str__(self):
         return self.email
 
+class SupervisorMapping(models.Model):
+    employee = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_member', on_delete=models.CASCADE, null=True)
+    supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_supervisor', on_delete=models.CASCADE, blank=True, null=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    modification_date = models.DateField(auto_now=True, null=True)
+
+    class Meta:
+        ordering = ['supervisor']
+
 class PlaySession(models.Model):
     employer = models.IntegerField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
