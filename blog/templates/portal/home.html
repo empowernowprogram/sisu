@@ -132,11 +132,13 @@
 
                                         {% if play_sessions_completed.count is play_sessions.count %}
                                             {% if player.is_provisional is False %}
-                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' %}" target="_blank">See my results</a>
-                                                <br/>
+                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}" target="_blank">See my results</a>
                                                 {% if player.supervisor is True %}
+                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='team_report' %}" target="_blank">See team results</a>
+                                                    <br/>
                                                     <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}" target="_blank">Print certificate</a>
                                                 {% elif player.supervisor is False %}
+                                                    <br/>
                                                     <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='nonsupervisor' %}" target="_blank">Print certificate</a>
                                                 {% endif %}
                                             {% else %}
