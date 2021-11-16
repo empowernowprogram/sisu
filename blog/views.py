@@ -608,12 +608,20 @@ def portal_home(request):
         for module in company_mandatory_modules:
             mandatory_modules_list.append(int(module.code))
 
+        has_completed_all_mandatory = True
+
+        for play_session in play_sessions:
+            if not play_session.success and play_session.module_id in mandatory_modules_list:
+                has_completed_all_mandatory = False
+                break
+
         context = {
             'player': player, 
             'play_sessions': play_sessions, 
             'play_sessions_completed': play_sessions_completed,
             'due_date': due_date,
-            'mandatory_modules_list': mandatory_modules_list
+            'mandatory_modules_list': mandatory_modules_list,
+            'has_completed_all_mandatory': has_completed_all_mandatory
             }
         
         return render(request, 'portal/home.html', context)
