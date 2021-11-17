@@ -3,7 +3,7 @@
 
 <div class="page-sidebar">
     <a class="logo-box" href="{% url 'home_portal' %}">
-        <img src="{% static 'portal/img/logo-sisu.svg' %}" width="100px" height="auto" alt="SISU VR">
+        <img src="{% static 'portal/img/logo-sisu.svg' %}" width="100px" height="auto" alt="Sisu VR">
         <i class="icon-close" id="sidebar-toggle-button-close"></i>
     </a>
     <div class="page-sidebar-inner">
@@ -13,16 +13,6 @@
                     <a href="{% url 'home_portal' %}">
                         <i class="menu-icon icon-home4"></i><span>Home</span>
                     </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="menu-icon icon-flash_on"></i><span>Registration</span><i
-                            class="accordion-icon fa fa-angle-left"></i>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{% url 'register' %}">Register</a></li>
-                        <li><a href="{% url 'edit-registration' %}">Edit Registration</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'downloads' %}">
