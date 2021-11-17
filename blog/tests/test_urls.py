@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from blog.views import index, about_us, contact, faq # for public pages
-from blog.views import portal_home, portal_register, portal_edit_registration, portal_training_dl, portal_training_dl_trial, portal_employee_progress, portal_settings, post_program_survey, save_survey, portal_certificate, portal_edit, portal_remove, portal_change_password # for training pages
+from blog.views import portal_home, portal_register, portal_edit_registration, portal_training_dl, portal_training_dl_trial, portal_employee_progress, portal_settings, post_program_survey, save_survey, portal_certificate, portal_change_password # for training pages
 
 class TestUrls(SimpleTestCase):
     
@@ -76,16 +76,6 @@ class TestUrls(SimpleTestCase):
     def test_training_certificate_url_resolves(self):
         url = reverse('certificate')
         self.assertEquals(resolve(url).func, portal_certificate)
-
-    # Edit
-    def test_training_edit_url_resolves(self):
-        url = reverse('portal_edit')
-        self.assertEquals(resolve(url).func, portal_edit)
-
-    # Remove
-    def test_training_remove_url_resolves(self):
-        url = reverse('portal_remove')
-        self.assertEquals(resolve(url).func, portal_remove)
 
     # Change password
     def test_training_password_url_resolves(self):

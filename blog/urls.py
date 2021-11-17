@@ -71,6 +71,7 @@ urlpatterns = [
     path('portal/home/', views.portal_home, name='home_portal'),
     path('portal/register/', views.portal_register, name='register'),
     path('portal/edit-registration/', views.portal_edit_registration, name='edit-registration'),
+    path('portal/edit-registration/edit-user', views.portal_edit_user, name='edit-user'),
     path('portal/edit-registration/remove-user', views.portal_remove_user, name='remove-user'),
     path('portal/downloads/', views.portal_training_dl, name='downloads'),
     path('portal/downloads_trial/', views.portal_training_dl_trial, name='downloads_trial'),
@@ -80,8 +81,6 @@ urlpatterns = [
     path('portal/save-survey/<str:pk>', views.save_survey, name='save_survey'),
     path('portal/ethical-report/<str:pk>', views.portal_ethical_report, name='ethical_report'),
     path('portal/certificate/', views.portal_certificate, name='certificate'),
-    path('portal/edit/', views.portal_edit, name='portal_edit'),
-    path('portal/remove/', views.portal_remove, name='portal_remove'),
     path('portal/change_pwd/', views.portal_change_password, name='portal_pwd'),
     # Training Portal - END
 

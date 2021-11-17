@@ -781,6 +781,8 @@ def portal_change_password(request):
         return render(request, 'auth/login.html')
 
 
+""" Training Portal - Registration START """
+
 def portal_edit_registration(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -793,77 +795,37 @@ def portal_edit_registration(request):
     else:
         return render(request, 'auth/login.html')
 
+def portal_edit_user(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user_email = request.POST['userEmail1']
+            user_name = request.POST['userName']
+            user_registration_type = request.POST['regiTypeDropDown']
+            isSupervisor = (user_registration_type == "1") # value 1 means user selected "Supervisor"
+            
+            Player.objects.filter(email=user_email).update(full_name=user_name, supervisor=isSupervisor)
+
+            return redirect('/portal/edit-registration/')
+
+    else:
+        return render(request, 'auth/login.html')
+
 def portal_remove_user(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            user_email = request.POST['userEmail']
+            user_email = request.POST['userEmail2']
 
             # remove player (play session) and then remove user
             # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
             Player.objects.filter(email=user_email).delete()
             CustomUser.objects.filter(email=user_email).delete()
 
-            # redirect to portal/edit-registration/
             return redirect('/portal/edit-registration/')
 
     else:
         return render(request, 'auth/login.html')
 
-def portal_edit_user(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            user_email = request.POST['userEmail']
-
-            # remove player (play session) and then remove user
-            # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
-            Player.objects.filter(email=user_email).delete()
-            #CustomUser.objects.filter(email=user_email).delete()
-
-            # redirect to portal/edit-registration/
-            return redirect('/portal/edit-registration/')
-
-    else:
-        return render(request, 'auth/login.html')
-
-def portal_edit(request):
-    if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
-
-        context = {'player': player, 'players': players}
-        
-        print(request.POST['usr-email'])
-        print(request.POST['usr-reg'])
-        print(request.POST['isRem'])
-
-        if request.POST['isRem'] == 'true':
-            ply = request.POST['usr-email']
-            Player.objects.filter(email=ply).delete()
-            CustomUser.objects.filter(email=ply).delete()
-        else:
-            if request.POST['usr-reg'] == 'supervisor':
-                ply = Player.objects.filter(email=request.POST['usr-email'])
-                ply.supervisor = True
-                ply.save()
-        return render(request, 'portal/edit-registration.html', context)
-    else:
-        return render(request, 'auth/login.html')
-
-
-def portal_remove(request):
-    if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
-
-        ply = request.POST['usrRem']
-        Player.objects.filter(email=ply).delete()
-        CustomUser.objects.filter(email=ply).delete()
-        context = {'player': player, 'players': players}
-        
-        return render(request, 'portal/edit-registration.html', context)
-    else:
-        return render(request, 'auth/login.html')
-
+""" Training Portal - Registration END """
 
 def portal_training_dl(request):
     if request.user.is_authenticated:

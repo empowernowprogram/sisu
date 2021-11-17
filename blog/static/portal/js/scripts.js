@@ -48,29 +48,29 @@ $(document).ready(function () {
         row_data = $(this).parent().parent().find('td');
         user_registration = row_data[2].innerText
 
-        html_registration = `<select style="padding: 6px 6px; border: 1px solid #C1C7CD; border-radius: 4px">`
+        registration_option = ''
 
         if (user_registration.toLowerCase() === 'supervisor') {
-            html_registration += `<option value="supervisor" selected>Supervisor</option>`
-            html_registration += '<option value="non-supervisor">Non-supervisor</option>'
+            registration_option += `<option value="1" selected>Supervisor</option>`
+            registration_option += '<option value="0" >Non-supervisor</option>'
         } else if (user_registration.toLowerCase() === 'non-supervisor') {
-            html_registration += `<option value="supervisor">Supervisor</option>`
-            html_registration += '<option value="non-supervisor" selected>Non-supervisor</option>'
+            registration_option += `<option value="1" >Supervisor</option>`
+            registration_option += '<option value="0" selected>Non-supervisor</option>'
         } else {
-            html_registration += `<option value="supervisor">Supervisor</option>`
-            html_registration += '<option value="non-supervisor">Non-supervisor</option>'
+            registration_option += `<option value="1" >Supervisor</option>`
+            registration_option += '<option value="0" >Non-supervisor</option>'
         }
 
-        html_registration += '</select>'
-
         // updating modal data
-        $('#user-name').empty();
         $('#user-email').empty();
         $('#user-registration').empty();
 
-        $('#user-name').text(row_data[0].innerText);
         $('#user-email').text(row_data[1].innerText);
-        $('#user-registration').html(html_registration);
+        $('#user-registration').html(registration_option);
+
+        // update form input data
+        $('#userName').val(row_data[0].innerText);
+        $('#userEmail1').val(row_data[1].innerText);
 
     });
 
@@ -89,7 +89,7 @@ $(document).ready(function () {
         $('#remove-user-email').text(row_data[1].innerText);
 
         // update form input data
-        $('#userEmail').val(row_data[1].innerText);
+        $('#userEmail2').val(row_data[1].innerText);
 
     });
 
