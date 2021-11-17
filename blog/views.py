@@ -545,6 +545,7 @@ def portal_logout(request):
 
 
 # Training Portal Authentication / Login, Logout - START
+# portal_signup assign play sessions to user after clicking on the link in registration email
 def portal_signup(request):
     # todo - better method is to incorporate 'next=?' operations and logic
     if request.method == 'POST':
@@ -552,22 +553,28 @@ def portal_signup(request):
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
-        #user = auth.authenticate(username="srossi455@gmail.com", password="default1234")
     
-        emp = Employer.objects.get(company_name=request.POST['company'])
+        employer = Employer.objects.get(company_name=request.POST['company'])
 
-        print(emp)
-        print(request.POST['isSuper'])
         if user is not None:
             auth.login(request, user)
+
             npassword1 = request.POST['npassword1']
             npassword2 = request.POST['npassword2']
+
             if npassword1 == npassword2:
+                # set new password
                 user.set_password(npassword1)
                 user.save()
-                ply = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=emp)
+
+                # create player
+                newPlayer = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=employer)
                 
-                PlaySession.objects.create(employer=emp.employer_id, player=ply, module_id=0, score=0, success=False, time_taken=0)
+                # create playsession
+                allModules = employer.registered_modules.all()
+                for module in allModules:
+                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=int(module.code), score=0, success=False, time_taken=0)
+
                 return redirect('/portal/home/')
             else:
                 context = {'bad_login_is' : True}
