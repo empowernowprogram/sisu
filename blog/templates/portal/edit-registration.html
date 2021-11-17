@@ -29,6 +29,13 @@
         <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
     </head>
     <body>
+        <style>
+            input, select {
+                padding: 6px 6px;
+                border: 1px solid #C1C7CD;
+                border-radius: 4px
+            }
+        </style>
 
         <!-- Page Container -->
         <div class="page-container">
@@ -59,7 +66,6 @@
                         <hr>
                     </div>
                     <!-- Page Top Bar End -->
-                    
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
                         <div class="row">
@@ -70,7 +76,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Registration</th>
+                                                <th>Registration Type</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -80,11 +86,12 @@
                                                     <td>{{ player.full_name }}</td>
                                                     <td>{{ player.email }}</td>
                                                     <td>{% if player.supervisor is True %} Supervisor {% elif player.supervisor is False %} Non-supervisor {% endif %}</td>
-                                                    <td><i class="table-td-icon fa fa-edit"></i></td>
+                                                    <td><i class="table-td-icon fa fa-edit"></i> <i class="table-td-icon fa fa-trash"></i></td>
+                                                    
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot class="tbl-sisu-header">
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
@@ -95,51 +102,82 @@
                                        </table>  
                                 </div>
                             </div>
+                            {% if user_registration_type %}
+                            <p>get: {{user_registration_type}}</p>
+                            {% endif %}
                             <!-- edit modal start -->
                             <div class="modal fade" id="edit-reg-modal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="exampleModalLabel">Change Password Form
-                                        </h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <table id="edit-employee-reg" class="display table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td id="user-name">-</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Email</td>
-                                                            <td id="user-email">-</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Registration</td>
-                                                            <td id="user-registration">-</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Remove user</td>
-                                                            <td><button type="button" class="btn" data-dismiss="modal">Remove</button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                   </table>  
+                                aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel">Edit Registration
+                                            </h4>
+                                        </div>
+                                        <form action="{% url 'edit-user' %}" method="post">
+                                            <div class="modal-body">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <table id="edit-employee-reg" class="display table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Name</td>
+                                                                <td id="user-name">
+                                                                    <input id="userName" name="userName" value=""/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Email</td>
+                                                                <td id="user-email">-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Registration Type</td>
+                                                                <td>
+                                                                    <select id="user-registration" name="regiTypeDropDown"></select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>  
+                                                </div>
+                                                <input type="hidden" id="userEmail1" name="userEmail1" value="" />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-sisu-primary">Confirm Changes</button>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-sisu-primary">Confirm Changes</button>
+                                </div>
+                            </div>
+                            <!-- edit modal end -->
+                            <!-- remove modal start -->
+                            <div class="modal fade" id="remove-user-modal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="exampleModalLabel">Remove User
+                                            </h4>
+                                        </div>
+                                        <form action="{% url 'remove-user' %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to remove user <b id="remove-user-name"></b> (<b id="remove-user-email"></b>)?</p>
+                                                <input type="hidden" id="userEmail2" name="userEmail2" value="" />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
+                                                <button type="submit"  class="btn btn-sisu-primary">Confirm Deletion</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- edit modal end -->
+                            <!-- remove modal end -->
                         </div>
                     </div>
                     <!-- Main Content End -->
