@@ -692,60 +692,67 @@ def portal_register(request):
                 if email_address == '':
                     break
 
-                if not get_user_model().objects.filter(email=email_address).exists():
-                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
-
                 context['user'] = email_address
                 context['training_type'] = 'VR'
                 context['isSuper'] = 0
 
                 is_success = send_html_email(email_templates, context, subject, email_address)
-                if not is_success:
+                
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
                     failure_list.append(email_address)
                 
             # send emails for VR supervisors
             for email_address in emails_vr_supervisor:
                 if email_address == '':
                     break
-                if not get_user_model().objects.filter(email=email_address).exists():
-                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
-                
+
                 context['user'] = email_address
                 context['training_type'] = 'VR'
                 context['isSuper'] = 1
 
                 is_success = send_html_email(email_templates, context, subject, email_address)
-                if not is_success:
+
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
                     failure_list.append(email_address)
 
             # send emails for Desktop nonsupervisors
             for email_address in emails_desktop_nonsupervisor:
                 if email_address == '':
                     break
-                if not get_user_model().objects.filter(email=email_address).exists():
-                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
                 
                 context['user'] = email_address
                 context['training_type'] = 'Desktop'
                 context['isSuper'] = 0
 
                 is_success = send_html_email(email_templates, context, subject, email_address)
-                if not is_success:
+                
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
                     failure_list.append(email_address)
 
             # send emails for Desktop supervisors
             for email_address in emails_desktop_supervisor:
                 if email_address == '':
                     break
-                if not get_user_model().objects.filter(email=email_address).exists():
-                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
                 
                 context['user'] = email_address
                 context['training_type'] = 'Desktop'
                 context['isSuper'] = 1
 
                 is_success = send_html_email(email_templates, context, subject, email_address)
-                if not is_success:
+                
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
                     failure_list.append(email_address)
             
 
