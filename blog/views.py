@@ -789,9 +789,41 @@ def portal_edit_registration(request):
         context = {'player': player, 'players': players}
         
         return render(request, 'portal/edit-registration.html', context)
+            
     else:
         return render(request, 'auth/login.html')
 
+def portal_remove_user(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user_email = request.POST['userEmail']
+
+            # remove player (play session) and then remove user
+            # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
+            Player.objects.filter(email=user_email).delete()
+            CustomUser.objects.filter(email=user_email).delete()
+
+            # redirect to portal/edit-registration/
+            return redirect('/portal/edit-registration/')
+
+    else:
+        return render(request, 'auth/login.html')
+
+def portal_edit_user(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user_email = request.POST['userEmail']
+
+            # remove player (play session) and then remove user
+            # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
+            Player.objects.filter(email=user_email).delete()
+            #CustomUser.objects.filter(email=user_email).delete()
+
+            # redirect to portal/edit-registration/
+            return redirect('/portal/edit-registration/')
+
+    else:
+        return render(request, 'auth/login.html')
 
 def portal_edit(request):
     if request.user.is_authenticated:

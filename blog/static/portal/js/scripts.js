@@ -74,6 +74,25 @@ $(document).ready(function () {
 
     });
 
+    $('.fa-trash').click(function () {
+        $('#remove-user-modal').modal('show');
+
+        // assumption is table column count is static [name, email, registration]
+        row_data = $(this).parent().parent().find('td');
+        user_registration = row_data[2].innerText
+
+        // updating modal data
+        $('#remove-user-name').empty();
+        $('#remove-user-email').empty();
+
+        $('#remove-user-name').text(row_data[0].innerText);
+        $('#remove-user-email').text(row_data[1].innerText);
+
+        // update form input data
+        $('#userEmail').val(row_data[1].innerText);
+
+    });
+
 
     /* POST PROGRAM SURVEY SCRIPT - START */
 
