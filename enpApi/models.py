@@ -20,7 +20,8 @@ class Employer(models.Model):
     logo = models.TextField(max_length=1000, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
     deadline_duration_days = models.IntegerField(default=60)
-    mandatory_modules = models.ManyToManyField(Modules, blank=True, null=True)
+    mandatory_modules = models.ManyToManyField(Modules, related_name='mandatory_modules', blank=True, null=True)
+    registered_modules = models.ManyToManyField(Modules, related_name='all_modules', blank=True, null=True)
 
     def __str__(self):
         return self.company_name
@@ -59,7 +60,6 @@ class PlaySession(models.Model):
     score = models.IntegerField()
     success = models.BooleanField()
     time_taken = models.IntegerField()
-    training_type = models.CharField(default='', max_length=16)
     
 class LoginSessions(models.Model):
     email = models.CharField(max_length=50)
