@@ -866,7 +866,7 @@ def portal_employee_progress(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
         players = Player.objects.filter(employer=player.employer)
-        play_sessions = PlaySession.objects.filter(employer=player.employer)
+        play_sessions = PlaySession.objects.filter(employer=player.employer.employer_id)
 
         players_obj = []
 
@@ -880,7 +880,7 @@ def portal_employee_progress(request):
                 'name': player_single.full_name,
                 'email': player_single.email,
                 'registration': registration_type,
-                'modules_completed': len(PlaySession.objects.filter(employer=player.employer).filter(player=player_single).filter(success=True))
+                'modules_completed': len(play_sessions.filter(player=player_single).filter(success=True))
             })
 
         
