@@ -35,27 +35,8 @@
     <!-- Page Container -->
     <div class="page-container">
         <div class="row" style="margin: auto;">
-            {% if not completedTraining %}
-            <script>
-                console.log('{{completedTraining}}')
-                console.log('{{play_sessions}}')
-                console.log('{{play_sessions_completed}}')
-            </script>
-            <div class="panel panel-white ethi-container-thin">
-                <div class="panel-body">
-                    <h1 class="ethical-report cert-title">Nice Try!</h1>
-                    <p class="ethical-report cert-text-reg">The ethical framework report will be generated once
-                        all<br>training
-                        modules are completed</p>
 
-                    <div style="margin: auto; margin-top: 200px; text-align: center;">
-                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
-                            href="/portal/home/">Return to training</a>
-                    </div>
-                </div>
-            </div>
-
-            {% elif not isAggregatedReport %}
+            {% if not isAggregatedReport %}
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the
