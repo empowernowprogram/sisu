@@ -69,6 +69,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Registration Type</th>
+                                                <th>Modules Registered</th>
                                                 <th>Modules Completed</th>
                                             </tr>
                                         </thead>
@@ -86,6 +87,7 @@
                                                     <td>{{ player_obj.name }}</td>
                                                     <td>{{ player_obj.email }}</td>
                                                     <td>{{ player_obj.registration }}</td>
+                                                    <td>{{ player_obj.all_modules }} </td>
                                                     <td>{{ player_obj.modules_completed }} </td>
                                                 </tr>
                                             {% endfor %}
