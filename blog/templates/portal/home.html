@@ -30,8 +30,10 @@
         <div class="page-container">
 
             <!-- Page Sidebar Start -->
-            {% if player.admin is True %}
+            {% if player.admin %}
                 {% include 'components/portal_sidebar_admin.html' %}
+            {% elif player.supervisor %}
+                {% include 'components/portal_sidebar_supervisor.html' %}
             {% else %}
                 {% include 'components/portal_sidebar_employee.html' %}
             {% endif %}

@@ -865,26 +865,43 @@ def portal_training_dl_trial(request):
 def portal_employee_progress(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
-        play_sessions = PlaySession.objects.filter(employer=player.employer)
+
+        if player.admin:
+            # show all players in this company
+            players = Player.objects.filter(employer=player.employer)
+            play_sessions = PlaySession.objects.filter(employer=player.employer.employer_id)
+
+        elif player.supervisor:
+            # show this supervisor's team result
+            thisTeamUsers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
+            players = Player.objects.filter(user__in=thisTeamUsers)
+            play_sessions = PlaySession.objects.filter(player__in=players)
+        
+        else:
+            return redirect('/portal/home/')
 
         players_obj = []
 
         # creating dictionary with aggregated data to be rendered to DOM.
         # reason for doing this is because quantity of modules completed player are from two different data sets and require looping
         for i, player_single in enumerate(players):
-            if player_single.supervisor == True: registration_type = 'Supervisor' 
-            else: registration_type = 'Non-supervisor'
+            if player_single.supervisor: 
+                registration_type = 'Supervisor' 
+            else: 
+                registration_type = 'Non-supervisor'
+
+                all_modules = play_sessions.filter(player=player_single)
+                completed_modules = play_sessions.filter(player=player_single).filter(success=True)
 
             players_obj.append({
                 'name': player_single.full_name,
                 'email': player_single.email,
                 'registration': registration_type,
-                'modules_completed': len(PlaySession.objects.filter(employer=player.employer).filter(player=player_single).filter(success=True))
+                'all_modules': len(all_modules),
+                'modules_completed': len(completed_modules)
             })
-
         
-        context = {'player': player, 'players': players, 'play_sessions': play_sessions, 'players_obj': players_obj}
+        context = {'players_obj': players_obj}
         
         return render(request, 'portal/progress.html', context)
     else:
