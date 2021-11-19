@@ -890,8 +890,8 @@ def portal_employee_progress(request):
             else: 
                 registration_type = 'Non-supervisor'
 
-                all_modules = play_sessions.filter(player=player_single)
-                completed_modules = play_sessions.filter(player=player_single).filter(success=True)
+            all_modules = play_sessions.filter(player=player_single)
+            completed_modules = play_sessions.filter(player=player_single).filter(success=True)
 
             players_obj.append({
                 'name': player_single.full_name,
@@ -901,7 +901,7 @@ def portal_employee_progress(request):
                 'modules_completed': len(completed_modules)
             })
         
-        context = {'players_obj': players_obj}
+        context = {'player': player, 'players_obj': players_obj}
         
         return render(request, 'portal/progress.html', context)
     else:

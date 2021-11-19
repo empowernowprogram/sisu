@@ -34,7 +34,13 @@
         <div class="page-container">
 
             <!-- Page Sidebar Start -->
-            {% include 'components/portal_sidebar_supervisor.html' %}
+            {% if player.admin %}
+                {% include 'components/portal_sidebar_admin.html' %}
+            {% elif player.supervisor %}
+                {% include 'components/portal_sidebar_supervisor.html' %}
+            {% else %}
+                {% include 'components/portal_sidebar_employee.html' %}
+            {% endif %}
             <!-- Page Sidebar End -->
 
             <!-- Page Content Start -->
