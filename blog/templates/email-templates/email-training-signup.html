@@ -103,16 +103,20 @@
                   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                     <tr>
                       <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
-<h2 style="font-family: sans-serif; font-size: 24px; font-weight: bold; margin: auto; margin-bottom: 15px; text-align: center; color: #787778;">{{company_name}} Training</h2>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">Hello valued employee,</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">{{company_name}} has issued harassment training to employees. Training will by Sisu VR's Empower Now Program. If you have any additional questions, please contact your supervisor.</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">Please use the password "{{pw}}" to sign in with the link below.</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: bold; margin: 0; margin-bottom: 8px; color: #787778;">Training Information</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778;">Training Type: VR</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778;">Training duration: {{training_duration_min}} min</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778; margin-bottom:15px">Due date: 6 months from now</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; font-style: italic; text-align: center; color: #787778;">Training is completed by Sisu VR Inc.</p>
-<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; text-align: center; color: #787778;">Training link: <a style="text-decoration: none; color:#787778" href="http://www.sisuvr.com/auth-register?user={{user}}&cmp={{company_name}}&type={{training_type}}&is={{isSuper}}">Click here to access training</a></p>
+                        <h2 style="font-family: sans-serif; font-size: 24px; font-weight: bold; margin: auto; margin-bottom: 15px; text-align: center; color: #787778;">{{company_name}} Training</h2>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">Hello valued employee,</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">{{company_name}} has requested your completion of the following training. If you have any additional questions, please contact your supervisor.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">Please use the password "{{pw}}" to sign in with the link below.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: bold; margin: 0; margin-bottom: 8px; color: #787778;">Training Information</p>
+                        {% if isSuper is 0 %}
+                          <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778;">Training Type: {{training_type}} - Non-supervisor</p>
+                        {% else %}
+                          <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778;">Training Type: {{training_type}} - Supervisor</p>
+                        {% endif %}
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778;">Training duration: {{training_duration}}</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: #787778; margin-bottom:15px">Due date: {{due_date_by_days}} Days From Today</p>
+                        
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: #787778;">Training link: <a style="text-decoration: underline; color:#787778" href="http://sisu-dev.herokuapp.com/auth-register?user={{user}}&cmp={{company_name}}&type={{training_type}}&is={{isSuper}}">click here</a></p>
                       </td>
                     </tr>
                   </table>
@@ -124,10 +128,10 @@
             <div class="footer" style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
               <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
                 <tr>
-<td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #bdbdbd; text-align: center;"><span class="apple-link" style="color: #bdbdbd; font-size: 12px; text-align: center;">Sisu VR Inc. | &copy; 2020 | <a style="text-decoration: none; color: #bdbdbd;" href="http://www.sisuvr.com/terms_conditions/">Terms and Conditions</a> | <a style="text-decoration: none; color: #bdbdbd;" href="http://www.sisuvr.com/privacy_policy/"> Policy</a></span> <br />Why am I receiving this email? <a style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;" href="http://www.sisuvr.com/">Read More</a>.</td>
+                  <td class="content-block" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #bdbdbd; text-align: center;"><span class="apple-link" style="color: #bdbdbd; font-size: 12px; text-align: center;">Sisu VR Inc. | &copy; 2021 | <a style="text-decoration: none; color: #bdbdbd;" href="http://www.sisuvr.com/terms_conditions/">Terms and Conditions</a> | <a style="text-decoration: none; color: #bdbdbd;" href="http://www.sisuvr.com/privacy_policy/"> Policy</a></span> <br />Why am I receiving this email? <a style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;" href="http://www.sisuvr.com/">Read More</a>.</td>
                 </tr>
                 <tr>
-<td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;"><a style="color: #bdbdbd; font-size: 12px; text-align: center; text-decoration: none;" href="http://www.sisuvr.com/"><strong>Sisu VR Inc.</strong></a></td>
+                  <td class="content-block powered-by" style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;"><a style="color: #bdbdbd; font-size: 12px; text-align: center; text-decoration: none;" href="http://www.sisuvr.com/"><strong>Sisu VR Inc.</strong></a></td>
                 </tr>
               </table>
             </div>

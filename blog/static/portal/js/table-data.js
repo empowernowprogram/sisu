@@ -5,7 +5,7 @@ $(document).ready(function() {
         "language": {
             "info": "Showing _START_ to _END_ of _TOTAL_ employees",
           },
-        "lengthMenu": [[1, 25, 50, -1], [1, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
     })
 
 

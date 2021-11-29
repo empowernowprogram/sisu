@@ -11,6 +11,11 @@
             "mandatory_modules": [
                 1,
                 2
+            ],
+            "registered_modules": [
+                1,
+                2,
+                3
             ]
         }
     }

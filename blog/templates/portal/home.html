@@ -30,8 +30,10 @@
         <div class="page-container">
 
             <!-- Page Sidebar Start -->
-            {% if player.admin is True %}
+            {% if player.admin %}
                 {% include 'components/portal_sidebar_admin.html' %}
+            {% elif player.supervisor %}
+                {% include 'components/portal_sidebar_supervisor.html' %}
             {% else %}
                 {% include 'components/portal_sidebar_employee.html' %}
             {% endif %}
@@ -120,7 +122,7 @@
                                                     <tr>
                                                         <td>Training Type</td>
                                                         {% for play_session in play_sessions.all %}
-                                                        <td>{{ play_session.training_type }}</td>
+                                                        <td>{{ player.registration_type }}</td>
                                                         {% endfor %}
                                                     </tr>
                                                 </tbody>
@@ -130,18 +132,23 @@
                                         <br>
                                         <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
 
-                                        {% if play_sessions_completed.count is play_sessions.count %}
+                                        {% if has_completed_all_mandatory %}
                                             {% if player.is_provisional is False %}
-                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' %}" target="_blank">See my results</a>
-                                                <br/>
+                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}" target="_blank">See my results</a>
                                                 {% if player.supervisor is True %}
+                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='team_report' %}" target="_blank">See team results</a>
+                                                    <br/>
                                                     <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}" target="_blank">Print certificate</a>
                                                 {% elif player.supervisor is False %}
+                                                    <br/>
                                                     <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='nonsupervisor' %}" target="_blank">Print certificate</a>
                                                 {% endif %}
                                             {% else %}
                                                 <p><strong>Unable to download certificate due to accounts provisional status, contact your HR administrator to resolve issue.</strong></p>
                                             {% endif %}
+                                        
+                                        {% else %}
+                                            <p>Please complete all mandatory modules to view your result and print certificate.</p>
                                         
                                         {% endif %}
                                         
