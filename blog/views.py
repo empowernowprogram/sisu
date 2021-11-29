@@ -541,7 +541,7 @@ def portal_login_trial(request):
 
 def portal_logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('/portal/home')
 
 
 # Training Portal Authentication / Login, Logout - START
