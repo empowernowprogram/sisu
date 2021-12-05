@@ -583,7 +583,7 @@ def portal_signup(request):
                 # create playsession
                 allModules = employer.registered_modules.all()
                 for module in allModules:
-                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=int(module.code), score=0, success=False, time_taken=0)
+                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=module.module_id, score=0, success=False, time_taken=0)
 
                 return redirect('/portal/home/')
             else:
@@ -625,7 +625,7 @@ def portal_home(request):
         mandatory_modules_list = []
 
         for module in company_mandatory_modules:
-            mandatory_modules_list.append(int(module.code))
+            mandatory_modules_list.append(module.module_id)
 
         has_completed_all_mandatory = True
 
@@ -1007,9 +1007,9 @@ def portal_ethical_report(request, pk):
             emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
             behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
             for entry in queryset:
-                emotionSumInModule[entry.module][entry.scene] += entry.emotion
-                feedbackCountInModule[entry.module][entry.scene] += 1
-                behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
+                emotionSumInModule[entry.module_id][entry.scene] += entry.emotion
+                feedbackCountInModule[entry.module_id][entry.scene] += 1
+                behaviorCountInModule[entry.module_id][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module_id][entry.behavior_id.description].get(entry.scene, 0) + 1
 
             # aggregate data by module
             moduleCnt = len(emotionSumInModule)
@@ -1025,10 +1025,10 @@ def portal_ethical_report(request, pk):
             datasets = defaultdict(dict)
 
             for moduleId, emotionSum in emotionSumInModule.items():
-                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneInfoQueries = SceneInfo.objects.filter(module_id=moduleId)
                 sceneCnt = sceneInfoQueries.count() # get scene count from scene info table
 
-                employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
+                employeeCnt = queryset.filter(module_id=moduleId).order_by().values_list('user').distinct().count()
 
                 avgEmotions = [0] * sceneCnt
 
@@ -1116,7 +1116,7 @@ def portal_ethical_report(request, pk):
                 emotions = []
                 behaviors = []
 
-                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module=moduleId)
+                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module_id=moduleId)
 
                 for column in queryset:
                     scenes.append(column.scene)
@@ -1134,7 +1134,7 @@ def portal_ethical_report(request, pk):
                     scenesIdices[scene-1] = i
 
                 # fetch player roles in this module
-                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneInfoQueries = SceneInfo.objects.filter(module_id=moduleId)
                 roles = {}
                 screenshots = {}
                 npcs = {}

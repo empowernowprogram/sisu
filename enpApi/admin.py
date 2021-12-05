@@ -40,13 +40,13 @@ class BehaviorAdmin(admin.ModelAdmin):
     list_display = ('behavior_id', 'description')
 
 class SceneInfoAdmin(admin.ModelAdmin):
-    list_display = ('module', 'scene', 'is_mandatory', 'player_role')
+    list_display = ('module_id', 'scene', 'is_mandatory', 'player_role')
 
 class EthicalFeedbackAdmin(admin.ModelAdmin):
-    list_display = ('user', 'module', 'scene', 'emotion', 'behavior_id', 'timestamp')
+    list_display = ('user', 'module_id', 'scene', 'emotion', 'behavior_id', 'timestamp')
 
 class ModulesAdmin(admin.ModelAdmin):
-    list_display = ('code', 'creation_date', 'is_mandatory')
+    list_display = ('module_id', 'creation_date', 'is_mandatory')
 
 class SupervisorMappingAdmin(admin.ModelAdmin):
     list_display = ('employee', 'supervisor', 'creation_date', 'modification_date')
