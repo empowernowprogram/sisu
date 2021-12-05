@@ -3,7 +3,7 @@
         "model": "enpApi.modules",
         "pk": 1,
         "fields": {
-            "code": "1",
+            "module_id": "1",
             "case": 0,
             "creation_date": "2021-11-15",
             "is_available": false,
@@ -14,7 +14,7 @@
         "model": "enpApi.modules",
         "pk": 2,
         "fields": {
-            "code": "3",
+            "module_id": "3",
             "case": 0,
             "creation_date": "2021-11-15",
             "is_available": false,
@@ -25,7 +25,7 @@
         "model": "enpApi.modules",
         "pk": 3,
         "fields": {
-            "code": "2",
+            "module_id": "2",
             "case": 0,
             "creation_date": "2021-11-15",
             "is_available": false,
