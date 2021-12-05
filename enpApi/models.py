@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Modules(models.Model):
-    code = models.CharField(max_length=10)
+    module_id = models.CharField(max_length=10)
     case = models.IntegerField()
     creation_date = models.DateField()
     is_available = models.BooleanField(default=False)
     is_mandatory = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.code
+        return self.module_id
 
 class Employer(models.Model):
     employer_id = models.IntegerField(null=True) # do we need this
@@ -55,7 +55,7 @@ class SupervisorMapping(models.Model):
 class PlaySession(models.Model):
     employer = models.IntegerField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
-    module_id = models.IntegerField()
+    module_id = models.CharField(max_length=10)
     date_taken = models.DateField(auto_now=True)
     score = models.IntegerField()
     success = models.BooleanField()
@@ -168,7 +168,7 @@ class Behavior(models.Model):
 
 # SceneInfo (original name: PlayerRole) holds the role player plays in each scene
 class SceneInfo(models.Model):
-    module = models.CharField(max_length=255, blank=False) # should have relationship
+    module_id = models.CharField(max_length=10, blank=False) # should have relationship
     scene = models.IntegerField(blank=False)
     is_mandatory = models.BooleanField(default=True)
     player_role = models.CharField(max_length=255, blank=False)
@@ -179,7 +179,7 @@ class SceneInfo(models.Model):
 # EthicalFeedback holds user's ethical performance during training
 class EthicalFeedback(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
-    module = models.CharField(max_length=255, blank=False)
+    module_id = models.CharField(max_length=10, blank=False) # should have relationship
     scene = models.IntegerField(blank=False)
     emotion = models.IntegerField(blank=False)
     behavior_id = models.ForeignKey(Behavior, on_delete=models.DO_NOTHING, blank=False)
