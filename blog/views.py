@@ -46,6 +46,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.password_validation import validate_password
 
 
 
@@ -552,9 +553,11 @@ def portal_signup(request):
 
         username = request.POST['username']
         password = request.POST['password']
+        
         user = auth.authenticate(username=username, password=password)
     
-        employer = Employer.objects.get(company_name=request.POST['company'])
+        company = request.POST['company']
+        employer = Employer.objects.get(company_name=company)
 
         if user is not None:
             auth.login(request, user)
@@ -563,6 +566,13 @@ def portal_signup(request):
             npassword2 = request.POST['npassword2']
 
             if npassword1 == npassword2:
+                # validate password
+                try:
+                    validate_password(npassword1, user=user)
+                except:
+                    messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you followed the password rules. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                    return redirect('/auth-register/?user={}&cmp={}&type={}&is={}'.format(username, company, request.POST['training'], request.POST['isSuper']))
+
                 # set new password
                 user.set_password(npassword1)
                 user.save()
