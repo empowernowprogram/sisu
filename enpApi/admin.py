@@ -46,7 +46,7 @@ class EthicalFeedbackAdmin(admin.ModelAdmin):
     list_display = ('user', 'module_id', 'scene', 'emotion', 'behavior_id', 'timestamp')
 
 class ModulesAdmin(admin.ModelAdmin):
-    list_display = ('module_id', 'creation_date', 'is_mandatory')
+    list_display = ('module_id', 'creation_date')
 
 class SupervisorMappingAdmin(admin.ModelAdmin):
     list_display = ('employee', 'supervisor', 'creation_date', 'modification_date')

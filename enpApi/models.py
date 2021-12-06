@@ -6,10 +6,8 @@ from django.contrib.auth.models import User
 
 class Modules(models.Model):
     module_id = models.CharField(max_length=10)
-    case = models.IntegerField()
     creation_date = models.DateField()
     is_available = models.BooleanField(default=False)
-    is_mandatory = models.BooleanField(default=False)
 
     def __str__(self):
         return self.module_id
@@ -20,8 +18,8 @@ class Employer(models.Model):
     logo = models.TextField(max_length=1000, null=True, blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
     deadline_duration_days = models.IntegerField(default=60)
-    mandatory_modules = models.ManyToManyField(Modules, related_name='mandatory_modules', blank=True, null=True)
-    registered_modules = models.ManyToManyField(Modules, related_name='all_modules', blank=True, null=True)
+    mandatory_modules = models.ManyToManyField(Modules, related_name='mandatory_modules', blank=True)
+    registered_modules = models.ManyToManyField(Modules, related_name='all_modules', blank=True)
 
     def __str__(self):
         return self.company_name
@@ -129,7 +127,7 @@ class Adjective(models.Model):
 # AdjectivesSelected holds every adjective user chose in the survey
 class SelectedAdjective(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
-    adj_id = models.ManyToManyField(Adjective, blank=False, null=True)
+    adj_id = models.ManyToManyField(Adjective, blank=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
 # PostProgramSurvey holds user feedbacks in the post program survey
