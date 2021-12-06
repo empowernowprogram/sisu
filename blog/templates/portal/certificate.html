@@ -31,7 +31,7 @@
         <!-- Page Container -->
         <div class="page-container">
             <div class="row" style="margin: auto;">
-                {% if play_sessions_completed.count is play_sessions.count %}
+                {% if has_completed_all_mandatory %}
                 <div class="panel panel-white cert-container cert-border-primary">
                     <div class="panel-body">
 
@@ -58,18 +58,19 @@
                 <div class="panel panel-white cert-container">
                     <div class="panel-body">
                         <h1 class="cert cert-title">Nice Try!</h1>
-                        <p class="cert cert-text-reg">the training certificate will be generated once all<br>training
-                            modules are completed</p>
+                        <p class="cert cert-text-reg">The training certificate will be generated once all<br>mandatory training
+                            modules are completed. </p>
 
                         <div style="margin: auto; text-align: center;">
                             <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
                                 href="/portal/home/">Return to training</a>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
-            <!-- /Page Content -->
+        </div>
+        <!-- /Page Content -->
 
 
             <!-- Scripts -->
