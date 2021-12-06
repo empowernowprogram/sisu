@@ -35,8 +35,21 @@
     <!-- Page Container -->
     <div class="page-container">
         <div class="row" style="margin: auto;">
+            {% if not completedTraining %}
+            <div class="panel panel-white cert-container">
+                <div class="panel-body">
+                    <h1 class="cert cert-title">Nice Try!</h1>
+                    <p class="cert cert-text-reg">The report will be generated once all<br>mandatory training
+                        modules are completed.</p>
 
-            {% if not isAggregatedReport %}
+                    <div style="margin: auto; text-align: center;">
+                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
+                            href="/portal/home/">Return to training</a>
+                    </div>
+                </div>
+            </div>
+
+            {% elif not isAggregatedReport %}
             {% for module in modules %}
             <div class="panel panel-white ethi-container-thin" style="height: 720px; background: #4E657A">
                 <p class="ethical-report ethi-text-lg">Let’s see how your <strong>responses</strong> changed over the

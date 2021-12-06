@@ -613,6 +613,24 @@ def key_redeem(request):
 
 
 # Training Portal - START
+def check_mandatory_completion(player, play_sessions):
+
+    company_mandatory_modules = player.employer.mandatory_modules.all()
+    mandatory_modules_list = []
+
+    for module in company_mandatory_modules:
+        mandatory_modules_list.append(module.module_id)
+
+    has_completed_all_mandatory = True
+
+    for play_session in play_sessions:
+        if not play_session.success and play_session.module_id in mandatory_modules_list:
+            has_completed_all_mandatory = False
+            break
+    
+    return has_completed_all_mandatory, mandatory_modules_list
+
+
 def portal_home(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -621,18 +639,7 @@ def portal_home(request):
 
         due_date = player.training_deadline or player.creation_date + timedelta(days= player.employer.deadline_duration_days)
         
-        company_mandatory_modules = player.employer.mandatory_modules.all()
-        mandatory_modules_list = []
-
-        for module in company_mandatory_modules:
-            mandatory_modules_list.append(module.module_id)
-
-        has_completed_all_mandatory = True
-
-        for play_session in play_sessions:
-            if not play_session.success and play_session.module_id in mandatory_modules_list:
-                has_completed_all_mandatory = False
-                break
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
 
         context = {
             'player': player, 
@@ -959,15 +966,16 @@ def portal_certificate(request):
         company = player.employer.company_name
         logoLink = player.employer.logo
 
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
+
         date = None
         for session in play_sessions_completed:
             if not date or session.date_taken > date:
                 date = session.date_taken
 
         context = {
-            'player': player, 
-            'play_sessions': play_sessions, 
-            'play_sessions_completed': play_sessions_completed, 
+            'player': player,
+            'has_completed_all_mandatory': has_completed_all_mandatory,
             'company': company, 
             'logo': logoLink,
             'date': date
@@ -990,10 +998,11 @@ def portal_ethical_report(request, pk):
 
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
-        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
 
-        if len(play_sessions) != len(play_sessions_completed):
-            return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
+
+        if not has_completed_all_mandatory:
+            return render(request, 'portal/ethical-report.html', {"completedTraining": False})
 
 
         # supervisor can view aggregated report
