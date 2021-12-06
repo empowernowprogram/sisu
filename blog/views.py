@@ -1118,6 +1118,9 @@ def portal_ethical_report(request, pk):
             scriptsInModule = {}
 
             for field in play_sessions.all():
+                if not field.success:
+                    continue
+                    
                 moduleId = field.module_id
 
                 # fetch ethical feedbacks in this module
