@@ -1196,40 +1196,42 @@ def portal_ethical_report(request, pk):
     else:
         return render(request, 'auth/login.html')
 
-def post_program_survey(request, pk):
-    isSupervisor = Player.objects.get(user=request.user).supervisor
+def post_program_survey(request):
+    if request.user.is_authenticated:
 
-    if pk == "supervisor" and isSupervisor:
-        # show certificate if user already completed the survey
-        if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
-            return redirect('/portal/certificate/')
+        isSupervisor = Player.objects.get(user=request.user).supervisor
 
-        else:
-            scale5 = range(1,6)
-            scale10 = range(1,11)
-            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
-            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
-            
-            context = {'scale5': scale5, 'scale10': scale10, 'experienceFeatures': experienceFeatures, 'preference': preference}
+        if isSupervisor:
+            # show certificate if user already completed the survey
+            if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
+                return redirect('/portal/certificate/')
 
-            return render(request, 'portal/post-program-survey-supervisor.html', context)
+            else:
+                scale5 = range(1,6)
+                scale10 = range(1,11)
+                experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+                preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+                
+                context = {'scale5': scale5, 'scale10': scale10, 'experienceFeatures': experienceFeatures, 'preference': preference}
 
-    elif pk == "nonsupervisor" and not isSupervisor:
-        # show certificate if user already completed the survey
-        if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
-            return redirect('/portal/certificate/')
+                return render(request, 'portal/post-program-survey-supervisor.html', context)
 
         else:
-            starRange = range(1, 6)
-            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
-            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
-            
-            context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
-            
-            return render(request, 'portal/post-program-survey.html', context)
+            # show certificate if user already completed the survey
+            if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
+                return redirect('/portal/certificate/')
+
+            else:
+                starRange = range(1, 6)
+                experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+                preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+                
+                context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+                
+                return render(request, 'portal/post-program-survey.html', context)
     
     else:
-        return redirect('/portal/home/')
+        return render(request, 'auth/login.html')
 
 
 def save_survey(request, pk):

@@ -137,12 +137,9 @@
                                                 <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}" target="_blank">See my results</a>
                                                 {% if player.supervisor is True %}
                                                     <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='team_report' %}" target="_blank">See team results</a>
-                                                    <br/>
-                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}" target="_blank">Print certificate</a>
-                                                {% elif player.supervisor is False %}
-                                                    <br/>
-                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='nonsupervisor' %}" target="_blank">Print certificate</a>
                                                 {% endif %}
+                                                <br/>
+                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' %}" target="_blank">Print certificate</a>
                                             {% else %}
                                                 <p><strong>Unable to download certificate due to accounts provisional status, contact your HR administrator to resolve issue.</strong></p>
                                             {% endif %}

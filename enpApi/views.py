@@ -12,7 +12,7 @@ from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerial
 from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-
+from blog import views
 # Create your views here.
 
 class PlayerViewSet(viewsets.ModelViewSet):
@@ -59,6 +59,21 @@ def addEthicalData(request):
         return JsonResponse(user, safe=False, status=status.HTTP_201_CREATED) 
  
 
+def send_email_reminder(player):
+    email_address = player.email
+    full_name = player.full_name
+    employer = player.employer
+    employer_name = employer.company_name
+    play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+    has_completed_all_mandatory, mandatory_modules_list = views.check_mandatory_completion(player, play_sessions)
+    
+    subject = "We value your feedback!"
+    email_templates = 'blog/templates/email-templates/email-survey-reminder.html'
+    context = {'company_name': employer_name, 'full_name': full_name}
+
+    if has_completed_all_mandatory is True:
+        views.send_html_email(email_templates, context, subject, email_address)
+        
 
 @api_view(['GET', 'POST'])
 def addSession(request):
@@ -72,6 +87,7 @@ def addSession(request):
     if session_serializer.is_valid():
         print("Session valid")
         session_serializer.save()
+        send_email_reminder(player)
         return JsonResponse({'Success': 'YES'})
     else:
         print("Session not valid")
