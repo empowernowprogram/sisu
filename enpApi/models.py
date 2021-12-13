@@ -126,13 +126,13 @@ class Adjective(models.Model):
 
 # AdjectivesSelected holds every adjective user chose in the survey
 class SelectedAdjective(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING, null=True)
     adj_id = models.ManyToManyField(Adjective, blank=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
 # PostProgramSurvey holds user feedbacks in the post program survey
 class PostProgramSurvey(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING, null=True)
     overall_rating = models.IntegerField(blank=False)
     overall_feedback = models.TextField(max_length=3000, null=True, blank=True)
     comparison_rating_id = models.ForeignKey(ComparisonRating, on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -143,7 +143,7 @@ class PostProgramSurvey(models.Model):
 
 # PostProgramSurveySupervisor holds user (a supervisor) feedbacks in the post program survey
 class PostProgramSurveySupervisor(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=False)
+    player = models.ForeignKey(Player, on_delete=models.DO_NOTHING, null=True)
     recommend_friend_scale = models.IntegerField(null=True, blank=False)
     recommend_friend_reason = models.TextField(max_length=3000, null=True, blank=True)
     info_retention_scale = models.IntegerField(null=True, blank=False)
