@@ -837,10 +837,23 @@ def portal_remove_user(request):
             Player.objects.filter(email=user_email).delete()
 
             user = CustomUser.objects.filter(email=user_email)
+            user_obj = user.first()
 
-            PostProgramSurveySupervisor.objects.filter(user=user).delete()
-            PostProgramSurvey.objects.filter(user=user).delete()
-            EthicalFeedback.objects.filter(user=user).delete()
+            queryset = PostProgramSurveySupervisor.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = PostProgramSurvey.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = SelectedAdjective.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = EthicalFeedback.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
 
             user.delete()
 
