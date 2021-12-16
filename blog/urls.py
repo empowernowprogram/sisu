@@ -23,7 +23,7 @@ urlpatterns = [
     path('comment/(<pk>\d+)/remove/', views.comment_remove, name='comment_remove'),
     path('post/category/(<category_name>\w+)', views.post_list_by_category, name='post_list_by_category'),
     path('cases', views.post_cases, name='post_cases'),
-    path('contact_us', views.contact_us, name='contact_us'),
+    #path('contact_us', views.contact_us, name='contact_us'),
     path('sisu_case/category/(<category_name>\w+)', views.story, name='story'),
     path('sisu_case/(<pk>\d+)/', views.story_entry, name='story_entry'),
     path('user_details/user_id/(<pk>\d+)/', views.user_details, name='user_details'),
@@ -71,25 +71,19 @@ urlpatterns = [
     path('portal/home/', views.portal_home, name='home_portal'),
     path('portal/register/', views.portal_register, name='register'),
     path('portal/edit-registration/', views.portal_edit_registration, name='edit-registration'),
+    path('portal/edit-registration/edit-user', views.portal_edit_user, name='edit-user'),
+    path('portal/edit-registration/remove-user', views.portal_remove_user, name='remove-user'),
     path('portal/downloads/', views.portal_training_dl, name='downloads'),
     path('portal/downloads_trial/', views.portal_training_dl_trial, name='downloads_trial'),
     path('portal/progress/', views.portal_employee_progress, name='progress'),
     path('portal/settings/', views.portal_settings, name='settings'),
     path('portal/post-program-survey/<str:pk>', views.post_program_survey, name='post_program_survey'),
     path('portal/save-survey/<str:pk>', views.save_survey, name='save_survey'),
-    path('portal/ethical-report/', views.portal_ethical_report, name='ethical_report'),
+    path('portal/ethical-report/<str:pk>', views.portal_ethical_report, name='ethical_report'),
     path('portal/certificate/', views.portal_certificate, name='certificate'),
-    path('portal/edit/', views.portal_edit, name='portal_edit'),
-    path('portal/remove/', views.portal_remove, name='portal_remove'),
     path('portal/change_pwd/', views.portal_change_password, name='portal_pwd'),
     # Training Portal - END
 
-    #PASSWORD RECOVERY PLUS
-    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'), name='password_change_done'),
-    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_reset/password_change.html'), name='password_change'),
-    path('password_reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_done.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset/password_reset_confirm.html'), name='password_reset_confirm'),
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset/password_reset_form.html', html_email_template_name='password_reset/password_reset_html_email.html'), name='password_reset'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset/password_reset_complete.html'), name='password_reset_complete'),
-    
+    # PASSWORD RECOVERY URLS ARE IN users/urls.py
+
 ]

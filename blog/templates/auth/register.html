@@ -13,13 +13,49 @@
 </head>
 
 <body>
+	{% include 'components/message-sent.html' %}
+	<script>
+		function fullNameFocus() {
+			document.getElementById("fullNameHintBox").style.display = "block";
+			document.getElementById("defaultPwdHintBox").style.display = "none";
+			document.getElementById("newPwdHintBox").style.display = "none";
+			document.getElementById("confirmPwdHintBox").style.display = "none";
+		}
+		function defaultPwdFocus() {
+			document.getElementById("fullNameHintBox").style.display = "none";
+			document.getElementById("defaultPwdHintBox").style.display = "block";
+			document.getElementById("newPwdHintBox").style.display = "none";
+			document.getElementById("confirmPwdHintBox").style.display = "none";
+		}
+		function newPwdFocus() {
+			document.getElementById("fullNameHintBox").style.display = "none";
+			document.getElementById("defaultPwdHintBox").style.display = "none";
+			document.getElementById("newPwdHintBox").style.display = "block";
+			document.getElementById("confirmPwdHintBox").style.display = "none";
+		}
+		function confirmPwdFocus() {
+			document.getElementById("fullNameHintBox").style.display = "none";
+			document.getElementById("defaultPwdHintBox").style.display = "none";
+			document.getElementById("newPwdHintBox").style.display = "none";
+			document.getElementById("confirmPwdHintBox").style.display = "block";
+		}
+		function confirmPwdBlur() {
+			document.getElementById("fullNameHintBox").style.display = "none";
+			document.getElementById("defaultPwdHintBox").style.display = "none";
+			document.getElementById("newPwdHintBox").style.display = "none";
+			document.getElementById("confirmPwdHintBox").style.display = "none";
+		}
+	</script>
+
 		<div class="signup-form">
 			<form action="{% url 'portal_signup' %}" method="post">
 
 				{% csrf_token %}
 				
 				<h2>Registration Portal</h2>
-				<p class="lead">Complete the form below and login to start your training<br>Your password was sent in the registration email</p>
+				<p class="lead">Complete the form below and login to start your training.<br>
+					Your default password was sent in the registration email.<br>
+				</p>
 
 				{% if bad_login_is is True %}
 					<div class="auth-invalid">
@@ -28,7 +64,7 @@
 					</div>
 				{% endif %}
 
-                                <input type="hidden" name="isSuper" value={{is}}>
+                <input type="hidden" name="isSuper" value={{is}}>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
@@ -44,32 +80,51 @@
 						<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
 						<input type="text" class="form-control" name="training" value="{{training}}" readonly>
 					</div>
-
+				</div>
+				
+				<div id="fullNameHintBox" style="display: none; font-size: 12px; margin-left: 20px; margin-top: 20px; color: #9F3688;">
+					<p style="margin: 2px;">This full name will be displayed on the training certificate.</p>
+				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
-						<input id="name" type="text" class="form-control" name="name" placeholder="Full name" required="required">
+						<input id="name" type="text" class="form-control" name="name" placeholder="Full name" 
+							required="required" onfocus="fullNameFocus()">
 					</div>
+				</div>
+				<div id="defaultPwdHintBox" style="display: none; font-size: 12px; margin-left: 20px; color: #9F3688;">
+					<p style="margin: 2px;">Default password is provided in the registration email.</p>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input id="pass" type="password" class="form-control" name="password" placeholder="Old Password"
-							required="required">
+						<input id="pass" type="password" class="form-control" name="password" placeholder="Default Password"
+							required="required"  onfocus="defaultPwdFocus()">
 					</div>
+				</div>
+				<div id="newPwdHintBox" style="display: none; font-size: 12px; margin-left: 20px; color: #9F3688;">
+					<p style="margin: 2px;">Your new password should:</p>
+					<ul>
+						<li>contain at least 8 characters</li>
+						<li>not be entirely numeric</li>
+						<li>not be too similar to your username</li>
+					</ul>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 						<input id="npass1" type="password" class="form-control" name="npassword1" placeholder="New Password"
-							required="required">
+							required="required" onfocus="newPwdFocus()">
 					</div>
+				</div>
+				<div id="confirmPwdHintBox" style="display: none; font-size: 12px; margin-left: 20px; color: #9F3688;">
+					<p style="margin: 2px;">Please type again your new password to confirm.</p>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 						<input id="npass2" type="password" class="form-control" name="npassword2" placeholder="Confirm New Password"
-							required="required">
+							required="required" onfocus="confirmPwdFocus()" onblur="confirmPwdBlur()">
 					</div>
 				</div>
 				<div class="form-group">
@@ -90,6 +145,7 @@
 			</form>
 			{%  include 'auth/auth-footer.html' %}
 		</div>
+
 	</body>
 
 

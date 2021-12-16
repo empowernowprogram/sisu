@@ -41,15 +41,16 @@ class ModulesViewSet(viewsets.ModelViewSet):
 def addEthicalData(request):
     if request.method == 'POST':
         inputData = JSONParser().parse(request)
+        print("input------")
+        print(inputData)
         user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
         module = inputData["data"]["session"]["Module"]
-        timestamp = inputData["data"]["session"]["Date"]
+        # timestamp = inputData["data"]["session"]["Date"]
         for ethical in inputData["data"]["ethical"]:
             scene = ethical["Scene"]
             behavior_id = ethical["Action"]
             emotion = ethical["Emotion"]
-            data = {'user': user, 'module': module, 
-                    'timestamp': timestamp, 'scene': scene, 'behavior_id' : behavior_id, 'emotion': emotion}
+            data = {'user': user, 'module_id': module, 'scene': scene, 'behavior_id' : behavior_id, 'emotion': emotion}
             ethical_serializer = EthicalFeedbackSerializer(data=data)
             if ethical_serializer.is_valid():
                 ethical_serializer.save()

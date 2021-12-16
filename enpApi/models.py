@@ -4,9 +4,29 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Modules(models.Model):
+    module_id = models.CharField(max_length=10)
+    creation_date = models.DateField()
+    is_available = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.module_id
+
+class Employer(models.Model):
+    employer_id = models.IntegerField(null=True) # do we need this
+    company_name = models.CharField(max_length=60)
+    logo = models.TextField(max_length=1000, null=True, blank=True)
+    description = models.TextField(max_length=1000, null=True, blank=True)
+    deadline_duration_days = models.IntegerField(default=60)
+    mandatory_modules = models.ManyToManyField(Modules, related_name='mandatory_modules', blank=True)
+    registered_modules = models.ManyToManyField(Modules, related_name='all_modules', blank=True)
+
+    def __str__(self):
+        return self.company_name
+
 class Player(models.Model):
     email = models.CharField(max_length=50, primary_key=True)
-    employer = models.IntegerField()
+    employer = models.ForeignKey(Employer, on_delete=models.DO_NOTHING, null=True)
     
     full_name = models.CharField(max_length=60)
     supervisor = models.BooleanField(default=False)
@@ -15,30 +35,29 @@ class Player(models.Model):
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
     is_provisional = models.BooleanField(default=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    training_deadline = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.email
 
-class Employer(models.Model):
-    company_name = models.CharField(max_length=60)
-    employer_id = models.IntegerField(null=True)
+class SupervisorMapping(models.Model):
+    employee = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_member', on_delete=models.CASCADE, null=True)
+    supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_supervisor', on_delete=models.CASCADE, blank=True, null=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    modification_date = models.DateField(auto_now=True, null=True)
 
-class Modules(models.Model):
-    code = models.CharField(max_length=10)
-    case = models.IntegerField()
-    creation_date = models.DateField()
-    is_available = models.BooleanField(default=False)
-    is_mandatory = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['supervisor']
 
 class PlaySession(models.Model):
     employer = models.IntegerField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
-    module_id = models.IntegerField()
+    module_id = models.CharField(max_length=10)
     date_taken = models.DateField(auto_now=True)
     score = models.IntegerField()
     success = models.BooleanField()
     time_taken = models.IntegerField()
-    training_type = models.CharField(default='', max_length=16)
     
 class LoginSessions(models.Model):
     email = models.CharField(max_length=50)
@@ -68,7 +87,7 @@ class RegKey(models.Model):
     training_duration = models.IntegerField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
 
-class ModuleDownloadLink(models.Model):
+class TrainingPackageDownloadLink(models.Model):
     # holds download links for modules
     training_type_choices = (('Desktop', 'Desktop'), ('VR', 'VR'))
     training_category_choices = (('None', 'None'), ('Harassment Training', 'Harassment Training'))
@@ -79,6 +98,7 @@ class ModuleDownloadLink(models.Model):
     platform_category = models.CharField(max_length=255, null=False, blank=False, choices=platform_category_choices)
     download_link = models.CharField(max_length=554, null=False, blank=False)
     description = models.TextField(max_length=1000, null=True, blank=True)
+    size = models.CharField(max_length=10, null=True, blank=True, default='1.2GB')
 
     is_supervisor = models.BooleanField(null=False, blank=False)
 
@@ -107,7 +127,7 @@ class Adjective(models.Model):
 # AdjectivesSelected holds every adjective user chose in the survey
 class SelectedAdjective(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
-    adj_id = models.ManyToManyField(Adjective, blank=False, null=True)
+    adj_id = models.ManyToManyField(Adjective, blank=False)
     creation_date = models.DateField(auto_now_add=True, null=True)
 
 # PostProgramSurvey holds user feedbacks in the post program survey
@@ -146,7 +166,7 @@ class Behavior(models.Model):
 
 # SceneInfo (original name: PlayerRole) holds the role player plays in each scene
 class SceneInfo(models.Model):
-    module = models.CharField(max_length=255, blank=False) # should have relationship
+    module_id = models.CharField(max_length=10, blank=False) # should have relationship
     scene = models.IntegerField(blank=False)
     is_mandatory = models.BooleanField(default=True)
     player_role = models.CharField(max_length=255, blank=False)
@@ -157,7 +177,7 @@ class SceneInfo(models.Model):
 # EthicalFeedback holds user's ethical performance during training
 class EthicalFeedback(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=False)
-    module = models.CharField(max_length=255, blank=False)
+    module_id = models.CharField(max_length=10, blank=False) # should have relationship
     scene = models.IntegerField(blank=False)
     emotion = models.IntegerField(blank=False)
     behavior_id = models.ForeignKey(Behavior, on_delete=models.DO_NOTHING, blank=False)

@@ -1,0 +1,22 @@
+[
+    {
+        "model": "enpApi.supervisormapping",
+        "pk": 1,
+        "fields": {
+            "employee": 2,
+            "supervisor": 1,
+            "creation_date": "2021-11-15",
+            "modification_date": "2021-11-15"
+        }
+    },
+    {
+        "model": "enpApi.supervisormapping",
+        "pk": 2,
+        "fields": {
+            "employee": 3,
+            "supervisor": 1,
+            "creation_date": "2021-11-15",
+            "modification_date": "2021-11-15"
+        }
+    }
+]

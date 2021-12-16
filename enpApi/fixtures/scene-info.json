@@ -3,7 +3,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 1,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 1,
             "is_mandatory": true,
             "player_role": "Complainant (Victim)",
@@ -16,7 +16,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 2,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 2,
             "is_mandatory": false,
             "player_role": "Complainant (Victim)",
@@ -29,7 +29,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 3,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 3,
             "is_mandatory": false,
             "player_role": "Complainant (Victim)",
@@ -42,7 +42,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 4,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 4,
             "is_mandatory": false,
             "player_role": "Complainant (Victim)",
@@ -55,7 +55,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 5,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 5,
             "is_mandatory": true,
             "player_role": "Complainant (Victim)",
@@ -68,7 +68,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 6,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 6,
             "is_mandatory": false,
             "player_role": "Witness (Bystander)",
@@ -81,7 +81,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 7,
         "fields": {
-            "module": "1",
+            "module_id": "1",
             "scene": 7,
             "is_mandatory": true,
             "player_role": "Respondent (Perpetrator)",
@@ -94,7 +94,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 8,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 1,
             "is_mandatory": true,
             "player_role": "Complainant (Victim)",
@@ -107,7 +107,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 9,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 2,
             "is_mandatory": true,
             "player_role": "Complainant (Victim)",
@@ -120,7 +120,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 10,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 3,
             "is_mandatory": true,
             "player_role": "Respondent (Perpetrator)",
@@ -133,7 +133,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 11,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 4,
             "is_mandatory": true,
             "player_role": "Witness (Bystander)",
@@ -146,7 +146,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 12,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 5,
             "is_mandatory": true,
             "player_role": "Respondent (Perpetrator)",
@@ -159,7 +159,7 @@
         "model": "enpApi.sceneinfo",
         "pk": 13,
         "fields": {
-            "module": "3",
+            "module_id": "3",
             "scene": 6,
             "is_mandatory": true,
             "player_role": "Witness (Bystander)",

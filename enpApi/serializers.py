@@ -4,7 +4,7 @@ from .models import Player, Employer, Modules, PlaySession, Employee, EthicalFee
 class EthicalFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = EthicalFeedback
-        fields = ('user', 'module', 'timestamp', 'scene', 'behavior_id', 'emotion')
+        fields = ('user', 'module_id', 'timestamp', 'scene', 'behavior_id', 'emotion')
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Player
@@ -28,5 +28,5 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
 class ModulesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Modules
-        fields = ('code', 'case', 'creation_date')
+        fields = ('module_id', 'creation_date')
 

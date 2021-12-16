@@ -1,0 +1,22 @@
+[
+    {
+        "model": "enpApi.employer",
+        "pk": 1,
+        "fields": {
+            "employer_id": 1,
+            "company_name": "Microsoft",
+            "logo": "https://lh3.googleusercontent.com/R7h87djYWk_hD1Yy52ZX1P2ojJZjR62R6y9b04Dq1iKpispdpHepja-Ip6W7J0gn7Dvt3LmWRhKlf0V_8k9CqfawzLy7_8EOfDqoCHOOTHy6XvKi16uv1Y5XgnMfdfQZB-vVQOxscw=w2400",
+            "description": "",
+            "deadline_duration_days": 60,
+            "mandatory_modules": [
+                1,
+                2
+            ],
+            "registered_modules": [
+                1,
+                2,
+                3
+            ]
+        }
+    }
+]

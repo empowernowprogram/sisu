@@ -1,0 +1,80 @@
+[
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 1,
+        "fields": {
+            "training_type": "Desktop",
+            "training_category": "Harassment Training",
+            "platform_category": "Mac",
+            "download_link": "https://www.mediafire.com/file/3xq13dxxijk7arv/M1_MacOS.zip/file",
+            "description": "",
+            "size": "17 KB",
+            "is_supervisor": false
+        }
+    },
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 2,
+        "fields": {
+            "training_type": "Desktop",
+            "training_category": "Harassment Training",
+            "platform_category": "Windows",
+            "download_link": "https://www.mediafire.com/file/58n26v5n371209k/M1S_2D_Windows.7z/file",
+            "description": "",
+            "size": "17 KB",
+            "is_supervisor": true
+        }
+    },
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 3,
+        "fields": {
+            "training_type": "Desktop",
+            "training_category": "Harassment Training",
+            "platform_category": "Windows",
+            "download_link": "https://www.mediafire.com/file/6xtulf8pp08hzh6/M1_2D_Windows.7z/file",
+            "description": "",
+            "size": "17 KB",
+            "is_supervisor": false
+        }
+    },
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 4,
+        "fields": {
+            "training_type": "VR",
+            "training_category": "Harassment Training",
+            "platform_category": "Oculus Quest",
+            "download_link": "https://www.mediafire.com/file/7mphunqegk84vc5/M1S_Quest_0.925.apk/file",
+            "description": "",
+            "size": "17 KB",
+            "is_supervisor": true
+        }
+    },
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 5,
+        "fields": {
+            "training_type": "VR",
+            "training_category": "Harassment Training",
+            "platform_category": "Oculus Quest",
+            "download_link": "https://www.mediafire.com/file/ytri6fqy7dxa13n/M1_Quest_0.923.apk/file",
+            "description": "",
+            "size": "17 KB",
+            "is_supervisor": false
+        }
+    },
+    {
+        "model": "enpApi.trainingpackagedownloadlink",
+        "pk": 6,
+        "fields": {
+            "training_type": "VR",
+            "training_category": "Harassment Training",
+            "platform_category": "SteamVR",
+            "download_link": "https://www.mediafire.com/file/99xavka6llolli9/M1_PCXR_Update.zip/file",
+            "description": "",
+            "size": "1.2GB",
+            "is_supervisor": false
+        }
+    }
+]
