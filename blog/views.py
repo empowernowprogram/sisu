@@ -835,7 +835,14 @@ def portal_remove_user(request):
             # remove player (play session) and then remove user
             # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
             Player.objects.filter(email=user_email).delete()
-            CustomUser.objects.filter(email=user_email).delete()
+
+            user = CustomUser.objects.filter(email=user_email)
+
+            PostProgramSurveySupervisor.objects.filter(user=user).delete()
+            PostProgramSurvey.objects.filter(user=user).delete()
+            EthicalFeedback.objects.filter(user=user).delete()
+
+            user.delete()
 
             return redirect('/portal/edit-registration/')
 
