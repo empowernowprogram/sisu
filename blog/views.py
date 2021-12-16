@@ -4,6 +4,7 @@ import sendgrid
 import os, urllib
 import requests, json
 from collections import defaultdict
+from datetime import timedelta
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -27,8 +28,8 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count
 from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
-from enpApi.models import PlaySession, Player, Employer, Modules, ModuleDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
-from enpApi.models import Behavior, SceneInfo, EthicalFeedback # for ethical framework report
+from enpApi.models import PlaySession, Player, Employer, Modules, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
+from enpApi.models import Behavior, SceneInfo, EthicalFeedback, SupervisorMapping # for ethical framework report
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -43,6 +44,9 @@ from .chart import CatPieChart, PollHorizontalBarChart
 from django.views.generic import TemplateView
 
 from django.contrib.auth.models import User, auth
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.password_validation import validate_password
 
 
 
@@ -538,37 +542,55 @@ def portal_login_trial(request):
 
 def portal_logout(request):
     auth.logout(request)
-    return redirect('/')
+    return redirect('/portal/home')
 
 
 # Training Portal Authentication / Login, Logout - START
+# portal_signup assign play sessions to user after clicking on the link in registration email
 def portal_signup(request):
     # todo - better method is to incorporate 'next=?' operations and logic
     if request.method == 'POST':
 
         username = request.POST['username']
         password = request.POST['password']
+        
         user = auth.authenticate(username=username, password=password)
-        #user = auth.authenticate(username="srossi455@gmail.com", password="default1234")
     
-        emp = Employer.objects.get(company_name=request.POST['company'])
+        company = request.POST['company']
+        employer = Employer.objects.get(company_name=company)
 
-        print(emp)
-        print(request.POST['isSuper'])
         if user is not None:
             auth.login(request, user)
-            if request.POST['npassword1'] == request.POST['npassword2']:
+
+            npassword1 = request.POST['npassword1']
+            npassword2 = request.POST['npassword2']
+
+            if npassword1 == npassword2:
+                # validate password
+                try:
+                    validate_password(npassword1, user=user)
+                except:
+                    messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you followed the password rules. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                    return redirect('/auth-register/?user={}&cmp={}&type={}&is={}'.format(username, company, request.POST['training'], request.POST['isSuper']))
+
+                # set new password
                 user.set_password(npassword1)
                 user.save()
-                ply = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=emp.employer_id)
-                PlaySession.objects.create(employer=emp.employer_id, player=ply, module_id=0, score=0, success=False, time_taken=0)
+
+                # create player
+                newPlayer = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=employer)
+                
+                # create playsession
+                allModules = employer.registered_modules.all()
+                for module in allModules:
+                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=module.module_id, score=0, success=False, time_taken=0)
+
                 return redirect('/portal/home/')
             else:
                 context = {'bad_login_is' : True}
         else:
             context = {'bad_login_is': True}
             messages.info(request, 'invalid credentials')
-            # messages.info(request, 'invalid credentials')
             return render(request, 'auth/register.html', context)
     else:
         training = request.GET['type']
@@ -591,12 +613,42 @@ def key_redeem(request):
 
 
 # Training Portal - START
+def check_mandatory_completion(player, play_sessions):
+
+    company_mandatory_modules = player.employer.mandatory_modules.all()
+    mandatory_modules_list = []
+
+    for module in company_mandatory_modules:
+        mandatory_modules_list.append(module.module_id)
+
+    has_completed_all_mandatory = True
+
+    for play_session in play_sessions:
+        if not play_session.success and play_session.module_id in mandatory_modules_list:
+            has_completed_all_mandatory = False
+            break
+    
+    return has_completed_all_mandatory, mandatory_modules_list
+
+
 def portal_home(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+
+        due_date = player.training_deadline or player.creation_date + timedelta(days= player.employer.deadline_duration_days)
+        
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
+
+        context = {
+            'player': player, 
+            'play_sessions': play_sessions, 
+            'play_sessions_completed': play_sessions_completed,
+            'due_date': due_date,
+            'mandatory_modules_list': mandatory_modules_list,
+            'has_completed_all_mandatory': has_completed_all_mandatory
+            }
         
         return render(request, 'portal/home.html', context)
     else:
@@ -609,36 +661,26 @@ def split_emails(email_string):
     return emails
 
 
-
-def send_html_email(template, content, subject, to_emails, from_email='hello@sisuvr.com'):
-    """
-    Sends .html email base on template and returns a boolean if the email was successfully sent.
-
-    `to_emails` should be a list (i.e. [my@email.com,...])
-    """    
-    email_sent = False
+# send_html_email sends email and returns True if the email is successfully sent
+def send_html_email(email_templates, context, subject, email_address, from_email='hello@sisuvr.com'):
     try:
-        msg_html = render_to_string(template, content)
-        msg = EmailMessage(subject=subject, body=msg_html, to=to_emails, from_email=from_email)
-        msg.content_subtype = "html"
-        msg.send()
-        email_sent = True
-        #send_mail('Testing SMTP from Django', 'Please respond via Slack if this works', settings.EMAIL_HOST_USER, ['jocelyn.tan@sisuvr.com'])
-        return email_sent
+        html = render_to_string(email_templates, context)
+        message = EmailMultiAlternatives(subject, '', from_email, [email_address])
+        message.attach_alternative(html, "text/html")
+        message.send()
+        return True
     except:
-        return email_sent
-
-
+        return False
 
 
 def portal_register(request):
-    if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
 
-        context = {'player': player}
-        emp = Employer.objects.get(employer_id=player.employer)
-        employer = emp.company_name
-        
+    if request.user.is_authenticated:
+
+        player = Player.objects.get(user=request.user)
+        employer = player.employer
+        employer_name = employer.company_name
+        due_date_by_days = employer.deadline_duration_days
          
         if request.is_ajax():
             print('request - is ajax')
@@ -654,154 +696,89 @@ def portal_register(request):
             emails_desktop_nonsupervisor    = split_emails(emails_desktop_nonsupervisor)
             emails_desktop_supervisor       = split_emails(emails_desktop_supervisor)
 
-            print(emails_vr_nonsupervisor)
-            email_subject = 'test subject'
-            email_message = 'test email message body'
-            
-            print('attempt to send email')
-            #send_mail(
-            #    'EMAIL SUBJECT',                                            # subject
-            #    'TEST MESSAGE',                                                  # message
-            #    'hello@sisuvr.com',                                             # from email
-            #    ['srossi455@gmail.com'],                                   # to email
-            #)
-            print('email sent')
+            # common settings for all type of users
+            default_pwd = "default1234"
+            subject = "Register for the Empower Now Program from Sisu VR"
+            email_templates = 'email-templates/email-training-signup.html'
+            context = {'company_name': employer_name, 'due_date_by_days': due_date_by_days, 'training_duration': "60 Minutes", 'pw': default_pwd}
 
-           
+            failure_list = []
 
-            # send emails
-            # TODO - needs to be fixed, emails do not send due to internal server error
-            if len(emails_vr_nonsupervisor) > 0:
-                print("Should attempt to send email")
-                for i in emails_vr_nonsupervisor:
-                    if i == '':
-                        break
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    from_email = Email("hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    print(i)
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    #plain_message = strip_tags(html)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
-                    #from_email, to = 'hello@sisuvr.com', i
-                    #html_content = str(content)
-                    #msg = EmailMessage(subject, html_content, from_email, [to])
-                    #msg.content_subtype = "html"
-                    #msg.send()                    
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
-                    #mail.send_mail(
-                    #    subject,                                            # subject
-                    #    plain_message,                                                  # message
-                    #    'hello@sisuvr.com',                                             # from email
-                    #    [i],                                   # to email
-                    #    html_message=html
-                    #)
+            # send emails for VR nonsupervisors
+            for email_address in emails_vr_nonsupervisor:
+                if email_address == '':
+                    break
+
+                context['user'] = email_address
+                context['training_type'] = 'VR'
+                context['isSuper'] = 0
+
+                is_success = send_html_email(email_templates, context, subject, email_address)
                 
-            if len(emails_vr_supervisor) > 0:
-                for i in emails_vr_supervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "VR", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
+                    failure_list.append(email_address)
+                
+            # send emails for VR supervisors
+            for email_address in emails_vr_supervisor:
+                if email_address == '':
+                    break
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                context['user'] = email_address
+                context['training_type'] = 'VR'
+                context['isSuper'] = 1
 
-            if len(emails_desktop_nonsupervisor) > 0:
-                for i in emails_desktop_nonsupervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 0}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())
+                is_success = send_html_email(email_templates, context, subject, email_address)
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
+                    failure_list.append(email_address)
 
-            if len(emails_desktop_supervisor) > 0:
-                for i in emails_desktop_supervisor:
-                    if i == '':
-                        break;
-                    if not get_user_model().objects.filter(email = i).exists():
-                        get_user_model().objects.create_user(username=i, email=i, password="default1234")
-                    context = {'company_name': employer, 'training_type': "desktop", 'training_duration': "60 Minutes", 'user': i, 'pw': "default1234", 'isSuper': 1}
-                    #print (os.environ.get('SENDGRID_API_KEY'))  
-                    #sg = sendgrid.SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                    print("Set sendgrid instance")
-                    #from_email = Email("Hello@sisuvr.com")
-                    print("Set from email")
-                    #to_email = Email(i)
-                    print("Set to email")
-                    subject = "Register for the Empower Now Program from Sisu VR"
-                    #subject = sender + form.cleaned_data['subject']
-                    print("Set subject")
-                    html = render_to_string('email-templates/email-training-signup.html', context)
-                    content = Content("text/html", html)
-                    print("Creating mail structure")
-                    #mail = Mail(from_email, subject, to_email, content)
-                    print("Attempting to send mail")
-                    #response = sg.client.mail.send.post(request_body=mail.get())                
+            # send emails for Desktop nonsupervisors
+            for email_address in emails_desktop_nonsupervisor:
+                if email_address == '':
+                    break
+                
+                context['user'] = email_address
+                context['training_type'] = 'Desktop'
+                context['isSuper'] = 0
 
-                    message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com', [i])
-                    message.attach_alternative(html, "text/html")
-                    message.send()
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
+                    failure_list.append(email_address)
+
+            # send emails for Desktop supervisors
+            for email_address in emails_desktop_supervisor:
+                if email_address == '':
+                    break
+                
+                context['user'] = email_address
+                context['training_type'] = 'Desktop'
+                context['isSuper'] = 1
+
+                is_success = send_html_email(email_templates, context, subject, email_address)
+                
+                if is_success:
+                    if not get_user_model().objects.filter(email=email_address).exists():
+                        get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+                else:
+                    failure_list.append(email_address)
             
-            #print(f'emails_vr_nonsupervisor = {emails_vr_nonsupervisor}')
-            context = {'status': 'success', 'message': 'Emails successfully sent to recipients.'}
+
+            context = {'status': 'success', 'failure_list': failure_list}
             return JsonResponse(context, status=200)
 
+        context = {'player': player}
         return render(request, 'portal/register.html', context)
+
     else:
         return render(request, 'auth/login.html')
 
@@ -821,6 +798,8 @@ def portal_change_password(request):
         return render(request, 'auth/login.html')
 
 
+""" Training Portal - Registration START """
+
 def portal_edit_registration(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
@@ -829,66 +808,78 @@ def portal_edit_registration(request):
         context = {'player': player, 'players': players}
         
         return render(request, 'portal/edit-registration.html', context)
+            
     else:
         return render(request, 'auth/login.html')
 
-
-def portal_edit(request):
+def portal_edit_user(request):
     if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
+        if request.method == 'POST':
+            user_email = request.POST['userEmail1']
+            user_name = request.POST['userName']
+            user_registration_type = request.POST['regiTypeDropDown']
+            isSupervisor = (user_registration_type == "1") # value 1 means user selected "Supervisor"
+            
+            Player.objects.filter(email=user_email).update(full_name=user_name, supervisor=isSupervisor)
 
-        context = {'player': player, 'players': players}
-        
-        print(request.POST['usr-email'])
-        print(request.POST['usr-reg'])
-        print(request.POST['isRem'])
+            return redirect('/portal/edit-registration/')
 
-        if request.POST['isRem'] == 'true':
-            ply = request.POST['usr-email']
-            Player.objects.filter(email=ply).delete()
-            CustomUser.objects.filter(email=ply).delete()
-        else:
-            if request.POST['usr-reg'] == 'supervisor':
-                ply = Player.objects.filter(email=request.POST['usr-email'])
-                ply.supervisor = True
-                ply.save()
-        return render(request, 'portal/edit-registration.html', context)
     else:
         return render(request, 'auth/login.html')
 
-
-def portal_remove(request):
+def portal_remove_user(request):
     if request.user.is_authenticated:
-        player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
+        if request.method == 'POST':
+            user_email = request.POST['userEmail2']
 
-        ply = request.POST['usrRem']
-        Player.objects.filter(email=ply).delete()
-        CustomUser.objects.filter(email=ply).delete()
-        context = {'player': player, 'players': players}
-        
-        return render(request, 'portal/edit-registration.html', context)
+            # remove player (play session) and then remove user
+            # a better way to do this is to have a boolean field 'disabled' to prevent data loss?
+            Player.objects.filter(email=user_email).delete()
+
+            user = CustomUser.objects.filter(email=user_email)
+            user_obj = user.first()
+
+            queryset = PostProgramSurveySupervisor.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = PostProgramSurvey.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = SelectedAdjective.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            queryset = EthicalFeedback.objects.filter(user=user_obj)
+            if queryset.exists():
+                queryset.delete()
+
+            user.delete()
+
+            return redirect('/portal/edit-registration/')
+
     else:
         return render(request, 'auth/login.html')
 
+""" Training Portal - Registration END """
 
 def portal_training_dl(request):
     if request.user.is_authenticated:
       player = Player.objects.get(user=request.user)
       if player.admin == True:
-        module_download_links = ModuleDownloadLink.objects.all()
+        module_download_links = TrainingPackageDownloadLink.objects.all()
             # module_download_links = module_download_links.order_by('is_supervisor')
       else:
             # non-supervisor
         if player.supervisor == False and player.registration_type == 'Desktop':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='Desktop', is_supervisor=False)
         elif player.supervisor == False and player.registration_type == 'VR':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='VR', is_supervisor=False)
         elif player.supervisor == True and player.registration_type == 'Desktop':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='Desktop', is_supervisor=True)
         elif player.supervisor == True and player.registration_type == 'VR':
-          module_download_links = ModuleDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
+          module_download_links = TrainingPackageDownloadLink.objects.filter(training_type='VR', is_supervisor=True)
         else:
           module_download_links = ''
 
@@ -911,26 +902,43 @@ def portal_training_dl_trial(request):
 def portal_employee_progress(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
-        players = Player.objects.filter(employer=player.employer)
-        play_sessions = PlaySession.objects.filter(employer=player.employer)
+
+        if player.admin:
+            # show all players in this company
+            players = Player.objects.filter(employer=player.employer)
+            play_sessions = PlaySession.objects.filter(employer=player.employer.employer_id)
+
+        elif player.supervisor:
+            # show this supervisor's team result
+            thisTeamUsers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
+            players = Player.objects.filter(user__in=thisTeamUsers)
+            play_sessions = PlaySession.objects.filter(player__in=players)
+        
+        else:
+            return redirect('/portal/home/')
 
         players_obj = []
 
         # creating dictionary with aggregated data to be rendered to DOM.
         # reason for doing this is because quantity of modules completed player are from two different data sets and require looping
         for i, player_single in enumerate(players):
-            if player_single.supervisor == True: registration_type = 'Supervisor' 
-            else: registration_type = 'Non-supervisor'
+            if player_single.supervisor: 
+                registration_type = 'Supervisor' 
+            else: 
+                registration_type = 'Non-supervisor'
+
+            all_modules = play_sessions.filter(player=player_single)
+            completed_modules = play_sessions.filter(player=player_single).filter(success=True)
 
             players_obj.append({
                 'name': player_single.full_name,
                 'email': player_single.email,
                 'registration': registration_type,
-                'modules_completed': len(PlaySession.objects.filter(employer=player.employer).filter(player=player_single).filter(success=True))
+                'all_modules': len(all_modules),
+                'modules_completed': len(completed_modules)
             })
-
         
-        context = {'player': player, 'players': players, 'play_sessions': play_sessions, 'players_obj': players_obj}
+        context = {'player': player, 'players_obj': players_obj}
         
         return render(request, 'portal/progress.html', context)
     else:
@@ -938,10 +946,34 @@ def portal_employee_progress(request):
 
 
 def portal_settings(request):
+
     if request.user.is_authenticated:
+
         player = Player.objects.get(user=request.user)
-        context = { 'player': player }
+
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('settings')
+
+            else:
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you filled out all required fields and followed the password rules. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+
+        else:
+            form = PasswordChangeForm(request.user)
+        
+
+        context = {
+            'player': player,
+            'form': form
+            }
+
         return render(request, 'portal/settings.html', context)
+
     else:
         return render(request, 'auth/login.html')
 
@@ -951,8 +983,23 @@ def portal_certificate(request):
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
         play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+        company = player.employer.company_name
+        logoLink = player.employer.logo
 
-        context = {'player': player, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed}
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
+
+        date = None
+        for session in play_sessions_completed:
+            if not date or session.date_taken > date:
+                date = session.date_taken
+
+        context = {
+            'player': player,
+            'has_completed_all_mandatory': has_completed_all_mandatory,
+            'company': company, 
+            'logo': logoLink,
+            'date': date
+            }
     
         return render(request, 'portal/certificate.html', context)
     else:
@@ -966,31 +1013,32 @@ def getColor(behavior):
     return colorDict[behavior]
 
 
-def portal_ethical_report(request):
+def portal_ethical_report(request, pk):
     if request.user.is_authenticated:
 
         player = Player.objects.get(user=request.user)
         play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
-        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
 
-        if len(play_sessions) != len(play_sessions_completed):
-            return render(request, 'portal/ethical-report.html', {"completedTraining": False, 'play_sessions': play_sessions, 'play_sessions_completed': play_sessions_completed})
+        has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
+
+        if not has_completed_all_mandatory:
+            return render(request, 'portal/ethical-report.html', {"completedTraining": False})
 
 
-        # supervisor
-        if player.supervisor:
-            # aggregate data
-            # get all data for now, need to filter out a supervisor's employees
-            queryset = EthicalFeedback.objects.all()
+        # supervisor can view aggregated report
+        if player.supervisor and pk == "team_report":
+            # filter team and aggregate data
+            thisTeamMembers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
+            queryset = EthicalFeedback.objects.filter(user__in=thisTeamMembers)
 
             # calulate average emotion value for each scene
             feedbackCountInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: count of feedbacks}}
             emotionSumInModule = defaultdict(lambda: defaultdict(int)) # {module nb: {scene nb: sum of employees' emotion}}
             behaviorCountInModule = defaultdict(lambda: defaultdict(dict)) # {module nb: {hostile: {scene nb: count}, ...}}
             for entry in queryset:
-                emotionSumInModule[entry.module][entry.scene] += entry.emotion
-                feedbackCountInModule[entry.module][entry.scene] += 1
-                behaviorCountInModule[entry.module][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module][entry.behavior_id.description].get(entry.scene, 0) + 1
+                emotionSumInModule[entry.module_id][entry.scene] += entry.emotion
+                feedbackCountInModule[entry.module_id][entry.scene] += 1
+                behaviorCountInModule[entry.module_id][entry.behavior_id.description][entry.scene] = behaviorCountInModule[entry.module_id][entry.behavior_id.description].get(entry.scene, 0) + 1
 
             # aggregate data by module
             moduleCnt = len(emotionSumInModule)
@@ -1006,10 +1054,10 @@ def portal_ethical_report(request):
             datasets = defaultdict(dict)
 
             for moduleId, emotionSum in emotionSumInModule.items():
-                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneInfoQueries = SceneInfo.objects.filter(module_id=moduleId)
                 sceneCnt = sceneInfoQueries.count() # get scene count from scene info table
 
-                employeeCnt = queryset.filter(module=moduleId).order_by().values_list('user').distinct().count()
+                employeeCnt = queryset.filter(module_id=moduleId).order_by().values_list('user').distinct().count()
 
                 avgEmotions = [0] * sceneCnt
 
@@ -1054,6 +1102,7 @@ def portal_ethical_report(request):
             modules = sorted(list(emotionSumInModule.keys()))
 
             context = {
+                'isAggregatedReport': pk == "team_report",
                 'completedTraining': True,
                 'player': player, 
                 'modules': modules,
@@ -1074,8 +1123,8 @@ def portal_ethical_report(request):
 
             }
 
-        # not supervisor
-        else:
+        # individual report
+        elif pk == "my_report":
 
             username = request.user.username
 
@@ -1089,6 +1138,9 @@ def portal_ethical_report(request):
             scriptsInModule = {}
 
             for field in play_sessions.all():
+                if not field.success:
+                    continue
+                    
                 moduleId = field.module_id
 
                 # fetch ethical feedbacks in this module
@@ -1096,7 +1148,7 @@ def portal_ethical_report(request):
                 emotions = []
                 behaviors = []
 
-                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module=moduleId)
+                queryset = EthicalFeedback.objects.filter(user__username=username).filter(module_id=moduleId)
 
                 for column in queryset:
                     scenes.append(column.scene)
@@ -1114,7 +1166,7 @@ def portal_ethical_report(request):
                     scenesIdices[scene-1] = i
 
                 # fetch player roles in this module
-                sceneInfoQueries = SceneInfo.objects.filter(module=moduleId)
+                sceneInfoQueries = SceneInfo.objects.filter(module_id=moduleId)
                 roles = {}
                 screenshots = {}
                 npcs = {}
@@ -1143,6 +1195,7 @@ def portal_ethical_report(request):
                 colors.append(getColor(b))
 
             context = {
+                'isAggregatedReport': pk == "team_report",
                 'completedTraining': True,
                 'player': player,
                 'modules': modules,

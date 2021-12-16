@@ -2,7 +2,7 @@
 {% load static %}
 
 <div class="page-sidebar">
-    <a class="logo-box" href="{% url 'home_portal' %}">
+    <a class="logo-box" href="{% url 'index' %}" target="_blank">
         <img src="{% static 'portal/img/logo-sisu.svg' %}" width="100px" height="auto" alt="Sisu VR">
         <i class="icon-close" id="sidebar-toggle-button-close"></i>
     </a>
@@ -26,8 +26,8 @@
                 </li>
                 <li class="menu-divider"></li>
                 <li>
-                    <a href="mailto:hello@sisuvr.com">
-                        <i class="menu-icon"></i><span>Email Support</span>
+                    <a href="{% url 'contact' %}" target="_blank">
+                        <i class="menu-icon"></i><span>Contact Support</span>
                     </a>
                 </li>
                 <li>

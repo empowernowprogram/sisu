@@ -1,0 +1,35 @@
+[
+    {
+        "model": "enpApi.modules",
+        "pk": 1,
+        "fields": {
+            "module_id": "1",
+            "case": 0,
+            "creation_date": "2021-11-15",
+            "is_available": false,
+            "is_mandatory": false
+        }
+    },
+    {
+        "model": "enpApi.modules",
+        "pk": 2,
+        "fields": {
+            "module_id": "3",
+            "case": 0,
+            "creation_date": "2021-11-15",
+            "is_available": false,
+            "is_mandatory": false
+        }
+    },
+    {
+        "model": "enpApi.modules",
+        "pk": 3,
+        "fields": {
+            "module_id": "2",
+            "case": 0,
+            "creation_date": "2021-11-15",
+            "is_available": false,
+            "is_mandatory": false
+        }
+    }
+]
