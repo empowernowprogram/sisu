@@ -634,8 +634,8 @@ def check_mandatory_completion(player, play_sessions):
 def portal_home(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
-        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
-        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+        play_sessions = PlaySession.objects.filter(player=player).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=player).filter(success=True)
 
         due_date = player.training_deadline or player.creation_date + timedelta(days= player.employer.deadline_duration_days)
         
