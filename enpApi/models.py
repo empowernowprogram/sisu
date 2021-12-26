@@ -25,22 +25,43 @@ class Employer(models.Model):
         return self.company_name
 
 class Player(models.Model):
-    email = models.CharField(max_length=50, primary_key=True)
-    employer = models.ForeignKey(Employer, on_delete=models.DO_NOTHING, null=True)
-    
-    full_name = models.CharField(max_length=60)
-    supervisor = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
-    registration_type = models.CharField(default='', max_length=16)
-    has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
-    is_provisional = models.BooleanField(default=True)
+    full_name = models.CharField(max_length=60)
+    employer = models.ForeignKey(Employer, on_delete=models.DO_NOTHING, null=True)
+    email = models.CharField(max_length=50, primary_key=True)
+    
+    supervisor = models.BooleanField(default=False) # should be renamed as is_supervisor
+    admin = models.BooleanField(default=False) # should be renamed as is_admin
+    registration_type = models.CharField(default='', max_length=16) # should add a registration type class and build foreignKey relationship
+    has_signed = models.BooleanField(default=False) # to be deleted
+    is_provisional = models.BooleanField(default=True) # need an API to toggle this field
+    training_deadline = models.DateField(blank=True, null=True) # for future use
     creation_date = models.DateField(auto_now_add=True, null=True)
-    training_deadline = models.DateField(blank=True, null=True)
+    modification_date = models.DateField(auto_now=True, null=True)
 
     def __str__(self):
-        return self.email
+        return self.full_name
 
+class Team(models.Model):
+    team_name = models.CharField(max_length=60)
+    employer = models.ForeignKey(Employer, on_delete=models.CASCADE, null=True)
+    leader = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    modification_date = models.DateField(auto_now=True, null=True)
+
+    def __str__(self):
+        return self.team_name
+
+class TeamMapping(models.Model):
+    employee = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
+    creation_date = models.DateField(auto_now_add=True, null=True)
+    modification_date = models.DateField(auto_now=True, null=True)
+
+    class Meta:
+        ordering = ['team']
+        
+# SupervisorMapping to be deleted
 class SupervisorMapping(models.Model):
     employee = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_member', on_delete=models.CASCADE, null=True)
     supervisor = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_supervisor', on_delete=models.CASCADE, blank=True, null=True)

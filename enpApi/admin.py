@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, SupervisorMapping
 from .models import ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
+from .models import Team, TeamMapping
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('user', 'employer', 'supervisor', 'admin', 'creation_date')
@@ -51,6 +52,12 @@ class ModulesAdmin(admin.ModelAdmin):
 class SupervisorMappingAdmin(admin.ModelAdmin):
     list_display = ('employee', 'supervisor', 'creation_date', 'modification_date')
 
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('team_name', 'employer', 'leader', 'creation_date', 'modification_date')
+
+class TeamMappingAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'team', 'creation_date', 'modification_date')
+
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Employer, EmployerAdmin)
 admin.site.register(PlaySession, PlaySessionAdmin)
@@ -65,3 +72,5 @@ admin.site.register(SceneInfo, SceneInfoAdmin)
 admin.site.register(EthicalFeedback, EthicalFeedbackAdmin)
 admin.site.register(Modules, ModulesAdmin)
 admin.site.register(SupervisorMapping, SupervisorMappingAdmin)
+admin.site.register(Team, TeamAdmin)
+admin.site.register(TeamMapping, TeamMappingAdmin)
