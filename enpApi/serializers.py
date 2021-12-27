@@ -13,7 +13,8 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
 class PlaySessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlaySession
-        fields = ('employer', 'player', 'module_id', 'date_taken', 'score', 'success', 'time_taken', 'training_type')
+        # fields = ('employer', 'player', 'module_id', 'date_taken', 'score', 'success', 'time_taken', 'training_type')
+        fields = ('employer', 'player', 'module_id', 'date_taken', 'score', 'success', 'time_taken')
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

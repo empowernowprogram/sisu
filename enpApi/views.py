@@ -9,7 +9,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
 from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback
+from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback, PostProgramSurvey, PostProgramSurveySupervisor
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
 from blog import views
@@ -41,8 +41,6 @@ class ModulesViewSet(viewsets.ModelViewSet):
 def addEthicalData(request):
     if request.method == 'POST':
         inputData = JSONParser().parse(request)
-        print("input------")
-        print(inputData)
         user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
         module = inputData["data"]["session"]["Module"]
         # timestamp = inputData["data"]["session"]["Date"]
@@ -66,13 +64,21 @@ def send_email_reminder(player):
     employer_name = employer.company_name
     play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
     has_completed_all_mandatory, mandatory_modules_list = views.check_mandatory_completion(player, play_sessions)
-    
     subject = "We value your feedback!"
     email_templates = 'blog/templates/email-templates/email-survey-reminder.html'
     context = {'company_name': employer_name, 'full_name': full_name}
 
-    if has_completed_all_mandatory is True:
-        views.send_html_email(email_templates, context, subject, email_address)
+    if has_completed_all_mandatory is True:    
+        # if player is supervisor
+        if player.supervisor and PostProgramSurveySupervisor.objects.filter(player=player).count() == 0:
+            print("AA")
+            views.send_html_email(email_templates, context, subject, email_address)
+        # if player is not a supervisor
+        if not player.supervisor and PostProgramSurvey.objects.filter(player=player).count() == 0:
+            print("BB")
+            views.send_html_email(email_templates, context, subject, email_address)
+            print("CC")
+        
         
 
 @api_view(['GET', 'POST'])
@@ -82,7 +88,8 @@ def addSession(request):
     usr = CustomUser.objects.get(email=request.GET['email'])
     print(usr)
     player = Player.objects.get(user=usr)
-    data = {'module_id': request.GET['id'], 'player': player, 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time'], 'employer': '0', 'training_type': "2D"}
+    data = {'module_id': request.GET['id'], 'player': player, 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time'], 'employer': '0'}
+    # , 'training_type': "2D"
     session_serializer = PlaySessionSerializer(data=data)
     if session_serializer.is_valid():
         print("Session valid")

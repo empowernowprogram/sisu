@@ -670,6 +670,7 @@ def send_html_email(email_templates, context, subject, email_address, from_email
         message.send()
         return True
     except:
+        print(exceptions)
         return False
 
 
