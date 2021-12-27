@@ -1,0 +1,40 @@
+<div class="modal fade" id="add-team-modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Team Details
+                </h4>
+            </div>
+            <form action="{% url 'add-team' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <table id="add-team-reg" class="display table">
+                            <tbody>
+                                <tr>
+                                    <td>Name *</td>
+                                    <td id="team-name">
+                                        <input id="teamName" name="teamName" value="" placeholder="E.g. Product"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Leader</td>
+                                    <td id="team-leader">
+                                        <input id="leader" name="leader" value="" placeholder="Email address"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sisu-primary">Create Team</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

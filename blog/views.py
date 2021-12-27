@@ -580,7 +580,9 @@ def portal_signup(request):
 
                 # create player
                 newPlayer = Player.objects.create(email=username, full_name=request.POST['name'], registration_type=request.POST['training'], supervisor=request.POST['isSuper'], user=user, employer=employer)
-                
+                team = Team.objects.get(id=request.POST['team_id'])
+                newTeamMapping = TeamMapping.objects.create(employee=newPlayer, team=team)
+
                 # create playsession
                 allModules = employer.registered_modules.all()
                 for module in allModules:
@@ -598,7 +600,8 @@ def portal_signup(request):
         company = request.GET['cmp']
         usr = request.GET['user']
         isSuper = request.GET['is']
-        context = {'training': training, 'company': company, 'usr': usr, 'is': isSuper}    
+        team_id = request.GET['team']
+        context = {'training': training, 'company': company, 'usr': usr, 'is': isSuper, 'team_id': team_id}    
         return render(request, 'auth/register.html', context)
     
     return render(request, 'auth/register.html')
@@ -679,13 +682,27 @@ def portal_register(request):
     if request.user.is_authenticated:
 
         player = Player.objects.get(user=request.user)
+
         employer = player.employer
         employer_name = employer.company_name
         due_date_by_days = employer.deadline_duration_days
-         
+        
+        # display all existing teams in this company
+        teams_list = {}
+        this_company_teams = Team.objects.filter(employer=player.employer)
+        for team in this_company_teams:
+            teams_list[team] = list()
+
+        queryset = TeamMapping.objects.filter(team__in=this_company_teams)
+        for entry in queryset:
+            teams_list[entry.team].append(entry.employee)
+
+
         if request.is_ajax():
             print('request - is ajax')
             # get inputs
+            team_id                         = request.GET.get('team_id')
+            team_name                       = request.GET.get('team_name')
             emails_vr_nonsupervisor         = request.GET.get('vr_nonsupervisor')
             emails_vr_supervisor            = request.GET.get('vr_supervisor')
             emails_desktop_nonsupervisor    = request.GET.get('desktop_nonsupervisor')
@@ -701,7 +718,7 @@ def portal_register(request):
             default_pwd = "default1234"
             subject = "Register for the Empower Now Program from Sisu VR"
             email_templates = 'email-templates/email-training-signup.html'
-            context = {'company_name': employer_name, 'due_date_by_days': due_date_by_days, 'training_duration': "60 Minutes", 'pw': default_pwd}
+            context = {'company_name': employer_name, 'team_id': team_id, 'team_name': team_name, 'due_date_by_days': due_date_by_days, 'training_duration': "60 Minutes", 'pw': default_pwd}
 
             failure_list = []
 
@@ -777,7 +794,7 @@ def portal_register(request):
             context = {'status': 'success', 'failure_list': failure_list}
             return JsonResponse(context, status=200)
 
-        context = {'player': player}
+        context = {'player': player, 'teams': teams_list}
         return render(request, 'portal/register.html', context)
 
     else:
@@ -880,6 +897,11 @@ def portal_remove_user(request):
 def portal_add_team(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
+            team_name = request.POST['teamName']
+            if not team_name:
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> Name of a team is a required field. Please try again.'))
+                return redirect('/portal/edit-registration/team')
+
             leader_email = request.POST['leader']
             if leader_email:
                 try:
@@ -891,7 +913,7 @@ def portal_add_team(request):
                 leader = None
 
             employer = Player.objects.get(user=request.user).employer
-            team_name = request.POST['teamName']
+            
 
             Team.objects.create(team_name=team_name, employer=employer, leader=leader)
 

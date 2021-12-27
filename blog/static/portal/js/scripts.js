@@ -93,12 +93,6 @@ $(document).ready(function () {
 
     });
 
-    $('#add-team-btn').click(function () {
-        $('#add-team-modal').modal('show');
-
-
-    });
-
     /* POST PROGRAM SURVEY SCRIPT - START */
 
     // when click on continue button
@@ -161,6 +155,26 @@ $(document).ready(function () {
         }
     });
 
+    $('#add-team-btn').click(function () {
+        $('#add-team-modal').modal('show');
+    });
+
+    $('.register-btn').click(function () {
+        team_name = $(this).attr('team_name');
+        team_id = $(this).attr('team_id');
+        $('#team-id').text(team_id);
+        $('#team').text(team_name);
+        $('#registration-header').text(`Register Employees for ${team_name.toUpperCase()} Team`);
+
+        $('#registration-step-1').hide();
+        $('#registration-step-2').show();
+    });
+
+    $('.registration-back').click(function () {
+        $('#registration-header').text('Register Employees');
+        $('#registration-step-1').show();
+        $('#registration-step-2').hide();
+    });
 
     /* ADMIN REGISTRATION TEAM SCRIPT - END */
 })

@@ -59,18 +59,73 @@
                 <div class="page-inner">
                     <!-- Page Top Bar Start -->
                     <div class="page-title">
-                        <h2>Register Employees</h2>
+                        <h2 id="registration-header">Register Employees</h2>
                         <hr>
                     </div>
                     <!-- Page Top Bar End -->
                     
                     <!-- Main Content Start -->
-                    <div id="main-wrapper">
+                    <div id="registration-step-1">
+                        <div class="row">
+                            <p>Select the team you would like to register employees for.</p>
+                            <p>You can create teams by clicking “Add Team” below.</p>
+                        </div>
+                        <button id="add-team-btn" class="btn btn-sisu-primary" style="float: right; margin-right: 25px; width:120px;">Add Team</button>
+                        <br/><br/><br/>
+
+                        {% for team, employee_list in teams.items %}
+                            <div class="col-md-12" style="margin-bottom: 25px;">
+                                <div class="table-responsive">
+                                    <table class="display table" style="margin-bottom: 0;">
+                                        <thead class="tbl-sisu-header-normal-case">
+                                            <tr>
+                                                <th class="col-md-4" style="text-transform:uppercase; color: #494949; vertical-align: middle;"><div class="triangle-right" team="{{team.id}}"></div>{{team.team_name}}</th>
+                                                <th class="col-md-2" style="text-align: right; vertical-align: middle;">{{team.leader}}</th>
+                                                <th class="col-md-3" style="text-align: right; color: #494949; vertical-align: middle;">{{ employee_list|length }} {% if employee_list|length > 1 %} people {% else %} person {% endif %}</th>
+                                                <th class="col-md-3" style="text-align: right;"><button class="btn btn-sisu-primary register-btn" style="width:120px; background-color: #FFB45B;" team_id="{{team.id}}" team_name="{{team.team_name}}">Register</button></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <table id="team-{{team.id}}" class="display table team-table" style="width: 100%; cellspacing: 0;" hidden>
+                                        <thead class="tbl-sisu-header">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Registration Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for employee in employee_list %}
+                                                <tr>
+                                                    <td>{{ employee.full_name }}</td>
+                                                    <td>{{ employee.email }}</td>
+                                                    <td>{% if employee.supervisor is True %} Supervisor {% else %} Non-supervisor {% endif %}</td>
+                                                    
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>  
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <!-- add team modal start -->
+                        {% include 'components/add-team-modal.html' %}
+                        <!-- add team modal end -->
+                    </div>
+                    <div id="registration-step-2" hidden>
                         <div class="row">
                             <p>Enter each employee's email address into their corresponding textbox below (VR or Desktop, Non-supervisor, or Supervisor).</p>
                             <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #9F3688" href="#send-reg-emails">Register Employees and Send Emails</a>" at the bottom of this page.</p>
                             <hr>
+                            <br/>
+                            <button class="btn btn-sisu-primary registration-back" type="">Back to Previous Step</button>
+
                                 <!-- NOTE - the input of "type=email" and data-role="tagsinput" was causing issues - need to investigate further -->
+                                <div hidden>
+                                    <textarea id="team" name="team"></textarea>
+                                    <textarea id="team-id" name="team-id"></textarea>
+                                </div>
                                 <div>
                                     <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
                                     <p>Add each employee's email address separated by commas.</p>
@@ -151,17 +206,22 @@
             $(".bnt-submit").click(function() {
 
                 console.log('FORM CLCIKED!')
+                let team_name = $('#team').val()
+                let team_id = $('#team-id').val()
                 let vr_nonsupervisor = $('#vr-nonsupervisor').val()
                 let vr_supervisor = $('#vr-supervisor').val()
                 let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
                 let desktop_supervisor = $('#desktop-supervisor').val();
 
                 console.log('vr_nonsupervisor = ', vr_nonsupervisor)
+                console.log('team_name = ', team_name)
 
                 $.ajax({
                     url: '',
                     type: 'GET',
                     data: {
+                        team_id: team_id,
+                        team_name: team_name,
                         vr_nonsupervisor: vr_nonsupervisor,
                         vr_supervisor: vr_supervisor,
                         desktop_nonsupervisor: desktop_nonsupervisor,
