@@ -93,6 +93,11 @@ $(document).ready(function () {
 
     });
 
+    $('#add-team-btn').click(function () {
+        $('#add-team-modal').modal('show');
+
+
+    });
 
     /* POST PROGRAM SURVEY SCRIPT - START */
 

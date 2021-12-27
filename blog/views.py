@@ -806,22 +806,21 @@ def portal_edit_registration(request, pk):
         player = Player.objects.get(user=request.user)
         players = Player.objects.filter(employer=player.employer)
 
-        teams = {}
+        teams_list = {}
 
         if pk == "team":
             this_company_teams = Team.objects.filter(employer=player.employer)
+            for team in this_company_teams:
+                teams_list[team] = list()
+
             queryset = TeamMapping.objects.filter(team__in=this_company_teams)
-
             for entry in queryset:
-                if entry.team not in teams:
-                    teams[entry.team] = list()
-
-                teams[entry.team].append(entry.employee)
+                teams_list[entry.team].append(entry.employee)
 
         elif pk != "people":
             pk = "people"
 
-        context = {'player': player, 'players': players, 'page': pk, 'teams': teams}
+        context = {'player': player, 'players': players, 'page': pk, 'teams': teams_list}
         
         return render(request, 'portal/edit-registration.html', context)
             
@@ -874,6 +873,29 @@ def portal_remove_user(request):
             user.delete()
 
             return redirect('/portal/edit-registration/people')
+
+    else:
+        return render(request, 'auth/login.html')
+
+def portal_add_team(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            leader_email = request.POST['leader']
+            if leader_email:
+                try:
+                    leader = Player.objects.get(email=leader_email)
+                except:
+                    messages.error(request, mark_safe('<strong>Error occurred.</strong> The email doesn\'t belong to any existing user. Please try again.'))
+                    return redirect('/portal/edit-registration/team')
+            else:
+                leader = None
+
+            employer = Player.objects.get(user=request.user).employer
+            team_name = request.POST['teamName']
+
+            Team.objects.create(team_name=team_name, employer=employer, leader=leader)
+
+            return redirect('/portal/edit-registration/team')
 
     else:
         return render(request, 'auth/login.html')
