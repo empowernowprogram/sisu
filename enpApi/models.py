@@ -45,7 +45,7 @@ class Player(models.Model):
 class Team(models.Model):
     team_name = models.CharField(max_length=60)
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE, null=True)
-    leader = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
+    leader = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True, blank=True)
     creation_date = models.DateField(auto_now_add=True, null=True)
     modification_date = models.DateField(auto_now=True, null=True)
 
