@@ -137,4 +137,25 @@ $(document).ready(function () {
 
     /* POST PROGRAM SURVEY SCRIPT - END */
 
+    
+    /* ADMIN REGISTRATION TEAM SCRIPT - START */
+
+    var $team_expand = $('.triangle-right');
+
+    $team_expand.on('mouseover', function () {
+        $(this).attr('style', 'cursor: pointer;');
+    });
+
+    $team_expand.on('click', function () {
+        team = $(this).attr('team');
+        if ($(`#team-${team}`).is(":hidden")) {
+            $('.team-table').hide();
+            $(`#team-${team}`).show();
+        } else {
+            $(`#team-${team}`).hide();
+        }
+    });
+
+
+    /* ADMIN REGISTRATION TEAM SCRIPT - END */
 })

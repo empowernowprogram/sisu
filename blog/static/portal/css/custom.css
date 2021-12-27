@@ -117,6 +117,52 @@ html {
     text-transform: uppercase;
 }
 
+.tbl-sisu-header-normal-case {
+    background-color: #FFF2D1;
+}
+
+.triangle-right {
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-left: 10px solid #555;
+    border-bottom: 5px solid transparent;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.team-tab-line {
+    border: 1px solid rgba(0,0,0,0.3); 
+    position: absolute; 
+    top: 128px; 
+    left: 70px; 
+    width: 85%;
+}
+
+.team-tab-button {
+    position: relative;
+    z-index: 10;
+    height: 28px;
+    color: #555;
+    background-color: white;
+    border-radius: 0;
+    border: 1px solid rgba(0,0,0,0.6);
+    border-bottom: 2px solid white;
+    margin-right: 0;
+    margin-left: 0;
+
+}
+
+.team-tab-button-nonactive {
+    height: 28px;
+    color: #555;
+    background-color: white;
+    border-radius: 0;
+    border: 1px solid white;
+    margin-right: 0;
+    margin-left: 0;
+
+}
 
 .table>caption+thead>tr:first-child>td,
 .table>caption+thead>tr:first-child>th,

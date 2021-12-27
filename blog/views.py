@@ -30,6 +30,7 @@ from users.models import CustomUser, UserProfile
 from users.forms import CustomUserCreationForm, UserProfileForm
 from enpApi.models import PlaySession, Player, Employer, Modules, TrainingPackageDownloadLink, ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor
 from enpApi.models import Behavior, SceneInfo, EthicalFeedback, SupervisorMapping # for ethical framework report
+from enpApi.models import Team, TeamMapping
 from django.template.loader import render_to_string
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
@@ -800,12 +801,27 @@ def portal_change_password(request):
 
 """ Training Portal - Registration START """
 
-def portal_edit_registration(request):
+def portal_edit_registration(request, pk):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
         players = Player.objects.filter(employer=player.employer)
 
-        context = {'player': player, 'players': players}
+        teams = {}
+
+        if pk == "team":
+            this_company_teams = Team.objects.filter(employer=player.employer)
+            queryset = TeamMapping.objects.filter(team__in=this_company_teams)
+
+            for entry in queryset:
+                if entry.team not in teams:
+                    teams[entry.team] = list()
+
+                teams[entry.team].append(entry.employee)
+
+        elif pk != "people":
+            pk = "people"
+
+        context = {'player': player, 'players': players, 'page': pk, 'teams': teams}
         
         return render(request, 'portal/edit-registration.html', context)
             
@@ -822,7 +838,7 @@ def portal_edit_user(request):
             
             Player.objects.filter(email=user_email).update(full_name=user_name, supervisor=isSupervisor)
 
-            return redirect('/portal/edit-registration/')
+            return redirect('/portal/edit-registration/people')
 
     else:
         return render(request, 'auth/login.html')
@@ -857,7 +873,7 @@ def portal_remove_user(request):
 
             user.delete()
 
-            return redirect('/portal/edit-registration/')
+            return redirect('/portal/edit-registration/people')
 
     else:
         return render(request, 'auth/login.html')

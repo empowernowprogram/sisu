@@ -70,9 +70,9 @@ urlpatterns = [
     # Training Portal - START
     path('portal/home/', views.portal_home, name='home_portal'),
     path('portal/register/', views.portal_register, name='register'),
-    path('portal/edit-registration/', views.portal_edit_registration, name='edit-registration'),
     path('portal/edit-registration/edit-user', views.portal_edit_user, name='edit-user'),
     path('portal/edit-registration/remove-user', views.portal_remove_user, name='remove-user'),
+    path('portal/edit-registration/<str:pk>', views.portal_edit_registration, name='edit-registration'),
     path('portal/downloads/', views.portal_training_dl, name='downloads'),
     path('portal/downloads_trial/', views.portal_training_dl_trial, name='downloads_trial'),
     path('portal/progress/', views.portal_employee_progress, name='progress'),
