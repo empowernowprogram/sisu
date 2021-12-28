@@ -130,3 +130,9 @@ LOGOUT_REDIRECT_URL = 'home'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hello@sisuvr.com'
+EMAIL_HOST_PASSWORD = 'tsuboewdwugrrqtm' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'

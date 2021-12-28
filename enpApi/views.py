@@ -1,4 +1,6 @@
+from django.core.mail.message import EmailMultiAlternatives
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
@@ -65,20 +67,17 @@ def send_email_reminder(player):
     play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
     has_completed_all_mandatory, mandatory_modules_list = views.check_mandatory_completion(player, play_sessions)
     subject = "We value your feedback!"
-    email_templates = 'blog/templates/email-templates/email-survey-reminder.html'
+    email_templates = 'email-templates/email-survey-reminder.html'
     context = {'company_name': employer_name, 'full_name': full_name}
 
     if has_completed_all_mandatory is True:    
-        # if player is supervisor
-        if player.supervisor and PostProgramSurveySupervisor.objects.filter(player=player).count() == 0:
-            print("AA")
-            views.send_html_email(email_templates, context, subject, email_address)
-        # if player is not a supervisor
-        if not player.supervisor and PostProgramSurvey.objects.filter(player=player).count() == 0:
-            print("BB")
-            views.send_html_email(email_templates, context, subject, email_address)
-            print("CC")
-        
+        html = render_to_string(email_templates, context) 
+        message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com',[email_address]) 
+        message.attach_alternative(html, "text/html") 
+        if player.supervisor and PostProgramSurveySupervisor.objects.filter(player=player).count() == 0:       
+            message.send() 
+        if not player.supervisor and PostProgramSurvey.objects.filter(player=player).count() == 0: 
+            message.send() 
         
 
 @api_view(['GET', 'POST'])
