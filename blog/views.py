@@ -665,7 +665,7 @@ def split_emails(email_string):
     return emails
 
 
-# send_html_email sends email and returns True if the email is successfully sent
+# helper function: send_html_email sends email and returns True if the email is successfully sent
 def send_html_email(email_templates, context, subject, email_address, from_email='hello@sisuvr.com'):
     try:
         html = render_to_string(email_templates, context)
@@ -676,6 +676,24 @@ def send_html_email(email_templates, context, subject, email_address, from_email
     except:
         return False
 
+# helper function: fetch_team_info filter out the team mapping info of one company and returns a dictionary of key value pairs -> (team: employee list)
+def fetch_team_info(employer):
+    # display this company's team info
+    this_company_employees = Player.objects.filter(employer=employer)
+
+    teams_list = {}
+    teams_list["unassigned"] = list()
+
+    queryset = TeamMapping.objects.filter(employee__in=this_company_employees)
+    for entry in queryset:
+        if entry.team and entry.team in teams_list:
+            teams_list[entry.team].append(entry.employee)
+        elif not entry.team:
+            teams_list["unassigned"].append(entry.employee)
+        else:
+            teams_list[entry.team] = [entry.employee]
+    
+    return teams_list
 
 def portal_register(request):
 
@@ -687,16 +705,8 @@ def portal_register(request):
         employer_name = employer.company_name
         due_date_by_days = employer.deadline_duration_days
         
-        # display all existing teams in this company
-        teams_list = {}
-        this_company_teams = Team.objects.filter(employer=player.employer)
-        for team in this_company_teams:
-            teams_list[team] = list()
-
-        queryset = TeamMapping.objects.filter(team__in=this_company_teams)
-        for entry in queryset:
-            teams_list[entry.team].append(entry.employee)
-
+        # get this company's team mapping info
+        teams_list = fetch_team_info(employer)
 
         if request.is_ajax():
             print('request - is ajax')
@@ -826,13 +836,8 @@ def portal_edit_registration(request, pk):
         teams_list = {}
 
         if pk == "team":
-            this_company_teams = Team.objects.filter(employer=player.employer)
-            for team in this_company_teams:
-                teams_list[team] = list()
-
-            queryset = TeamMapping.objects.filter(team__in=this_company_teams)
-            for entry in queryset:
-                teams_list[entry.team].append(entry.employee)
+            # get this company's team mapping info
+            teams_list = fetch_team_info(player.employer)
 
         elif pk != "people":
             pk = "people"
@@ -894,30 +899,48 @@ def portal_remove_user(request):
     else:
         return render(request, 'auth/login.html')
 
-def portal_add_team(request):
+def portal_add_team(request, pk):
     if request.user.is_authenticated:
         if request.method == 'POST':
             team_name = request.POST['teamName']
+            # team name is a mandatory field
             if not team_name:
                 messages.error(request, mark_safe('<strong>Error occurred.</strong> Name of a team is a required field. Please try again.'))
-                return redirect('/portal/edit-registration/team')
+                if pk == "register":
+                    return redirect('/portal/register/')
+                else:
+                    return redirect('/portal/edit-registration/team')
 
             leader_email = request.POST['leader']
+
+            # leader is an optional field
             if leader_email:
                 try:
                     leader = Player.objects.get(email=leader_email)
                 except:
                     messages.error(request, mark_safe('<strong>Error occurred.</strong> The email doesn\'t belong to any existing user. Please try again.'))
-                    return redirect('/portal/edit-registration/team')
+
+                    if pk == "register":
+                        return redirect('/portal/register/')
+                        
+                    else:
+                        return redirect('/portal/edit-registration/team')
             else:
                 leader = None
 
             employer = Player.objects.get(user=request.user).employer
+
+            team = Team.objects.create(team_name=team_name, employer=employer, leader=leader)
             
+            # if the newly created team leader is an existing user, move that user to this new team
+            if leader:
+                TeamMapping.objects.filter(employee=leader).update(team=team)
 
-            Team.objects.create(team_name=team_name, employer=employer, leader=leader)
+            if pk == "register":
+                return redirect('/portal/register/')
 
-            return redirect('/portal/edit-registration/team')
+            else:
+                return redirect('/portal/edit-registration/team')
 
     else:
         return render(request, 'auth/login.html')
@@ -1041,8 +1064,8 @@ def portal_settings(request):
 def portal_certificate(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
-        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
-        play_sessions_completed = PlaySession.objects.filter(player=str(player)).filter(success=True)
+        play_sessions = PlaySession.objects.filter(player=player).order_by('module_id')
+        play_sessions_completed = PlaySession.objects.filter(player=player).filter(success=True)
         company = player.employer.company_name
         logoLink = player.employer.logo
 
@@ -1077,7 +1100,7 @@ def portal_ethical_report(request, pk):
     if request.user.is_authenticated:
 
         player = Player.objects.get(user=request.user)
-        play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+        play_sessions = PlaySession.objects.filter(player=player).order_by('module_id')
 
         has_completed_all_mandatory, mandatory_modules_list = check_mandatory_completion(player, play_sessions)
 
@@ -1162,7 +1185,7 @@ def portal_ethical_report(request, pk):
             modules = sorted(list(emotionSumInModule.keys()))
 
             context = {
-                'isAggregatedReport': pk == "team_report",
+                'isAggregatedReport': True,
                 'completedTraining': True,
                 'player': player, 
                 'modules': modules,
@@ -1250,12 +1273,12 @@ def portal_ethical_report(request, pk):
             modules = sorted(list(rolesInModule.keys()))
 
             # colors for bars
-            colors = []
-            for b in behaviors:
-                colors.append(getColor(b))
+            # colors = []
+            # for b in behaviors:
+            #     colors.append(getColor(b))
 
             context = {
-                'isAggregatedReport': pk == "team_report",
+                'isAggregatedReport': False,
                 'completedTraining': True,
                 'player': player,
                 'modules': modules,

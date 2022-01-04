@@ -7,8 +7,11 @@
                     aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="exampleModalLabel">Team Details
                 </h4>
+                <br/>
+                <p>Leader can view the team's training progress and training report.</p>
+                <p>You can only add existing user as a leader.</p>
             </div>
-            <form action="{% url 'add-team' %}" method="post">
+            <form action="{% url 'add-team' pk=pk %}" method="post">
                 <div class="modal-body">
                     {% csrf_token %}
                     <div class="form-group">

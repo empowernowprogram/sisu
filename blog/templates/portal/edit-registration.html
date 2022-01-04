@@ -205,8 +205,9 @@
                                         <table class="display table" style="margin-bottom: 0;">
                                             <thead class="tbl-sisu-header-normal-case">
                                                 <tr>
-                                                    <th class="col-md-4" style="text-transform:uppercase; color: #494949; vertical-align: middle;"><div class="triangle-right" team="{{team.id}}"></div>{{team.team_name}}</th>
-                                                    <th class="col-md-2" style="text-align: right; vertical-align: middle;">{{team.leader}}</th>
+                                                    <th class="col-md-4" style="text-transform:uppercase; color: #494949; vertical-align: middle;">
+                                                        <div class="triangle-right" team="{{team.id}}"></div>{% if team != "unassigned" %}{{team.team_name}}{% else %}UNASSIGNED{% endif %}</th>
+                                                    <th class="col-md-2" style="text-align: right; vertical-align: middle;">{% if team != "unassigned" %}{{team.leader}}{% else %}None{% endif %}</th>
                                                     <th class="col-md-3" style="text-align: right; color: #494949; vertical-align: middle;">{{ employee_list|length }} {% if employee_list|length > 1 %} people {% else %} person {% endif %}</th>
                                                     <th class="col-md-3" style="text-align: right;"><button class="btn btn-sisu-primary" style="width:120px; background-color: #FFB45B;">Add People</button></th>
                                                 </tr>
@@ -240,7 +241,7 @@
                         
 
                         <!-- add team modal start -->
-                        {% include 'components/add-team-modal.html' %}
+                        {% include 'components/add-team-modal.html' with pk='edit-registration' %}
                         <!-- add team modal end -->
                     {% endif %}
                     <!-- Main Content End -->

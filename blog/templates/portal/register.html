@@ -68,7 +68,7 @@
                     <div id="registration-step-1">
                         <div class="row">
                             <p>Select the team you would like to register employees for.</p>
-                            <p>You can create teams by clicking “Add Team” below.</p>
+                            <p>You can create teams by clicking “Add Team” below, or <u id="skip-link" style="cursor: pointer;">skip this step and assign team later</u>.</p>
                         </div>
                         <button id="add-team-btn" class="btn btn-sisu-primary" style="float: right; margin-right: 25px; width:120px;">Add Team</button>
                         <br/><br/><br/>
@@ -79,10 +79,17 @@
                                     <table class="display table" style="margin-bottom: 0;">
                                         <thead class="tbl-sisu-header-normal-case">
                                             <tr>
-                                                <th class="col-md-4" style="text-transform:uppercase; color: #494949; vertical-align: middle;"><div class="triangle-right" team="{{team.id}}"></div>{{team.team_name}}</th>
-                                                <th class="col-md-2" style="text-align: right; vertical-align: middle;">{{team.leader}}</th>
+                                                <th class="col-md-4" style="text-transform:uppercase; color: #494949; vertical-align: middle;">
+                                                    <div class="triangle-right" team="{{team.id}}"></div>{% if team != "unassigned" %}{{team.team_name}}{% else %}UNASSIGNED{% endif %}</th>
+                                                <th class="col-md-2" style="text-align: right; vertical-align: middle;">{% if team != "unassigned" %}{{team.leader}}{% else %}None{% endif %}</th>
                                                 <th class="col-md-3" style="text-align: right; color: #494949; vertical-align: middle;">{{ employee_list|length }} {% if employee_list|length > 1 %} people {% else %} person {% endif %}</th>
-                                                <th class="col-md-3" style="text-align: right;"><button class="btn btn-sisu-primary register-btn" style="width:120px; background-color: #FFB45B;" team_id="{{team.id}}" team_name="{{team.team_name}}">Register</button></th>
+                                                <th class="col-md-3" style="text-align: right;">
+                                                    {% if team != "unassigned" %}
+                                                        <button class="btn btn-sisu-primary register-btn" style="width:120px; background-color: #FFB45B;" team_id="{{team.id}}" team_name="{{team.team_name}}">Register</button>
+                                                    {% else %}
+                                                        <button id="unassigned-regi-btn" class="btn btn-sisu-primary register-btn" style="width:120px; background-color: #FFB45B;" team_id="{{team.id}}" team_name="UNASSIGNED">Register</button>
+                                                    {% endif %}
+                                                </th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -110,7 +117,7 @@
                         {% endfor %}
 
                         <!-- add team modal start -->
-                        {% include 'components/add-team-modal.html' %}
+                        {% include 'components/add-team-modal.html' with pk='register' %}
                         <!-- add team modal end -->
                     </div>
                     <div id="registration-step-2" hidden>

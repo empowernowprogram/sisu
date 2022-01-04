@@ -159,6 +159,10 @@ $(document).ready(function () {
         $('#add-team-modal').modal('show');
     });
 
+    $('#skip-link').click(function () {
+        $('#unassigned-regi-btn').click();
+    });
+
     $('.register-btn').click(function () {
         team_name = $(this).attr('team_name');
         team_id = $(this).attr('team_id');
