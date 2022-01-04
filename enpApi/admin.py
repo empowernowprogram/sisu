@@ -22,10 +22,10 @@ class TrainingPackageDownloadLinkAdmin(admin.ModelAdmin):
 
 
 class PostProgramSurveyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'has_completed', 'overall_rating', 'creation_date')
+    list_display = ('id', 'player', 'has_completed', 'overall_rating', 'creation_date')
 
 class PostProgramSurveySupervisorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'has_completed', 'creation_date')
+    list_display = ('id', 'player', 'has_completed', 'recommend_friend_scale', 'creation_date')
 
 class AdjectiveAdmin(admin.ModelAdmin):
     list_display = ('adj_id', 'description')
@@ -34,7 +34,7 @@ class ComparisonRatingAdmin(admin.ModelAdmin):
     list_display = ('comparison_rating_id', 'description')
 
 class SelectedAdjectiveAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user')
+    list_display = ('id', 'player')
 
 class BehaviorAdmin(admin.ModelAdmin):
     list_display = ('behavior_id', 'description')

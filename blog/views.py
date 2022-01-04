@@ -670,6 +670,7 @@ def send_html_email(email_templates, context, subject, email_address, from_email
         message.send()
         return True
     except:
+        print(exceptions)
         return False
 
 
@@ -1216,44 +1217,49 @@ def portal_ethical_report(request, pk):
     else:
         return render(request, 'auth/login.html')
 
-def post_program_survey(request, pk):
-    isSupervisor = Player.objects.get(user=request.user).supervisor
+def post_program_survey(request):
+    if request.user.is_authenticated:
 
-    if pk == "supervisor" and isSupervisor:
-        # show certificate if user already completed the survey
-        if PostProgramSurveySupervisor.objects.filter(user=request.user).count() == 1:
-            return redirect('/portal/certificate/')
+        player = Player.objects.get(user=request.user)
+        isSupervisor = player.supervisor
 
-        else:
-            scale5 = range(1,6)
-            scale10 = range(1,11)
-            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
-            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
-            
-            context = {'scale5': scale5, 'scale10': scale10, 'experienceFeatures': experienceFeatures, 'preference': preference}
+        if isSupervisor:
+            # show certificate if player already completed the survey
+            if PostProgramSurveySupervisor.objects.filter(player=player).count() == 1:
+                return redirect('/portal/certificate/')
 
-            return render(request, 'portal/post-program-survey-supervisor.html', context)
+            else:
+                scale5 = range(1,6)
+                scale10 = range(1,11)
+                experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+                preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+                
+                context = {'scale5': scale5, 'scale10': scale10, 'experienceFeatures': experienceFeatures, 'preference': preference}
 
-    elif pk == "nonsupervisor" and not isSupervisor:
-        # show certificate if user already completed the survey
-        if PostProgramSurvey.objects.filter(user=request.user).count() == 1:
-            return redirect('/portal/certificate/')
+                return render(request, 'portal/post-program-survey-supervisor.html', context)
 
         else:
-            starRange = range(1, 6)
-            experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
-            preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
-            
-            context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
-            
-            return render(request, 'portal/post-program-survey.html', context)
+            # show certificate if player already completed the survey
+            if PostProgramSurvey.objects.filter(player=player).count() == 1:
+                return redirect('/portal/certificate/')
+
+            else:
+                starRange = range(1, 6)
+                experienceFeatures = Adjective.objects.order_by('adj_id').values('description')
+                preference = ComparisonRating.objects.order_by('comparison_rating_id').values('description')
+                
+                context = {'starRange': starRange, 'experienceFeatures': experienceFeatures, 'preference': preference}
+                
+                return render(request, 'portal/post-program-survey.html', context)
     
     else:
-        return redirect('/portal/home/')
+        return render(request, 'auth/login.html')
 
 
 def save_survey(request, pk):
-    isSupervisor = Player.objects.get(user=request.user).supervisor
+
+    player = Player.objects.get(user=request.user)
+    isSupervisor = player.supervisor
 
     if request.method == 'POST':
         if pk == "supervisor" and isSupervisor:
@@ -1278,7 +1284,7 @@ def save_survey(request, pk):
 
 
         # common fields for both nonsupervisor / supervisor
-        postProgramSurvey.user = request.user
+        postProgramSurvey.player = player
         postProgramSurvey.comments = request.POST.get('comments')
 
         if request.POST.get('preference'):
@@ -1287,8 +1293,8 @@ def save_survey(request, pk):
         postProgramSurvey.has_completed = True
         postProgramSurvey.save()
 
-        # record the selected adjective from user (both supervisor and nonsupervisor have this question)
-        selectedAdj = SelectedAdjective(user=request.user)
+        # record the selected adjective from player (both supervisor and nonsupervisor have this question)
+        selectedAdj = SelectedAdjective(player=player)
         selectedAdj.save()
 
         for adjId in request.POST.getlist('features'):

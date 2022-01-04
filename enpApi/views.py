@@ -1,4 +1,6 @@
+from django.core.mail.message import EmailMultiAlternatives
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
@@ -9,10 +11,10 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
 from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback
+from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback, PostProgramSurvey, PostProgramSurveySupervisor
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-
+from blog import views
 # Create your views here.
 
 class PlayerViewSet(viewsets.ModelViewSet):
@@ -41,8 +43,6 @@ class ModulesViewSet(viewsets.ModelViewSet):
 def addEthicalData(request):
     if request.method == 'POST':
         inputData = JSONParser().parse(request)
-        print("input------")
-        print(inputData)
         user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
         module = inputData["data"]["session"]["Module"]
         # timestamp = inputData["data"]["session"]["Date"]
@@ -59,6 +59,26 @@ def addEthicalData(request):
         return JsonResponse(user, safe=False, status=status.HTTP_201_CREATED) 
  
 
+def send_email_reminder(player):
+    email_address = player.email
+    full_name = player.full_name
+    employer = player.employer
+    employer_name = employer.company_name
+    play_sessions = PlaySession.objects.filter(player=str(player)).order_by('module_id')
+    has_completed_all_mandatory, mandatory_modules_list = views.check_mandatory_completion(player, play_sessions)
+    subject = "We value your feedback!"
+    email_templates = 'email-templates/email-survey-reminder.html'
+    context = {'company_name': employer_name, 'full_name': full_name}
+
+    if has_completed_all_mandatory is True:    
+        html = render_to_string(email_templates, context) 
+        message = EmailMultiAlternatives(subject, '', 'hello@sisuvr.com',[email_address]) 
+        message.attach_alternative(html, "text/html") 
+        if player.supervisor and PostProgramSurveySupervisor.objects.filter(player=player).count() == 0:       
+            message.send() 
+        if not player.supervisor and PostProgramSurvey.objects.filter(player=player).count() == 0: 
+            message.send() 
+        
 
 @api_view(['GET', 'POST'])
 def addSession(request):
@@ -67,11 +87,13 @@ def addSession(request):
     usr = CustomUser.objects.get(email=request.GET['email'])
     print(usr)
     player = Player.objects.get(user=usr)
-    data = {'module_id': request.GET['id'], 'player': player, 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time'], 'employer': '0', 'training_type': "2D"}
+    data = {'module_id': request.GET['id'], 'player': player, 'score': request.GET['score'], 'success': request.GET['success'], 'time_taken': request.GET['time'], 'employer': '0'}
+    # , 'training_type': "2D"
     session_serializer = PlaySessionSerializer(data=data)
     if session_serializer.is_valid():
         print("Session valid")
         session_serializer.save()
+        send_email_reminder(player)
         return JsonResponse({'Success': 'YES'})
     else:
         print("Session not valid")
