@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sisu VR Carousel Structure</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="carousel">
+		<button class="carousel_button carousel_button--left">
+			<img src="img/left-arrow.svg" alt="left arrow button">
+		</button>
+		<div class="carousel_trackcontainer">
+			<ul class="carousel_track">
+				<li class="carousel_slide current-slide">
+					<img class="carousel_imgs" src="img/slide-1.png" alt="slide of carousel">
+				</li>
+				<li class="carousel_slide">
+					<img class="carousel_imgs" src="img/slide-2.jpg" alt="slide of carousel">
+				</li>
+				<li class="carousel_slide">
+					<img class="carousel_imgs" src="img/slide-3.jpg" alt="slide of carousel">
+				</li>
+			</ul>
+		</div>
+		<button class="carousel_button carousel_button--right">
+			<img src="img/right-arrow.svg" alt="right arrow button">
+		</button>
+
+		<div class="carousel_nav">
+			<button class="carousel_indicator current-slide">
+				<img src="img/slide-1.png" alt="mini-preview of slide">
+			</button>
+			<button class="carousel_indicator">
+				<img src="img/slide-2.jpg" alt="mini-preview of slide">
+			</button>
+			<button class="carousel_indicator">
+				<img src="img/slide-3.jpg" alt="mini-preview of slide">
+			</button>
+		</div>	
+	</div>
+
+	<script src="js/carousel.js"></script>
+</body>
+</html>
