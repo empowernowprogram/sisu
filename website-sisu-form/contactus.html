@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Contact Us (Sisu)</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap">
+</head>
+<body>
+	<div class="contact-form">
+		<form name="contact-form" method="get">
+			<div id="firstlast">
+			<div id="first">
+			<label class = "important" for="first-name">First Name</label>
+				<div class="input">
+				<input type="text" name="first-name">
+				</div>
+			</div>
+			<div id="last">
+			<label class = "important" for="last-name">Last Name</label>
+				<div class="input">
+				<input type="text" name="last-name">
+				</div>
+			</div>
+		</div>
+			<label class = "important" for="business-email">Business Email</label>
+				<div class="input"><input type="text" class="long" name="business-email"></div>
+			<label class = "important" for="company-name">Company Name</label>
+				<div class="input"><input type="text" name="company-name"></div>
+			<div>
+				<label class = "important" for="reason">What do you want to contact us about?</label>
+				<select id="reason">
+					<option id="default" value="select">Select Reason</option>
+					<option id="message" value="general-inquiries">Send a Message</option>
+					<option id="request-price-quote" value="request-price-quote">Request a Price Quote</option>
+					<option id="request-demo" value="request-demo">Request a Demo</option>
+				</select>
+			</div>
+			<div id="content">
+			</div>
+
+			<div class="center-submit">
+			<input type="submit" value="Send">
+		</div>
+	</div>
+
+	<script src="scripts.js"></script>
+</body>
+</html>

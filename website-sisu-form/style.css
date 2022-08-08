@@ -1,0 +1,171 @@
+body {
+	font-family: 'Jost', sans-serif;
+}
+
+input {
+	border: 2px solid lightgrey;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding: 3px;
+	margin-bottom: 40px
+}
+
+input:hover {
+	border: 2px solid slategray;
+}
+
+label.important:after {
+	content: " * ";
+	color:  red;
+	font-weight: bold;
+}
+
+label.optional:after {
+	content: "";
+}
+
+label {
+	padding-right: 8px;
+}
+
+.contact-form,#content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#content {
+	padding: 10px;
+	margin-top: 10px;
+	border: none;
+	width: 50%;
+}
+
+.inner-content {
+	padding-left: 0px;
+	margin-left: 0px;
+	border: 0px none;
+}
+
+select {
+	padding: 2px;
+	margin: 5px;
+	border-radius: 30px;
+	border-style:solid;
+	border-color: transparent;
+	padding: 3px;
+	width: 200px;
+	height: 30px;
+	font-family: 'Jost', sans-serif;
+}
+
+.input {
+	display: block;
+}
+
+.long {
+	width: 100%;
+}
+
+#content {
+	width: 100%;
+}
+
+.multi {
+	padding-bottom: 90px;
+}
+
+input[type="text"] {
+	overflow: hidden;
+}
+
+input[type="submit"] {
+	width: 170px;
+	height: 40px;
+	background-color: #EC7F00;
+	color: white;
+	border-radius: 30px;
+	border: 5px solid #EC7F00;
+	font-family: 'Jost', sans-serif;
+}
+
+.center-submit {
+	display: flex;
+  	justify-content: center;
+  	align-items: center;	
+}
+
+input[type="submit"]:active {
+	border: 1px solid #EC7F00;
+}
+
+input[type="submit"]:hover {
+	filter: brightness(80%);
+}
+
+div[class="checkline"] {
+	display: block;
+	margin-bottom: 2.5px;
+	margin-top: 2.5px;
+	padding: 0px;
+}
+
+.message {
+	margin-top: 15px;
+}
+
+input[type="checkbox"] {
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	margin-right: 5px;
+}
+
+.inner-content {
+	width: 100%;
+}
+
+textarea {
+	width: 98%;
+	text-align: left;
+}
+
+#first {
+	float:left;
+	width:50%;
+	display:inline-block
+	padding: none;
+}
+
+input[name="first-name"] {
+	width: 90%;
+}
+
+input[name="last-name"] {
+	width: 90%;
+	float: right;
+}
+
+.short{
+	width: 80px;
+}
+
+label[for="last-name"]{
+	padding: 7%;
+}
+
+#last {
+	float:right;
+	width:50%;
+	display:inline-block
+}
+
+#firstlast {
+	margin-bottom: 50px;
+}
+
+#contact-form {
+	float: center;
+}
+
