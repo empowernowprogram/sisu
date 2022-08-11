@@ -1,0 +1,109 @@
+*,
+*::before,
+*::after{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: inherit;
+}
+
+html {
+	font-family: 'Jost', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-weight:800;
+	font-size:24px;
+	line-height:40px;
+	text-align:center;
+	margin-top: 35px;
+	margin-bottom: 10px;
+}
+
+/*section used to center faqs*/
+section {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.container {
+	width: 80%;
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 0 1.5 rem;
+}
+
+.accordion-item {
+	border-radius:0.4rem;
+}
+
+.accordion-link {
+	background-color: #F6F6F6;
+	font-size: 22px;
+	font-weight: 800;
+	color: #494949;
+	text-decoration: none;
+	border-radius:0.4rem;
+	width: 100%;
+	padding: 8px;
+	padding-right: 10px;
+	padding-left:10px;
+	display: flex;
+	align-items:center;
+	justify-content: space-between;
+}
+
+.accordion-link i{
+	color: #494949;
+	padding: 0.5rem;
+}
+
+
+
+ion-icon[name="chevron-up-outline"]{
+	display: none;
+}
+
+
+
+.answer {
+	background-color: transparent;
+	overflow: hidden;
+	max-height: 0;
+	position: relative;
+	margin-top: 8px;
+	transition: max-height 650ms;
+}
+
+.answer p {
+	font-weight: 100;
+}
+
+.answer::before{
+	content: "";
+	position: absolute;
+	width:0.6rem;
+	height: 90%;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+
+.accordion-item:target .answer{
+	max-height: 20rem;
+	margin-bottom: 100px;
+}
+
+.accordion-item:target ion-icon[name="chevron-down-outline"] {
+	display: none;
+}
+
+.accordion-item:target ion-icon[name="chevron-up-outline"] {
+	display: block;
+}
