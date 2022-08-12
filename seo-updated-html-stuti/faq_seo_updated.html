@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description" content="FAQs. How does Sisu VR's Empower Now Program Work? The Empower Now Program is an immersive... How does the MindGlow Active Shooter Training work? Our training uses Run-Hide-Fight...">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>FAQ - Sisu VR</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
+            <div class="header-inner sisu-header-bkg">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+                        <a href="{% url 'home' %}"></a>
+                    </div>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/public-menu.html' %}
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Content -->
+        <section style="padding-bottom:32px">
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div style="padding-bottom: 20px;">
+                        <img src="{% static 'public/assets/svg/logo-text-colored.svg' %}">
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-124px">
+                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
+                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
+                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
+                    </div>
+                    <span class="lead">Frequently Asked Questions</span>
+                    <hr class="sisu-hr">
+                </div>
+        </section>
+        <section id="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="content col-lg-12" style="padding-left:12%; padding-right:12%">
+                        <!-- Accordion -->
+                        <div class="bg-cube-container" style="margin-left:-124px">
+                            <div class="bg-cube-element" style="width:22px; height:16px; margin-top:32%"></div>
+                        </div>
+                        <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                            <div class="bg-cube-element" style="width:38px; height:24px; margin-top:10%"></div>
+                        </div>
+                        <div class="bg-cube-container" style="float: right; margin-right: -68px;">
+                            <div class="bg-cube-element" style="width:30px; height:18px; margin-top:36%"></div>
+                        </div>
+                        
+                        <div class="accordion accordion-flat">
+                            <div class="ac-item">
+                                <h5 class="ac-title">Why Sisu VR?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Sisu VR's training program, Empower Now, is an immersive workplace conduct training experience, 
+                                        employing cutting-edge ethical and psychological research and virtual reality (VR) technology. 
+                                        Through Empower Now, employees will learn how to address misconduct through simulated incidents of harassment, 
+                                        bullying, or discrimination. Post-training, employers will obtain a comprehensive report on methods to improve 
+                                        their organization, as necessary. Would you like to create a kinder, more respectful, and courageous workplace?
+                                    </p>
+                                    <p>
+                                        We're excited to work with you, so <a href="{% url 'contact' %}">contact us</a> today!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Why virtual reality (VR)?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Currently, most training solutions are delivered via videos, live presentations, or manuals. 
+                                        However, these methods have been proven to be ineffective. On the other hand, studies show 
+                                        <a href="https://drive.google.com/open?id=1_GkdMrk2_WxUbxyEjyNj7rGiMPL9-_UY" target="_blank">VR soft skills</a> training promotes better 
+                                        and faster learning, higher retention of information, and increased engagement. It has also been shown to bolster empathy. 
+                                        Sisu VR delivers high-quality experiences in multiple first-person perspectives using VR. By interacting with realistic scenarios, 
+                                        employees are empowered to effectively address incidents of misconduct. 
+                                        
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'contact' %}">Contact us</a> today for a free demo!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Does this training meet federal and state regulations?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Yes, our training is comprehensively developed with the aid of our team of training and HR experts. 
+                                        We meet all federal and state requirements, and provide certification for each employee who successfully completes our training.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">How does pricing work?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Our training can be purchased via a per-user annual subscription.
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'contact' %}">Contact us</a> today to learn more!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Does my company have to purchase VR headsets?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Employers are responsible for obtaining VR headsets through our recommended list of third-party vendors, 
+                                        such as the <a href="http://www.picovr.com/" target="_blank">Pico VR G2 4K</a>. Never worked with VR headsets before? We also provide comprehensive guidance on 
+                                        how to deploy headsets to your remote, hybrid, or in-person workforce. Our team is available to assist you, 
+                                        every step of the way!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end: Accordion -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-84px">
+                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <span class="lead">Still have questions?</span>
+                    </div>
+                    <p>Feel free to reach out to us directly.</p>
+                    <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="{% url 'contact' %}" style="color:#fff">Contact Us</a></button>
+                </div>
+        </section>
+        <!-- end: Content -->
+        {% include 'blog/footer.html' %}
+    </div>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+
+</body>
+
+</html>

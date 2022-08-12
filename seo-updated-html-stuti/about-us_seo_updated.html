@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description"
+        content="We are a people-first team teaching our customers how to effectively confront, escape, and intervene during incidents of workplace misconduct and emergency situations. We 'shine our light' on only the truths.">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>About Us - Sisu VR</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+            <div class="header-inner sisu-header-bkg">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
+                        <a href="{% url 'home' %}"></a>
+                    </div>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/public-menu.html' %}
+                    <!--end: Navigation-->
+                </div>
+            </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Content -->
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div style="padding-bottom: 20px;">
+                        <img src="{% static 'public/assets/svg/logo-text-colored.svg' %}">
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-124px">
+                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
+                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
+                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
+                    </div>
+                    <span class="lead">About Us</span>
+                    <hr class="sisu-hr">
+                    <p style="font-size:16px; font-style: italic;">In Finnish, "Sisu" means "grit, bravery, and
+                        resilience" and "hope in the face of adversity."</p>
+                </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="bg-cube-container" style="margin-left:-48px">
+                    <div class="bg-cube-element" style="width:34px; height:22px; margin-top:-12px"></div>
+                </div>
+                <div class="bg-cube-container" style="float: right; margin-right: 100px;">
+                    <div class="bg-cube-element" style="width:56px; height:36px; margin-top:-62px"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/group-picture.png' %}" class="img-fluid rounded" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
+                            style="width:800px; height:auto">
+                        <div class="bg-cube-element"
+                            style="width:156px; height:102px; margin-top:-80px; margin-left:-28px">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 style="font-weight: 600; color:#494949; animation-duration: 100ms">How it started</h3>
+                        <p style="font-size:16px">It all started when two determined engineers decided to take a stand
+                            against workplace harassment, bullying, and discrimination. They knew first-hand how harmful
+                            workplace misconduct can be in both enabling current professionals to work effectively, and
+                            inspiring the next generation of workers to achieve their dreams. Instead of feeling
+                            helpless due to their unfavorable circumstances, Sisu VR founders were determined to empower
+                            workforces to exercise moral courage and empathy.</p>
+                        <div class="bg-cube-container" style="float: right; margin-right: 48%;">
+                            <div class="bg-cube-element" style="width:56px; height:36px; margin-top:18%"></div>
+                        </div>
+                    </div>
+
+                    <hr class="space">
+
+                    <div class="bg-cube-container" style="float: right;">
+                        <div class="bg-cube-element"
+                            style="width:120px; height:96px; margin-top:160px; margin-left:42px"></div>
+                    </div>
+                    <hr class="space">
+
+                    <div class="col-lg-6">
+                        <h3 style="font-weight: 600; color:#494949">Who are we?</h3>
+                        <p style="font-size:16px">Welcome to Sisu VR. We are a people-first team teaching our customers
+                            how to effectively confront, escape, and intervene during incidents of workplace misconduct.
+                            We "shine our light" on only the truths. We aspire to empower global workforces, and support
+                            employers in doing so.</p>
+                        <p style="font-size:16px">Sisu VR's mission is to inspire our clients to work with empathy,
+                            transparency, innovation, open-mindedness, and excellence. Our core values include
+                            exercising courage, compassion, understanding, non-judgement, and awareness in our daily
+                            work and interactions with others.</p>
+                        <p style="font-size:16px">At the heart, we are listeners. From scouring high-fidelity field
+                            cases to developing our state-of-the-art Ethical Framework, our sensitivity to the most
+                            up-to-date events, research, and technology have enabled us to produce world-class training
+                            experiences.</p>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <!-- <h2>Rounded</h2> -->
+                        <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+                        <img src="{% static 'public/assets/img/featured-02.png' %}" class="img-fluid rounded" alt=""
+                            style="width:476px; height:autopx">
+                        <div class="bg-cube-container" style="float: left; margin-right: 0%;">
+                            <div class="bg-cube-element"
+                                style="width:226px; height:186px; margin-top:32%; margin-left:-24px"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-84px">
+                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <span class="lead">Choose to work fearlessly with Sisu VR.</span>
+                    </div>
+                    <button type="button" class="btn btn-sisu-primary"><a href="{% url 'contact' %}"
+                            style="color:#fff">Contact Us</a></button>
+                </div>
+        </section>
+        <!-- end: Content -->
+        {% include 'blog/footer.html' %}
+    </div>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+
+</body>
+
+</html>
