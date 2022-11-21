@@ -35,6 +35,7 @@ class Player(models.Model):
     has_signed = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True)
     is_provisional = models.BooleanField(default=True)
+    provisioned_modules = models.ManyToManyField(Modules, related_name='provisioned_modules', blank=True)
     creation_date = models.DateField(auto_now_add=True, null=True)
     training_deadline = models.DateField(blank=True, null=True)
 
