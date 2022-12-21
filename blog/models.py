@@ -7,7 +7,7 @@ from enumfields import Enum
 from django.conf import settings
 #from django.contrib.auth.models import User
 
-from django.utils.encoding import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCount, HitCountMixin
 
@@ -137,4 +137,22 @@ class Resource(models.Model):
   
   def __str__(self):
     return self.title
+
+class LinkedinPost(models.Model): 
+  url = models.CharField(max_length=250)
+  pub_date = models.DateTimeField('date published', null=True)
+  height = models.IntegerField()
+  width = models.IntegerField()
+
+
+class MediumPost(models.Model): 
+  url_m = models.CharField(max_length=250)
+  Summary_m = models.CharField(max_length=374)
+  pub_date_m = models.DateTimeField('date published', null=True)
+  title_m = models.CharField(max_length=100)
+  m_photo = models.ImageField(upload_to='blog/medium/photos', null=True)
+  # text_m = models.IntegerField()
+  # width = models.IntegerField()
+
+
 

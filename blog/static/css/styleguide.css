@@ -1,0 +1,54 @@
+:root { 
+  --black: #000000;
+  --gold-drop: #eb7f00;
+  --gravel: #494949;
+  --quill-gray: #d6d6d6;
+  --selective-yellow: #ffb70066;
+  --white: #ffffff;
+ 
+  --font-size-l: 27px;
+  --font-size-m: 24px;
+  --font-size-s: 16px;
+  --font-size-xl: 30px;
+ 
+  --font-family-jost: "Jost", Helvetica;
+}
+.jost-normal-white-16px {
+  color: var(--white);
+  font-family: var(--font-family-jost);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.jost-normal-white-24px {
+  color: var(--white);
+  font-family: var(--font-family-jost);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.jost-bold-gold-drop-24px {
+  color: var(--gold-drop);
+  font-family: var(--font-family-jost);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.jost-semi-bold-gravel-30px {
+  color: var(--gravel);
+  font-family: var(--font-family-jost);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.jost-normal-gravel-24px {
+  color: var(--gravel);
+  font-family: var(--font-family-jost);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}

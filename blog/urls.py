@@ -1,7 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from django.contrib.auth import views as auth_views
+
 #from .views import IndexView
 
 urlpatterns = [
@@ -9,6 +12,8 @@ urlpatterns = [
     # url(r'^$', views.about_sisu, name='about'),
     
     path('about-us/', views.about_us, name='about-us'),
+    path('enp/', views.enp, name='enp'),
+    path('mindglow/', views.mindglow, name='mindglow'),
 
     path('about_us/team', views.about_team, name='about_team'),
     path('about_us/empower_now', views.about_program, name='about_program'),
@@ -83,7 +88,11 @@ urlpatterns = [
     path('portal/certificate/', views.portal_certificate, name='certificate'),
     path('portal/change_pwd/', views.portal_change_password, name='portal_pwd'),
     # Training Portal - END
+    path('news', views.news_view, name='news'),
 
     # PASSWORD RECOVERY URLS ARE IN users/urls.py
-
+    
+    #MEDIA FIRE PATH
+    #static(settings.STATIC_URL,document_root=settings.STATIC_URL),
+    #static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

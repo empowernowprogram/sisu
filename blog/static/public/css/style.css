@@ -7,11 +7,11 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,400,500,600,700,800|Nunito:300,400,600,700,800");
 /*  Base */
 /***********************************************************************
-**														              **
-**         POLO Html5 Template		   								  **
-**         Author: INSPIRO MEDIA								      **
-**		   URL: //www.inspiro-media.com						  **
-**	       													              **
+**                                          **
+**         POLO Html5 Template                        **
+**         Author: INSPIRO MEDIA                      **
+**       URL: //www.inspiro-media.com             **
+**                                                **
 ************************************************************************/
 /*  Content & Layout */
 /* ----------------------------------------------------------------
@@ -694,7 +694,7 @@ section.dark,
 }
 
 /* ----------------------------------------------------------------
-	Grid Filter
+  Grid Filter
 -----------------------------------------------------------------*/
 .grid-filter {
   clear: both;
@@ -890,7 +890,7 @@ section.dark,
   }
 }
 /* ----------------------------------------------------------------
-	Extras
+  Extras
 -----------------------------------------------------------------*/
 .infinite-scroll-message,
 #showMore {
@@ -3016,7 +3016,7 @@ body.search-open #search .search-suggestion:nth-child(3) {
 }
 
 #search .search-form .form-control {
-	color: #333 !important;
+  color: #333 !important;
 }
 
 /* ----------------------------------------------------------------
@@ -3818,7 +3818,7 @@ body:not(.breakpoint-xs):not(.breakpoint-sm):not(.breakpoint-md) .page-menu nav 
 
 /*  Typography */
 /* ----------------------------------------------------------------
-	Typography : Reset
+  Typography : Reset
 -----------------------------------------------------------------*/
 *,
 h1,
@@ -3847,7 +3847,7 @@ section {
 }
 
 /* ----------------------------------------------------------------
-	Typography : Font size
+  Typography : Font size
 -----------------------------------------------------------------*/
 html {
   font-size: 88%;
@@ -4776,8 +4776,8 @@ Portfolio
   border-radius: 5px;
   transition: all 0.3s ease;
   position: relative;
-  /* 	img {
-  	}  */
+  /*  img {
+    }  */
 }
 .portfolio-item.classic-style .portfolio-image:after,
 .portfolio-item.classic-style .portfolio-video:after,
@@ -5564,7 +5564,7 @@ Portfolio
 
 /*  Blog & comments */
 /* ----------------------------------------------------------------
-	Blog
+  Blog
 -----------------------------------------------------------------*/
 .post-item {
   float: left;
@@ -6061,7 +6061,7 @@ Portfolio
 }
 
 @media (max-width: 1024px) {
-  /*	Grid post*/
+  /*  Grid post*/
   .grid-articles:not(.post-carousel) .post-entry {
     width: 50%;
   }
@@ -6872,7 +6872,7 @@ Portfolio
 
 /*  Widgets */
 /* ----------------------------------------------------------------
-	Widgets
+  Widgets
 -----------------------------------------------------------------*/
 .widget {
   margin-bottom: 30px;
@@ -8235,7 +8235,7 @@ iframe {
 }
 
 /* ----------------------------------------------------------------------
-	Full Calendar
+  Full Calendar
 -------------------------------------------------------------------------*/
 #external-events .fc-event {
   margin-bottom: 10px;
@@ -10431,7 +10431,7 @@ Helpers
 }
 
 /* ----------------------------------------------------------------
-	Date picker
+  Date picker
 -----------------------------------------------------------------*/
 .input-daterange .input-group-addon {
   min-width: 44px;
@@ -10887,7 +10887,7 @@ Helpers
 }
 
 /* ----------------------------------------------------------------
-	Date range picker
+  Date range picker
 -----------------------------------------------------------------*/
 .daterangepicker .ranges {
   padding: 0;
@@ -10940,14 +10940,15 @@ input.dates:after {
 
 /*  Elements */
 /* ----------------------------------------------------------------
-	Accordion
+  Accordion
 -----------------------------------------------------------------*/
 .accordion .ac-item {
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   padding: 12px 20px;
   border-radius: 5px;
   border: 1px solid #e6e8eb;
 }
+
 .accordion .ac-item .ac-title {
   font-weight: 500;
   position: relative;
@@ -10990,7 +10991,7 @@ input.dates:after {
   border: 0;
 }
 .accordion.accordion-flat .ac-item {
-  padding: 10px 0;
+  padding: 1px 0;
   margin-bottom: 0;
   border-radius: 0;
   border: 0;
@@ -11019,7 +11020,7 @@ input.dates:after {
 }
 
 /* ----------------------------------------------------------------
-	Alert
+  Alert
 -----------------------------------------------------------------*/
 .alert {
   color: #ffffff;
@@ -11153,7 +11154,7 @@ ul.avatars > li:not(:last-child) {
   }
 }
 /* ----------------------------------------------------------------------
-	Buttons
+  Buttons
 -------------------------------------------------------------------------*/
 a:not([href]):not([tabindex]):not(.btn) {
   color: none;
@@ -11163,7 +11164,7 @@ button.btn,
 .btn:not(.close):not(.mfp-close),
 a.btn:not([href]):not([tabindex]) {
   font-family: "Poppins", sans-serif;
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 30px;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .5px;
@@ -12117,7 +12118,7 @@ a.btn:not([href]):not([tabindex]).disabled {
 }
 
 /* ----------------------------------------------------------------------
-	Headings
+  Headings
 -------------------------------------------------------------------------*/
 .heading {
   margin-bottom: 100px;
@@ -12457,7 +12458,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 }
 
 /* ----------------------------------------------------------------------
-	Progress Bar
+  Progress Bar
 -------------------------------------------------------------------------*/
 .social-icons {
   line-height: 0;
@@ -13910,7 +13911,7 @@ div.icon-box:before {
 }
 
 /* ----------------------------------------------------------------------
-	Icon Box
+  Icon Box
 -------------------------------------------------------------------------*/
 .icon {
   margin-bottom: 16px;
@@ -14793,7 +14794,7 @@ Carousel: Dots
   }
 }
 /* ----------------------------------------------------------------------
-	Counters
+  Counters
 -------------------------------------------------------------------------*/
 .counter {
   margin-bottom: 14px;
@@ -15159,7 +15160,7 @@ span.highlight {
 }
 
 /* ----------------------------------------------------------------------
-	Progress Bar
+  Progress Bar
 -------------------------------------------------------------------------*/
 .p-progress-bar-container,
 .progress-bar-container {
@@ -15422,7 +15423,7 @@ body.breakpoint-xs hr.space-xxlg, body.breakpoint-sm hr.space-xxlg {
 }
 
 /* ----------------------------------------------------------------------
-	Seperator
+  Seperator
 -------------------------------------------------------------------------*/
 .seperator,
 .separator {
@@ -15747,7 +15748,7 @@ body.breakpoint-xs hr.space-xxlg, body.breakpoint-sm hr.space-xxlg {
   }
 }
 /* ----------------------------------------------------------------
-	Blockquotes
+  Blockquotes
 -----------------------------------------------------------------*/
 .blockquote {
   border-left: 3px solid #2250fc;
@@ -16047,10 +16048,10 @@ select[multiple] {
 }
 
 .form-control-lg {
-	height: calc(1.8em + 1.3rem + 5px);
-	padding: .5rem 1rem !important;
-	font-size: 1.25rem !important;
-	line-height: 1.5 !important;
+  height: calc(1.8em + 1.3rem + 5px);
+  padding: .5rem 1rem !important;
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
 }
 
 /* ----------------------------------------------------------------------
@@ -16172,7 +16173,7 @@ Lables & Badgets
 }
 
 /* ----------------------------------------------------------------------
-	Light Box
+  Light Box
 -------------------------------------------------------------------------*/
 .mfp-bg {
   top: 0;
@@ -16931,7 +16932,7 @@ a.list-group-item.active:hover, a.list-group-item.active.active {
   }
 }
 /* ----------------------------------------------------------------------
-	Pagination & Pager
+  Pagination & Pager
 -------------------------------------------------------------------------*/
 .pagination-wrap {
   display: block;
@@ -17118,14 +17119,14 @@ a.list-group-item.active:hover, a.list-group-item.active.active {
 
 /*
 .navbar {
-	.form-control {
-		height: 34px;
+  .form-control {
+    height: 34px;
         padding: 6px 12px;
-	}
-	.btn {
-		border-radius: 0;
+  }
+  .btn {
+    border-radius: 0;
         padding: 5px 16px 7px;
-	}
+  }
 }*/
 /* ----------------------------------------------------------------------
     call-to-action (call to action)
@@ -17551,7 +17552,7 @@ body.breakpoint-xs .grid li {
 }
 
 /* ----------------------------------------------------------------------
-	Pricing Table
+  Pricing Table
 -------------------------------------------------------------------------*/
 .pricing-table {
   padding-top: 50px;
@@ -18132,7 +18133,7 @@ body.breakpoint-xs .box-fancy [class*="col-"] {
 }
 
 /* ----------------------------------------------------------------------
-	Parallax
+  Parallax
 -------------------------------------------------------------------------*/
 #page-title[data-bg-parallax],
 [data-bg-parallax] {

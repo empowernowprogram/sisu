@@ -74,10 +74,15 @@ body {
 .signup-form .btn:hover, .signup-form .btn:focus {
 	background: #EC7F00 !important;
 }
-.signup-form a {
-    color: #999;
-	text-decoration: underline;
-}	
+
+@media screen and (min-width: 1000px){
+
+	.signup-form a {
+	    color: #999;
+		text-decoration: underline;
+	}	
+
+}
 
 .signup-form a:hover {
 	text-decoration: underline;

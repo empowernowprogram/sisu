@@ -1,0 +1,127 @@
+{% load static %}
+
+<footer id="footer" class="sisu-footer-bg">
+  <div style="margin-bottom: -100px">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#ffffff"
+        fill-opacity="1"
+        d="M0,224L60,192C120,160,240,96,360,96C480,96,600,160,720,186.7C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
+      ></path>
+    </svg>
+  </div>
+  <div id="footer-lazy-bg" data-ll-status="loaded">
+    <div class="grid-system-demo-live vertical-center">
+      <div class="footer-content">
+        <div class="container">
+          <div class="row" style="padding-bottom: 0px">
+            <div class="col-lg-12 text-center">
+              <h3 class="text-center footer-banner">
+                Stay updated with our free newsletter!
+              </h3>
+              <div style="justify-content: center; display: flex">
+                <form class="site-search" method="POST" action=".">
+                  {% csrf_token %}
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      style="
+                        border: 0px solid #ced4da;
+                        font-size: 16px;
+                        width: 346px;
+                      "
+                      placeholder="Email address"
+                      type="text"
+                      name="email_signup"
+                    />
+                    <span
+                      ><button
+                        class="btn btn-sisu-primary"
+                        style="
+                          border-radius: 0px 4px 4px 0px;
+                          border: 1px solid #ced4da;
+                          font-size: 16px;
+                        "
+                        type="submit"
+                      >
+                        Sign up
+                      </button></span
+                    >
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="widget" style="margin-top: 40px">
+                <ul class="list footer-links">
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 'about-us' %}"
+                      >About</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 'contact' %}"
+                      >Contact</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 'home_portal' %}"
+                      >Customer Portal</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 'p_p' %}"
+                      >Privacy Policy</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 't_c' %}"
+                      >Terms & Conditions</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a>
+                  </li>
+                  <li style="display: inline-block">
+                    <h5 style="color: #fff; font-weight: 300 !important">
+                      Follow Us
+                    </h5>
+                    <div
+                      class="social-icons social-icons-colored social-icons-rounded float-left"
+                    >
+                      <ul>
+                        <li class="social-facebook">
+                          <a
+                            href="https://www.facebook.com/sisuvr"
+                            target="_blank"
+                            ><i class="fab fa-facebook-f"></i
+                          ></a>
+                        </li>
+                        <li class="social-twitter">
+                          <a href="https://twitter.com/sisuvr" target="_blank"
+                            ><i class="fab fa-twitter"></i
+                          ></a>
+                        </li>
+                        <li class="social-linkedin">
+                          <a
+                            href="https://www.linkedin.com/company/sisuvr"
+                            target="_blank"
+                            ><i class="fab fa-linkedin"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="copyright-text text-center sisu-footer-copyright">
+            Copyright © 2021 Sisu VR Inc. All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

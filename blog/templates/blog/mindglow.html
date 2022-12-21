@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta
+      name="description"
+      content="Sisu VR empowers employees to work fearlessly. We offer immersive virtual reality trainings to prepare employees to handle workplace misconduct and active shooter emergencies."
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'public/assets/img/logo-header-colored.png' %}"
+    />
+
+    <script src="{% static 'public/js/custom.js' %}"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@id": "https://www.sisuvr.com",
+        "@type": "Organization",
+        "name": "Sisu VR",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}",
+        "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'public/assets/img/logo-header-colored.png' %}",
+        "sameAs": [
+          "https://www.linkedin.com/company/sisuvr",
+          "https://www.facebook.com/sisuvr",
+          "https://www.twitter.com/sisuvr"
+        ]
+      }
+    </script>
+
+    <!-- Document title -->
+    <title>MindGlow Active Shooter Response Training</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+  </head>
+
+  <body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+      <!-- Header -->
+      <header
+        id="header"
+        data-fullwidth="true"
+        data-responsive-fixed="true"
+        class="header-fixed"
+      >
+        <div class="header-inner sisu-header-bkg">
+          <div class="container">
+            <!--Logo-->
+            <a href="{% url 'home' %}" id="logo">
+              <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+            </a>
+            <!--End: Logo-->
+            <!--Navigation Resposnive Trigger-->
+            <div id="mainMenu-trigger">
+              <a class="lines-button x"><span class="lines"></span></a>
+            </div>
+            <!--end: Navigation Resposnive Trigger-->
+            <!--Navigation-->
+            {% include 'components/new-nav-bar.html' %}
+            <!--end: Navigation-->
+          </div>
+        </div>
+      </header>
+      <!-- end: Header -->
+
+      <div>
+        <div class="container">
+          <div class="sisu-divider-line text-center">
+            <h3
+              style="font-weight: 600; margin-top: 50px"
+              class="sisu-color-purple"
+            >
+              MindGlow Active Shooter Response Training
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <div class="container">
+          <div id="video-container" style="display: block">
+            <iframe
+              width="100"
+              height="50"
+              src="https://www.youtube.com/embed/j9G4lYO0ock"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <img id="expandedImg" style="display: none; width: 100%" />
+        </div>
+        <div class="container center-container" style="margin-top: 30px">
+          <div class="row">
+            <div class="column-lg-3">
+              <img
+                src="{% static 'public/assets/img/mindglow-video-thumbnail.jpg' %}"
+                class="img-fluid rounded"
+                alt="image"
+                style="width: 200px; height: auto"
+                onclick="galleryVideo(this)"
+              />
+            </div>
+            <!-- <div class="column-lg-3">
+              <img
+                src="{% static 'public/assets/img/enp-thumbnail-1.png' %}"
+                class="img-fluid rounded"
+                alt="image"
+                style="width: 200px; height: auto"
+                onclick="galleryFunction(this)"
+              />
+            </div>
+            <div class="column-lg-3">
+              <img
+                src="{% static 'public/assets/img/mindglow-image-1.png' %}"
+                class="img-fluid rounded"
+                alt="image"
+                style="width: 200px; height: auto"
+                onclick="galleryFunction(this)"
+              />
+            </div>
+            <div class="column-lg-3">
+              <img
+                src="{% static 'public/assets/img/mindglow-image-2.png' %}"
+                class="img-fluid rounded"
+                alt="image"
+                style="width: 200px; height: auto"
+                onclick="galleryFunction(this)"
+              />
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-2">
+              <div
+                class="bg-cube-element"
+                style="
+                  width: 126px;
+                  height: 88px;
+                  margin-top: 0px;
+                  margin-left: -12px;
+                "
+              ></div>
+              <div
+                class="bg-cube-element"
+                style="
+                  width: 80px;
+                  height: 72px;
+                  margin-top: 60px;
+                  margin-left: -36px;
+                "
+              ></div>
+            </div>
+            <div class="col-lg-8">
+              <h4 class="text-center" style="font-weight: 600; color: #494949">
+                The
+                <span class="sisu-color-purple"
+                  >MindGlow Active Shooter Response Training</span
+                >
+                empowers employees to handle active shooter emergencies with
+                immersive VR simulations safe for civilians.
+              </h4>
+              <br />
+              <p class="text-center" style="font-size: 16px">
+                The Empower Now Program meets the legal requirements for
+                business conduct training. Completing all of the modules will
+                fulfill state requirements for sexual harassment training.
+              </p>
+              <div class="col-lg-2">
+                <div
+                  class="bg-cube-container"
+                  style="float: right; margin-right: 0%"
+                >
+                  <div
+                    class="bg-cube-element"
+                    style="width: 56px; height: 36px; margin-top: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-cube-container" style="float: right">
+              <div
+                class="bg-cube-element"
+                style="
+                  width: 120px;
+                  height: 96px;
+                  margin-top: 160px;
+                  margin-left: 42px;
+                "
+              ></div>
+            </div>
+            <hr class="space" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <!-- Slideshow container -->
+        <div class="slideshow-container" style="margin-bottom: -100px">
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides" style="display: block">
+            <div class="grid-system-demo-live">
+              <div class="row">
+                <div class="col-lg-12 p-t-80 p-b-20">
+                  <div class="heading-section">
+                    <h3
+                      id="testimonials"
+                      class="text-center"
+                      style="font-weight: 600"
+                    >
+                      What Our Clients Are Saying
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row justify-content-md-center align-items-center"
+                style="height: 200px"
+              >
+                <div class="col-lg-8">
+                  <p class="text-center" style="padding: 0px 15px">
+                    “Every second counts during an active shooting. At the
+                    Borderline Shooting in Thousand Oaks, I was fortunate that
+                    my initial difficulty understanding what was happening and
+                    how to respond did not lead to injury or worse. I can see
+                    huge potential for the MindGlow technology to help people
+                    avoid being confused or freezing up in an active shooter
+                    situation. I think the training will allow them to respond
+                    quickly and effectively to a shooting incident.”
+                  </p>
+                  <p class="text-center">
+                    <strong
+                      ><cite
+                        >Anonymous (Borderline Shooting Survivor)</cite
+                      ></strong
+                    >
+                  </p>
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mySlides">
+            <div class="grid-system-demo-live">
+              <div class="row">
+                <div class="col-lg-12 p-t-80 p-b-20">
+                  <div class="heading-section">
+                    <h3
+                      id="testimonials"
+                      class="text-center"
+                      style="font-weight: 600"
+                    >
+                      What Our Clients Are Saying
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row justify-content-md-center align-items-center"
+                style="height: 200px"
+              >
+                <div class="col-lg-8">
+                  <p class="text-center" style="padding: 0px 15px">
+                    “This real-world training environment allows workers the
+                    safe space to learn what to do in case of an active
+                    shooter/violent intruder... MindGlow prepares you, to run,
+                    hide, fight in case of an active shooter!"
+                  </p>
+                  <p class="text-center">
+                    <strong><cite>Lt. Bill Fogarty</cite></strong
+                    ><br />CEO & Founder, 21 CLETS <br />San Mateo Sheriff's
+                    Department <br />CA POST Master Instructor
+                  </p>
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Next and previous buttons -->
+          <a
+            class="prev"
+            onclick="plusSlides(-1)"
+            style="color: #ec7f00; margin-top: -120px"
+            >&#10094;</a
+          >
+          <a
+            class="next"
+            onclick="plusSlides(1)"
+            style="color: #ec7f00; margin-top: -120px"
+            >&#10095;</a
+          >
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center" style="margin-top: -200px">
+        <div class="col-lg-12">
+          <h3
+            class="text-center"
+            style="font-weight: 600; color: #494949; font-size: large"
+          >
+            Got questions? Want a free demo? Curious about the pricing?
+          </h3>
+        </div>
+        <div class="col-lg-12">
+          <div class="center-container">
+            <button
+              style="
+                font-size: 16px;
+                margin-top: 24px;
+                margin-bottom: 24px;
+                border-radius: 30px;
+                height: 64px;
+                width: 200px;
+              "
+              type="button"
+              class="btn btn-sisu-primary"
+            >
+              <a href="{% url 'contact' %}" style="color: #fff !important">
+                Contact Us
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" style="padding-top: 64px">
+        <div class="bg-cube-container" style="margin-left: -48px">
+          <div
+            class="bg-cube-element"
+            style="width: 34px; height: 22px; margin-top: -12px"
+          ></div>
+        </div>
+        <div
+          class="bg-cube-container"
+          style="float: right; margin-right: 100px"
+        >
+          <div
+            class="bg-cube-element"
+            style="width: 56px; height: 36px; margin-top: -62px"
+          ></div>
+        </div>
+        <div class="row">
+          <div class="row-wrapper">
+            <div class="col-lg-5">
+              <h3
+                id="learn-more"
+                style="
+                  font-weight: 600;
+                  color: #494949;
+                  animation-duration: 100ms;
+                "
+              >
+                Train
+                <span class="sisu-color-purple"> Fight-or-Flight</span>
+                Instincts
+              </h3>
+              <span style="font-size: 18px">
+                MindGlow's Active Shooter Training trains employees to react
+                quickly using the Run-Hide-Fight method taught by the Department
+                of Homeland Security.
+              </span>
+              <div
+                class="bg-cube-container"
+                style="float: right; margin-right: 48%"
+              >
+                <div
+                  class="bg-cube-element"
+                  style="width: 56px; height: 36px; margin-top: 18%"
+                ></div>
+              </div>
+              <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-5">
+              <!-- <h2>Rounded</h2> -->
+              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+              <img
+                src="{% static 'public/assets/img/mindglow-image-1.png' %}"
+                class="img-fluid rounded"
+                alt="Two women sitting facing towards each other and looking at something on a table in front of them."
+                style="width: 476px; height: auto"
+              />
+              <div
+                class="bg-cube-element"
+                style="
+                  width: 156px;
+                  height: 102px;
+                  margin-top: -80px;
+                  margin-left: -28px;
+                "
+              ></div>
+            </div>
+          </div>
+          <hr class="space" />
+          <div class="row-wrapper-alt">
+            <div class="col-lg-5">
+              <!-- <h2>Rounded</h2> -->
+              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+              <img
+                src="{% static 'public/assets/img/mindglow-image-2.png' %}"
+                class="img-fluid rounded"
+                alt="Two women sitting facing towards each other and looking at something on a table in front of them."
+                style="width: 476px !important; height: auto"
+              />
+              <div
+                class="bg-cube-element"
+                style="
+                  width: 156px;
+                  height: 102px;
+                  margin-top: -80px;
+                  margin-left: -28px;
+                "
+              ></div>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-5">
+              <h3
+                id="learn-more"
+                style="
+                  font-weight: 600;
+                  color: #494949;
+                  animation-duration: 100ms;
+                "
+              >
+                Simulations Included
+              </h3>
+              <ul class="sisu-li">
+                <li>Firearm Sounds</li>
+                <li>Listening Drill</li>
+                <li>Quick Escape (Run)</li>
+                <li>Cover vs. Conceal (Hide)</li>
+                <li>Improvised Weapons (Fight)</li>
+                <li>Evacuation</li>
+              </ul>
+              <div
+                class="bg-cube-container"
+                style="float: right; margin-right: 48%"
+              >
+                <div
+                  class="bg-cube-element"
+                  style="width: 56px; height: 36px; margin-top: 18%"
+                ></div>
+              </div>
+              <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
+            </div>
+          </div>
+          <hr class="space" />
+          <div class="col-lg-12">
+            <p class="text-center" style="font-size: 16px">
+              Office and University editions are available
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="sisu-divider-line text-center">
+          <h3 style="font-weight: 600; margin-top: 50px">
+            Frequently Asked Questions
+          </h3>
+        </div>
+        <div class="row">
+          <div
+            class="content col-lg-12"
+            style="padding-left: 12%; padding-right: 12%"
+          >
+            <!-- Accordion -->
+            <div class="bg-cube-container" style="margin-left: -124px">
+              <div
+                class="bg-cube-element"
+                style="width: 22px; height: 16px; margin-top: 32%"
+              ></div>
+            </div>
+            <div
+              class="bg-cube-container"
+              style="float: right; margin-right: -48px"
+            >
+              <div
+                class="bg-cube-element"
+                style="width: 38px; height: 24px; margin-top: 10%"
+              ></div>
+            </div>
+            <div
+              class="bg-cube-container"
+              style="float: right; margin-right: -68px"
+            >
+              <div
+                class="bg-cube-element"
+                style="width: 30px; height: 18px; margin-top: 36%"
+              ></div>
+            </div>
+
+            <div class="accordion accordion-flat">
+              <div class="ac-item">
+                <h5 class="ac-title">Why virtual reality (VR)?</h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    Currently, most training solutions are delivered via videos,
+                    live presentations, or manuals. However, these methods have
+                    been proven to be ineffective. On the other hand, studies
+                    show VR soft skills training promotes better and faster
+                    learning, higher retention of information, and increased
+                    engagement. It has also been shown to bolster empathy. Sisu
+                    VR delivers high-quality experiences in multiple
+                    first-person perspectives using VR. By interacting with
+                    realistic scenarios, employees are empowered to effectively
+                    address incidents of misconduct.
+                  </p>
+                </div>
+              </div>
+              <div class="ac-item">
+                <h5 class="ac-title">
+                  How was the MindGlow Active Shooter Training created?
+                </h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    The MindGlow Active Shooter Response Training was made in
+                    collaboration with subject matter experts in law
+                    enforcement, workplace safety training and compliance, and
+                    the military.
+                  </p>
+                </div>
+              </div>
+              <div class="ac-item">
+                <h5 class="ac-title">
+                  How does the MindGlow Active Shooter Training work?
+                </h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    Our training uses the Run-Hide-Fight method taught by the
+                    Department of Homeland Security. By combining instructional
+                    videos and interactive activities, your employees will learn
+                    about the method and immediately apply those techniques in
+                    the interactive activities that follow.
+                  </p>
+                </div>
+              </div>
+              <div class="ac-item">
+                <h5 class="ac-title">
+                  I’m worried this training might be too scary. Is it safe for
+                  civilians?
+                </h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    Our training was designed for people without any military or
+                    law enforcement training and takes safety and trauma into
+                    consideration. For example, while other training providers
+                    have simulations with perpetrators pointing a firearm at a
+                    person, we use a cardboard cutout instead.
+                  </p>
+                </div>
+              </div>
+              <div class="ac-item">
+                <h5 class="ac-title">How does the pricing work?</h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    Our trainings can be purchased via a per-user annual
+                    subscription. Request a price quote to find the right price
+                    for your organization.
+                  </p>
+                </div>
+              </div>
+              <div class="ac-item">
+                <h5 class="ac-title">
+                  Does this training meet certified state standards and
+                  regulations?
+                </h5>
+                <div class="ac-content" style="display: none">
+                  <p>
+                    Yes, our trainings meet requirements for all 50 U.S. states.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- end: Accordion -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="row justify-content-md-center">
+      <div class="col-lg-12">
+        <h3
+          class="text-center"
+          style="font-weight: 600; color: #494949; font-size: large"
+        >
+          Got questions? Want a free demo? Curious about the pricing?
+        </h3>
+      </div>
+      <div class="col-lg-12">
+        <div class="center-container">
+          <button
+            style="
+              font-size: 16px;
+              margin-top: 24px;
+              margin-bottom: 24px;
+              border-radius: 30px;
+              height: 64px;
+              width: 200px;
+            "
+            type="button"
+            class="btn btn-sisu-primary"
+          >
+            <a href="{% url 'contact' %}" style="color: #fff !important">
+              Contact Us
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cookies -->
+    <div id="consent-popup" class="hidden">
+      <p>
+        By using this site you agree to our
+        <a href="{% url 't_c' %}">Terms and Conditions</a>. Please accept these
+        before using the site.
+      </p>
+      <div class="cookie-consent-banner__actions">
+        <button class="cookie-consent-banner__cta" id="accept">Accept</button>
+
+        <button
+          class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary"
+          id="decline"
+        >
+          Decline
+        </button>
+      </div>
+    </div>
+    <script>
+      const cookieStorage = {
+        getItem: (item) => {
+          const cookies = document.cookie
+            .split(";")
+            .map((cookie) => cookie.split("="))
+            .reduce(
+              (acc, [key, value]) => ({ ...acc, [key.trim()]: value }),
+              {}
+            );
+          return cookies[item];
+        },
+        setItem: (item, value) => {
+          document.cookie = `${item}=${value};`;
+        },
+      };
+
+      const storageType = cookieStorage;
+      const consentPropertyName = "jdc_consent";
+      const shouldShowPopup = () => !storageType.getItem(consentPropertyName);
+      const saveToStorage = () =>
+        storageType.setItem(consentPropertyName, true);
+
+      window.onload = () => {
+        const acceptFn = (event) => {
+          saveToStorage(storageType);
+          consentPopup.classList.add("hidden");
+        };
+        const declineFn = (event) => {
+          consentPopup.classList.add("hidden");
+        };
+        const consentPopup = document.getElementById("consent-popup");
+        const acceptBtn = document.getElementById("accept");
+        const declineBtn = document.getElementById("decline");
+        acceptBtn.addEventListener("click", acceptFn);
+        declineBtn.addEventListener("click", declineFn);
+
+        if (shouldShowPopup(storageType)) {
+          setTimeout(() => {
+            consentPopup.classList.remove("hidden");
+          }, 2000);
+        }
+      };
+    </script>
+
+    <!-- Footer -->
+    {% include 'components/new-footer.html' %}
+    <!-- end: Footer -->
+
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+    <script>
+      // Get the modal
+      let modal = document.getElementById("modal-demo-video");
+      let btn = document.getElementById("btn-view-demo");
+      let close = document.getElementById("modal-demo-video-close");
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function () {
+        $("#modal-demo-video").addClass("show");
+        $("#modal-demo-video").css("display", "block");
+        $("#modal-demo-video").css("padding-right", "17px");
+      };
+
+      // When the user clicks on <close> (x), close the modal
+      close.onclick = function () {
+        $("#modal-demo-video").fadeOut("fast");
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          $("#modal-demo-video").fadeOut("fast");
+        }
+      };
+    </script>
+  </body>
+</html>

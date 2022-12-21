@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load staticfiles %}
 {% load static %}
 
 <head>
@@ -37,22 +36,21 @@
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
             <div class="header-inner sisu-header-bkg">
                 <div class="container">
-                    <!--Logo-->
-                    <div id="logo">
-                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
-                        <a href="{% url 'home' %}"></a>
-                    </div>
-                    <!--End: Logo-->
-                    <!--Navigation Resposnive Trigger-->
-                    <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
-                    </div>
-                    <!--end: Navigation Resposnive Trigger-->
-                    <!--Navigation-->
-                    {% include 'components/public-menu.html' %}
-                    <!--end: Navigation-->
+                  <!--Logo-->
+                  <a href="{% url 'home' %}" id="logo">
+                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+                  </a>
+                  <!--End: Logo-->
+                  <!--Navigation Resposnive Trigger-->
+                  <div id="mainMenu-trigger">
+                    <a class="lines-button x"><span class="lines"></span></a>
+                  </div>
+                  <!--end: Navigation Resposnive Trigger-->
+                  <!--Navigation-->
+                  {% include 'components/new-nav-bar.html' %}
+                  <!--end: Navigation-->
                 </div>
-            </div>
+              </div>
         </header>
         <!-- end: Header -->
         <!-- Content -->
@@ -141,7 +139,7 @@
                 </div>
             </div>
         </section> <!-- end: Content -->
-        {% include 'blog/footer.html' %}
+        {% include 'components/new-footer.html' %}
     </div>
     <!-- end: Body Inner -->
 

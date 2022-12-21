@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load staticfiles %}
+
 {% load static %}
 
 <head>
@@ -22,38 +22,47 @@
 </head>
 
 <body>
+            
+
+
+                    
+               
+                
+
+
     <!-- Body Inner -->
     <div class="body-inner">
         <!-- Header -->
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
             <div class="header-inner sisu-header-bkg">
                 <div class="container">
-                    <!--Logo-->
-                    <div id="logo">
-                        <img src="{% static 'public/assets/svg/logo-text-light.svg' %}">
-                        <a href="{% url 'home' %}"></a>
-                    </div>
-                    <!--End: Logo-->
-                    <!--Navigation Resposnive Trigger-->
-                    <div id="mainMenu-trigger">
-                        <a class="lines-button x"><span class="lines"></span></a>
-                    </div>
-                    <!--end: Navigation Resposnive Trigger-->
-                    <!--Navigation-->
-                    {% include 'components/public-menu.html' %}
-                    <!--end: Navigation-->
+                  <!--Logo-->
+                  <a href="{% url 'home' %}" id="logo">
+                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+                  </a>
+                  <!--End: Logo-->
+                  <!--Navigation Resposnive Trigger-->
+                  <div id="mainMenu-trigger">
+                    <a class="lines-button x"><span class="lines"></span></a>
+                  </div>
+                  <!--end: Navigation Resposnive Trigger-->
+                  <!--Navigation-->
+                  {% include 'components/new-nav-bar.html' %}
+                  <!--end: Navigation-->
                 </div>
-            </div>
+              </div>
         </header>
-        <!-- end: Header -->
-        <!-- Content -->
+
+      
+
+            
+
         <section style="padding-bottom:32px">
             <div class="container">
                 <div class="sisu-divider-line text-center">
-                    <div style="padding-bottom: 20px;">
-                        <img src="{% static 'public/assets/svg/logo-text-colored.svg' %}">
-                    </div>
-                    <div class="bg-cube-container" style="margin-left:-124px">
+
+                    <span class="lead"> Frequently Asked Questions</span>
+                     <div class="bg-cube-container" style="margin-left:-123px">
                         <div class="bg-cube-element" style="width:34px; height:22px;"></div>
                     </div>
                     <div class="bg-cube-container" style="float: right; margin-right: 88px;">
@@ -62,41 +71,25 @@
                     <div class="bg-cube-container" style="float: right; margin-right: -88px;">
                         <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
                     </div>
-                    <span class="lead">Frequently Asked Questions</span>
-                    <hr class="sisu-hr">
+
+                    
                 </div>
+                <br/> <br/> <br/> <br/>
         </section>
+
+
+
+
         <section id="page-content">
             <div class="container">
+                <p class="new-title">General</p>
                 <div class="row">
                     <div class="content col-lg-12" style="padding-left:12%; padding-right:12%">
                         <!-- Accordion -->
-                        <div class="bg-cube-container" style="margin-left:-124px">
-                            <div class="bg-cube-element" style="width:22px; height:16px; margin-top:32%"></div>
-                        </div>
-                        <div class="bg-cube-container" style="float: right; margin-right: -48px;">
-                            <div class="bg-cube-element" style="width:38px; height:24px; margin-top:10%"></div>
-                        </div>
-                        <div class="bg-cube-container" style="float: right; margin-right: -68px;">
-                            <div class="bg-cube-element" style="width:30px; height:18px; margin-top:36%"></div>
-                        </div>
+
                         
                         <div class="accordion accordion-flat">
-                            <div class="ac-item">
-                                <h5 class="ac-title">Why Sisu VR?</h5>
-                                <div class="ac-content" style="display: none;">
-                                    <p>
-                                        Sisu VR's training program, Empower Now, is an immersive workplace conduct training experience, 
-                                        employing cutting-edge ethical and psychological research and virtual reality (VR) technology. 
-                                        Through Empower Now, employees will learn how to address misconduct through simulated incidents of harassment, 
-                                        bullying, or discrimination. Post-training, employers will obtain a comprehensive report on methods to improve 
-                                        their organization, as necessary. Would you like to create a kinder, more respectful, and courageous workplace?
-                                    </p>
-                                    <p>
-                                        We're excited to work with you, so <a href="{% url 'contact' %}">contact us</a> today!
-                                    </p>
-                                </div>
-                            </div>
+                            
                             <div class="ac-item">
                                 <h5 class="ac-title">Why virtual reality (VR)?</h5>
                                 <div class="ac-content" style="display: none;">
@@ -114,16 +107,9 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="ac-item">
-                                <h5 class="ac-title">Does this training meet federal and state regulations?</h5>
-                                <div class="ac-content" style="display: none;">
-                                    <p>
-                                        Yes, our training is comprehensively developed with the aid of our team of training and HR experts. 
-                                        We meet all federal and state requirements, and provide certification for each employee who successfully completes our training.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="ac-item">
+
+
+                             <div class="ac-item">
                                 <h5 class="ac-title">How does pricing work?</h5>
                                 <div class="ac-content" style="display: none;">
                                     <p>
@@ -134,14 +120,27 @@
                                     </p>
                                 </div>
                             </div>
+
+
+
+
+
+
+
                             <div class="ac-item">
-                                <h5 class="ac-title">Does my company have to purchase VR headsets?</h5>
+                                <h5 class="ac-title">Does this training meet certified state standards and regulations?</h5>
                                 <div class="ac-content" style="display: none;">
                                     <p>
-                                        Employers are responsible for obtaining VR headsets through our recommended list of third-party vendors, 
-                                        such as the <a href="http://www.picovr.com/" target="_blank">Pico VR G2 4K</a>. Never worked with VR headsets before? We also provide comprehensive guidance on 
-                                        how to deploy headsets to your remote, hybrid, or in-person workforce. Our team is available to assist you, 
-                                        every step of the way!
+                                        Yes, our trainings meet requirements for all 50 U.S. states. 
+
+                                    </p>
+                                </div>
+                            </div>
+                                                       <div class="ac-item">
+                                <h5 class="ac-title">Do I have to provide VR headsets?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Yes, employers are responsible for purchasing VR headsets. We recommend the Pico VR G2 4K. 
                                     </p>
                                 </div>
                             </div>
@@ -149,26 +148,114 @@
                         <!-- end: Accordion -->
                     </div>
                 </div>
+                <br/> <br/>
+
+                <p class="new-title">Empower Now Program</p>
+
+                <div class="row">
+                    <div class="content col-lg-12" style="padding-left:12%; padding-right:12%">
+                        <!-- Accordion -->
+
+                        
+                        <div class="accordion accordion-flat">
+                            
+                            <div class="ac-item">
+                                <h5 class="ac-title">How does the Empower Now Program work?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The Empower Now Program is an immersive anti-harassment training experience based on real field cases. The user experiences the training from multiple perspectives (i.e. victim, perpetrator, and observer) and educates the user on how to handle misconduct through escape, confrontation, and de-escalation techniques.  
+                                        
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'contact' %}">Contact us</a> today for a free demo!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">Who creates the ENP’s content and how is it created?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The Empower Now Program is based on real harassment cases and developed in-house with the help of our team of HR and training expert(s).
+
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- end: Accordion -->
+                    </div>
+                </div>
+
+                      <br/> <br/> 
+                      <p class="new-title">Active Shooter Prevention Training</p>
+
+                <div class="row">
+                    <div class="content col-lg-12" style="padding-left:12%; padding-right:12%">
+                        <!-- Accordion -->
+
+                        
+                        <div class="accordion accordion-flat">
+                            
+                            <div class="ac-item">
+                                <h5 class="ac-title"> How does the MindGlow Active Shooter Training work?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Our training uses the Run-Hide-Fight method taught by the Department of Homeland Security. By combining instructional videos and interactive activities, your employees will learn about the method and immediately apply those techniques in the interactive activities that follow.
+
+                                        
+                                    </p>
+                                    <p>
+                                        <a href="{% url 'contact' %}">Contact us</a> today for a free demo!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ac-item">
+                                <h5 class="ac-title">How was the MindGlow Active Shooter Training created?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        The MindGlow Active Shooter Response Training was made in collaboration with subject matter experts in law enforcement, workplace safety training and compliance, and the military. 
+
+
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="ac-item">
+                                <h5 class="ac-title">I’m worried this training might be too scary. Is it safe for civilians?</h5>
+                                <div class="ac-content" style="display: none;">
+                                    <p>
+                                        Our training was designed for people without any military or law enforcement training and takes safety and trauma into consideration. For example, while other training providers have simulations with perpetrators pointing a firearm at a person, we use a cardboard cutout instead.
+
+
+
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            
+                        </div>
+                        <!-- end: Accordion -->
+                    </div>
+                </div>
+
+
             </div>
         </section>
         <section>
             <div class="container">
                 <div class="sisu-divider-line text-center">
-                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
-                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
-                    </div>
-                    <div class="bg-cube-container" style="margin-left:-84px">
-                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
-                    </div>
+
                     <div style="padding-bottom: 20px;">
                         <span class="lead">Still have questions?</span>
                     </div>
-                    <p>Feel free to reach out to us directly.</p>
+                    
                     <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="{% url 'contact' %}" style="color:#fff">Contact Us</a></button>
                 </div>
         </section>
         <!-- end: Content -->
-        {% include 'blog/footer.html' %}
+        {% include 'components/new-footer.html' %}
     </div>
     <!-- end: Body Inner -->
 

@@ -44,6 +44,14 @@ Table of Content:
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700,900");
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
+
+
+@media screen and (min-width: 1001px){
+  .mobile-header123{ 
+    display: none;
+  }
+
+}
 .list {
   list-style: none;
   margin: 0px;

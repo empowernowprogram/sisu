@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description"
+        content="Sisu VR's mission is to create kinder, more courageous, & respectful workplaces. We are devoted to helping diverse organizations to be more inclusive & empathy-driven.">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>Sisu VR | News</title>
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+    
+    <link rel="stylesheet" href="{{ STATIC_URL }}custom.css" />
+    <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+            <div class="header-inner sisu-header-bkg">
+                <div class="container">
+                  <!--Logo-->
+                  <a href="{% url 'home' %}" id="logo">
+                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+                  </a>
+                  <!--End: Logo-->
+                  <!--Navigation Resposnive Trigger-->
+                  <div id="mainMenu-trigger">
+                    <a class="lines-button x"><span class="lines"></span></a>
+                  </div>
+                  <!--end: Navigation Resposnive Trigger-->
+                  <!--Navigation-->
+                  {% include 'components/new-nav-bar.html' %}
+                  <!--end: Navigation-->
+                </div>
+              </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Content -->
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+
+
+                    <div class="bg-cube-container" style="margin-left:-124px">
+                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
+                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
+                    </div>
+                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
+                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
+                    </div>
+                    <span class="lead">News</span>
+                    
+               
+                </div>
+        </section>
+
+        <section>
+            <div class="container">
+          
+                <div class="row">
+
+                    {% if latest_medium_post_list %}
+                        {% for posts in latest_medium_post_list %}
+<div class="col-lg-6">
+
+
+                        <div class="rectangle-148">
+                            <img src="{{posts.m_photo}}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
+                            style="width:253px; height:258px;">
+
+                            <p class="second-text-12345678"> {{posts.title_m}} </p>
+
+                            <p class="first-text">
+				{{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
+
+                              
+                            
+                        </div>
+                    </div>
+
+                        {% endfor %}
+                    {% else %}
+                        <p> Should be 4 medium posts </p>
+                    {% endif %}
+
+                    <hr class="space">
+<!--
+                    {% if latest_medium_post_list %}
+                        {% for posts in latest_medium_post_list %}
+
+                            <div class="col-8 col-lg-8 col-xl-8">
+
+
+                                <div class="rectangle-148">
+                                    <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)">
+
+                                    
+                                    <p class="second-text-12345678"> {{posts.title_m}} </p>
+                                    
+
+                                    <p class="first-text">
+                                      {{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
+
+
+
+
+                                      
+                                    
+                                </div>
+
+
+                                
+                            </div>
+
+
+                            <hr class="space">
+
+
+                        {% endfor %}
+                    {% else %}
+                        <p> Should be 4 medium posts </p>
+                    {% endif %}
+-->
+ <!--Start of commented code-->                   
+<!--
+                     <div class="col-lg-6">
+
+
+                        <div class="rectangle-148">
+                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
+                            style="width:253px; height:258px;">
+
+                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
+
+                            <p class="first-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
+                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
+                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
+
+
+                              
+                            
+                        </div>
+                    </div>
+
+
+                    <hr class="space">
+
+                    <div class="col-lg-6">
+
+
+                        <div class="rectangle-148">
+                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
+                            style="width:253px; height:258px;">
+
+                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
+
+                            <p class="first-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
+                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
+                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
+
+
+
+                              
+                            
+                        </div>
+                    </div>
+ -->
+ <!--End of commented code-->                   
+                    
+
+
+                    
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-84px">
+                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <span class="lead">What happening at Sisu Vr?</span>
+                    </div>
+                    <div class="row">
+                        {% if latest_linked_in_post_list %}
+
+                        {% for post in latest_linked_in_post_list %}
+                             <div class="col-lg-4">
+                                <iframe class="shadow" src={{post.url}} height="{{post.height}}" width="{{post.width}}" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                            </div>    
+
+
+                            <hr class="mobile-space">
+                        {% endfor %}
+
+                        {% else %}
+                        <p> There should be at least three linkedin posts </p>
+                        {% endif %}
+
+<!--                         <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7004112211925245953" height="234" width="136" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> -->
+                       
+                    </div>
+
+                    
+                </div>
+        
+        </section>
+
+
+        <section class="mobile-footer">
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
+                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
+                    </div>
+                    <div class="bg-cube-container" style="margin-left:-84px">
+                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
+                    </div>
+                    <div style="padding-bottom: 20px;">
+                        <span class="lead">Follow us and stay in the loop </span>
+                    </div>
+
+                    <hr class="mobile-space">
+
+
+                    <div class="row">
+
+                             <div class="col-lg-4">
+                                <div class="mobile-container">
+
+                                    <img class="mobile-image" src="{% static 'public/assets/facebook-logo.png' %}" class="rectangle-172" alt="facebook logo"
+                                    style="width:20px; height:50px;">
+                                    <p class="mobile-text"> Facebook.com/Sisuvr </p>
+
+                                </div>
+
+
+                                <div class="col-lg-4">
+
+                                    <hr class="mobile-space">
+
+
+                                    <div class="mobile-container">
+
+                                        <img class="mobile-image-twitter" src="{% static 'public/assets/twitter-logo.png' %}" class="rectangle-172" alt="facebook logo"
+                                        style="width:20px; height:50px;">
+                                        <p class="mobile-text-twitter"> Twitter.com/Sisuvr </p>
+
+                                    </div>
+
+
+                                </div>    
+
+
+
+                                <div class="col-lg-4">
+
+                                    <hr class="mobile-space">
+
+
+                                    <div class="mobile-container">
+
+                                        <img class="mobile-image-twitter" src="{% static 'public/assets/linkedin-logo.png' %}" class="rectangle-172" alt="facebook logo"
+                                        style="width:20px; height:50px;">
+                                        <p class="mobile-text-twitter"> Linkedin.com/Sisuvr </p>
+
+
+
+                                    </div>
+
+
+                                </div>   
+
+
+                                <div class="col-lg-4">
+
+                                    <hr class="mobile-space">
+
+
+                                    <div class="mobile-container">
+
+                                        <img class="mobile-image-twitter" src="{% static 'public/assets/medium-logo.png' %}" class="rectangle-172" alt="facebook logo"
+                                        style="width:20px; height:50px;">
+                                        <p class="mobile-text-twitter"> Medium.com/Sisuvr </p>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                            <hr class="mobile-space">                       
+                    </div>
+
+
+
+        </section>
+
+        <!-- end: Content -->
+
+        {% include 'components/new-footer.html' %}
+
+
+
+
+    </div>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+
+</body>
+
+</html>

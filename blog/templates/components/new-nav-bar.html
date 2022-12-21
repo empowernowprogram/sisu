@@ -1,0 +1,40 @@
+{% load static %}
+
+<div id="mainMenu">
+  <div class="container">
+    <nav>
+      <ul class="sisu-header-link">
+        <li>
+          <a class="sisu-menu-link" href="{% url 'about-us' %}">About Us</a>
+        </li>
+        <li id="menu-dropdown" class="sisu-menu-link-dropdown">
+          <a class="sisu-menu-link sisu-menu-link-dropdown-button"
+            >View Our Products
+            <img
+              src="{% static 'public/assets/svg/ep_arrow-down.svg' %}"
+              alt="menu-button"
+            />
+          </a>
+          <div class="sisu-menu-link-dropdown-content">
+            <a class="sisu-menu-link" href="{% url 'enp' %}"
+              >HR Business Conduct Training</a
+            >
+            <a class="sisu-menu-link" href="{% url 'mindglow' %}"
+              >Active Shooter Response Training</a
+            >
+          </div>
+        </li>
+        <li><a class="sisu-menu-link" href="{% url 'faq' %}">FAQ</a></li>
+        <li><a class="sisu-menu-link" href="{% url 'news' %}">News</a></li>
+        <li>
+          <a class="sisu-menu-link" href="{% url 'home_portal' %}"
+            >Customer Portal</a
+          >
+        </li>
+        <li>
+          <a class="sisu-menu-link" href="{% url 'contact' %}">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
