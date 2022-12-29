@@ -150,7 +150,7 @@ class MediumPost(models.Model):
   Summary_m = models.CharField(max_length=374)
   pub_date_m = models.DateTimeField('date published', null=True)
   title_m = models.CharField(max_length=100)
-  m_photo = models.ImageField(upload_to='media/medium/photos', null=True)
+  m_photo = models.ImageField(upload_to='medium/photos', null=True)
   # text_m = models.IntegerField()
   # width = models.IntegerField()
 
