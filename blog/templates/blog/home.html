@@ -36,12 +36,39 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js">
+</script>
+<script type="text/javascript">
+ $(document).ready(function () {
+     if ($.cookie('bop') == null) {
+         $("#emailModal").modal('show');
+         $.cookie('bop', '1');
+     }-->
+ });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> 
+</script>
+  
+<script type="text/javascript">
+ $(document).ready(function() {
+     if (sessionStorage.getItem('#emailModal') !== 'true') {
+         $('#emailModal').modal('show');
+         sessionStorage.setItem('#emailModal','true');     
+     }
+ });
+</script>
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js">
+</script>
     <script>
       $(document).ready(function () {
+     if ($.cookie('bob') == null) {
         $("#emailModal").modal("show");
+         $.cookie('bob', '1');
       });
     </script>
-
+-->
     <script>
       $("#menu-dropwdown").on("mouseenter", function (e) {
         $("#sisu-header-bkg:after").css({ "min-height": 150 });
