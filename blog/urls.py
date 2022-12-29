@@ -92,7 +92,7 @@ urlpatterns = [
 
     # PASSWORD RECOVERY URLS ARE IN users/urls.py
     
-    #MEDIA FIRE PATH
-    #static(settings.STATIC_URL,document_root=settings.STATIC_URL),
-    #static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
+#MEDIA FIRE PATH
+urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_URL)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
