@@ -129,4 +129,54 @@ def login(request):
         else:
             data = { 'valid': 'no' }
             return JsonResponse(data)
-        #employee_serializer = EmployeeSerializer(employee)
+ 
+@csrf_exempt
+def login_provision(request):
+    User = get_user_model()
+    if request.method == 'GET':
+        employee_user = request.GET['user']
+        employee_password = request.GET['pass']
+        module_id = request.GET['module']
+        print (employee_user)
+        try:
+            username = Player.objects.get(email=employee_user)
+            employer = username.employer
+            reg_modules = employer.registered_modules
+            current_module = reg_modules.filter(module_id=module_id).exists()
+            print (reg_modules)
+            print (current_module)
+            #print (username)
+        except ObjectDoesNotExist:
+            print ("No entry found")
+        #print ("Username: ")
+        #print (username.email)
+        try:
+            playerUser = User.objects.get(email=employee_user)
+            print (playerUser.username)
+        except ObjectDoesNotExist:
+            print ("No user found")
+        user = authenticate(username=playerUser.username, password=employee_password)
+        #user = authenticate(username=username, password=employee_password)
+        
+        if user is not None and current_module is True:
+            #employer = username.employer
+            #reg_modules = employer.registered_modules
+            #current_module = reg_modules.filter(module_id=module).exists()
+            data = { 'valid': 'yes', 'email': user.email }
+            return JsonResponse(data)
+        else:
+            data = { 'valid': 'no' }
+            return JsonResponse(data)
+    if request.method == 'POST':
+        employee_user = request.POST.get("user")
+        print(employee_user)
+        employee_pass = request.POST.get("pass")
+        print(employee_pass)
+        user = authenticate(username=employee_user, password=employee_pass)
+        if user is not None:
+            data = { 'valid': 'yes', 'email': user.email }
+            return JsonResponse(data)
+        else:
+            data = { 'valid': 'no' }
+            return JsonResponse(data)
+        #employee_serializer = EmployeeSerializer(employee)       #employee_serializer = EmployeeSerializer(employee)
