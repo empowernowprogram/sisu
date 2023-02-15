@@ -4,64 +4,146 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sisu VR Inc">
 
-        <!-- Title -->
-        {% include 'components/portal_tab_title.html' %}
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
-        <!-- Styles - DataTables -->
-        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" />
+    <!-- Title -->
+    {% include 'components/portal_tab_title.html' %}
 
-        <!-- Theme Styles -->
-        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
-    </head>
-    
-    <body>
-        <!-- Page Container -->
-        <div class="page-container">
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;400&family=Orbitron&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" rel="stylesheet">
 
-            <!-- Page Sidebar Start -->
-            {% if player.admin %}
-                {% include 'components/portal_sidebar_admin.html' %}
-            {% elif player.supervisor %}
-                {% include 'components/portal_sidebar_supervisor.html' %}
-            {% else %}
-                {% include 'components/portal_sidebar_employee.html' %}
-            {% endif %}
-            <!-- Page Sidebar End -->
+    <!-- Styles - DataTables -->
+    <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" />
 
-            <!-- Page Content Start -->
-            <div class="page-content">
-                <!-- Page Sidebar / Navigation Elements Start -->
-                <div class="page-header">
-                    <!-- Collapsed / Mobile Navigation Bar Start -->
-                    {% include 'components/portal_mobilenav.html' %}
-                    <!-- Collapsed / Mobile Navigation Bar End -->
-                </div>
-                <!-- Page Sidebar / Navigation Elements End -->
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+</head>
 
-                <!-- Page Inner Start -->
-                <div class="page-inner">
-                    <!-- Page Top Bar Start -->
-                    <div class="page-title">
-                        <h2>Employee Progress</h2>
-                        <hr>
+<body>
+    <!-- Page Container -->
+    <div class="page-container">
+
+        <!-- Page Sidebar Start -->
+        {% if player.admin %}
+        {% include 'components/portal_sidebar_admin.html' %}
+        {% elif player.supervisor %}
+        {% include 'components/portal_sidebar_supervisor.html' %}
+        {% else %}
+        {% include 'components/portal_sidebar_employee.html' %}
+        {% endif %}
+        <!-- Page Sidebar End -->
+
+        <!-- Page Content Start -->
+        <div class="page-content">
+            <!-- Page Sidebar / Navigation Elements Start -->
+            <div class="page-header">
+                <!-- Collapsed / Mobile Navigation Bar Start -->
+                {% include 'components/portal_mobilenav.html' %}
+                <!-- Collapsed / Mobile Navigation Bar End -->
+            </div>
+            <!-- Page Sidebar / Navigation Elements End -->
+
+            <!-- Page Inner Start -->
+            <div class="page-inner">
+                <!-- Page Top Bar Start -->
+                <div class="page-title">
+                    <p style="  
+                    font-family: 'Jost', sans-serif;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 35px;
+                    line-height: 51px;
+                    /* identical to box height */
+        
+        
+                    color: #494949;">Send Notifications to Employees</p>
+                    <hr>
+                    <div class="nav">
+                        <div class="search1">
+                            Search: <input type=“text” id="table-search" name=“search” placeholder=🔍Search>
+                        </div>
+                        <div class="showing">
+                            Showing: <select name=“showing” id=“showing”>
+                                <option value=“”>10</option>
+                                <option value=“”>20</option>
+                                <option value=“”>All</option>
+                            </select>
+                        </div>
+                        <div class="filter">
+                            Filter: <select name=“filter-search” id=“filter-search”>
+                                <option value=“”>All</option>
+                                <option value=“”>Non-Supervisor</option>
+                                <option value=“”>Supervisor</option>
+                            </select>
+                        </div>
                     </div>
-                    <!-- Page Top Bar End -->
-                    
+                    <style>
+                        .nav {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin: 0 0 1rem 0;
+                        }
+
+                        .search1 {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .showing {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .filter {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .search1 input {
+                            margin-left: 0.5rem;
+                            padding: 0.5rem;
+                            border: 1px solid #ccc;
+                            border-radius: 0.25rem;
+                        }
+
+                        .showing select {
+                            margin-left: 0.5rem;
+                            padding: 0.5rem;
+                            border: 1px solid #ccc;
+                            border-radius: 0.25rem;
+                        }
+
+                        .filter select {
+                            margin-left: 0.5rem;
+                            padding: 0.5rem;
+                            border: 1px solid #ccc;
+                            border-radius: 0.25rem;
+                        }
+                    </style>
+                    <br>
+                    <!-- top nav -->
+
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
                         <div class="row">
@@ -69,14 +151,44 @@
                                 <div class="table-responsive">
                                     <div id="table-search">
                                     </div>
-                                    <table id="employee-progress" class="display table" style="width: 100%; cellspacing: 0;">
+                                    <table id="employee-progress" class="display table"
+                                        style="width: 100%; cellspacing: 0;">
                                         <thead class="tbl-sisu-header">
+                                            <!-- checkbox to send notification to multiple employees -->
+                                            <label for="accept">
+                                                <input type="checkbox" id="accept" name="accept" value="yes"> Send
+                                                notifications to multiple employees
+                                            </label><br>
+                                            <br>
+                                            <p id="single">Click on &nbsp; <i class="fa-regular fa-bell"></i>&nbsp; to
+                                                notify individual employees</p>
+                                            <p id="multiple" style="text-decoration: underline;">
+                                            </p>
+
                                             <tr>
+                                                <!-- if checkbox is ticked then show Checkme or else dont-->
+                                                <th id="col1">
+                                                    Checkme
+                                                    <!-- if accept checkbox is checked show col1 or else remove it -->
+                                                    <script>
+                                                        var checkbox = document.getElementById("accept");
+                                                        var col1 = document.getElementById("col1");
+                                                        checkbox.addEventListener("change", function () {
+                                                            if (this.checked) {
+                                                                col1.style.display = "block";
+                                                            } else {
+                                                                // delete col1
+                                                                col1.style.display = "none";
+
+                                                            }
+                                                        });
+                                                    </script>
+
+                                                </th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Registration Type</th>
-                                                <th>Modules Registered</th>
-                                                <th>Modules Completed</th>
+                                                <th>Registration</th>
+                                                <th>Notify</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -84,22 +196,281 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
-                                                <th></th>
                                             </tr>
                                         </tfoot>
+
                                         <tbody>
                                             {% for player_obj in players_obj %}
-                                                <tr>
-                                                    <td>{{ player_obj.name }}</td>
-                                                    <td>{{ player_obj.email }}</td>
-                                                    <td>{{ player_obj.registration }}</td>
-                                                    <td>{{ player_obj.all_modules }} </td>
-                                                    <td>{{ player_obj.modules_completed }} </td>
-                                                </tr>
+                                            <tr>
+                                                <td id="row1">
+                                                    <!-- show row1 only if accept is checked-->
+                                                    <input type="checkbox" id="checkme" name="checkme" value="yes">
+                                                    <!-- show row1 only if accept is checked-->
+                                                    <script>
+                                                        var checkbox = document.getElementById("accept");
+                                                        var row1 = document.getElementById("row1");
+                                                        checkbox.addEventListener("change", function () {
+                                                            // create a for loop
+                                                            if (this.checked) {
+                                                                // create 
+                                                                row1.style.display = "block";
+                                                            } else {
+                                                                // remove row1 for all player_obj in player_obj
+                                                                row1.style.display = "none";
+
+                                                            }
+
+                                                        });
+                                                    </script>
+
+                                                </td>
+                                                <td>{{ player_obj.name }}</td>
+                                                <td>{{ player_obj.email }}</td>
+                                                <td>{{ player_obj.registration }}</td>
+                                                <td>
+                                                    <!-- create a pop-up to my-modal-content when clicked on bell -->
+                                                    <!-- <a href="javascript:;" onclick="ml_account('webforms', '904352', 'f6t9v4, 'show')">
+                                                            <i class="fa-regular fa-bell"></i>
+                                                            </a> -->
+                                                    <style>
+                                                        * {
+                                                            box-sizing: border-box;
+                                                        }
+
+                                                        .openBtn {
+                                                            display: flex;
+                                                            justify-content: center;
+                                                        }
+
+                                                        h2 {
+                                                            font-family: 'Jost', sans-serif;
+                                                            font-style: normal;
+                                                            font-weight: 200;
+                                                            font-size: 14px;
+                                                            line-height: 20px;
+                                                        }
+
+                                                        h4 {
+                                                            font-family: 'Jost', sans-serif;
+                                                            font-style: normal;
+                                                            font-weight: 300;
+                                                            font-size: 25px;
+                                                            line-height: 36px;
+
+                                                            color: #494949;
+                                                        }
+
+                                                        h6 {
+                                                            font-family: 'Jost';
+                                                            font-style: light;
+                                                            font-weight: 400;
+                                                            font-size: 14px;
+                                                            line-height: 20px;
+                                                        }
+
+                                                        .openButton {
+                                                            cursor: pointer;
+
+                                                        }
+
+
+                                                        .formPopup {
+
+                                                            display: none;
+                                                            position: fixed;
+                                                            left: 55%;
+                                                            top: 5%;
+                                                            transform: translate(-50%, 5%);
+                                                            border: 1px solid;
+                                                            border-radius: 10px;
+                                                            z-index: 20;
+                                                            /* display: none;
+                                                            position: fixed;
+                                                            padding: 10px;
+                                                            width: 280px;
+                                                            left: 50%;
+                                                            margin-left: -150px;
+                                                            height: 180px;
+                                                            top: 50%;
+                                                            margin-top: -100px;
+                                                            background: #FFF;
+                                                            z-index: 20; */
+                                                        }
+
+                                                        #popupForm {
+                                                            -webkit-box-shadow: 0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
+                                                            box-shadow: 0px 0px 0px 9999px rgba(0, 0, 0, 0.5);
+                                                        }
+
+                                                        .formContainer {
+                                                            min-width: 900px;
+                                                            padding: 20px;
+                                                            background-color: #fff;
+                                                            border-radius: 10px;
+                                                        }
+
+                                                        .formContainer .btn {
+                                                            padding: 12px 20px;
+                                                            border: solid;
+                                                            background: #EC7F00;
+                                                            border-radius: 50px;
+                                                            color: #fff;
+                                                            cursor: pointer;
+                                                            width: 100%;
+                                                            margin-bottom: 15px;
+                                                            opacity: 0.8;
+                                                        }
+
+                                                        .notification-type {
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            justify-content: center;
+                                                            align-items: center;
+                                                        }
+
+                                                        .now {
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            justify-content: center;
+                                                            align-items: center;
+                                                            border: solid #D0D4D9;
+                                                            border-width: thin;
+                                                            border-radius: 10px;
+                                                            margin: 5px;
+                                                            padding: 5px;
+                                                            
+                                                        }
+
+                                                        .later {
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            flex-wrap: wrap;
+                                                            border: solid #D0D4D9;
+                                                            width: 547px;
+                                                            height: 190px;
+                                                            border-width: thin;
+                                                            border-radius: 10px;
+                                                            margin: 5px;
+                                                            padding: 5px;
+                                                        }
+
+                                                        #close {
+                                                            position: absolute;
+                                                            top: 10px;
+                                                            right: 10px;
+                                                            font-size: 20px;
+                                                            font-weight: bold;
+                                                            transform: translate(-50%, 5%);
+                                                            cursor: pointer;
+                                                        }
+
+                                                        h5 {
+                                                            font-family: 'Jost';
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            font-size: 14px;
+                                                            line-height: 20px;
+
+                                                            color: #494949;
+                                                        }
+                                                    </style>
+                                                    <div class="openBtn">
+                                                        <a id="open" class="openButton" onclick="showModal()"
+                                                            onclick="openForm()"><i class="fa-regular fa-bell"></i></a>
+                                                    </div>
+                                                    <div class="formPopup" id="popupForm">
+                                                        <form action="/action_page.php" class="formContainer">
+                                                            <p style="  
+                                                            font-family: 'Jost', sans-serif;
+                                                            font-style: normal;
+                                                            font-weight: 400;
+                                                            font-size: 35px;
+                                                            
+                                                            /* identical to box height */
+                                                
+                                                
+                                                            color: #494949;">Send Notifications to Employees</p>
+                                                            <!-- make a close button -->
+                                                            <a id="close" href="javascript:;" onclick="hideModal()"
+                                                                onclick="closeForm()">x</a>
+                                                            <hr>
+                                                            <div class="notification-type">
+                                                                <div class="now">
+                                                                    <h4>Alert Employees Now</h4>
+                                                                    <h5>Send on-demand notifications to employees to
+                                                                        alert them about training module due dates.</h5>
+
+                                                                    </label>
+                                                                    <button type="submit" class="btn">Send</button>
+                                                                </div>
+                                                                <div class="later">
+                                                                    <h4>Schedule Future Alerts</h4>
+                                                                    <p>Date:<input type="date" id="date"> Time:<input
+                                                                            type="time" id="time"></p>
+
+                                                                    </label>
+                                                                    <button type="submit" class="btn">Send</button>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                        </form>
+                                                    </div>
+                                                    <script>
+                                                        function openForm() {
+                                                            document.getElementById("popupForm").style.display = "block";
+                                                        }
+                                                        function closeForm() {
+                                                            document.getElementById("popupForm").style.display = "none";
+                                                        }
+                                                        $ = function (id) {
+                                                            return document.getElementById(id);
+                                                        }
+                                                        function showModal() {
+                                                            $("#popupForm").fadeIn('slow');
+                                                        }
+                                                        function hideModal() {
+                                                            $("#popupForm").fadeOut('slow');
+                                                        }
+
+                                                    </script>
+                                                </td>
+                                            </tr>
                                             {% endfor %}
                                         </tbody>
-                                       </table>  
-                                    </div>
+                                    </table>
+                                </div>
+                                <p id="uncheck" style="text-decoration: underline;"> </p>
+                                <!-- uncheck all boxes with id="checkAll" whech click on button uncheck? -->
+                                <div class="openBtn">
+                                    <a class="openButton" onclick="openForm()"><button id="multiple-send"
+                                            type="submit"></button></a>
+                                </div>
+                                <style>
+                                    #multiple-send {
+                                        background: #EC7F00;
+                                        border-radius: 50px;
+                                        color: #fff;
+                                        display: flex;
+                                        justify-content: center;
+
+                                    }
+
+                                    #uncheck {
+                                        display: flex;
+                                        justify-content: center;
+                                    }
+
+                                    #multiple {
+                                        display: flex;
+                                        justify-content: right;
+                                        color: #EC7F00
+                                    }
+
+                                    #single {
+                                        display: flex;
+                                        justify-content: center;
+                                    }
+                                </style>
                             </div>
 
                         </div>
@@ -119,6 +490,26 @@
 
 
         <!-- Scripts -->
+        <script>
+            var checkbox = document.getElementById('accept');
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    document.getElementById("multiple").innerHTML = "Select all employees";
+                    document.getElementById("uncheck").innerHTML = "Uncheck all boxes";
+                    document.getElementById("multiple-send").innerHTML = "Send notification to all checked employees";
+                    document.getElementById("single").innerHTML = "";
+                }
+                else {
+                    document.getElementById("single").innerHTML = 'Click on &nbsp; <i class="fa-regular fa-bell"></i>&nbsp; to notify individual employees';
+                    document.getElementById("multiple").innerHTML = "";
+                    document.getElementById("uncheck").innerHTML = "";
+                    document.getElementById("multiple-send").innerHTML = "";
+                }
+            });
+        </script>
+        <!-- add employee-progress.js as a script -->
+        <script src="employee-progress.js"></script>
+        <script src="https://kit.fontawesome.com/1c33bc798c.js" crossorigin="anonymous"></script>
         <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
         <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
@@ -126,23 +517,23 @@
 
         <script src="{% static 'portal/js/space.min.js' %}"></script>
         <script src="{% static 'portal/js/scripts.js' %}"></script>
-        
+
         <script src="{% static 'portal/plugins/datatables/js/jquery.datatables.min.js' %}"></script>
         <script src="{% static 'portal/js/table-data.js' %}"></script>
 
         <script>
-            
-            $(document).ready(function(){
+
+            $(document).ready(function () {
                 $('#search-id-1').val($("#search-id-1 option:first").text('All'));
                 $("#search-id-1").val($("#search-id-1 option:first").val());
 
                 $('#search-id-2').val($("#search-id-2 option:first").text('All'));
                 $("#search-id-2").val($("#search-id-2 option:first").val());
-                
+
 
             });
         </script>
-        
-    </body>
+
+</body>
 
 </html>

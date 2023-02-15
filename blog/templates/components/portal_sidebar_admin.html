@@ -20,7 +20,7 @@
                             class="accordion-icon fa fa-angle-left"></i>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="{% url 'register' %}">Register</a></li>
+                        <li><a href="{% url 'register' %}">Register New Employees</a></li>
                         <li><a href="{% url 'edit-registration' %}">Edit Registration</a></li>
                     </ul>
                 </li>
@@ -30,9 +30,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'progress' %}">
-                        <i class="menu-icon fa fa-bar-chart"></i><span>Employee Progress</span>
+                    <a href="javascript:void(0);">
+                        <i class="menu-icon fa fa-bar-chart"></i><span>Employee Progress</span><i
+                            class="accordion-icon fa fa-angle-left"></i>
                     </a>
+                    <ul class="sub-menu">
+                        <li><a href="{% url 'progress' %}">Send Notifications</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'settings' %}">

@@ -21,8 +21,8 @@
         <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
         <!-- Styles - DataTables -->
-        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" />
+        <!-- <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" /> -->
 
         <!-- Theme Styles -->
         <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
@@ -67,6 +67,33 @@
                         <h2>Edit Employee Registration</h2>
                         <hr>
                     </div>
+
+                    <!-- top nav -->
+                    <div style="display: flex; flex-direction: row;">
+                        <div style="padding-left: 20px;">
+                            <input type="text" id="search" name="search" placeholder="Search">
+                        </div>
+
+                        <label style="padding-left: 40px;">
+                            Showing: 
+                            <select name="showing" id="showing">
+                                <option value="">10</option>
+                                <option value="">20</option>
+                                <option value="">All</option>
+                            </select>
+                        </label>
+
+                        <label style="padding-left: 80px;">
+                            Filter:
+                            <select name="filter-search" id="filter-search">
+                                <option value="">All</option>
+                                <option value="">Name</option>
+                                <option value="">Email</option>
+                                <option value="">Registration</option>
+                            </select>
+                        </label>
+                    </div>
+
                     <!-- Page Top Bar End -->
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
@@ -78,7 +105,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Registration Type</th>
+                                                <th>Registration</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -97,11 +124,11 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Registration Type</th>
+                                                <th>Registration</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </tfoot>
-                                       </table>  
+                                    </table>  
                                 </div>
                             </div>
                             {% if user_registration_type %}
@@ -206,7 +233,7 @@
         <script src="{% static 'portal/js/scripts.js' %}"></script>
         
         <script src="{% static 'portal/plugins/datatables/js/jquery.datatables.min.js' %}"></script>
-        <script src="{% static 'portal/js/table-data.js' %}"></script>
+        <!-- <script src="{% static 'portal/js/table-data.js' %}"></script> -->
     </body>
 
 </html>
