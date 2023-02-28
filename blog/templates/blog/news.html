@@ -78,12 +78,12 @@
 
                     {% if latest_medium_post_list %}
                         {% for posts in latest_medium_post_list %}
-<div class="col-lg-6">
+		    <div class="col-lg-6">
 
 
                         <div class="rectangle-148">
-                            <img src="{{posts.m_photo.url}}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                            style="width:253px; height:258px;">
+                            <img src="{{posts.m_photo.url}}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
+                           > <!--style="width:253px; height:258px;">--!>
                             <p class="second-text-12345678"> {{posts.title_m}} </p>
 
                             <p class="first-text">
@@ -94,17 +94,17 @@
                         </div>
                     </div>
 
+                    <hr class="space">
                         {% endfor %}
                     {% else %}
                         <p> Should be 4 medium posts </p>
                     {% endif %}
 
-                    <hr class="space">
 <!--
                     {% if latest_medium_post_list %}
                         {% for posts in latest_medium_post_list %}
 
-                            <div class="col-8 col-lg-8 col-xl-8">
+                            <div class="col-lg-6">
 
 
                                 <div class="rectangle-148">
