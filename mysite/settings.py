@@ -14,6 +14,9 @@ import os
 from decouple import config
 import django_heroku 
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
@@ -60,6 +63,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',  # new
 
     'django.contrib.sitemaps',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 SITE_ID = 1
@@ -185,6 +190,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sean.rossi@sisuvr.com'
 EMAIL_HOST_PASSWORD = 'relwotpiwfsijgle'
 
+cloudinary.config(
+    cloud_name = "hk4a0kf9u",
+    api_key = "763644219147782",
+    api_secret =  "_NcBWG0PANbIlntBEUAY8BIwuDk"
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # demo_project/settings.py
 LOGIN_REDIRECT_URL = '/'
