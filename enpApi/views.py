@@ -8,8 +8,8 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
-from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback
+from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer, PlayStateSerializer
+from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback, PlayState
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
 
@@ -23,6 +23,10 @@ class PlayerViewSet(viewsets.ModelViewSet):
 class PlaySessionViewSet(viewsets.ModelViewSet):
     queryset = PlaySession.objects.all().order_by('date_taken')
     serializer_class = PlaySessionSerializer
+
+class PlayStateViewSet(viewsets.ModelViewSet):
+    queryset = PlayState.objects.all().order_by('employer')
+    serializer_class = PlayStateSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -77,6 +81,27 @@ def addSession(request):
         print("Session not valid")
         print(session_serializer.errors)
         session_serializer.save()
+        return JsonResponse({'Success': 'NO'})
+        #return HttpResponse("Failure")
+    #return Response(session_serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'POST'])
+def addStatus(request):
+    #session = request.data
+    #data = {'employee_email': request.POST.get('email'), 'module_id': request.POST.get('id'), 'score': request.POST.get('score'), 'success': request.POST.get('success'), 'time_taken': request.POST.get('time')}
+    usr = CustomUser.objects.get(email=request.GET['email'])
+    print(usr)
+    player = Player.objects.get(user=usr)
+    data = {'module_id': request.GET['id'], 'player': player, 'scene': request.GET['scene'], 'timer': request.GET['timer']}
+    state_serializer = PlayStateSerializer(data=data)
+    if state_serializer.is_valid():
+        print("Session valid")
+        state_serializer.save()
+        return JsonResponse({'Success': 'YES'})
+    else:
+        print("Session not valid")
+        print(state_serializer.errors)
+        state_serializer.save()
         return JsonResponse({'Success': 'NO'})
         #return HttpResponse("Failure")
     #return Response(session_serializer.data, status=status.HTTP_201_CREATED)

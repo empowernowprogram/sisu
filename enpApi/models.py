@@ -59,6 +59,13 @@ class PlaySession(models.Model):
     success = models.BooleanField()
     time_taken = models.IntegerField()
     
+class PlayState(models.Model):
+    employer = models.IntegerField()
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    module_id = models.CharField(max_length=10)
+    currrent_scene = models.CharField(max_length=30)
+    time_taken = models.IntegerField()
+
 class LoginSessions(models.Model):
     email = models.CharField(max_length=50)
     date_logged_in = models.DateField(auto_now=True)
