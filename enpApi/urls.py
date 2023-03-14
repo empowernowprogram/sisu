@@ -16,6 +16,7 @@ urlpatterns = [
     path('employees_prov/', views.login_provision),
     path('addSession/', views.addSession),
     path('addStatus/', views.addStatus),
+    path('getStatus/', views.getStatus),
     path('api-auth/', include('rest_framework.urls',namespace='rest_framework')),
     path('addEthicalData/', views.addEthicalData),
 ]

@@ -106,6 +106,23 @@ def addStatus(request):
         #return HttpResponse("Failure")
     #return Response(session_serializer.data, status=status.HTTP_201_CREATED)
 
+def getStatus(request):
+    usr = CustomUser.objects.get(email=request.GET['email'])
+    print(usr)
+    player = Player.objects.get(user=usr)
+    current_module = request.GET['id']
+    try:
+        current_scene = PlayState.objects.get(player=player, module_id=current_module).current_scene
+    except PlayState.DoesNotExist:
+        print ("No entried found")
+        return JsonResponse({'Scene': '0'})
+    except PlayState.MultipleObjectsReturned:
+        print ("Multiple entries returned")
+        current_scene = PlayState.objects.filter(player=player, module_id=current_module).first().current_scene
+        return JsonResponse({'Scene': current_scene})
+    return JsonResponse({'Scene': current_scene})
+    
+
 @api_view(['GET', 'POST'])
 def addPlayer(request):
     permission_classes = [HasAPIKey]
