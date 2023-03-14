@@ -92,7 +92,7 @@ def addStatus(request):
     usr = CustomUser.objects.get(email=request.GET['email'])
     print(usr)
     player = Player.objects.get(user=usr)
-    data = {'module_id': request.GET['id'], 'player': player, 'scene': request.GET['scene'], 'timer': request.GET['timer'], 'employer': '0'}
+    data = {'module_id': request.GET['id'], 'player': player, 'current_scene': request.GET['scene'], 'timer': request.GET['timer'], 'employer': '0'}
     state_serializer = PlayStateSerializer(data=data)
     if state_serializer.is_valid():
         print("Session valid")
