@@ -101,7 +101,7 @@ def addStatus(request):
     else:
         print("Session not valid")
         print(state_serializer.errors)
-        state_serializer.save()
+        #state_serializer.save()
         return JsonResponse({'Success': 'NO'})
         #return HttpResponse("Failure")
     #return Response(session_serializer.data, status=status.HTTP_201_CREATED)
