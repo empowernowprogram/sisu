@@ -118,7 +118,7 @@ def getStatus(request):
         return JsonResponse({'Scene': '0'})
     except PlayState.MultipleObjectsReturned:
         print ("Multiple entries returned")
-        current_scene = PlayState.objects.filter(player=player, module_id=current_module).first().current_scene
+        current_scene = PlayState.objects.filter(player=player, module_id=current_module).last().current_scene
         return JsonResponse({'Scene': current_scene})
     return JsonResponse({'Scene': current_scene})
     
