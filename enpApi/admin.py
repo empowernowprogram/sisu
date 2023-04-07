@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from django.contrib import admin
 from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, SupervisorMapping
-from .models import ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback
+from .models import ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback, UsageReport
 
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('user', 'employer', 'supervisor', 'admin', 'creation_date')
@@ -16,6 +16,12 @@ class PlaySessionAdmin(admin.ModelAdmin):
 class EmployerAdmin(admin.ModelAdmin):
     list_display = ('company_name', 'id')
 
+
+class PlayStateAdmin(admin.ModelAdmin):
+    list_display = ('player', 'module_id', 'current_scene', 'time_taken')
+
+class UsageReportAdmin(admin.ModelAdmin):
+    list_display = ('username', 'date_taken', 'device_model', 'sisu_user')
 
 class TrainingPackageDownloadLinkAdmin(admin.ModelAdmin):
     list_display = ('id', 'training_type', 'platform_category', 'is_supervisor')
@@ -52,6 +58,7 @@ class SupervisorMappingAdmin(admin.ModelAdmin):
     list_display = ('employee', 'supervisor', 'creation_date', 'modification_date')
 
 admin.site.register(Player, PlayerAdmin)
+admin.site.register(UsageReport, UsageReportAdmin)
 admin.site.register(Employer, EmployerAdmin)
 admin.site.register(PlaySession, PlaySessionAdmin)
 admin.site.register(TrainingPackageDownloadLink, TrainingPackageDownloadLinkAdmin)

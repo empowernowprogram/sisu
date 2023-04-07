@@ -57,7 +57,12 @@ class PlaySession(models.Model):
     date_taken = models.DateField(auto_now=True)
     score = models.IntegerField()
     success = models.BooleanField()
-    time_taken = models.IntegerField()
+ 
+class UsageReport(models.Model):
+    username = models.CharField(max_length=10)
+    device_model = models.CharField(max_length=10)
+    date_taken = models.DateField(auto_now=True)
+    sisu_user = models.BooleanField()
     
 class PlayState(models.Model):
     employer = models.IntegerField()

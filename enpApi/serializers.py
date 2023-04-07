@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Player, Employer, Modules, PlaySession, Employee, EthicalFeedback, PlayState
+from .models import Player, Employer, Modules, PlaySession, Employee, EthicalFeedback, PlayState, UsageReport
 
 class EthicalFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,6 +19,11 @@ class PlayStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayState
         fields = ('employer', 'player', 'module_id', 'current_scene', 'time_taken')
+
+class UsageReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UsageReport
+        fields = ('username', 'device_model', 'date_taken', 'sisu_user')
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

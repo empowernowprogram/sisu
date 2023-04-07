@@ -8,10 +8,11 @@ from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework_api_key.permissions import HasAPIKey
-from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer, PlayStateSerializer
-from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback, PlayState
+from .serializers import PlayerSerializer, PlaySessionSerializer, EmployeeSerializer, EmployerSerializer, ModulesSerializer, EthicalFeedbackSerializer, PlayStateSerializer, UsageReportSerializer
+from .models import Player, PlaySession, Employee, Employer, Modules, EthicalFeedback, PlayState, UsageReport
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
+from datetime import datetime
 
 # Create your views here.
 
@@ -27,6 +28,10 @@ class PlaySessionViewSet(viewsets.ModelViewSet):
 class PlayStateViewSet(viewsets.ModelViewSet):
     queryset = PlayState.objects.all().order_by('employer')
     serializer_class = PlayStateSerializer
+
+class UsageReportViewSet(viewsets.ModelViewSet):
+    queryset = UsageReport.objects.all().order_by('date_taken')
+    serializer_class = UsageReportSerializer
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
@@ -86,10 +91,40 @@ def addSession(request):
     #return Response(session_serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'POST'])
+def reportUsage(request):
+    #session = request.data
+    #data = {'employee_email': request.POST.get('email'), 'module_id': request.POST.get('id'), 'score': request.POST.get('score'), 'success': request.POST.get('success'), 'time_taken': request.POST.get('time')}
+    try:
+        usr = CustomUser.objects.get(email=request.GET['email'])
+        sisuUsr = True;
+    except CustomUser.DoesNotExist:
+        sisuUsr = False;
+    #print(usr)
+    #player = Player.objects.get(user=usr)
+    data = {'username': request.GET['email'], 'device_model': request.GET['model'], 'sisu_user' : sisuUsr}
+    session_serializer = UsageReportSerializer(data=data)
+    if session_serializer.is_valid():
+        print("Session valid")
+        session_serializer.save()
+        return JsonResponse({'Success': 'YES'})
+    else:
+        print("Session not valid")
+        print(session_serializer.errors)
+        session_serializer.save()
+        return JsonResponse({'Success': 'NO'})
+        #return HttpResponse("Failure")
+    #return Response(session_serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', 'POST'])
 def addStatus(request):
     #session = request.data
     #data = {'employee_email': request.POST.get('email'), 'module_id': request.POST.get('id'), 'score': request.POST.get('score'), 'success': request.POST.get('success'), 'time_taken': request.POST.get('time')}
-    usr = CustomUser.objects.get(email=request.GET['email'])
+    try:
+        usr = CustomUser.objects.get(email=request.GET['email'])
+        sisuUsr = true;
+    except CustomUser.DoesNotExist:
+        sisuUsr = false;
     print(usr)
     player = Player.objects.get(user=usr)
     data = {'module_id': request.GET['id'], 'player': player, 'current_scene': request.GET['scene'], 'time_taken': request.GET['timer'], 'employer': '0'}
