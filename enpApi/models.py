@@ -59,7 +59,7 @@ class PlaySession(models.Model):
     success = models.BooleanField()
  
 class UsageReport(models.Model):
-    username = models.CharField(max_length=10)
+    username = models.CharField(max_length=50)
     device_model = models.CharField(max_length=10)
     date_taken = models.DateField(auto_now=True)
     sisu_user = models.BooleanField()
