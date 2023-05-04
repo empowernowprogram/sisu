@@ -1,0 +1,124 @@
+{% load static %}
+<!-- style="background: linear-gradient(94.78deg, rgba(245, 185, 66, 0.1) 10.09%, rgba(206, 68, 134, 0.1) 71.99%);" -->
+<footer style="background: linear-gradient(94.78deg, rgba(245, 185, 66, 0.1) 10.09%, rgba(206, 68, 134, 0.1) 71.99%);" id="footer" class="sisu-footer-bg">
+  <div style="margin-bottom: 100px; background: linear-gradient(94.78deg, #F5B942 10.09%, #CE4486 71.99%); opacity: 0.1;">
+
+  </div>
+  <div id="footer-lazy-bg" data-ll-status="loaded">
+    <div class="grid-system-demo-live vertical-center">
+      <div style="height: 328px;" class="footer-content">
+        <div class="container">
+          <div class="row" style="padding-bottom: 0px">
+            <div class="col-lg-12 text-center">
+              <h3 style="color: #373F41; margin-bottom: 0px; font-size: 32px;" class="text-center footer-banner" >
+                Harassment, bullying, and discrimination is still a big issue.
+              </h3>
+              <h5 style="color: #737B7D; font-size: 16px; padding-bottom: 20px;">Sign up for our newsletter and see how you can help make a difference</h5>
+              <div style="justify-content: center; display: flex">
+                <form class="site-search" method="POST" action=".">
+                  {% csrf_token %}
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      style="
+                        border: 0px solid #ced4da;
+                        font-size: 16px;
+                        width: 346px;
+                        border-radius: 25px;
+                        margin-right: 10px;
+                      "
+                      placeholder="Enter email address..."
+                      type="text"
+                      name="email_signup"
+                    />
+                    <span
+                      ><button
+                        class="btn btn-sisu-primary"
+                        style="
+                          border-radius: 25px;
+                          border: 1px solid #ced4da;
+                          font-size: 16px;
+                        "
+                        type="submit"
+                      >
+                        Join newsletter
+                      </button></span
+                    >
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="widget" style="margin-top: 40px">
+                <ul class="list footer-links" style="color: #000;">
+                  <li style="display: inline-block; color: #000;">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'about-us' %}"
+                      >About</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'contact' %}"
+                      >Contact</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'home_portal' %}"
+                      >Customer Portal</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'p_p' %}"
+                      >Privacy Policy</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 't_c' %}"
+                      >Terms & Conditions</a
+                    >
+                  </li>
+                  <li style="display: inline-block">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'faq' %}">FAQ</a>
+                  </li>
+                  <li style="display: inline-block">
+                    <h5 style="color: #000; font-weight: 400 ">
+                      Follow Us
+                    </h5>
+                    <div
+                      class="social-icons social-icons-colored social-icons-rounded float-left"
+                    >
+                      <ul>
+                        <li class="social-facebook">
+                          <a
+                            href="https://www.facebook.com/sisuvr"
+                            target="_blank"
+                            ><i class="fab fa-facebook-f"></i
+                          ></a>
+                        </li>
+                        <li class="social-twitter">
+                          <a href="https://twitter.com/sisuvr" target="_blank"
+                            ><i class="fab fa-twitter"></i
+                          ></a>
+                        </li>
+                        <li class="social-linkedin">
+                          <a
+                            href="https://www.linkedin.com/company/sisuvr"
+                            target="_blank"
+                            ><i class="fab fa-linkedin"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="color: #000; background-color: rgba(255, 223, 139, 0.9); display: flex; height: 64px; align-items: center; justify-content: center;" class="copyright-text text-center sisu-footer-copyright-new">
+        Copyright © 2022 Sisu VR Inc. All Rights Reserved.
+      </div>
+    </div>
+  </div>
+</footer>
