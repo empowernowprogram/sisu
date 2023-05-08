@@ -17,10 +17,26 @@
     <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
-    
+
     <link rel="stylesheet" href="{{ STATIC_URL }}custom.css" />
     <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
     <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-ut7pg17c2O2xymbChmrxPzjF6cB0Y7O9DynZvJnDagoKovb3F6kc3d8pWfSV7A/t6Y5RA6sa5U6rGaaV7QWOw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-4X2t8GiQW6apvM21eCud+sujDlwbKUVGFPnKxJsqdCQg9X8ZJJK+P91tsb4i4RJdft4I4fxz4xQ+j1GGqFwlA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" />
+
+
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     {% include 'components/ga-tracking-code.html' %}
@@ -31,202 +47,208 @@
     <div class="body-inner">
         <!-- Header -->
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
-            <div class="header-inner sisu-header-bkg">
+            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); "
+                class="header-inner sisu-header-bkg">
                 <div class="container">
-                  <!--Logo-->
-                  <a href="{% url 'home' %}" id="logo">
-                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
-                  </a>
-                  <!--End: Logo-->
-                  <!--Navigation Resposnive Trigger-->
-                  <div id="mainMenu-trigger">
-                    <a class="lines-button x"><span class="lines"></span></a>
-                  </div>
-                  <!--end: Navigation Resposnive Trigger-->
-                  <!--Navigation-->
-                  {% include 'components/new-nav-bar.html' %}
-                  <!--end: Navigation-->
+                    <!--Logo-->
+                    <a href="{% url 'home' %}" id="logo">
+                        <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;" />
+                    </a>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/new-nav-bar-2.html' %}
+                    <!--end: Navigation-->
                 </div>
-              </div>
+            </div>
         </header>
         <!-- end: Header -->
         <!-- Content -->
+        <style>
+            .container-2 {
+                width: 90%;
+                margin: auto;
+            }
+        </style>
         <section>
-            <div class="container">
-                <div class="sisu-divider-line text-center">
+            <div class="sisu-divider-line text-center">
+                <span class="lead">News</span>
+                <hr class="container-2" style=" border: 1px solid #494949;  margin: auto; margin-top:2vh">
 
-
-                    <div class="bg-cube-container" style="margin-left:-124px">
-                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
-                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
-                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
-                    </div>
-                    <span class="lead">News</span>
-                    
-               
-                </div>
-        </section>
-
-        <section>
-            <div class="container">
-          
-                <div class="row">
-
-                    {% if latest_medium_post_list %}
-                        {% for posts in latest_medium_post_list %}
-		    <div class="col-lg-6">
-
-
-                        <div class="rectangle-148">
-                            <img src="{{posts.m_photo.url}}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                           > <!--style="width:253px; height:258px;">--!>
-                            <p class="second-text-12345678"> {{posts.title_m}} </p>
-
-                            <p class="first-text">
-				{{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
-
-                              
-                            
-                        </div>
-                    </div>
-
-                    <hr class="space">
-                        {% endfor %}
-                    {% else %}
-                        <p> Should be 4 medium posts </p>
-                    {% endif %}
-
-<!--
-                    {% if latest_medium_post_list %}
-                        {% for posts in latest_medium_post_list %}
-
-                            <div class="col-lg-6">
-
-
-                                <div class="rectangle-148">
-                                    <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)">
-
-                                    
-                                    <p class="second-text-12345678"> {{posts.title_m}} </p>
-                                    
-
-                                    <p class="first-text">
-                                      {{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
-
-
-
-
-                                      
-                                    
-                                </div>
-
-
-                                
-                            </div>
-
-
-                            <hr class="space">
-
-
-                        {% endfor %}
-                    {% else %}
-                        <p> Should be 4 medium posts </p>
-                    {% endif %}
--->
- <!--Start of commented code-->                   
-<!--
-                     <div class="col-lg-6">
-
-
-                        <div class="rectangle-148">
-                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                            style="width:253px; height:258px;">
-
-                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
-
-                            <p class="first-text">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
-                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
-                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
-
-
-                              
-                            
-                        </div>
-                    </div>
-
-
-                    <hr class="space">
-
-                    <div class="col-lg-6">
-
-
-                        <div class="rectangle-148">
-                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                            style="width:253px; height:258px;">
-
-                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
-
-                            <p class="first-text">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
-                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
-                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
-
-
-
-                              
-                            
-                        </div>
-                    </div>
- -->
- <!--End of commented code-->                   
-                    
-
-
-                    
             </div>
         </section>
 
+        <!-- Post of the Week -->
+        <div class="container-2">
+            <div
+                style="display: flex; flex-direction: row; width: 100%; justify-content: center; justify-content: center; gap: 70px; ">
+
+                <img src="{% static 'public/assets/PofW.png' %}" alt="Macbook-Sisu" style="
+            width: 397px;
+            height: 397px; 
+            z-index: -1;" />
+                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 30px;">
+                    <h3 class="sisu-color-purple"
+                        style=" line-height: 40px; align-self: flex-start; color: #CE4486; font-size: 29px; font-weight: 600;">
+                        Post of the Week<br></h3>
+                    <h4>Empower Your Workforce in 2023</h4>
+                    <div style="font-size: 20px; align-self: flex-start; font-weight: 400;">As we begin 2023, we ponder
+                        how
+                        organizations are cultivating an empowered workforce. Many companies are turning to more robust
+                        learning and development programs to create more informed and engaged teams. How are companies
+                        reimagining the way training is executed, especially in a rapidly changing, working
+                        world?<br><br>
+                    </div>
+                    <a href="https://sisuvr.medium.com/empower-your-workforce-in-2023-1ac3a0477295" target=”blank”
+                        class="btn btn-sisu-primary" style="
+                          border-radius: 25px;
+                          border: 1px solid #ced4da;
+                          font-size: 16px;
+                          width: 180px;
+                          
+                        " type="submit">
+                        Read Article
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Press -->
+
         <section>
-            <div class="container">
+            <div class="container-2">
+              <div class="sisu-divider-line text-center">
+                <span class="lead" style="padding: 50px;">Press</span>
+                <div class="space"></div>
+              </div>
+              {% if latest_pres_post_list %}
+              
+              <div class="carousel">
+                {% for post in latest_pres_post_list %}
+                
+                <div class="my-slides" style="padding: 20px">
+                  <img src="{{ post.p_photo.url }}" alt="Macbook-Sisu" style="width: 300px; height: 169px; z-index: -1;" />
+                  <div class="heading-section">
+                    <h2 class="text-center" style="color: #373F41; font-size: 18px; padding-top: 10px;"><a href="{{ post.url_p }}" style="color: #373F41;">{{ post.title_p }}</a></h2>
+                  </div>
+                  <div class="row justify-content-md-center align-items-center" style="height: 100px">
+                    <p class="text-center" style="font-size: 14px; color: #494949;">{{ post.Summary_p }}
+                    </p>
+                  </div>
+                </div>
+                {% endfor %}
+                
+              </div>
+              {% else %}
+              {% endif %}
+            </div>
+          </section>
+
+        <!-- Articles -->
+
+        <section>
+            <div class="container-2">
+              <div class="sisu-divider-line text-center">
+                <span class="lead" style="padding: 50px;">Articles</span>
+                <div class="space"></div>
+              </div>
+              {% if latest_medium_post_list %}
+              
+              <div class="carousel">
+                {% for post in latest_medium_post_list %}
+                
+                <div class="my-slides" style="padding: 20px">
+                  <img src="{{ post.m_photo.url }}" alt="Macbook-Sisu" style="width: 300px; height: 169px; z-index: -1;" />
+                  <div class="heading-section">
+                    <h2 class="text-center" style="color: #373F41; font-size: 18px; padding-top: 10px;"><a href="{{ post.url_m }}" style="color: #373F41;">{{ post.title_m }}</a></h2>
+                  </div>
+                  <div class="row justify-content-md-center align-items-center" style="height: 100px">
+                    <p class="text-center" style="font-size: 14px; color: #494949;">{{ post.Summary_m }}
+                    </p>
+                  </div>
+                </div>
+                {% endfor %}
+                
+              </div>
+              {% else %}
+              {% endif %}
+            </div>
+          </section>
+          
+          <script type="text/javascript">
+          $(document).ready(function(){
+            $('.carousel').slick({
+              infinite: true,
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              prevArrow: '<a class="prev" href="#"><i class="fas fa-chevron-left"></i></a>',
+              nextArrow: '<a class="next" href="#"><i class="fas fa-chevron-right"></i></a>',
+              responsive: [
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                  }
+                },
+                {
+                  breakpoint: 576,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+              ]
+            });
+          });
+
+          
+          </script>
+          
+
+
+        <section>
+            <div class="container-2">
                 <div class="sisu-divider-line text-center">
-                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
-                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
-                    </div>
-                    <div class="bg-cube-container" style="margin-left:-84px">
-                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
-                    </div>
                     <div style="padding-bottom: 20px;">
                         <span class="lead">What happening at Sisu Vr?</span>
+                        <div class="space"></div>
                     </div>
                     <div class="row">
                         {% if latest_linked_in_post_list %}
 
                         {% for post in latest_linked_in_post_list %}
-                             <div class="col-lg-4">
-                                <iframe class="shadow" src={{post.url}} height="{{post.height}}" width="{{post.width}}" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                            </div>    
+                        <div class="col-lg-4">
+                            <iframe src={{post.url}} height="{{post.height}}" width="{{post.width}}" frameborder="0"
+                                allowfullscreen="" title="Embedded post" style="filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));"></iframe>
+                        </div>
 
 
-                            <hr class="mobile-space">
+                        <hr class="mobile-space">
                         {% endfor %}
 
                         {% else %}
                         <p> There should be at least three linkedin posts </p>
                         {% endif %}
 
-<!--                         <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7004112211925245953" height="234" width="136" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> -->
-                       
+                        <!--                         <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7004112211925245953" height="234" width="136" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> -->
+
                     </div>
 
-                    
+
                 </div>
-        
+
         </section>
+
+
+
+
+
 
 
         <section class="mobile-footer">
@@ -247,76 +269,78 @@
 
                     <div class="row">
 
-                             <div class="col-lg-4">
+                        <div class="col-lg-4">
+                            <div class="mobile-container">
+
+                                <img class="mobile-image" src="{% static 'public/assets/facebook-logo.png' %}"
+                                    class="rectangle-172" alt="facebook logo" style="width:20px; height:50px;">
+                                <p class="mobile-text"> Facebook.com/Sisuvr </p>
+
+                            </div>
+
+
+                            <div class="col-lg-4">
+
+                                <hr class="mobile-space">
+
+
                                 <div class="mobile-container">
 
-                                    <img class="mobile-image" src="{% static 'public/assets/facebook-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                    style="width:20px; height:50px;">
-                                    <p class="mobile-text"> Facebook.com/Sisuvr </p>
+                                    <img class="mobile-image-twitter"
+                                        src="{% static 'public/assets/twitter-logo.png' %}" class="rectangle-172"
+                                        alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Twitter.com/Sisuvr </p>
 
                                 </div>
 
 
-                                <div class="col-lg-4">
-
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/twitter-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Twitter.com/Sisuvr </p>
-
-                                    </div>
-
-
-                                </div>    
+                            </div>
 
 
 
-                                <div class="col-lg-4">
+                            <div class="col-lg-4">
 
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/linkedin-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Linkedin.com/Sisuvr </p>
+                                <hr class="mobile-space">
 
 
+                                <div class="mobile-container">
 
-                                    </div>
+                                    <img class="mobile-image-twitter"
+                                        src="{% static 'public/assets/linkedin-logo.png' %}" class="rectangle-172"
+                                        alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Linkedin.com/Sisuvr </p>
 
-
-                                </div>   
-
-
-                                <div class="col-lg-4">
-
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/medium-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Medium.com/Sisuvr </p>
-
-
-
-                                    </div>
 
 
                                 </div>
 
 
+                            </div>
 
 
-                            <hr class="mobile-space">                       
-                    </div>
+                            <div class="col-lg-4">
+
+                                <hr class="mobile-space">
+
+
+                                <div class="mobile-container">
+
+                                    <img class="mobile-image-twitter" src="{% static 'public/assets/medium-logo.png' %}"
+                                        class="rectangle-172" alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Medium.com/Sisuvr </p>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <hr class="mobile-space">
+                        </div>
 
 
 
@@ -324,7 +348,7 @@
 
         <!-- end: Content -->
 
-        {% include 'components/new-footer.html' %}
+        {% include 'components/new-footer-news.html' %}
 
 
 
@@ -339,7 +363,16 @@
 
     <!--Template functions-->
     <script src="{% static 'public/js/functions.js' %}"></script>
-
+    <script src="{% static 'public/js/custom.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-Vn8Zg0deAwoK3CL3h5jJp5p+Uz7VYo5H6U5P6gCf5Q5rVjK+w6QdjmQ7rjTcZXTV9ZsNrajgDv7i+8WYI5pY6w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 </body>
 
 </html>

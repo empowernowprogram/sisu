@@ -35,25 +35,25 @@
 
 
 	 <div class="body-inner">
-	 	<header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
-			<div class="header-inner sisu-header-bkg">
-                <div class="container">
-                  <!--Logo-->
-                  <a href="{% url 'home' %}" id="logo">
-                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
-                  </a>
-                  <!--End: Logo-->
-                  <!--Navigation Resposnive Trigger-->
-                  <div id="mainMenu-trigger">
-                    <a class="lines-button x"><span class="lines"></span></a>
-                  </div>
-                  <!--end: Navigation Resposnive Trigger-->
-                  <!--Navigation-->
-                  {% include 'components/new-nav-bar.html' %}
-                  <!--end: Navigation-->
-                </div>
-              </div>
-        </header>
+		<header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
+				<div class="container">
+				<!--Logo-->
+				<a href="{% url 'home' %}" id="logo">
+				  <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+				</a>
+				<!--End: Logo-->
+				<!--Navigation Resposnive Trigger-->
+				<div id="mainMenu-trigger">
+				  <a class="lines-button x"><span class="lines"></span></a>
+				</div>
+				<!--end: Navigation Resposnive Trigger-->
+				<!--Navigation-->
+				{% include 'components/new-nav-bar-2.html' %}
+				<!--end: Navigation-->
+			  </div>
+			</div>
+		  </header>
 
 
 
@@ -160,7 +160,7 @@
 
 	</div>
 
-	{% include 'components/new-footer.html' %}
+	{% include 'components/new-footer-home.html' %}
 
     <!--Plugins-->
     <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />

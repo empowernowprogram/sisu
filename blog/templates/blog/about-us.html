@@ -1,191 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
-  
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Sisu VR" />
-    <meta
-      name="description"
-      content="Sisu VR's mission is to create kinder, more courageous, & respectful workplaces. We are devoted to helping diverse organizations to be more inclusive & empathy-driven."
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="{% static 'public/assets/img/logo-header-colored.png' %}"
-    />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Document title -->
-    <title>Sisu VR | About</title>
-    <!-- Stylesheets & Fonts -->
-    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
-    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+{% load static %}
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    {% include 'components/ga-tracking-code.html' %}
-  </head>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="author" content="Sisu VR" />
+  <meta name="description"
+    content="Sisu VR's mission is to create kinder, more courageous, & respectful workplaces. We are devoted to helping diverse organizations to be more inclusive & empathy-driven." />
+  <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Document title -->
+  <title>Sisu VR | About</title>
+  <!-- Stylesheets & Fonts -->
+  <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+  <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <body>
-    <!-- Body Inner -->
-    <div class="body-inner">
-      <!-- Header -->
-      <header
-        id="header"
-        data-fullwidth="true"
-        data-responsive-fixed="true"
-        class="header-fixed"
-      >
-        <div class="header-inner sisu-header-bkg">
-          <div class="container">
-            <!--Logo-->
-            <a href="{% url 'home' %}" id="logo">
-              <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
-            </a>
-            <!--End: Logo-->
-            <!--Navigation Resposnive Trigger-->
-            <div id="mainMenu-trigger">
-              <a class="lines-button x"><span class="lines"></span></a>
-            </div>
-            <!--end: Navigation Resposnive Trigger-->
-            <!--Navigation-->
-            {% include 'components/new-nav-bar.html' %}
-            <!--end: Navigation-->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  {% include 'components/ga-tracking-code.html' %}
+</head>
+<style>
+  h3{
+    font-family: 'Mulish';
+    font-size: 32px;
+    font-weight: 700;
+  }
+  p{
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+  }
+  span{
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+  }
+</style>
+
+<body>
+  <!-- Body Inner -->
+  <div class="body-inner">
+    <!-- Header -->
+    <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+      <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
+        <div class="container">
+          <!--Logo-->
+          <a href="{% url 'home' %}" id="logo">
+            <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+          </a>
+          <!--End: Logo-->
+          <!--Navigation Resposnive Trigger-->
+          <div id="mainMenu-trigger">
+            <a class="lines-button x"><span class="lines"></span></a>
           </div>
+          <!--end: Navigation Resposnive Trigger-->
+          <!--Navigation-->
+          {% include 'components/new-nav-bar-2.html' %}
+          <!--end: Navigation-->
         </div>
-      </header>
-      <!-- end: Header -->
-      <!-- Content -->
-      <div>
-        <div class="container" style="padding-top: 120px">
-          <div class="sisu-divider-line text-center">
-            <span class="lead">About Us</span>
-            <div style="padding-bottom: 20px; padding-top: 40px">
-              <img
-                src="{% static 'public/assets/svg/logo-text-colored.svg' %}"
-              />
-            </div>
-            <p style="font-size: 16px">
-              In Finnish, "Sisu" means "grit, bravery, and resilience" and "hope
-              in the face of adversity."
+      </div>
+    </header>
+    <!-- end: Header -->
+    <!-- Content -->
+    <div>
+      <div class="container" style="padding-top: 120px">
+        <div class="sisu-divider-line text-center">
+          <span class="lead">About Us</span>
+          <hr style=" border: 1px solid #494949;">
+          <div style="padding-bottom: 20px; padding-top: 40px">
+            <img src="{% static 'public/assets/sisu_logo.png' %}" style="height:100px"/>
+          </div>
+          <p>
+            In Finnish, "Sisu" means "grit, bravery, and resilience" and "hope
+            in the face of adversity."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- <h2>Rounded</h2> -->
+            <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
+            <img src="{% static 'public/assets/group-picture.png' %}" class="img-fluid rounded" alt=""
+              style="width: 500px; height: auto; margin-left: -20px;" />
+          </div>
+          <div class="col-lg-6" style="margin-left: -40px; margin-right: 0px;">
+            <h3 style="
+                  
+                  color: #494949;
+                  animation-duration: 100ms;
+                  
+                ">
+              How it started
+            </h3>
+            <p style=" width:120%">
+              It all started when two determined engineers decided to take a stand against workplace
+              harassment, bullying, and discrimination. They knew first-hand how harmful workplace misconduct can be in
+              both enabling current professionals to work effectively, and inspiring the next generation of workers to
+              achieve their dreams. Instead of feeling helpless due to their unfavorable circumstances, Sisu VR founders
+              were determined to empower workforces to exercise moral courage and empathy. To further their goal of
+              creating a safer workplace, the founders teamed up with MindGlow to empower employees to act during active
+              shooter emergencies.
+            </p>
+          </div>
+
+          <div class="col-lg-12">
+          </div>
+          <h3 style="color: #494949"><br>Who is Sisu VR?</h3>
+            <p >
+              Welcome to Sisu VR. We are a people-first team teaching our customers how to effectively
+              confront, escape, and intervene during incidents of workplace misconduct and emergency situations. We
+              "shine our light" on only the truths. We aspire to empower global workforces, and support employers in
+              doing so.<br><br>
+            </p>
+            <p>
+              Sisu VR's mission is to inspire our clients to work with empathy, transparency, innovation,
+              open-mindedness, and excellence. Our core values include exercising courage, compassion, understanding,
+              non-judgement, and awareness in our daily work and interactions with others.<br><br>
+            </p>
+            <p>
+              At the heart, we are listeners. From scouring high-fidelity field cases to developing our state-of-the-art
+              Ethical Framework, our sensitivity to the most up-to-date events, research, and technology have enabled us
+              to produce world-class training experiences.<br><br>
+            </p>
+            <p>
+              See what we're up to in our
+              <a class="sisu-menu-link" href="{% url 'news' %}"
+                style="color: #ec7f00 !important; font-size: 16px !important;">News Page</a>
             </p>
           </div>
         </div>
       </div>
+    </section>
 
-      <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6">
-              <!-- <h2>Rounded</h2> -->
-              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
-              <img
-                src="{% static 'public/assets/group-picture.png' %}"
-                class="img-fluid rounded"
-                alt=""
-                style="width: 400px; height: auto"
-              />
-            </div>
-            <div class="col-lg-6">
-              <h3
-                style="
-                  font-weight: 600;
-                  color: #494949;
-                  animation-duration: 100ms;
-                "
-              >
-                How it started
-              </h3>
-              <p style="font-size: 16px">
-                It all started when two determined engineers
-                decided to take a stand against workplace harassment, bullying,
-                and discrimination. They knew first-hand how harmful workplace
-                misconduct can be in both enabling current professionals to work
-                effectively, and inspiring the next generation of workers to
-                achieve their dreams. Instead of feeling helpless due to their
-                unfavorable circumstances, Sisu VR founders were determined to
-                empower workforces to exercise moral courage and empathy. To
-                further their goal of creating a safer workplace, the founders
-                teamed up with MindGlow to empower employees to act during
-                active shooter emergencies.
-              </p>
-            </div>
-
-            <div class="col-lg-12">
-              <h3 style="font-weight: 600; color: #494949">Who are we?</h3>
-              <p style="font-size: 16px">
-                Welcome to Sisu VR. We are a people-first team teaching our
-                customers how to effectively confront, escape, and intervene
-                during incidents of workplace misconduct. We "shine our light"
-                on only the truths. We aspire to empower global workforces, and
-                support employers in doing so.
-              </p>
-              <p style="font-size: 16px">
-                Sisu VR's mission is to inspire our clients to work with
-                empathy, transparency, innovation, open-mindedness, and
-                excellence. Our core values include exercising courage,
-                compassion, understanding, non-judgement, and awareness in our
-                daily work and interactions with others.
-              </p>
-              <p style="font-size: 16px">
-                At the heart, we are listeners. From scouring high-fidelity
-                field cases to developing our state-of-the-art Ethical
-                Framework, our sensitivity to the most up-to-date events,
-                research, and technology have enabled us to produce world-class
-                training experiences.
-              </p>
-              <p>
-                See what we're up to in our
-                <a
-                  class="sisu-menu-link"
-                  href="{% url 'news' %}"
-                  style="color: #ec7f00 !important; font-size: 16px !important;"
-                  >News Page</a
-                >
-              </p>
-            </div>
+    <div>
+      <div class="container">
+        <div class="sisu-divider-line text-center">
+          <div style="padding-bottom: 20px">
+            <span >Choose to work fearlessly with Sisu VR!</span>
           </div>
-        </div>
-      </section>
-
-      <div>
-        <div class="container">
-            <div class="sisu-divider-line text-center">
-            <div
-                class="bg-cube-container"
-                style="float: right; margin-right: -48px"
-            >
-                <div
-                class="bg-cube-element"
-                style="width: 56px; height: 36px; margin-top: 4%"
-                ></div>
-            </div>
-            <div style="padding-bottom: 20px">
-                <span class="lead" style="font-weight: bold"
-                >Choose to work fearlessly with Sisu VR!</span
-                >
-            </div>
-            <button
-                style="
+          <button style="
                 font-size: 16px;
-                margin-top: 24px;
+                margin-top: 14px;
                 margin-bottom: 24px;
                 border-radius: 30px;
                 height: 64px;
-                width: 200px;
-                "
-                type="button"
-                class="btn btn-sisu-primary"
-            >
-                <a href="{% url 'contact' %}" style="color: #fff !important">
-                Contact Us
-                </a>
-            </button>
-            </div>
+                width: 250px;
+                padding: 0px;
+                " type="button" class="btn btn-sisu-primary">
+            <a href="{% url 'contact' %}" style="color: #fff !important">
+              Let's Work Together
+            </a>
+          </button>
         </div>
+      </div>
       <!-- end: Content -->
-      {% include 'components/new-footer.html' %}
+      {% include 'components/new-footer-aboutus.html' %}
     </div>
     <!-- end: Body Inner -->
 
@@ -196,5 +175,6 @@
 
     <!--Template functions-->
     <script src="{% static 'public/js/functions.js' %}"></script>
-  </body>
+</body>
+
 </html>

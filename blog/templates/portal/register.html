@@ -26,8 +26,60 @@
         <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
 <style>
     tfoot {
-    display: table-header-group !important;
-}
+        display: table-header-group !important;
+    }
+    .employee-role-heading {
+        padding-top:26px; 
+        padding-bottom: 10px; 
+        color: black; 
+        font-weight: bold;
+    }
+    .add-employee-button-title {
+        font-size: 20px;
+        padding: 0 20px 0 5px;
+        margin: 0 0 2px 0;
+    }
+    .add-employee-button {
+        display: inline-flex;
+        flex-direction: row;
+        /* justify-content: center; */
+        border: 2px solid;
+        border-radius: 25px;
+        color: #9F3688;
+        width: max-content;
+        height: 40px;
+        padding: 5px;
+        align-items: center;
+        cursor: pointer;
+    }
+    .add-employee-button-button {
+        border: 2px solid #9F3688; 
+        border-radius: 25px; 
+        height: 25px; 
+        background-color: white;
+    }
+    .employee-name-input {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border: 2px solid #F3BDE4;
+        border-radius: 25px;
+        color: black;
+        background-color: #F3BDE4;
+        width: max-content;
+        height: 40px;
+        font-size: 20px;
+        padding: 10px;
+        margin-top: 20px;
+        font-weight: lighter;
+        align-items: center;
+        cursor: pointer;
+    }
+    .btn-sisu-primary {
+        font-weight: bold; 
+        font-size: 20px;
+        margin-top: 30px;
+    }
 </style>
     </head>
     <body>
@@ -71,47 +123,55 @@
                             <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #9F3688" href="#send-reg-emails">Register Employees and Send Emails</a>" at the bottom of this page.</p>
                             <hr>
                                 <!-- NOTE - the input of "type=email" and data-role="tagsinput" was causing issues - need to investigate further -->
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="vr-nonsupervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">1. VR, Non-Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register non-supervisor modules using the VR headset.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor"> -->
-                                    <textarea id="vr-nonsupervisor" class="form-control" name="vr-nonsupervisor"></textarea>
-                                    <!-- hello@email.com, robert@sisuvr.com, test@sisurvr.com -->
+                                    <div id="vr-nonsupervisor" class="form-control add-employee-button click-nonsupervisor" name="vr-nonsupervisor">
+                                        <p class="add-employee-button-title click-nonsupervisor">Add an employee</p>
+                                        <button id="vr-nonsupervisor" name="vr-nonsupervisor" class="add-employee-button-button click-nonsupervisor">+</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="vr-supervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">2. VR, Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for supervisor modules using the VR headset.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor"> -->
-                                    <textarea id="vr-supervisor" class="form-control" name="vr-supervisor"></textarea>
+                                    <div id="vr-supervisor" class="form-control add-employee-button" name="vr-supervisor">
+                                        <p class="add-employee-button-title click-supervisor">Add an employee</p>
+                                        <button id="vr-supervisor" name="vr-supervisor" class="add-employee-button-button">+</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="desktop-nonsupervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">3. Desktop, Non-Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for non-supervisor modules using a desktop.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor"> -->
-                                    <textarea id="desktop-nonsupervisor" class="form-control" name="desktop-nonsupervisor"></textarea>
+                                    <div id="desktop-nonsupervisor" class="form-control add-employee-button" name="desktop-nonsupervisor" >
+                                        <p class="add-employee-button-title click-desktop-nonsupervisor">Add an employee</p>
+                                        <button id="desktop-nonsupervisor" name="desktop-nonsupervisor" class="add-employee-button-button">+</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="desktop-supervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">4. Desktop, Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for supervisor modules using a desktop.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor"> -->
-                                    <textarea id="desktop-supervisor" class="form-control" name="desktop-supervisor"></textarea>
+                                    <div id="desktop-supervisor" class="form-control add-employee-button" name="desktop-supervisor" >
+                                        <p class="add-employee-button-title click-desktop-supervisor">Add an employee</p>
+                                        <button id="desktop-supervisor" name="desktop-supervisor" class="add-employee-button-button"">+</button>
+                                    </div>
                                 </div>
                                 <div style="padding-bottom: 120px" class="">
                                     <br>
-                                    <button name="send-reg-emails" class="btn btn-sisu-primary bnt-submit" type="">
-                                        Send Registration Emails
+                                    <button name="send-reg-emails" class="btn btn-sisu-primary bnt-submit">
+                                        Register employees and send registration emails
                                     </button>
 
                                     <div style="width: 350px; margin-top:12px">
                                     
                                     <div id="alert-emails-sent" class="alert alert-success alert-dismissible hidden" role="alert">
-                                    Emails successfully sent.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                </div>
-
+                                        Emails successfully sent.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                 </div>
-
                         </div>
                     </div>
                     <!-- Main Content End -->
@@ -137,54 +197,86 @@
         <script src="{% static 'portal/js/space.min.js' %}"></script>
         <script src="{% static 'portal/js/scripts.js' %}"></script>
         <script>
-                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
-                let vr_supervisor = $('#vr-supervisor').val()
-                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
-                let desktop_supervisor = $('#desktop-supervisor').val();
+            //     let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+            //     let vr_supervisor = $('#vr-supervisor').val()
+            //     let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+            //     let desktop_supervisor = $('#desktop-supervisor').val();
 
-                {% comment %} $('#vr-nonsupervisor').val("vr-nonsupervisor@sisuvr.com"); {% endcomment %}
-                {% comment %} $('#vr-supervisor').val("vr-supervisor@gmail.com"); {% endcomment %}
-                {% comment %} $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com"); {% endcomment %}
-                {% comment %} $('#desktop-supervisor').val("desktop-supervisor@gmail.com"); {% endcomment %}
+            //     {% comment %} $('#vr-nonsupervisor').val("vr-nonsupervisor@sisuvr.com"); {% endcomment %}
+            //     {% comment %} $('#vr-supervisor').val("vr-supervisor@gmail.com"); {% endcomment %}
+            //     {% comment %} $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com"); {% endcomment %}
+            //     {% comment %} $('#desktop-supervisor').val("desktop-supervisor@gmail.com"); {% endcomment %}
         
 
-            $(".bnt-submit").click(function() {
+            // $(".bnt-submit").click(function() {
 
-                console.log('FORM CLCIKED!')
-                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
-                let vr_supervisor = $('#vr-supervisor').val()
-                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
-                let desktop_supervisor = $('#desktop-supervisor').val();
+            //     console.log('FORM CLCIKED!')
+            //     let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+            //     let vr_supervisor = $('#vr-supervisor').val()
+            //     let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+            //     let desktop_supervisor = $('#desktop-supervisor').val();
 
-                console.log('vr_nonsupervisor = ', vr_nonsupervisor)
+            //     console.log('vr_nonsupervisor = ', vr_nonsupervisor)
 
-                $.ajax({
-                    url: '',
-                    type: 'GET',
-                    data: {
-                        vr_nonsupervisor: vr_nonsupervisor,
-                        vr_supervisor: vr_supervisor,
-                        desktop_nonsupervisor: desktop_nonsupervisor,
-                        desktop_supervisor: desktop_supervisor
-                    },
-                    success: function(response){
-                        console.log('RESPONSE', response);
-                        $('#vr-nonsupervisor').val("");
-                        $('#vr-supervisor').val("");
-                        $('#desktop-nonsupervisor').val("");
-                        $('#desktop-supervisor').val("");
+            //     $.ajax({
+            //         url: '',
+            //         type: 'GET',
+            //         data: {
+            //             vr_nonsupervisor: vr_nonsupervisor,
+            //             vr_supervisor: vr_supervisor,
+            //             desktop_nonsupervisor: desktop_nonsupervisor,
+            //             desktop_supervisor: desktop_supervisor
+            //         },
+            //         success: function(response){
+            //             console.log('RESPONSE', response);
+            //             $('#vr-nonsupervisor').val("");
+            //             $('#vr-supervisor').val("");
+            //             $('#desktop-nonsupervisor').val("");
+            //             $('#desktop-supervisor').val("");
 
-                        if (response['failure_list'].length) {
-                            $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
-                        } else {
-                            $('#alert-emails-sent').text('Emails successfully sent.');
-                        }
-                        $('#alert-emails-sent').removeClass('hidden');
-                    }
-                })
+            //             if (response['failure_list'].length) {
+            //                 $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
+            //             } else {
+            //                 $('#alert-emails-sent').text('Emails successfully sent.');
+            //             }
+            //             $('#alert-emails-sent').removeClass('hidden');
+            //         }
+            //     })
 
 
-            });
+            // });
+
+            // Rosa's scripts:
+            document.body.addEventListener('click', (e) => {
+                
+                if (e.target.matches('.click-nonsupervisor')) {
+                    const el = document.getElementById('vr-nonsupervisor-container')
+                    const newInput = document.createElement('input')
+                    newInput.classList.add('employee-name-input')
+                    el.appendChild(newInput)
+                }
+
+                if (e.target.matches('.click-supervisor')) {
+                    const el = document.getElementById('vr-supervisor-container')
+                    const newInput = document.createElement('input')
+                    newInput.classList.add('employee-name-input')
+                    el.appendChild(newInput)
+                }
+                
+                if (e.target.matches('.click-desktop-nonsupervisor')) {
+                    const el = document.getElementById('desktop-nonsupervisor-container')
+                    const newInput = document.createElement('input')
+                    newInput.classList.add('employee-name-input')
+                    el.appendChild(newInput)
+                }
+
+                if (e.target.matches('.click-desktop-supervisor')) {
+                    const el = document.getElementById('desktop-supervisor-container')
+                    const newInput = document.createElement('input')
+                    newInput.classList.add('employee-name-input')
+                    el.appendChild(newInput)
+                }
+            })
         </script>
     </body>
 </html>

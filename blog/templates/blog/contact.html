@@ -10,6 +10,9 @@
     <meta name="description"
         content="Interested to learn more? We're excited to work with you, so contact us today to schedule a demo!">
     <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .grecaptcha-badge {
             visibility: hidden;
@@ -22,6 +25,7 @@
     <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+    
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -33,24 +37,24 @@
     <!-- Body Inner -->
     <div class="body-inner">
         <!-- Header -->
-        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
-            <div class="header-inner sisu-header-bkg">
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
+            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
                 <div class="container">
-                  <!--Logo-->
-                  <a href="{% url 'home' %}" id="logo">
-                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
-                  </a>
-                  <!--End: Logo-->
-                  <!--Navigation Resposnive Trigger-->
-                  <div id="mainMenu-trigger">
-                    <a class="lines-button x"><span class="lines"></span></a>
-                  </div>
-                  <!--end: Navigation Resposnive Trigger-->
-                  <!--Navigation-->
-                  {% include 'components/new-nav-bar.html' %}
-                  <!--end: Navigation-->
+                    <!--Logo-->
+                    <a href="{% url 'home' %}" id="logo">
+                        <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+                    </a>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/new-nav-bar-2.html' %}
+                    <!--end: Navigation-->
                 </div>
-              </div>
+            </div>
         </header>
         <!-- end: Header -->
         <!-- Content -->
@@ -58,18 +62,20 @@
         <section style="padding-bottom:32px">
             <div class="container">
                 <div class="sisu-divider-line text-center">
-                    <h2>Contact Us</h2>
-                    <div class="bg-cube-container">
-                        <div class="bg-cube-element" style="width:68px; height:42px; margin-top: 60px"></div>
-                    </div>
-
-                    <hr class="sisu-hr">
-                    <p class="lead sisu-color-purple">Partnerships? Inquiries? Want to share your story?<br>Let’s talk!
+                    <h2>Let’s Work Together </h2>
+                    
+                    <hr style=" border: 1px solid #494949;">
+                    <p style="font-family: 'Mulish';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 24px;
+                    line-height: 35px;color: #C54187;">Interested in one of our trainings?<br> Want to know about
+                        pricing for your company?<br> Need a demo before committing?<br> Send us a message.
                     </p>
                 </div>
         </section>
 
-        <section style="padding-top:12px">
+        <section style="padding-top:5px">
             <div class="container" style="padding-left:12%; padding-right:12%">
                 <div class="row">
                     <div class="col-lg-12">
@@ -77,24 +83,53 @@
                             <p>* required field</p>
                             <form id="form-contact" class="widget-contact-form" method="POST" action="">
                                 {% csrf_token %}
-                                <div class="bg-cube-container" style="float: right; margin-right: -88px;">
-                                    <div class="bg-cube-element" style="width:44px; height:28px; margin-top:-12px">
-                                    </div>
-                                </div>
+
                                 <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="name">First Name *</label>
+                                    <div class="form-group col-md-7">
+                                        <!-- add drop down menu for subject with a red color asterick-->
+
+                                        <label for="subject">Subject *</label>
+                                        <select name="input-subject" class="form-control" required>
+                                            <!-- add placeholder text with value select -->
+                                            <option value="" selected disabled>Select &darr;</option>
+                                            <option value="General Inquiry">Interested in HR Business Conduct Training
+                                            </option>
+                                            <option value="Partnership">Interested in Active Shooter Training</option>
+                                            <option value="Press">Request a demo</option>
+                                            <option value="Careers">General question</option>
+                                            <option value="Other">Share my story</option>
+                                        </select>
+                                    </div>
+                                    <style>
+                                        select:required:invalid {
+                                            color: gray;
+                                        }
+
+                                        option[value=""][disabled] {
+                                            display: none;
+                                        }
+
+                                        option {
+                                            color: black;
+                                        }
+                                    </style>
+                                    <div class="form-group col-md-7">
+                                        <label for="name">First Name*</label>
                                         <input type="text" aria-required="true" name="input-first-name"
                                             autocomplete="given-name" class="form-control" required>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-7">
                                         <label for="name">Last Name *</label>
                                         <input type="text" aria-required="true" name="input-last-name"
                                             autocomplete="family-name" required class="form-control">
                                     </div>
                                 </div>
-                                <div class="bg-cube-container" style="margin-left:-124px">
-                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Company Name (Optional)</label>
+                                        <input type="text" name="input-company-name" required class="form-control">
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
@@ -105,33 +140,88 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="subject">Company Name</label>
-                                        <input type="text" name="input-company-name" required class="form-control">
+                                        <label for="subject">Phone Number (Optional)</label>
+                                        <!-- add input type for number -->
+                                        <input type="tel" name="input-phone-number" required class="form-control">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="subject">Subject</label>
-                                        <input type="text" name="input-subject" required class="form-control">
-                                    </div>
-                                </div>
-                                <div class="bg-cube-container" style="float: right; margin-right: -58px;">
-                                    <div class="bg-cube-element" style="width:68px; height:42px; margin-top:12px"></div>
-                                </div>
+
                                 <div class="form-group">
-                                    <label for="message">Message *</label>
-                                    <textarea type="text" name="input-message" required rows="5"
-                                        class="form-control required"></textarea>
+                                    <label for="message">Message (Optional)</label>
+                                    <textarea type="text" name="input-message" required rows="10"
+                                        class="form-control"
+                                        placeholder="Type your message here..."></textarea>
                                 </div>
                                 <div class="sisu-divider-line text-center">
                                     <div style="padding-bottom: 20px;">
                                     </div>
-                                    <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
+                                    <!-- <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
                                         data-callback="onSubmit" data-action="submit"
-                                        class="g-recaptcha btn btn-sisu-primary">Send Message</button>
-                                </div>
-                                <div class="bg-cube-container" style="margin-left:-80px">
-                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
+                                        class="g-recaptcha btn btn-sisu-primary"  style="width: 192px;">Send</button> -->
+                                    <!-- add a submit button with a popup that says "Thank you for contacting us" once it is clicked -->
+                                    <style>
+                                        .hidden {
+                                            display: none;
+                                        }
+
+                                        #popup {
+                                            position: fixed;
+                                            top: 0;
+                                            left: 0;
+                                            width: 100%;
+                                            height: 100%;
+                                            background-color: rgba(255, 255, 255, 0.6);
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            display: none;
+                                            /* Add this line to hide the popup initially */
+                                        }
+
+                                        #popupContent {
+                                            background: linear-gradient(180deg, #E772AA 0%, rgba(242, 149, 194, 0.738438) 99.99%, rgba(255, 186, 219, 0.46) 100%);
+                                            padding: 20px;
+                                            padding-bottom: 30px;
+                                            padding-left: 30px;
+                                            padding-right: 30px;
+                                            border-radius: 10px;
+                                            text-align: center;
+                                        }
+
+                                        .close-btn {
+                                            position: relative;
+                                            top: -15px;
+                                            right: -150px;
+                                            font-size: 20px;
+                                            font-weight: bold;
+                                            cursor: pointer;
+                                            color: white;
+                                            
+                                        }
+                                    </style>
+                                    <button id="submitBtn" class="g-recaptcha btn btn-sisu-primary"
+                                        style="width: 192px;">Submit</button>
+                                    <div id="popup" class="hidden">
+                                        <div id="popupContent">
+                                            <span id="closeBtn" class="close-btn">&times;</span>
+                                            <p style="color: white;">We received your message.<br> A Sisu VR member will
+                                                reach out soon.</p>
+                                            <!-- <button id="closeBtn">Close</button> -->
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.getElementById("submitBtn").addEventListener("click", function () {
+                                            document.getElementById("popup").style.display = "flex"; // Update this line
+                                        });
+
+                                        document.getElementById("closeBtn").addEventListener("click", function () {
+                                            document.getElementById("popup").style.display = "none"; // Update this line
+                                        });
+
+
+                                    </script>
+
+
                                 </div>
                             </form>
                         </div>
@@ -139,7 +229,7 @@
                 </div>
             </div>
         </section> <!-- end: Content -->
-        {% include 'components/new-footer.html' %}
+        {% include 'components/new-footer-contact.html' %}
     </div>
     <!-- end: Body Inner -->
 
