@@ -912,41 +912,59 @@ def portal_training_dl_trial(request):
 def portal_employee_progress(request):
     if request.user.is_authenticated:
         player = Player.objects.get(user=request.user)
+    
+    if request.is_ajax():
+            print('request - is ajax')
+            # get inputs
+            email_address         = request.GET.get('email')
+        # send emails for Desktop supervisors
 
-        if player.admin:
-            # show all players in this company
-            players = Player.objects.filter(employer=player.employer)
-            play_sessions = PlaySession.objects.filter(employer=player.employer.employer_id)
+            context['user'] = email_address
+            context['training_type'] = 'Desktop'
+            context['isSuper'] = 1
 
-        elif player.supervisor:
-            # show this supervisor's team result
-            thisTeamUsers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
-            players = Player.objects.filter(user__in=thisTeamUsers)
-            play_sessions = PlaySession.objects.filter(player__in=players)
+            is_success = send_html_email(email_templates, context, subject, email_address)
+
+            if is_success:
+                if not get_user_model().objects.filter(email=email_address).exists():
+                    get_user_model().objects.create_user(username=email_address, email=email_address, password=default_pwd)
+            else:
+                failure_list.append(email_address)
+
+    if player.admin:
+        # show all players in this company
+        players = Player.objects.filter(employer=player.employer)
+        play_sessions = PlaySession.objects.filter(employer=player.employer.employer_id)
+
+    elif player.supervisor:
+        # show this supervisor's team result
+        thisTeamUsers = SupervisorMapping.objects.filter(supervisor=request.user).values_list('employee', flat=True)
+        players = Player.objects.filter(user__in=thisTeamUsers)
+        play_sessions = PlaySession.objects.filter(player__in=players)
         
-        else:
-            return redirect('/portal/home/')
+    else:
+        return redirect('/portal/home/')
 
-        players_obj = []
+    players_obj = []
 
-        # creating dictionary with aggregated data to be rendered to DOM.
-        # reason for doing this is because quantity of modules completed player are from two different data sets and require looping
-        for i, player_single in enumerate(players):
-            if player_single.supervisor: 
-                registration_type = 'Supervisor' 
-            else: 
-                registration_type = 'Non-supervisor'
+    # creating dictionary with aggregated data to be rendered to DOM.
+    # reason for doing this is because quantity of modules completed player are from two different data sets and require looping
+    for i, player_single in enumerate(players):
+        if player_single.supervisor: 
+            registration_type = 'Supervisor' 
+        else: 
+            registration_type = 'Non-supervisor'
 
-            all_modules = play_sessions.filter(player=player_single)
-            completed_modules = play_sessions.filter(player=player_single).filter(success=True)
+        all_modules = play_sessions.filter(player=player_single)
+        completed_modules = play_sessions.filter(player=player_single).filter(success=True)
 
-            players_obj.append({
-                'name': player_single.full_name,
-                'email': player_single.email,
-                'registration': registration_type,
-                'all_modules': len(all_modules),
-                'modules_completed': len(completed_modules)
-            })
+        players_obj.append({
+            'name': player_single.full_name,
+            'email': player_single.email,
+            'registration': registration_type,
+            'all_modules': len(all_modules),
+            'modules_completed': len(completed_modules)
+        })
         
         context = {'player': player, 'players_obj': players_obj}
         

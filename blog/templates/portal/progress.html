@@ -512,7 +512,23 @@
         </script>
         <script>
             function sendEmail() {
-                Email.send({
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        email: sean.rossi@sisuvr.com,
+                    },
+                    success: function(response){
+                        console.log('RESPONSE', response);
+                        if (response['failure_list'].length) {
+                            $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
+                        } else {
+                            $('#alert-emails-sent').text('Emails successfully sent.');
+                        }
+                        $('#alert-emails-sent').removeClass('hidden');
+                    }
+                })
+		 <!--   Email.send({
                     SecureToken: "4bc0c302-b25c-4788-808b-96235c5ee1a4",
                     To: "ayushshreeshreemal@gmail.com",
                     From: "ayushjlm10@gmail.com",
@@ -520,7 +536,7 @@
                     Body: "This is a test email"
                 }).then(
                     message => alert(message)
-                );
+                ); -->
             }
         </script>
         <!-- add modal.js from js folder in portal -->
