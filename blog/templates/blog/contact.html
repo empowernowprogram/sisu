@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
-    
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
@@ -38,11 +37,12 @@
     <div class="body-inner">
         <!-- Header -->
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
-            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
+            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); "
+                class="header-inner sisu-header-bkg">
                 <div class="container">
                     <!--Logo-->
                     <a href="{% url 'home' %}" id="logo">
-                        <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+                        <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;" />
                     </a>
                     <!--End: Logo-->
                     <!--Navigation Resposnive Trigger-->
@@ -62,15 +62,15 @@
         <section style="padding-bottom:32px">
             <div class="container">
                 <div class="sisu-divider-line text-center">
-                    <h2>Let’s Work Together </h2>
-                    
+                    <h2>Let’s Work Together</h2>
                     <hr style=" border: 1px solid #494949;">
                     <p style="font-family: 'Mulish';
                     font-style: normal;
                     font-weight: 600;
                     font-size: 24px;
                     line-height: 35px;color: #C54187;">Interested in one of our trainings?<br> Want to know about
-                        pricing for your company?<br> Need a demo before committing?<br> Send us a message.
+                        pricing for your company?<br> Need a demo before committing?<br> Fill out the form below and we
+                        will get back to you in less than 24 hours.
                     </p>
                 </div>
         </section>
@@ -87,7 +87,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-7">
                                         <!-- add drop down menu for subject with a red color asterick-->
-
+                                        <div id="subject-error" style="color: red; display: none;"></div>
                                         <label for="subject">Subject *</label>
                                         <select name="input-subject" class="form-control" required>
                                             <!-- add placeholder text with value select -->
@@ -114,11 +114,13 @@
                                         }
                                     </style>
                                     <div class="form-group col-md-7">
+                                        <div id="firstname-error" style="color: red; display: none;"></div>
                                         <label for="name">First Name*</label>
                                         <input type="text" aria-required="true" name="input-first-name"
                                             autocomplete="given-name" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-7">
+                                        <div id="lastname-error" style="color: red; display: none;"></div>
                                         <label for="name">Last Name *</label>
                                         <input type="text" aria-required="true" name="input-last-name"
                                             autocomplete="family-name" required class="form-control">
@@ -128,11 +130,18 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <label for="subject">Company Name (Optional)</label>
+                                        <input type="text" name="input-company-name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Company Name</label>
                                         <input type="text" name="input-company-name" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
+                                        <div id="email-error" style="color: red; display: none;"></div>
                                         <label for="subject">Email Address *</label>
                                         <input type="email" aria-required="true" name="input-email" autocomplete="email"
                                             required class="form-control">
@@ -142,86 +151,21 @@
                                     <div class="form-group col-md-12">
                                         <label for="subject">Phone Number (Optional)</label>
                                         <!-- add input type for number -->
-                                        <input type="tel" name="input-phone-number" required class="form-control">
+                                        <input type="tel" name="input-phone-number" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="message">Message (Optional)</label>
-                                    <textarea type="text" name="input-message" required rows="10"
-                                        class="form-control"
+                                    <textarea type="text" name="input-message" rows="10" class="form-control"
                                         placeholder="Type your message here..."></textarea>
                                 </div>
                                 <div class="sisu-divider-line text-center">
                                     <div style="padding-bottom: 20px;">
                                     </div>
-                                    <!-- <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
+                                    <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
                                         data-callback="onSubmit" data-action="submit"
-                                        class="g-recaptcha btn btn-sisu-primary"  style="width: 192px;">Send</button> -->
-                                    <!-- add a submit button with a popup that says "Thank you for contacting us" once it is clicked -->
-                                    <style>
-                                        .hidden {
-                                            display: none;
-                                        }
-
-                                        #popup {
-                                            position: fixed;
-                                            top: 0;
-                                            left: 0;
-                                            width: 100%;
-                                            height: 100%;
-                                            background-color: rgba(255, 255, 255, 0.6);
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-                                            display: none;
-                                            /* Add this line to hide the popup initially */
-                                        }
-
-                                        #popupContent {
-                                            background: linear-gradient(180deg, #E772AA 0%, rgba(242, 149, 194, 0.738438) 99.99%, rgba(255, 186, 219, 0.46) 100%);
-                                            padding: 20px;
-                                            padding-bottom: 30px;
-                                            padding-left: 30px;
-                                            padding-right: 30px;
-                                            border-radius: 10px;
-                                            text-align: center;
-                                        }
-
-                                        .close-btn {
-                                            position: relative;
-                                            top: -15px;
-                                            right: -150px;
-                                            font-size: 20px;
-                                            font-weight: bold;
-                                            cursor: pointer;
-                                            color: white;
-                                            
-                                        }
-                                    </style>
-                                    <button id="submitBtn" class="g-recaptcha btn btn-sisu-primary"
-                                        style="width: 192px;">Submit</button>
-                                    <div id="popup" class="hidden">
-                                        <div id="popupContent">
-                                            <span id="closeBtn" class="close-btn">&times;</span>
-                                            <p style="color: white;">We received your message.<br> A Sisu VR member will
-                                                reach out soon.</p>
-                                            <!-- <button id="closeBtn">Close</button> -->
-                                        </div>
-                                    </div>
-                                    <script>
-                                        document.getElementById("submitBtn").addEventListener("click", function () {
-                                            document.getElementById("popup").style.display = "flex"; // Update this line
-                                        });
-
-                                        document.getElementById("closeBtn").addEventListener("click", function () {
-                                            document.getElementById("popup").style.display = "none"; // Update this line
-                                        });
-
-
-                                    </script>
-
-
+                                        class="g-recaptcha btn btn-sisu-primary">Send</button>
                                 </div>
                             </form>
                         </div>

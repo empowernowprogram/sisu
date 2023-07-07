@@ -24,18 +24,20 @@
   {% include 'components/ga-tracking-code.html' %}
 </head>
 <style>
-  h3{
+  h3 {
     font-family: 'Mulish';
     font-size: 32px;
     font-weight: 700;
   }
-  p{
+
+  p {
     font-family: 'Mulish';
     font-weight: 400;
     font-size: 24px;
     line-height: 40px;
   }
-  span{
+
+  span {
     font-family: 'Mulish';
     font-weight: 400;
     font-size: 24px;
@@ -48,11 +50,13 @@
   <div class="body-inner">
     <!-- Header -->
     <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
-      <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
+      <div
+        style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); "
+        class="header-inner sisu-header-bkg">
         <div class="container">
           <!--Logo-->
           <a href="{% url 'home' %}" id="logo">
-            <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+            <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;" />
           </a>
           <!--End: Logo-->
           <!--Navigation Resposnive Trigger-->
@@ -74,7 +78,7 @@
           <span class="lead">About Us</span>
           <hr style=" border: 1px solid #494949;">
           <div style="padding-bottom: 20px; padding-top: 40px">
-            <img src="{% static 'public/assets/sisu_logo.png' %}" style="height:100px"/>
+            <img src="{% static 'public/assets/sisu_logo.png' %}" style="height:100px" />
           </div>
           <p>
             In Finnish, "Sisu" means "grit, bravery, and resilience" and "hope
@@ -116,39 +120,41 @@
           <div class="col-lg-12">
           </div>
           <h3 style="color: #494949"><br>Who is Sisu VR?</h3>
-            <p >
-              Welcome to Sisu VR. We are a people-first team teaching our customers how to effectively
-              confront, escape, and intervene during incidents of workplace misconduct and emergency situations. We
-              "shine our light" on only the truths. We aspire to empower global workforces, and support employers in
-              doing so.<br><br>
-            </p>
-            <p>
-              Sisu VR's mission is to inspire our clients to work with empathy, transparency, innovation,
-              open-mindedness, and excellence. Our core values include exercising courage, compassion, understanding,
-              non-judgement, and awareness in our daily work and interactions with others.<br><br>
-            </p>
-            <p>
-              At the heart, we are listeners. From scouring high-fidelity field cases to developing our state-of-the-art
-              Ethical Framework, our sensitivity to the most up-to-date events, research, and technology have enabled us
-              to produce world-class training experiences.<br><br>
-            </p>
-            <p>
-              See what we're up to in our
-              <a class="sisu-menu-link" href="{% url 'news' %}"
-                style="color: #ec7f00 !important; font-size: 16px !important;">News Page</a>
-            </p>
-          </div>
+          <p>
+            Welcome to Sisu VR. We are a people-first team teaching our customers how to effectively
+            confront, escape, and intervene during incidents of workplace misconduct and emergency situations. We
+            "shine our light" on only the truths. We aspire to empower global workforces, and support employers in
+            doing so.<br><br>
+          </p>
+          <p>
+            Sisu VR’s vision is to create empathy driven workplaces that are transparent and respectful. By creating
+            impactful and immersive Virtual Reality compliance trainings, Sisu VR is ensuring that employees will
+            thoroughly remember, engage, and apply what they have learned. Our core values include exercising
+            courage, compassion, understanding, kindness, and empathy in our daily work and interaction with
+            others.<br><br>
+          </p>
+          <p>
+            At the heart, we are listeners. From scouring high-fidelity field cases to developing our state-of-the-art
+            Ethical Framework, our sensitivity to the most up-to-date events, research, and technology have enabled us
+            to produce world-class training experiences.<br><br>
+          </p>
+          <p>
+            See what we're up to in our
+            <a class="sisu-menu-link" href="{% url 'news' %}"
+              style="color: #ec7f00 !important; font-size: 24px !important;">News Page</a>
+          </p>
         </div>
       </div>
-    </section>
+  </div>
+  </section>
 
-    <div>
-      <div class="container">
-        <div class="sisu-divider-line text-center">
-          <div style="padding-bottom: 20px">
-            <span >Choose to work fearlessly with Sisu VR!</span>
-          </div>
-          <button style="
+  <div>
+    <div class="container">
+      <div class="sisu-divider-line text-center">
+        <div style="padding-bottom: 20px">
+          <span>Choose to work fearlessly with Sisu VR!</span>
+        </div>
+        <button style="
                 font-size: 16px;
                 margin-top: 14px;
                 margin-bottom: 24px;
@@ -157,24 +163,31 @@
                 width: 250px;
                 padding: 0px;
                 " type="button" class="btn btn-sisu-primary">
-            <a href="{% url 'contact' %}" style="color: #fff !important">
-              Let's Work Together
-            </a>
-          </button>
-        </div>
+          <a href="{% url 'contact' %}" style="color: #fff !important">
+            Let's Work Together
+          </a>
+        </button>
       </div>
-      <!-- end: Content -->
-      {% include 'components/new-footer-aboutus.html' %}
     </div>
-    <!-- end: Body Inner -->
+    <!-- end: Content -->
+    {% include 'components/new-footer-aboutus.html' %}
+  </div>
+  <!-- end: Body Inner -->
 
-    <!--Plugins-->
-    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
-    <script src="{% static 'public/js/jquery.js' %}"></script>
-    <script src="{% static 'public/js/plugins.js' %}"></script>
+  <!--Plugins-->
+  <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+  <script src="{% static 'public/js/jquery.js' %}"></script>
+  <script src="{% static 'public/js/plugins.js' %}"></script>
 
-    <!--Template functions-->
-    <script src="{% static 'public/js/functions.js' %}"></script>
+  <!--Template functions-->
+  <script src="{% static 'public/js/functions.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+  <script src="{% static 'public/js/jquery.js' %}"></script>
+  <script src="{% static 'public/js/plugins.js' %}"></script>
+
+  <!--Template functions-->
+  <script src="{% static 'public/js/functions.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -13,8 +13,6 @@ from hitcount.models import HitCount, HitCountMixin
 
 from users.models import CustomUser
 
-from cloudinary.models import CloudinaryField
-
 # Create your models here.
 class Category(Enum):
   Harassment = 'Harassment'; 
@@ -146,14 +144,20 @@ class LinkedinPost(models.Model):
   height = models.IntegerField()
   width = models.IntegerField()
 
+class Pres(models.Model): 
+  url_p = models.CharField(max_length=250)
+  Summary_p = models.CharField(max_length=374)
+  pub_date_p = models.DateTimeField('date published', null=True)
+  title_p = models.CharField(max_length=100)
+  p_photo = models.ImageField(upload_to='press/photos', null=True)
+
 
 class MediumPost(models.Model): 
   url_m = models.CharField(max_length=250)
   Summary_m = models.CharField(max_length=374)
   pub_date_m = models.DateTimeField('date published', null=True)
   title_m = models.CharField(max_length=100)
-  m_photo = CloudinaryField('image', blank=True, null=True)
-  #m_photo = models.ImageField(upload_to='medium/photos', null=True)
+  m_photo = models.ImageField(upload_to='medium/photos', null=True)
   # text_m = models.IntegerField()
   # width = models.IntegerField()
 

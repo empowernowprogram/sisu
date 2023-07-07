@@ -372,7 +372,7 @@
                                                                         alert them about training module due dates.</h5>
 
                                                                     </label>
-                                                                    <button onclick="sendEmail()" type="submit" class="btn">Send</button>
+                                                                    <button type="" class="btn bnt-submit">Smend</button>
                                                                 </div>
                                                                 <div class="later">
                                                                     <h4>Schedule Future Alerts</h4>
@@ -380,7 +380,7 @@
                                                                             type="time" id="time"></p>
 
                                                                     </label>
-                                                                    <button onclick="sendEmail()" type="submit" class="btn">Send</button>
+                                                                    <button onclick="sendEmail()" type="" class="btn">Send</button>
                                                                 </div>
                                                             </div>
                                                             <br>
@@ -446,6 +446,7 @@
                     </div>
                     <!-- Main Content End -->
 
+<button type="button" onclick="(function(){alert('I am a function');})" class="btn btn-sisu-primary">Smend</button>
                     <!-- Page Footer Start -->
                     {% include 'components/portal_footer.html' %}
                     <!-- Page Footer End -->
@@ -457,8 +458,75 @@
         </div>
         <!-- /Page Content -->
 
-
         <!-- Scripts -->
+        
+        <script>
+            function sendEmail() {
+                alert("hi")
+                console.log("Calling send email")
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        email: sean.rossi@sisuvr.com,
+                    },
+                    success: function(response){
+                        console.log('RESPONSE', response);
+                        if (response['failure_list'].length) {
+                            $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
+                        } else {
+                            $('#alert-emails-sent').text('Emails successfully sent.');
+                        }
+                        $('#alert-emails-sent').removeClass('hidden');
+                    }
+                })
+            });
+
+        <script>
+
+            $(".bnt-submit").click(function() {
+
+                console.log('FORM CLCIKED!')
+                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+                let vr_supervisor = $('#vr-supervisor').val()
+                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+                let desktop_supervisor = $('#desktop-supervisor').val();
+
+                console.log('vr_nonsupervisor = ', vr_nonsupervisor)
+
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        vr_nonsupervisor: vr_nonsupervisor,
+                        vr_supervisor: vr_supervisor,
+                        desktop_nonsupervisor: desktop_nonsupervisor,
+                        desktop_supervisor: desktop_supervisor
+                    },
+                    success: function(response){
+                        console.log('RESPONSE', response);
+                        $('#vr-nonsupervisor').val("");
+                        $('#vr-supervisor').val("");
+                        $('#desktop-nonsupervisor').val("");
+                        $('#desktop-supervisor').val("");
+
+                        if (response['failure_list'].length) {
+                            $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
+                        } else {
+                            $('#alert-emails-sent').text('Emails successfully sent.');
+                        }
+                        $('#alert-emails-sent').removeClass('hidden');
+                    }
+                })
+
+
+            });
+
+        </script>
+
+
+
+
         <script>
             var checkbox = document.getElementById('accept');
             checkbox.addEventListener('change', function () {
@@ -507,11 +575,11 @@
             });
         </script>
         <!-- add employee-progress.js as a script -->
-        <script src="employee-progress.js"></script>
+        <!-- <script src="employee-progress.js"></script> -->
         <script src="https://smtpjs.com/v3/smtp.js">
         </script>
-        <script>
-            function sendEmail() {
+
+            <!-- $(".bnt-submit").click(function() {
                 $.ajax({
                     url: '',
                     type: 'GET',
@@ -528,19 +596,9 @@
                         $('#alert-emails-sent').removeClass('hidden');
                     }
                 })
-		 <!--   Email.send({
-                    SecureToken: "4bc0c302-b25c-4788-808b-96235c5ee1a4",
-                    To: "ayushshreeshreemal@gmail.com",
-                    From: "ayushjlm10@gmail.com",
-                    Subject: "Sisu Employee registration",
-                    Body: "This is a test email"
-                }).then(
-                    message => alert(message)
-                ); -->
-            }
-        </script>
+            }); -->
         <!-- add modal.js from js folder in portal -->
-        <script src="{% static 'portal/js/modal.js' %}"></script>
+        <!-- <script src="{% static 'portal/js/modal.js' %}"></script> -->
         <script src="https://kit.fontawesome.com/1c33bc798c.js" crossorigin="anonymous"></script>
         <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
         <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>

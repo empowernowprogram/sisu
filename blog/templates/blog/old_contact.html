@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sisu VR" />
+    <meta name="description"
+        content="Interested to learn more? We're excited to work with you, so contact us today to schedule a demo!">
+    <link rel="icon" type="image/png" href="{% static 'public/assets/img/logo-header-colored.png' %}">
+    <style>
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+    </style>
+    <!-- Document title -->
+    <title>Sisu VR | Contact</title>
+
+    <!-- Stylesheets & Fonts -->
+    <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {% include 'components/ga-tracking-code.html' %}
+</head>
+
+<body>
+    <!-- Body Inner -->
+    <div class="body-inner">
+        <!-- Header -->
+        <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
+            <div class="header-inner sisu-header-bkg">
+                <div class="container">
+                  <!--Logo-->
+                  <a href="{% url 'home' %}" id="logo">
+                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+                  </a>
+                  <!--End: Logo-->
+                  <!--Navigation Resposnive Trigger-->
+                  <div id="mainMenu-trigger">
+                    <a class="lines-button x"><span class="lines"></span></a>
+                  </div>
+                  <!--end: Navigation Resposnive Trigger-->
+                  <!--Navigation-->
+                  {% include 'components/new-nav-bar.html' %}
+                  <!--end: Navigation-->
+                </div>
+              </div>
+        </header>
+        <!-- end: Header -->
+        <!-- Content -->
+        {% include 'components/message-sent.html' %}
+        <section style="padding-bottom:32px">
+            <div class="container">
+                <div class="sisu-divider-line text-center">
+                    <h2>Contact Us</h2>
+                    <div class="bg-cube-container">
+                        <div class="bg-cube-element" style="width:68px; height:42px; margin-top: 60px"></div>
+                    </div>
+
+                    <hr class="sisu-hr">
+                    <p class="lead sisu-color-purple">Partnerships? Inquiries? Want to share your story?<br>Let’s talk!
+                    </p>
+                </div>
+        </section>
+
+        <section style="padding-top:12px">
+            <div class="container" style="padding-left:12%; padding-right:12%">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="m-t-30">
+                            <p>* required field</p>
+                            <form id="form-contact" class="widget-contact-form" method="POST" action="">
+                                {% csrf_token %}
+                                <div class="bg-cube-container" style="float: right; margin-right: -88px;">
+                                    <div class="bg-cube-element" style="width:44px; height:28px; margin-top:-12px">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">First Name *</label>
+                                        <input type="text" aria-required="true" name="input-first-name"
+                                            autocomplete="given-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Last Name *</label>
+                                        <input type="text" aria-required="true" name="input-last-name"
+                                            autocomplete="family-name" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="bg-cube-container" style="margin-left:-124px">
+                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Email Address *</label>
+                                        <input type="email" aria-required="true" name="input-email" autocomplete="email"
+                                            required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Company Name</label>
+                                        <input type="text" name="input-company-name" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" name="input-subject" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="bg-cube-container" style="float: right; margin-right: -58px;">
+                                    <div class="bg-cube-element" style="width:68px; height:42px; margin-top:12px"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message *</label>
+                                    <textarea type="text" name="input-message" required rows="5"
+                                        class="form-control required"></textarea>
+                                </div>
+                                <div class="sisu-divider-line text-center">
+                                    <div style="padding-bottom: 20px;">
+                                    </div>
+                                    <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
+                                        data-callback="onSubmit" data-action="submit"
+                                        class="g-recaptcha btn btn-sisu-primary">Send Message</button>
+                                </div>
+                                <div class="bg-cube-container" style="margin-left:-80px">
+                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- end: Content -->
+        {% include 'components/new-footer.html' %}
+    </div>
+    <!-- end: Body Inner -->
+
+    <!--Plugins-->
+    <link rel="stylesheet" href="{% static 'public/js/jquery.js' %}" />
+    <script src="{% static 'public/js/jquery.js' %}"></script>
+    <script src="{% static 'public/js/plugins.js' %}"></script>
+
+    <!--Template functions-->
+    <script src="{% static 'public/js/functions.js' %}"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("form-contact").submit();
+        }
+    </script>
+
+</body>
+
+</html>
