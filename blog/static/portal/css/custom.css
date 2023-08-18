@@ -1,5 +1,5 @@
 /* Write your custom CSS here */
-
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body,
 html {
@@ -147,7 +147,17 @@ html {
     border-radius: 4px;
 }
 
+.dataTables_info {
+    position:absolute;
+    margin-top:2em;
+    transform:translate(0, 5px);
+}
 
+#edit-employee-reg_paginate{
+    text-align:center;
+    float:none;
+    margin-top:2em;
+}
 
 
 table.table-sisu-overview {
@@ -275,6 +285,10 @@ tfoot {
     height: 32px;
 }
 
+.dataTables_filter{
+    
+}
+
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
     border-radius: 4px;
@@ -376,16 +390,17 @@ tfoot {
 }
 
 .ethi-text-lg {
-    font-size: 35px;
+    font-size: 32px;
 }
 
 .ethi-text-reg {
-    font-size: 22px;
+    font-size: 28px;
 }
 
 .ethi-text-sm {
-    font-size: 18px;
+    font-size: 24px;
     padding: 0px;
+    text-decoration: underline;
 }
 /* ETHICAL FRAMEWORK REPORT STYLING - END */
 
@@ -413,4 +428,7 @@ tfoot {
     padding-left: 10px;
   }
 
+  #container{
+    overflow:visible !important;
+  }
 /* POST PROGRAM SURVEY STYLING - END */
