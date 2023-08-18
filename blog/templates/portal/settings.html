@@ -4,135 +4,179 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sisu VR Inc">
 
-        <!-- Title -->
-        {% include 'components/portal_tab_title.html' %}
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
-        
-        <!-- Theme Styles -->
-        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
-    </head>
+    <!-- Title -->
+    {% include 'components/portal_tab_title.html' %}
 
-    <style>
-        th {
-            font-size: 14px;
-            vertical-align: top;
-        }
-        ul {
-            font-size: 12px;
-            margin-top: 5px;
-            padding-left: 20px;
-        }
-    </style>
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-    <body>
-        {% include 'components/message-sent.html' %}
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
-        <!-- Page Container -->
-        <div id="portal" data-page="settings" class="page-container">
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+</head>
 
-            <!-- Page Sidebar Start -->
-            {% if player.admin %}
-                {% include 'components/portal_sidebar_admin.html' %}
-            {% elif player.supervisor %}
-                {% include 'components/portal_sidebar_supervisor.html' %}
-            {% else %}
-                {% include 'components/portal_sidebar_employee.html' %}
-            {% endif %}
-            <!-- Page Sidebar End -->
+<style>
+    th {
+        font-size: 14px;
+        vertical-align: top;
+    }
 
-            <!-- Page Content Start -->
-            <div class="page-content">
-                <!-- Page Sidebar / Navigation Elements Start -->
-                <div class="page-header">
-                    <!-- Collapsed / Mobile Navigation Bar Start -->
-                    {% include 'components/portal_mobilenav.html' %}
-                    <!-- Collapsed / Mobile Navigation Bar End -->
+    ul {
+        font-size: 12px;
+        margin-top: 5px;
+        padding-left: 20px;
+    }
+</style>
+
+<body>
+    {% include 'components/message-sent.html' %}
+
+    <!-- Page Container -->
+    <div id="portal" data-page="settings" class="page-container">
+
+        <!-- Page Sidebar Start -->
+        {% if player.admin %}
+        {% include 'components/portal_sidebar_admin.html' %}
+        {% elif player.supervisor %}
+        {% include 'components/portal_sidebar_supervisor.html' %}
+        {% else %}
+        {% include 'components/portal_sidebar_employee.html' %}
+        {% endif %}
+        <!-- Page Sidebar End -->
+
+        <!-- Page Content Start -->
+        <div class="page-content">
+            <!-- Page Sidebar / Navigation Elements Start -->
+            <div class="page-header">
+                <!-- Collapsed / Mobile Navigation Bar Start -->
+                {% include 'components/portal_mobilenav.html' %}
+                <!-- Collapsed / Mobile Navigation Bar End -->
+            </div>
+            <!-- Page Sidebar / Navigation Elements End -->
+
+            <!-- Page Inner Start -->
+            <div class="page-inner">
+                <!-- Page Top Bar Start -->
+                <div class="page-title">
+                    <h2>Settings</h2>
+                    <hr>
                 </div>
-                <!-- Page Sidebar / Navigation Elements End -->
+                <!-- Page Top Bar End -->
 
-                <!-- Page Inner Start -->
-                <div class="page-inner">
-                    <!-- Page Top Bar Start -->
-                    <div class="page-title">
-                        <h2>Settings</h2>
-                        <hr>
-                    </div>
-                    <!-- Page Top Bar End -->
-                    
-                    <!-- Main Content Start -->
-                    <div id="main-wrapper">
-                        <div class="row">
-                            <div>
-                                <h3>Change Password</h3>
-                                <p>To change or reset your password, click the button below. If you have trouble
-                                    changing your password contact support.</p>
-                                <button style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
-                                    data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Change
-                                    Password</button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="exampleModalLabel">Change Password Form
-                                                </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form  method="post" class="space-y-6">
-                                                    {% csrf_token %}
-                                                    <table border="0">
-                                                        {{ form.as_table }}
-                                                    </table>
-                                                    <br/>
-                                                    <button type="submit" class="btn btn-sisu-primary">Save changes</button>
-                                                    <br/>
-                                                </form>
-                                                <br/>
-                                            </div>
-                                        </div>
+                <!-- Main Content Start -->
+                <div id="main-wrapper">
+                    <div class="row">
+                        <div>
+                            <!-- Button or link to trigger the dropdown -->
+                            <a class="btn btn-primary" data-toggle="collapse" href="#changePassword" role="button" aria-expanded="false" aria-controls="changePassword" style="margin: auto; ">
+                                Change Password <i class="fas fa-angle-down" aria-hidden="true"> </i><i class="fas fa-angle-up" aria-hidden="true" style="display: none;"></i>
+                            </a>
+                            <!-- The dropdown content -->
+                            <div class="collapse" id="changePassword">
+                                <div class="card card-body">
+                                    <!-- Old Password -->
+                                    <div class="modal-body">
+                                        <form method="post" class="space-y-6">
+                                            {% csrf_token %}
+                                            <table border="0">
+                                                <br>
+                                                {{ form.as_table }}
+                                            </table>
+                                            <br />
+                                            <button type="submit" class="btn btn-sisu-primary">Change Password</button>
+                                            <br />
+                                        </form>
+                                        <br />
                                     </div>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- Button or link to trigger the dropdown -->
+                            <a class="btn btn-primary" data-toggle="collapse" href="#contactsupport" role="button" aria-expanded="false" aria-controls="changePassword" style=" margin-top: 20px;">
+                               Contact Support <i class="fas fa-angle-down" aria-hidden="true"> </i><i class="fas fa-angle-up" aria-hidden="true" style="display: none;"></i>
+                            </a>
+                            <!-- The dropdown content -->
+                            <div class="collapse" id="contactsupport">
+                                <div class="card card-body">
+                                    <!-- Old Password -->
+                                    <div class="form-group">
+                                        <br>
+                                        <label for="oldPassword">Phone Number (Optional)</label>
+                                        <input type="text" class="form-control" id="phonenumber">
+                                    </div>
+                                    
+                                    <!-- New Password -->
+                                    <div class="form-group">
+                                        <label for="newPassword">Enter Questions Below:</label>
+                                        <textarea class="form-control" id="questionsComments" rows="6" placeholder="Write your questions or comments here..."></textarea>
+                                    </div>
+                                    
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn btn-sisu-primary"> Submit</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Main Content End -->
-
-                    <!-- Page Footer Start -->
-                    {% include 'components/portal_footer.html' %}
-                    <!-- Page Footer End -->
                 </div>
-                <!-- Page Inner End -->
+                <!-- Main Content End -->
+
+                <!-- Page Footer Start -->
+                {% include 'components/portal_footer.html' %}
+                <!-- Page Footer End -->
             </div>
-            <!-- Page Content End -->
-
+            <!-- Page Inner End -->
         </div>
-        <!-- /Page Content -->
+        <!-- Page Content End -->
+
+    </div>
+    <!-- /Page Content -->
 
 
-        <!-- Scripts -->
-        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+    <!-- Scripts -->
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
 
-        <script src="{% static 'portal/js/space.js' %}"></script>
-        <script src="{% static 'portal/js/scripts.js' %}"></script>
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#changePassword').on('show.bs.collapse', function () {
+                $('[data-toggle="collapse"][href="#changePassword"] .fa-angle-down').hide();
+                $('[data-toggle="collapse"][href="#changePassword"] .fa-angle-up').show();
+            });
+            
+            $('#changePassword').on('hide.bs.collapse', function () {
+                $('[data-toggle="collapse"][href="#changePassword"] .fa-angle-down').show();
+                $('[data-toggle="collapse"][href="#changePassword"] .fa-angle-up').hide();
+            });
+            
+            $('#contactsupport').on('show.bs.collapse', function () {
+                $('[data-toggle="collapse"][href="#contactsupport"] .fa-angle-down').hide();
+                $('[data-toggle="collapse"][href="#contactsupport"] .fa-angle-up').show();
+            });
+            
+            $('#contactsupport').on('hide.bs.collapse', function () {
+                $('[data-toggle="collapse"][href="#contactsupport"] .fa-angle-down').show();
+                $('[data-toggle="collapse"][href="#contactsupport"] .fa-angle-up').hide();
+            });
+        });
+        </script>
+        
 
-    </body>
+</body>
 
 </html>

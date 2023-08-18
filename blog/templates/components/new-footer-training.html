@@ -1,24 +1,19 @@
 {% load static %}
+<!-- style="background: linear-gradient(94.78deg, rgba(245, 185, 66, 0.1) 10.09%, rgba(206, 68, 134, 0.1) 71.99%);" -->
+<footer style="background: linear-gradient(94.78deg, rgba(245, 185, 66, 0.1) 10.09%, rgba(206, 68, 134, 0.1) 71.99%);" id="footer" class="sisu-footer-bg">
+  <div style="margin-bottom: 100px; background: linear-gradient(94.78deg, #F5B942 10.09%, #CE4486 71.99%); opacity: 0.1;">
 
-<footer id="footer" class="sisu-footer-bg">
-  <div style="margin-bottom: -100px">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path
-        fill="#ffffff"
-        fill-opacity="1"
-        d="M0,224L60,192C120,160,240,96,360,96C480,96,600,160,720,186.7C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
-      ></path>
-    </svg>
   </div>
   <div id="footer-lazy-bg" data-ll-status="loaded">
     <div class="grid-system-demo-live vertical-center">
-      <div class="footer-content">
+      <div style="height: 328px;" class="footer-content">
         <div class="container">
           <div class="row" style="padding-bottom: 0px">
             <div class="col-lg-12 text-center">
-              <h3 class="text-center footer-banner">
-                Stay updated with our free newsletter!
+              <h3 style="color: #373F41; margin-bottom: 0px; font-size: 32px;" class="text-center footer-banner" >
+                Want to know how to handle bullying at work?
               </h3>
+              <h5 style="color: #737B7D; font-size: 16px; padding-bottom: 20px;">Join our free newsletter to receive tips and more</h5>
               <div style="justify-content: center; display: flex">
                 <form id="form-newsletter" class="site-search" method="POST" action=".">
                   {% csrf_token %}
@@ -29,8 +24,10 @@
                         border: 0px solid #ced4da;
                         font-size: 16px;
                         width: 346px;
+                        border-radius: 25px;
+                        margin-right: 10px;
                       "
-                      placeholder="Email address"
+                      placeholder="Enter email address..."
                       type="text"
                       name="email_signup"
                     />
@@ -38,13 +35,13 @@
                       ><button
                         class="btn btn-sisu-primary"
                         style="
-                          border-radius: 0px 4px 4px 0px;
+                          border-radius: 25px;
                           border: 1px solid #ced4da;
                           font-size: 16px;
                         "
                         type="submit"
                       >
-                        Sign up
+                        Join newsletter
                       </button></span
                     >
                   </div>
@@ -54,37 +51,37 @@
 
             <div class="col-lg-12">
               <div class="widget" style="margin-top: 40px">
-                <ul class="list footer-links">
-                  <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'about-us' %}"
+                <ul class="list footer-links" style="color: #000;">
+                  <li style="display: inline-block; color: #000;">
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'about-us' %}"
                       >About</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'contact' %}"
-                      >Contact</a
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'contact' %}"
+                      >Contact Us</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'home_portal' %}"
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'home_portal' %}"
                       >Customer Portal</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'p_p' %}"
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'p_p' %}"
                       >Privacy Policy</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 't_c' %}"
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 't_c' %}"
                       >Terms & Conditions</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a>
+                    <a style="color: #000;" class="sisu-footer-link-new" href="{% url 'faq' %}">FAQ</a>
                   </li>
                   <li style="display: inline-block">
-                    <h5 style="color: #fff; font-weight: 300 !important">
+                    <h5 style="color: #000; font-weight: 400 ">
                       Follow Us
                     </h5>
                     <div
@@ -117,10 +114,10 @@
               </div>
             </div>
           </div>
-          <div class="copyright-text text-center sisu-footer-copyright">
-            Copyright © 2021 Sisu VR Inc. All Rights Reserved.
-          </div>
         </div>
+      </div>
+      <div style="color: #000; background-color: rgba(255, 223, 139, 0.9); display: flex; height: 64px; align-items: center; justify-content: center;" class="copyright-text text-center sisu-footer-copyright-new">
+        Copyright © 2023 Sisu VR Inc. All Rights Reserved.
       </div>
     </div>
   </div>

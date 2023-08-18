@@ -26,8 +26,159 @@
         <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
 <style>
     tfoot {
-    display: table-header-group !important;
-}
+        display: table-header-group !important;
+    }
+    .employee-role-heading {
+        padding-top:26px; 
+        padding-bottom: 10px; 
+        color: black; 
+        font-weight: bold;
+    }
+    .add-employee-button-title {
+     
+        padding: 0 20px 0 5px;
+        margin: 0 0 2px 0;
+    }
+    .add-employee-button {
+        display: inline-flex;
+        flex-direction: row;
+        /* justify-content: center; */
+        border: 3px solid;
+        border-radius: 25px;
+        color: #9F3688;
+        width: max-content;
+        height: 40px;
+        padding: 5px;
+        align-items: center;
+        cursor: pointer;
+        position:relative;
+   
+    }
+    .add-employee-button p{
+        font-weight:500;
+    }
+    .add-employee-button-button {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border: 3px solid #9F3688; 
+        border-radius: 25px; 
+        height: 25px; 
+        width:25px;
+        background-color: white;
+        font-weight:bold;
+       
+        z-index:1000;
+    }
+    button span{
+        pointer-events: none;
+    }
+    .employee-name-input {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border: 2px solid #F3BDE4;
+        border-radius: 25px;
+        color: black;
+        background-color: #F3BDE4;
+        width: max-content;
+        height: 40px;
+       
+        padding: 10px;
+        margin-top: 20px;
+        font-weight: lighter;
+        align-items: center;
+        cursor: pointer;
+        padding-right:25px;
+    }
+    .employee-name-input-remove{
+        color: #FFFFFF;
+        height: 40px;
+        
+        padding: 10px;
+        margin-top: 20px;
+        font-weight: lighter;
+    }
+    .employee-name-input-remove-btn{
+        color:#9F3688;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border: 3px solid #9F3688; 
+        border-radius: 25px; 
+        height: 25px; 
+        width:25px;
+        margin-top: 28px;
+        background-color: white;
+        font-weight:bold;
+        font-size:20px;
+        transform:translate(-30px, 0);
+    }
+    .employee-name-input:focus{
+        border: 2px solid #F3BDE4;
+        background-color:#FFFFFF;
+        
+    }
+    .employee-name-input:focus .bnt-submit{
+        pointer-events: none;
+    }
+    .employee-name-input::placeholder{
+        color:#313131;
+        opacity:0.9;
+    }
+
+    .btn-sisu-primary {
+        font-weight: bold; 
+       
+        margin-top: 30px;
+    }
+
+    .admin_description{
+        display:flex;
+        flex-wrap:wrap;
+        max-width: 875px;
+        max-height:395px;
+        font-size: 18px;
+    }
+
+    .bnt-submit[disabled]{
+        background-color:#939393;
+    }
+
+    .input-container{
+        display:flex;
+        flex-wrap:wrap;
+        max-width:100%;
+    }
+
+    .input-container > *{
+        flex-basis:50%;
+    }
+
+    p{
+        font-size:1rem;
+    }
+
+    #exampleModalLabel{
+        font-weight:bold;
+        text-align:center;
+        font-size:60px;
+    }
+
+    .modal-body{
+        text-align:center;
+    }
+
+    .modal-footer{
+        font-size:16px;
+        font-weight:bold;
+        text-align:center;
+    }
+
+    .modal-footer a{
+        padding: 7px 19px 7px 19px;
+    }
+    
 </style>
     </head>
     <body>
@@ -67,54 +218,96 @@
                     <!-- Main Content Start -->
                     <div id="main-wrapper">
                         <div class="row">
-                            <p>Enter each employee's email address into their corresponding textbox below (VR or Desktop, Non-supervisor, or Supervisor).</p>
-                            <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #9F3688" href="#send-reg-emails">Register Employees and Send Emails</a>" at the bottom of this page.</p>
+                            <div class="admin_description">
+                                <p>Enter each employee's email address into their corresponding textbox below (VR or Desktop, Non-supervisor, or Supervisor).</p>
+                                <p>When you are finished entering each employee's email into the appropriate field, click "<a style="color: #FFFFF; font-weight:bold" href="#send-reg-emails">Register Employee&#40;s&#41;</a>" at the bottom of this page to send employee(s) an email to verify their accounts.</p>
+                            </div>
                             <hr>
                                 <!-- NOTE - the input of "type=email" and data-role="tagsinput" was causing issues - need to investigate further -->
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">1. VR - Non-supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="vr-nonsupervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">1. VR, Non-Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register non-supervisor modules using the VR headset.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-nonsupervisor"> -->
-                                    <textarea id="vr-nonsupervisor" class="form-control" name="vr-nonsupervisor"></textarea>
-                                    <!-- hello@email.com, robert@sisuvr.com, test@sisurvr.com -->
+                                    <div id="vr-nonsupervisor" class="form-control add-employee-button click-nonsupervisor" name="vr-nonsupervisor">
+                                        <p class="add-employee-button-title click-nonsupervisor">Add an employee</p>
+                                        <button id="vr-nonsupervisor" name="vr-nonsupervisor" class="add-employee-button-button click-nonsupervisor"><span>+</span></button>
+                                    </div>
+                                    <div class="input-container vr-nonsupervisor"></div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">2. VR - Supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="vr-supervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">2. VR, Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for supervisor modules using the VR headset.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="vr-supervisor"> -->
-                                    <textarea id="vr-supervisor" class="form-control" name="vr-supervisor"></textarea>
+                                    <div id="vr-supervisor" class="form-control add-employee-button click-supervisor" name="vr-supervisor">
+                                        <p class="add-employee-button-title click-supervisor">Add an employee</p>
+                                        <button id="vr-supervisor" name="vr-supervisor" class="add-employee-button-button click-supervisor"><span>+</span></button>
+                                    </div>
+                                    <div class="input-container vr-supervisor"></div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">3. Desktop - Non-supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="desktop-nonsupervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">3. Desktop, Non-Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for non-supervisor modules using a desktop.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-nonsupervisor"> -->
-                                    <textarea id="desktop-nonsupervisor" class="form-control" name="desktop-nonsupervisor"></textarea>
+                                    <div id="desktop-nonsupervisor" class="form-control add-employee-button click-desktop-nonsupervisor" name="desktop-nonsupervisor" >
+                                        <p class="add-employee-button-title click-desktop-nonsupervisor">Add an employee</p>
+                                        <button id="desktop-nonsupervisor" name="desktop-nonsupervisor" class="add-employee-button-button click-desktop-nonsupervisor"><span>+</span></button>
+                                    </div>
+                                    <div class="input-container desktop-nonsupervisor"></div>
                                 </div>
-                                <div>
-                                    <h3 class="sisu-h3" style="padding-top:26px; padding-bottom: 10px;">4. Desktop - Supervisor</h3>
-                                    <p>Add each employee's email address separated by commas.</p>
+                                <div id="desktop-supervisor-container">
+                                    <h3 class="sisu-h3 employee-role-heading">4. Desktop, Supervisor</h3>
+                                    <p>Add each employee’s email address that you would like to register for supervisor modules using a desktop.</p>
                                     <!-- <input type="email" data-role="tagsinput" class="form-control" name="desktop-supervisor"> -->
-                                    <textarea id="desktop-supervisor" class="form-control" name="desktop-supervisor"></textarea>
+                                    <div id="desktop-supervisor" class="form-control add-employee-button click-desktop-supervisor" name="desktop-supervisor" >
+                                        <p class="add-employee-button-title click-desktop-supervisor">Add an employee</p>
+                                        <button id="desktop-supervisor" name="desktop-supervisor" class="add-employee-button-button click-desktop-supervisor"><span>+</span></button>
+                                    </div>
+                                    <div class="input-container desktop-supervisor"></div>
                                 </div>
                                 <div style="padding-bottom: 120px" class="">
                                     <br>
-                                    <button name="send-reg-emails" class="btn btn-sisu-primary bnt-submit" type="">
-                                        Send Registration Emails
+                                    <button name="send-reg-emails" class="btn btn-sisu-primary bnt-submit" disabled>
+                                        Register Employee&#40;s&#41;
                                     </button>
 
                                     <div style="width: 350px; margin-top:12px">
                                     
                                     <div id="alert-emails-sent" class="alert alert-success alert-dismissible hidden" role="alert">
-                                    Emails successfully sent.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                </div>
-
+                                        Emails successfully sent.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                 </div>
-
                         </div>
                     </div>
                     <!-- Main Content End -->
+                    <!-- Message Sent modal Start -->
+                    <div class="modal fade" id="message-sent-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h1 class="modal-title" id="exampleModalLabel">
+                                    Success!
+                                </h1>
+                            </div>
+                            <form action="{% url 'edit-registration' %}" method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <p>You have successfully registered your employee(s). <br>
+                                        You can view registered employees in the employee registration page. </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sisu-lined" data-dismiss="modal" style="border:none;">Close Window</button>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Message Sent modal End -->
+                </div>
+                <!-- remove modal end -->
 
                     <!-- Page Footer Start -->
                     {% include 'components/portal_footer.html' %}
@@ -137,35 +330,227 @@
         <script src="{% static 'portal/js/space.min.js' %}"></script>
         <script src="{% static 'portal/js/scripts.js' %}"></script>
         <script>
-                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
-                let vr_supervisor = $('#vr-supervisor').val()
-                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
-                let desktop_supervisor = $('#desktop-supervisor').val();
+            //define variables that used to track user idle time on page
+            var startTime, endTime, timeDiff, interval
 
-                {% comment %} $('#vr-nonsupervisor').val("vr-nonsupervisor@sisuvr.com"); {% endcomment %}
-                {% comment %} $('#vr-supervisor').val("vr-supervisor@gmail.com"); {% endcomment %}
-                {% comment %} $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com"); {% endcomment %}
-                {% comment %} $('#desktop-supervisor').val("desktop-supervisor@gmail.com"); {% endcomment %}
+            //start timer
+            function start(event, alertMsg, value) {
+                clearInterval(interval)
+                alertMsg.classList.add('hidden')
+                startTime = new Date();
+                
+                interval = setInterval(()=>{
+                    end(event,alertMsg, value)
+                }, 1000)
+            };
+
+            //end every 1 sec to check if user's email is valid
+            function end(event,alertMsg, value) {
+                endTime = new Date();
+                timeDiff = endTime - startTime; //in ms
+                // strip the ms
+                timeDiff /= 1000;
+              
+                // get seconds 
+                // timeDiff = Math.round(timeDiff);
+                // used to show users if the emails they enter are correct or not
+                //console.log(timeDiff + " seconds elapsed");
+                //console.log('value: ' + value)
+                if(!validateEmail(value)){
+                    event.target.classList.add('invalid')
+                    
+                    if(timeDiff > 1){
+                        alertMsg.classList.remove('alert-success')
+                        alertMsg.classList.add('alert-danger')
+                        alertMsg.classList.remove('hidden')
+                        alertMsg.innerText = "Invalid Email Format"
+                    }
+                }else{
+                    event.target.classList.remove('invalid')
+                    if(timeDiff > 1){
+                        alertMsg.classList.remove('alert-danger')
+                        alertMsg.classList.add('alert-success')
+                        alertMsg.classList.remove('hidden')
+                        alertMsg.innerText = "Valid Email Format"
+                    }
+                    
+                }
+
+                checkValidEmails(); 
+                
+            }
+            // Rosa's scripts + Andy's scripts:
+            document.body.addEventListener('click', (e) => {
+                const target = e.target
+                //console.log(target)
+                if (target.matches('.click-nonsupervisor')) {
+                    const el = document.querySelector('.input-container.vr-nonsupervisor')
+                    create_input_div(el)
+                }
+
+                if (target.matches('.click-supervisor')) {
+                    const el = document.querySelector('.input-container.vr-supervisor')
+                    create_input_div(el)
+                }
+                
+                if (target.matches('.click-desktop-nonsupervisor')) {
+                    const el = document.querySelector('.input-container.desktop-nonsupervisor')
+                    create_input_div(el)
+                }
+
+                if (target.matches('.click-desktop-supervisor')) {
+                    const el = document.querySelector('.input-container.desktop-supervisor')
+                    create_input_div(el)
+                }
+
+                if (target.matches('.employee-name-input-remove-btn')) {
+                    //console.log('REMOVE')
+                    let parentClass = e.target.parentNode.className
+                    //console.log(parentClass)
+                    e.target.parentNode.parentNode.remove()
+                    clearInterval(interval)
+                    if(document.querySelectorAll('.'+ parentClass).length == 0){
+                        // console.log('NO INPUT LEFT')
+                        $(".bnt-submit").attr('disabled', true)
+                    }else{
+                        $(".bnt-submit").attr('disabled', false)
+                    }
+                }
+
+                if (target.matches('.modal-header .close')) {
+                    //console.log('REMOVE ALL')
+                    document.querySelectorAll('.employee-name-input-remove-div').forEach((div)=>{
+                        div.parentNode.remove();
+                        clearInterval(interval)
+                    })
+                }
+                
+
+                
+            })
+            
+            //check for invalid email addresses
+            const checkValidEmails = () => {
+                //console.log('BODY INPUT')
+                const invalid_elements = document.querySelectorAll('.invalid')
+                //console.log(invalid_elements)
+                if(invalid_elements.length != 0){
+                    $(".bnt-submit").attr('disabled', true)
+                }else{
+                    $(".bnt-submit").attr('disabled', false)
+                }
+            }
+
+            //function to check entered input matches the format of an email address
+            const validateEmail = (email) => {
+                return email.match(
+                  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                );
+            };
+            
+            //create a email input for register employees
+            const create_input_div = (el) => {
+                /*
+                    <div id="alert-emails-sent" class="alert alert-success alert-dismissible hidden" role="alert">
+                        Emails successfully sent.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                */
+                const newDiv =  document.createElement('div')
+                const newDiv2 =  document.createElement('div')
+                const alertMsg =  document.createElement('div')
+                const newInput = document.createElement('input')
+                const newSpan = document.createElement('span')
+                const newBtn = document.createElement('button')
+                newSpan.innerText = '-'
+                newDiv.style.display = 'flex'
+                newDiv.classList.add('employee-name-input-remove-div')
+                newDiv2.classList.add('employee-name-input-remove-div-wrapper')
+                newBtn.classList.add('employee-name-input-remove-btn')
+                alertMsg.classList.add('alert')
+                alertMsg.classList.add('alert-dismissible')
+                alertMsg.classList.add('hidden')
+                alertMsg.setAttribute("id", "alert-emails-sent")
+                alertMsg.setAttribute("role", "alert")
+                alertMsg.style.margin = "10px 0 0 0 "
+                alertMsg.style.padding = "10px 10px 10px 10px "
+                alertMsg.style.width = "250px"
+                newInput.placeholder = "Type the employee’s email..."
+                newInput.classList.add('employee-name-input')
+                newInput.classList.add('invalid')
+                $(".bnt-submit").attr('disabled', true)
+                newInput.addEventListener('input', (event)=>{
+                    let value = event.target.value
+                    start(event,alertMsg, value)
+                    
+                })
+                newBtn.appendChild(newSpan)
+                newDiv.appendChild(newInput)
+                newDiv.appendChild(newBtn)
+                newDiv2.appendChild(newDiv)
+                newDiv2.appendChild(alertMsg)
+                el.appendChild(newDiv2)
+            }
+        </script>
+        <script>
+            //     let vr_nonsupervisor = $('#vr-nonsupervisor').val()
+            //     let vr_supervisor = $('#vr-supervisor').val()
+            //     let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
+            //     let desktop_supervisor = $('#desktop-supervisor').val();
+
+            //     {% comment %} $('#vr-nonsupervisor').val("vr-nonsupervisor@sisuvr.com"); {% endcomment %}
+            //     {% comment %} $('#vr-supervisor').val("vr-supervisor@gmail.com"); {% endcomment %}
+            //     {% comment %} $('#desktop-nonsupervisor').val("desktop-nonsupervisor@gmail.com"); {% endcomment %}
+            //     {% comment %} $('#desktop-supervisor').val("desktop-supervisor@gmail.com"); {% endcomment %}
         
-
+            //  newly modified script by Andy
             $(".bnt-submit").click(function() {
+                $(".bnt-submit").attr('disabled', true);
+                //     console.log('FORM CLCIKED!')
+                let vr_nonsupervisor = $('.input-container.vr-nonsupervisor input')
+                let vr_nonsupervisor_str = ''
+                console.log('vr_nonsupervisor: ')
+                vr_nonsupervisor.each((input)=>{
+                    //console.log(vr_nonsupervisor[input].value)
+                    vr_nonsupervisor_str =  vr_nonsupervisor_str + vr_nonsupervisor[input].value + ' '
+                })
+                //console.log(vr_nonsupervisor_str)
 
-                console.log('FORM CLCIKED!')
-                let vr_nonsupervisor = $('#vr-nonsupervisor').val()
-                let vr_supervisor = $('#vr-supervisor').val()
-                let desktop_nonsupervisor = $('#desktop-nonsupervisor').val()
-                let desktop_supervisor = $('#desktop-supervisor').val();
+                let vr_supervisor = $('.input-container.vr-supervisor input')
+                let vr_supervisor_str = ''
+                console.log('vr_supervisor: ')
+                vr_supervisor.each((input)=>{
+                    //console.log(vr_supervisor[input].value)
+                    vr_supervisor_str =  vr_supervisor_str + vr_supervisor[input].value + ' '
+                })
+                //console.log(vr_supervisor_str)
 
-                console.log('vr_nonsupervisor = ', vr_nonsupervisor)
+                let desktop_nonsupervisor = $('.input-container.desktop-nonsupervisor input')
+                let desktop_nonsupervisor_str = ''
+                //console.log('desktop_nonsupervisor: ')
+                desktop_nonsupervisor.each((input)=>{
+                    //console.log(desktop_nonsupervisor[input].value)
+                    desktop_nonsupervisor_str =  desktop_nonsupervisor_str + desktop_nonsupervisor[input].value + ' '
+                })
+                //console.log(desktop_nonsupervisor_str)
+
+                let desktop_supervisor = $('.input-container.desktop-supervisor input')
+                let desktop_supervisor_str = ''
+                console.log('desktop_supervisor: ')
+                desktop_supervisor.each((input)=>{
+                    //console.log(desktop_supervisor[input].value)
+                    desktop_supervisor_str =  desktop_supervisor_str + desktop_supervisor[input].value + ' '
+                })
+                //console.log(desktop_supervisor_str)
 
                 $.ajax({
                     url: '',
                     type: 'GET',
                     data: {
-                        vr_nonsupervisor: vr_nonsupervisor,
-                        vr_supervisor: vr_supervisor,
-                        desktop_nonsupervisor: desktop_nonsupervisor,
-                        desktop_supervisor: desktop_supervisor
+                        vr_nonsupervisor: vr_nonsupervisor_str,
+                        vr_supervisor: vr_supervisor_str,
+                        desktop_nonsupervisor: desktop_nonsupervisor_str,
+                        desktop_supervisor: desktop_supervisor_str
                     },
                     success: function(response){
                         console.log('RESPONSE', response);
@@ -173,18 +558,20 @@
                         $('#vr-supervisor').val("");
                         $('#desktop-nonsupervisor').val("");
                         $('#desktop-supervisor').val("");
-
+                        $('#message-sent-modal').modal('show');
+                        /*
                         if (response['failure_list'].length) {
                             $('#alert-emails-sent').text('Invalid email addresses: ' + response['failure_list'].join(', '));
                         } else {
                             $('#alert-emails-sent').text('Emails successfully sent.');
                         }
                         $('#alert-emails-sent').removeClass('hidden');
+                        */
                     }
                 })
 
 
             });
-        </script>
+        </script>    
     </body>
 </html>

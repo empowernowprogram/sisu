@@ -21,7 +21,7 @@ class PlayStateAdmin(admin.ModelAdmin):
     list_display = ('player', 'module_id', 'current_scene', 'time_taken')
 
 class UsageReportAdmin(admin.ModelAdmin):
-    list_display = ('username', 'date_taken', 'device_model', 'sisu_user')
+    list_display = ('username', 'date_taken', 'device_model', 'sisu_user', 'module_id', 'ip_address')
 
 class TrainingPackageDownloadLinkAdmin(admin.ModelAdmin):
     list_display = ('id', 'training_type', 'platform_category', 'is_supervisor')

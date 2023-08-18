@@ -23,7 +23,7 @@ class PlayStateSerializer(serializers.ModelSerializer):
 class UsageReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsageReport
-        fields = ('username', 'device_model', 'date_taken', 'sisu_user')
+        fields = ('username', 'device_model', 'date_taken', 'sisu_user', 'module_id', 'ip_address')
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

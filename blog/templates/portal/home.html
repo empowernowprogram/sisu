@@ -4,180 +4,821 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sisu VR Inc">
 
-        <!-- Title -->
-        {% include 'components/portal_tab_title.html' %}
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+    <!-- Title -->
+    {% include 'components/portal_tab_title.html' %}
 
-        <!-- Theme Styles -->
-        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
-    </head>
-    <body>
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
-        <!-- Page Container -->
-        <div class="page-container">
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+</head>
 
-            <!-- Page Sidebar Start -->
-            {% if player.admin %}
-                {% include 'components/portal_sidebar_admin.html' %}
-            {% elif player.supervisor %}
-                {% include 'components/portal_sidebar_supervisor.html' %}
-            {% else %}
-                {% include 'components/portal_sidebar_employee.html' %}
-            {% endif %}
-            <!-- Page Sidebar End -->
+<style>
+    .modal-body {
+        max-height: calc(100vh - 210px);
+        overflow-y: auto;
+    }
 
-            <!-- Page Content Start -->
-            <div class="page-content">
-                <!-- Page Sidebar / Navigation Elements Start -->
-                <div class="page-header">
-                    <!-- Collapsed / Mobile Navigation Bar Start -->
-                    {% include 'components/portal_mobilenav.html' %}
-                    <!-- Collapsed / Mobile Navigation Bar End -->
-                </div>
-                <!-- Page Sidebar / Navigation Elements End -->
+    .hidden {
+        display: none;
+    }
 
-                <!-- Page Inner Start -->
-                <div class="page-inner">
-                    <!-- Page Top Bar Start -->
-                    <div id="portal-home" class="page-title">
-                        <div style="float: right; margin-bottom: 10px">
-                            <h4>
-                                {% if player.admin is True %}
-                                    Admin
-                                {% else %}
-                                    {% if player.supervisor is True %}
-                                        Supervisor
-                                    {% elif player.supervisor is False %}
-                                        Non-supervisor
-                                    {% endif %}
-                                {% endif %}                             
-                            </h4>
-                        </div>
-                        <h2>Welcome, {{ player.full_name }}.</h2>
-                        <hr>
-                    </div>
-                    <!-- Page Top Bar End -->
-                    
-                    <!-- Main Content Start -->
-                    <div id="main-wrapper">
-                        {% if player.admin == False %}
-                            {% if play_sessions.count != 0 %}
-                                <div class="row">
-                                        <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span></h3>
-                                        <p>All modules must be completed by {{due_date}}.</p>
-                                        <br><br>
-                                        <div class="table-responsive">
-                                            <table class="table-sisu-overview">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Module</th>
-                                                        {% for play_session in play_sessions.all %}
-                                                        <th>{{ play_session.module_id }}</th>
-                                                        {% endfor %}
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Status</td>
-                                                        {% for play_session in play_sessions.all %}
-                                                        <td>
-                                                            {% if play_session.success is True %} <span class="table-sisu-completed">Completed</span> 
-                                                            {% elif play_session.success is False %} <span class="table-sisu-notstarted">Not Started</span> 
-                                                            {% endif %}
-                                                        </td>
-                                                        {% endfor %}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Mandatory</td>
-                                                        {% for play_session in play_sessions.all %}
-                                                        <td>
-                                                            {% if play_session.module_id in mandatory_modules_list %} &#10003;
-                                                            {% endif %}
-                                                        </td>
-                                                        {% endfor %}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Date Completed</td>
-                                                        {% for play_session in play_sessions.all %}
-                                                            {% if play_session.success is True %}
-                                                                <td>{{ play_session.date_taken }}</td>
-                                                            {% else %}
-                                                                <td>-</td>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Training Type</td>
-                                                        {% for play_session in play_sessions.all %}
-                                                        <td>{{ player.registration_type }}</td>
-                                                        {% endfor %}
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
+    .state-link {
+        text-decoration: underline;
+        color: blue;
+    }
 
-                                        {% if has_completed_all_mandatory %}
-                                            {% if player.is_provisional is False %}
-                                                <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}" target="_blank">See my results</a>
-                                                {% if player.supervisor is True %}
-                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='team_report' %}" target="_blank">See team results</a>
-                                                    <br/>
-                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}" target="_blank">Print certificate</a>
-                                                {% elif player.supervisor is False %}
-                                                    <br/>
-                                                    <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='nonsupervisor' %}" target="_blank">Print certificate</a>
-                                                {% endif %}
-                                            {% else %}
-                                                <p><strong>Unable to download certificate due to accounts provisional status, contact your HR administrator to resolve issue.</strong></p>
-                                            {% endif %}
-                                        
-                                        {% else %}
-                                            <p>Please complete all mandatory modules to view your result and print certificate.</p>
-                                        
-                                        {% endif %}
-                                        
-                                </div>                            
+
+    .state-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: minmax(50px, auto);
+        gap: 15px;
+
+        padding: 5;
+        /* optional: remove padding */
+    }
+
+    #modulesChart {
+        margin: 0 auto;
+        display: block;
+    }
+</style>
+
+<body>
+
+    <!-- Page Container -->
+    <div class="page-container">
+
+        <!-- Page Sidebar Start -->
+        {% if player.admin %}
+        {% include 'components/portal_sidebar_admin.html' %}
+        {% elif player.supervisor %}
+        {% include 'components/portal_sidebar_supervisor.html' %}
+        {% else %}
+        {% include 'components/portal_sidebar_employee.html' %}
+        {% endif %}
+        <!-- Page Sidebar End -->
+
+        <!-- Page Content Start -->
+        <div class="page-content">
+            <!-- Page Sidebar / Navigation Elements Start -->
+            <div class="page-header">
+                <!-- Collapsed / Mobile Navigation Bar Start -->
+                {% include 'components/portal_mobilenav.html' %}
+                <!-- Collapsed / Mobile Navigation Bar End -->
+            </div>
+            <!-- Page Sidebar / Navigation Elements End -->
+
+            <!-- Page Inner Start -->
+            <div class="page-inner">
+                <!-- Page Top Bar Start -->
+                <div id="portal-home" class="page-title">
+                    <div style="float: right; margin-bottom: 10px">
+                        <h4>
+                            {% if player.admin is True %}
+                            Admin
+                            {% else %}
+                            {% if player.supervisor is True %}
+                            Supervisor
+                            {% elif player.supervisor is False %}
+                            Non-supervisor
                             {% endif %}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <h2>Welcome, {{ player.full_name }}!</h2>
+                    <hr>
+                </div>
+                <!-- Page Top Bar End -->
+
+                <!-- Main Content Start -->
+                <div id="main-wrapper">
+                    {% if player.admin == True %}
+                    <p>Your company’s progress metrics: <span style="color: purple; font-weight: bolder;">{% widthratio
+                            play_sessions_completed.count play_sessions.count 100 %}%
+                            employee completion of modules ({{ play_sessions_completed.count }}-{{ play_sessions.count
+                            }}) </span></p>
+                    <canvas id="modulesChart" width="400" height="400"></canvas>
+                    <br>
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                        <a style="margin-top:10px; display:flex; width: 300px; align-items: center;  " type="button"
+                            class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='my_report' %}"
+                            target="_blank">View your organization’s training results</a>
+                    </div>
+
+                    {% endif %}
+
+                    {% if player.admin == False %}
+                    {% if play_sessions.count != 0 %}
+                    <div class="row">
+                        <h3>Your progress: <span style="color:#9F3688; font-weight: 800">{{ play_sessions_completed.count }} of {{ play_sessions.count }} modules completed.</span>
+                        </h3>
+                        <p style="color: red;"><svg width="30" height="30" viewBox="0 0 30 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.936 9.6L14.332 15.228H15.796L16.18 9.6H13.936ZM13.936 17.256C13.936 17.56 14.04 17.808 14.248 18C14.464 18.192 14.736 18.288 15.064 18.288C15.392 18.288 15.66 18.192 15.868 18C16.084 17.808 16.192 17.56 16.192 17.256C16.192 16.952 16.084 16.704 15.868 16.512C15.66 16.32 15.392 16.224 15.064 16.224C14.736 16.224 14.464 16.32 14.248 16.512C14.04 16.704 13.936 16.952 13.936 17.256Z" fill="#D71212"/>
+                            <path d="M13.9175 3.375C14.3986 2.54167 15.6014 2.54167 16.0825 3.375L25.6088 19.875C26.0899 20.7083 25.4885 21.75 24.5263 21.75H5.47372C4.51147 21.75 3.91006 20.7083 4.39119 19.875L13.9175 3.375Z" stroke="#D71212" stroke-width="1.5"/>
+                            </svg>
+                             All modules must be completed by {{due_date}}.</p>
+                        <br><br>
+                        <div class="table-responsive">
+                            <table class="table-sisu-overview">
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        {% for play_session in play_sessions.all %}
+                                        <th>{{ play_session.module_id }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Status</td>
+                                        {% for play_session in play_sessions.all %}
+                                        <td>
+                                            {% if play_session.success is True %} <span
+                                                class="table-sisu-completed">Completed</span>
+                                            {% elif play_session.success is False %} <span
+                                                class="table-sisu-notstarted">Not Started</span>
+                                            {% endif %}
+                                        </td>
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <td>Date Completed</td>
+                                        {% for play_session in play_sessions.all %}
+                                        {% if play_session.success is True %}
+                                        <td>{{ play_session.date_taken }}</td>
+                                        {% else %}
+                                        <td>-</td>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <td>Training Type</td>
+                                        {% for play_session in play_sessions.all %}
+                                        <td>{{ player.registration_type }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <br>
+                        <!-- show "View Certificate" button when play_sessions_completed.count == required number ==  play_sessions.count-->
+
+                        {% if has_completed_all_mandatory %}
+                        {% if player.is_provisional is False %}
+                        <div class="container" style="color:#EC7F00">
+                            <p>Click
+                                <a href="{% url 'ethical_report' pk='my_report' %}" target="_blank"
+                                    style="color:#EC7F00"><u>here</u></a>
+                                to view training results
+                            </p>
+                        </div>
+
+                        {% if player.supervisor is True %}
+                        <!-- <a style="margin-top:10px; display: block; width: 150px;" type="button" class="btn btn-sisu-primary" href="{% url 'ethical_report' pk='team_report' %}" target="_blank">See team results</a> -->
+
+                        <div class="container">
+                            
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="termsModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Workplace Conduct Regulations
+                                                Agreement</h3>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+                                        <div>
+                                            <button id="backBtn" style="display: block; width: 100px; margin: auto"
+                                                class="btn btn-sisu-primary">Back</button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <!-- Put your Terms and Conditions content here -->
+                                            <!-- In real case, the height of this block is what determines whether checkbox and continue button is shown or not -->
+                                            <div id="stateLinks">
+                                                <ul>
+                                                    <!-- <div class="state-column"> -->
+                                                    <li><a href="#" class="state-link" data-state="Alabama">Alabama</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Alaska">Alaska</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Arizona">Arizona</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Arkansas">Arkansas</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="California">California</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Colorado">Colorado</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Connecticut">Connecticut</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Delaware">Delaware</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Florida">Florida</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Georgia">Georgia</a>
+                                                    </li>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="state-column"> -->
+                                                    <li><a href="#" class="state-link" data-state="Hawaii">Hawaii</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Idaho">Idaho</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Illinois">Illinois</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Indiana">Indiana</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Iowa">Iowa</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Kansas">Kansas</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Kentucky">Kentucky</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Louisiana">Louisiana</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Maine">Maine</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Maryland">Maryland</a></li>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="state-column"></div> -->
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Massachusetts">Massachusetts</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Michigan">Michigan</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Minnesota">Minnesota</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Mississippi">Mississippi</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Missouri">Missouri</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Montana">Montana</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Nebraska">Nebraska</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Nevada">Nevada</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="New Hampshire">New
+                                                            Hampshire</a></li>
+                                                    <li><a href="#" class="state-link" data-state="New Jersey">New
+                                                            Jersey</a></li>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="state-column"> -->
+                                                    <li><a href="#" class="state-link" data-state="New Mexico">New
+                                                            Mexico</a></li>
+                                                    <li><a href="#" class="state-link" data-state="New York">New
+                                                            York</a></li>
+                                                    <li><a href="#" class="state-link" data-state="North Carolina">North
+                                                            Carolina</a></li>
+                                                    <li><a href="#" class="state-link" data-state="North Dakota">North
+                                                            Dakota</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Ohio">Ohio</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Oklahoma">Oklahoma</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Oregon">Oregon</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Pennsylvania">Pennsylvania</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Rhode Island">Rhode
+                                                            Island</a></li>
+                                                    <li><a href="#" class="state-link" data-state="South Carolina">South
+                                                            Carolina</a></li>
+                                                    <!-- </div> -->
+                                                    <!-- <div class="state-column"> -->
+                                                    <li><a href="#" class="state-link" data-state="South Dakota">South
+                                                            Dakota</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Tennessee">Tennessee</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Texas">Texas</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Utah">Utah</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Vermont">Vermont</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Virginia">Virginia</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Washington">Washington</a></li>
+                                                    <li><a href="#" class="state-link" data-state="West Virginia">West
+                                                            Virginia</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Wisconsin">Wisconsin</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Wyoming">Wyoming</a>
+                                                    </li>
+                                                    <!-- </div> -->
+                                                </ul>
+                                            </div>
+
+                                            <div id="complianceText" class="hidden">
+                                                <!-- The compliance text for the selected state will be loaded here -->
+                                            </div>
+                                            <input type="checkbox" id="agreeCheckbox"> I have read and agree to my
+                                            state's workplace compliance regulations.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="continueBtn" type="button" class="btn btn-sisu-primary hidden"
+                                                data-dismiss="modal">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- if {{ play_sessions_completed.count }} = {{ play_sessions.count }} print hi -->
+                            {% if play_sessions_completed.count == play_sessions.count %}
+                            <p>Review federal and state's workplace conduct regulations
+                                <a href="#" data-toggle="modal" data-target="#termsModal"
+                                    style="font-weight: bold;"><u>here</u></a>
+                                before printing your certificate.
+                            </p>
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'certificate' %}" target="_blank">Print
+                                Certificate</a>
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}"
+                                target="_blank">Take Survey</a><br>
+
+                            {% else %}
+                            <div style="display: inline-block;">
+                                <p style="margin-top:10px; display: inline-block; width: 150px; background-color: gray; vertical-align: middle;"
+                                    class="btn btn-sisu-primary">
+                                    Print Certificate
+                                </p>
+                                <span
+                                    style="margin-left: 5px; border: 1px solid black; border-radius: 50%; padding: 1px 10px; cursor: pointer; display: inline-block; vertical-align: middle;"
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="Print Certificate button will become available after completing all modules">i</span>
+                            </div><br>
+                            <div style="display: inline-block;">
+                                <p style="margin-top:10px; display: inline-block; width: 150px; background-color: gray; vertical-align: middle;"
+                                    class="btn btn-sisu-primary">
+                                    Take Survey
+                                </p>
+                                <span
+                                    style="margin-left: 5px; border: 1px solid black; border-radius: 50%;  padding: 1px 10px; cursor: pointer; display: inline-block; vertical-align: middle;"
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="Take Survey button will become available after completing all modules">i</span>
+                            </div>
+                            {% endif %}
+
+
+
+                            <p style="font-size: 24px;"><br>Your team’s learning progress: <span style="color: purple; font-weight: bolder;">{% widthratio play_sessions_completed.count play_sessions.count 100 %}%
+                                    employee completion of modules ({{ play_sessions_completed.count }} - {{ play_sessions.count }}) </span></p>
+                            <canvas id="modulesChart" width="400" height="400"></canvas>
+
+
+                        </div>
+
+
+
+
+                        {% elif player.supervisor is False %}
+                        <br />
+                        <div class="container">
+                            <p>Review the federal and the state's workplace conduct regulations
+                                <a href="#" data-toggle="modal" data-target="#termsModal"
+                                    style="font-weight: bold;"><u>here</u></a>
+                                before printing your certificate.
+                            </p>
+                            <a style="margin-top:10px; display: block; width: 150px;" id="printBtn" type="button"
+                                class="btn btn-sisu-primary hidden" href="{%url 'certificate' %}" target="_blank">Print
+                                certificate</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="termsModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalLabel">Terms and Condition</h3>
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+
+                                            </button>
+
+                                        </div>
+
+                                        <div class="modal-back">
+                                            <button id="backBtn">Back</button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <!-- Put your Terms and Conditions content here -->
+                                            <!-- In real case, the height of this block is what determines whether checkbox and continue button is shown or not -->
+                                            <div id="stateLinks" class="column-list">
+                                                <ul>
+                                                    <li><a href="#" class="state-link" data-state="Alabama">Alabama</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Alaska">Alaska</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Arizona">Arizona</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Arkansas">Arkansas</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="California">California</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Colorado">Colorado</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Connecticut">Connecticut</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Delaware">Delaware</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Florida">Florida</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Georgia">Georgia</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Hawaii">Hawaii</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Idaho">Idaho</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Illinois">Illinois</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Indiana">Indiana</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="Iowa">Iowa</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Kansas">Kansas</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Kentucky">Kentucky</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Louisiana">Louisiana</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Maine">Maine</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Maryland">Maryland</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Massachusetts">Massachusetts</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Michigan">Michigan</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Minnesota">Minnesota</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Mississippi">Mississippi</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Missouri">Missouri</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Montana">Montana</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Nebraska">Nebraska</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Nevada">Nevada</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link" data-state="New Hampshire">New
+                                                            Hampshire</a></li>
+                                                    <li><a href="#" class="state-link" data-state="New Jersey">New
+                                                            Jersey</a></li>
+                                                    <li><a href="#" class="state-link" data-state="New Mexico">New
+                                                            Mexico</a></li>
+                                                    <li><a href="#" class="state-link" data-state="New York">New
+                                                            York</a></li>
+                                                    <li><a href="#" class="state-link" data-state="North Carolina">North
+                                                            Carolina</a></li>
+                                                    <li><a href="#" class="state-link" data-state="North Dakota">North
+                                                            Dakota</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Ohio">Ohio</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Oklahoma">Oklahoma</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Oregon">Oregon</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Pennsylvania">Pennsylvania</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Rhode Island">Rhode
+                                                            Island</a></li>
+                                                    <li><a href="#" class="state-link" data-state="South Carolina">South
+                                                            Carolina</a></li>
+                                                    <li><a href="#" class="state-link" data-state="South Dakota">South
+                                                            Dakota</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Tennessee">Tennessee</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Texas">Texas</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Utah">Utah</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Vermont">Vermont</a>
+                                                    </li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Virginia">Virginia</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Washington">Washington</a></li>
+                                                    <li><a href="#" class="state-link" data-state="West Virginia">West
+                                                            Virginia</a></li>
+                                                    <li><a href="#" class="state-link"
+                                                            data-state="Wisconsin">Wisconsin</a></li>
+                                                    <li><a href="#" class="state-link" data-state="Wyoming">Wyoming</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div id="complianceText" class="hidden">
+                                                <!-- The compliance text for the selected state will be loaded here -->
+                                                <input type="checkbox" id="agreeCheckbox"> I have read and agree to my
+                                                state's workplace compliance regulations.
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="continueBtn" type="button" class="btn btn-primary hidden"
+                                                data-dismiss="modal">Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'certificate' %}" target="_blank">Print
+                                Certificate</a>
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}"
+                                target="_blank">Take Survey</a><br>
+
+                        </div>
+
+
+
+
+                        {% endif %}
+                        {% else %}
+                        <p style="color:#EC7F00; font-weight: bolder;">Click
+                            <a href="{% url 'ethical_report' pk='my_report' %}" target="_blank"
+                                style="color:#EC7F00"><u>here</u></a>
+                            to view training results
+                        </p>
+                        </p>
+                        {% if play_sessions_completed.count == play_sessions.count %}
+
+                            <p>Review federal and state's workplace conduct regulations
+                                <a href="#" data-toggle="modal" data-target="#termsModal"
+                                    style="font-weight: bold;"><u>here</u></a>
+                                before printing your certificate.
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'certificate' %}" target="_blank">Print
+                                Certificate</a>
+                            <a style="margin-top:10px; display: block; width: 150px;" type="button"
+                                class="btn btn-sisu-primary" href="{% url 'post_program_survey' pk='supervisor' %}"
+                                target="_blank">Take Survey</a><br>
+
+                            {% else %}
+                        <div style="display: inline-block;">
+                            <p style="margin-top:10px; display: inline-block; width: 150px; background-color: gray; vertical-align: middle;"
+                                class="btn btn-sisu-primary">
+                                Print Certificate
+                            </p>
+                            <span
+                                style="margin-left: 5px; border: 1px solid black; border-radius: 50%; padding: 1px 10px; cursor: pointer; display: inline-block; vertical-align: middle;"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Print Certificate button will become available after completing all modules">i</span>
+                        </div><br>
+                        <div style="display: inline-block;">
+                            <p style="margin-top:10px; display: inline-block; width: 150px; background-color: gray; vertical-align: middle;"
+                                class="btn btn-sisu-primary">
+                                Take Survey
+                            </p>
+                            <span
+                                style="margin-left: 5px; border: 1px solid black; border-radius: 50%;  padding: 1px 10px; cursor: pointer; display: inline-block; vertical-align: middle;"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Take Survey button will become available after completing all modules">i</span>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+
+                        {% else %}
+                        <p>Please complete all mandatory modules to view your result and print certificate.</p>
+
                         {% endif %}
 
                     </div>
-                    <!-- Main Content End -->
+                    {% endif %}
+                    {% endif %}
 
-                    <!-- Page Footer Start -->
-                    {% include 'components/portal_footer.html' %}
-                    <!-- Page Footer End -->
                 </div>
-                <!-- Page Inner End -->
+                <!-- Main Content End -->
+
+                <!-- Page Footer Start -->
+                {% include 'components/portal_footer.html' %}
+                <!-- Page Footer End -->
             </div>
-            <!-- Page Content End -->
+            <!-- Page Inner End -->
         </div>
-        <!-- /Page Content -->
+        <!-- Page Content End -->
+    </div>
+    <!-- /Page Content -->
 
 
-        <!-- Scripts -->
-        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+    <!-- Scripts -->
 
-        <script src="{% static 'portal/js/space.js' %}"></script>
-        <script src="{% static 'portal/js/scripts.js' %}"></script>
-    </body>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
+
+    <script>
+        var ctx = document.getElementById('modulesChart').getContext('2d');
+        var completedModules = {{ play_sessions_completed.count }};
+        var total = {{ play_sessions.count }};
+        var notCompletedModules = total - completedModules;
+        var completedPercentage = (completedModules / total * 100).toFixed(2);
+        var notCompletedPercentage = (notCompletedModules / total * 100).toFixed(2);
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'Not Completed'],
+                datasets: [{
+                    data: [completedModules, notCompletedModules],
+                    backgroundColor: ['purple', 'orange']
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var label = data.labels[tooltipItem.index];
+                            var val = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            return `${label}: ${val} (${tooltipItem.index === 0 ? completedPercentage : notCompletedPercentage}%)`;
+                        }
+                    }
+                },
+                plugins: {
+                    annotation: {
+                        annotations: [{
+                            type: 'point',
+                            xValue: completedPercentage,  // x position
+                            yValue: completedPercentage,  // y position
+                            content: `${completedPercentage}%`,
+                            position: 'start',
+                            backgroundColor: 'white',
+                            font: {
+                                size: 16
+                            },
+                            xAdjust: 50,
+                            yAdjust: -50
+                        },
+                        {
+                            type: 'point',
+                            xValue: notCompletedPercentage,
+                            yValue: notCompletedPercentage,
+                            content: `${notCompletedPercentage}%`,
+                            position: 'start',
+                            backgroundColor: 'white',
+                            font: {
+                                size: 16
+                            },
+                            xAdjust: -50,
+                            yAdjust: 50
+                        }]
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            let checkbox = $('#agreeCheckbox');
+            let continueBtn = $('#continueBtn');
+            let printBtn = $('#printBtn');
+            let stateLinks = $('.state-link');
+            let complianceTextContainer = $('#complianceText');
+            let stateLinksContainer = $('#stateLinks');
+            let backBtn = $('#backBtn').hide();
+
+            // Handle state link click
+            stateLinks.on('click', function (event) {
+                event.preventDefault();
+
+                // Get the name of the state that was clicked
+                let state = $(this).data('state');
+
+                // Load the compliance text for the clicked state
+                // For this example, I'm just using a simple map of state names to compliance text,
+                // but you would probably want to load this data from your server, perhaps using an AJAX request.
+                let complianceTextMap = {
+                    "Alabama": "Alabama compliance text...",
+                    "Alaska": "Alaska compliance text...",
+                    "Arizona": "Arizona compliance text...",
+                    "Arkansas": "Arkansas compliance text...",
+                    "California": "California law (called the Fair Employment and Housing Act or FEHA) prohibits discrimination, harassment and retaliation. The law also requires that employers “take reasonable steps to prevent and correct wrongful (harassing, discriminatory, retaliatory) behavior in the workplace (Cal. Govt. Code §12940(k)). The Department of Fair Employment and Housing (DFEH) is the state’s enforcement agency related to the obligations under the FEHA. California’s Fair Employment and Housing Council (FEHC) enacted regulations in 2016 to clarify this obligation to prevent and correct wrongful behavior. This document was produced by the DFEH to provide further guidance to California employers.",
+                    "Colorado": "Colorado compliance text...",
+                    "Connecticut": "Connecticut compliance text...",
+                    "Delaware": "Delaware compliance text...",
+                    "Florida": "Florida compliance text...",
+                    "Georgia": "Georgia compliance text...",
+                    "Hawaii": "Hawaii compliance text...",
+                    "Idaho": "Idaho compliance text...",
+                    "Illinois": "Illinois compliance text...",
+                    "Indiana": "Indiana compliance text...",
+                    "Iowa": "Iowa compliance text...",
+                    "Kansas": "Kansas compliance text...",
+                    "Kentucky": "Kentucky compliance text...",
+                    "Louisiana": "Louisiana compliance text...",
+                    "Maine": "Maine compliance text...",
+                    "Maryland": "Maryland compliance text...",
+                    "Massachusetts": "Massachusetts compliance text...",
+                    "Michigan": "Michigan compliance text...",
+                    "Minnesota": "Minnesota compliance text...",
+                    "Mississippi": "Mississippi compliance text...",
+                    "Missouri": "Missouri compliance text...",
+                    "Montana": "Montana compliance text...",
+                    "Nebraska": "Nebraska compliance text...",
+                    "Nevada": "Nevada compliance text...",
+                    "New Hampshire": "New Hampshire compliance text...",
+                    "New Jersey": "New Jersey compliance text...",
+                    "New Mexico": "New Mexico compliance text...",
+                    "New York": "New York compliance text...",
+                    "North Carolina": "North Carolina compliance text...",
+                    "North Dakota": "North Dakota compliance text...",
+                    "Ohio": "Ohio compliance text...",
+                    "Oklahoma": "Oklahoma compliance text...",
+                    "Oregon": "Oregon compliance text...",
+                    "Pennsylvania": "Pennsylvania compliance text...",
+                    "Rhode Island": "Rhode Island compliance text...",
+                    "South Carolina": "South Carolina compliance text...",
+                    "South Dakota": "South Dakota compliance text...",
+                    "Tennessee": "Tennessee compliance text...",
+                    "Texas": "Texas compliance text...",
+                    "Utah": "Utah compliance text...",
+                    "Vermont": "Vermont compliance text...",
+                    "Virginia": "Virginia compliance text...",
+                    "Washington": "Washington compliance text...",
+                    "West Virginia": "West Virginia compliance text...",
+                    "Wisconsin": "Wisconsin compliance text...",
+                    "Wyoming": "Wyoming compliance text...",
+                };
+                let complianceText = complianceTextMap[state];
+
+                // Hide the state links and show the compliance text and the "I agree" checkbox
+                stateLinksContainer.addClass('hidden');
+                complianceTextContainer.removeClass('hidden').text(complianceText);
+                checkbox.removeClass('hidden');
+                // backBtn.removeClass('hidden');
+                backBtn.show();
+
+            });
+
+            checkbox.on('change', function () {
+                if ($(this).is(':checked')) {
+                    continueBtn.removeClass('hidden');
+                } else {
+                    continueBtn.addClass('hidden');
+                }
+            });
+
+            continueBtn.on('click', function () {
+                printBtn.removeClass('hidden');
+            });
+
+            backBtn.on('click', function () {
+                // Hide the compliance text and the "I agree" checkbox
+                complianceTextContainer.addClass('hidden');
+                checkbox.addClass('hidden').prop('checked', false); // Uncheck the checkbox
+
+                // Show the state links
+                stateLinksContainer.removeClass('hidden');
+                backBtn.hide();
+
+            });
+        });
+
+            // checkbox only shows when state is selected stateLinksContainer is clicked
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
 
 </html>

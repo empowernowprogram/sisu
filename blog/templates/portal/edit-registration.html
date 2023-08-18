@@ -21,8 +21,8 @@
         <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
         <!-- Styles - DataTables -->
-        <!-- <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" /> -->
+        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'portal/plugins/datatables/css/jquery.datatables_themeroller.css' %}" />
 
         <!-- Theme Styles -->
         <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
@@ -34,6 +34,38 @@
                 padding: 6px 6px;
                 border: 1px solid #C1C7CD;
                 border-radius: 4px
+            }
+            .modal-body{
+                text-align:center;
+            }
+            .top-nav-wrapper{
+                display: flex; 
+                flex-direction: row; 
+                flex-wrap:wrap;
+                justify-content:space-between; 
+                align-items:center;
+            }
+            .top-nav-search-wrapper{
+                padding-left: 20px; 
+                flex-basis:50%;
+            }
+            .top-nav-search{
+                display:flex; 
+                align-items:center;
+                padding:2px;
+                border: 1px solid rgba(0,0,0,0.3);
+                border-radius: 5px;
+                width:300px;
+            }
+            #search{
+                border:none;
+                width:100%;
+            }
+            #search:focus{
+                outline: none;
+            }
+            #search:focus .top-nav-search{
+                border: 1px solid rgba(0,0,0,1);;
             }
         </style>
 
@@ -64,34 +96,36 @@
                 <div class="page-inner">
                     <!-- Page Top Bar Start -->
                     <div class="page-title">
-                        <h2>Edit Employee Registration</h2>
+                        <h2>Edit Registration</h2>
                         <hr>
                     </div>
 
                     <!-- top nav -->
-                    <div style="display: flex; flex-direction: row;">
-                        <div style="padding-left: 20px;">
-                            <input type="text" id="search" name="search" placeholder="Search">
+                    <div class = "top-nav-wrapper">
+                        <div class = "top-nav-search-wrapper">
+                            <div class = "top-nav-search">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+                                    <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                                </svg>
+                                <input type="text" id="search" name="search" placeholder="Search">
+                            </div>
+                            
                         </div>
-
-                        <label style="padding-left: 40px;">
+                        <label id="filter-select"style="padding-left: 40px; padding-right: 15px; flex-basis:50%; display:flex; justify-content:flex-end; align-items:center;">
+                            Filter on Registration Type:
+                            
+                        </label>
+                        <!-- Commented Out by Andy for New Design -->
+                            <label style="padding-top: 10px; padding-left: 20px;">
                             Showing: 
                             <select name="showing" id="showing">
-                                <option value="">10</option>
-                                <option value="">20</option>
-                                <option value="">All</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="-1">All</option>
                             </select>
+                            entries
                         </label>
-
-                        <label style="padding-left: 80px;">
-                            Filter:
-                            <select name="filter-search" id="filter-search">
-                                <option value="">All</option>
-                                <option value="">Name</option>
-                                <option value="">Email</option>
-                                <option value="">Registration</option>
-                            </select>
-                        </label>
+                        
                     </div>
 
                     <!-- Page Top Bar End -->
@@ -105,7 +139,7 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Registration</th>
+                                                <th class="filter-col">Registration</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -120,7 +154,8 @@
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
-                                        <tfoot class="tbl-sisu-header">
+                                        <!-- Commented Out Due to conflictg with Figma Design: Editted By Andy
+                                            <tfoot class="tbl-sisu-header">
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Email</th>
@@ -128,6 +163,8 @@
                                                 <th>Actions</th>
                                             </tr>
                                         </tfoot>
+                                        -->
+                                        
                                     </table>  
                                 </div>
                             </div>
@@ -195,12 +232,12 @@
                                         <form action="{% url 'remove-user' %}" method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
-                                                <p>Are you sure you want to remove user <b id="remove-user-name"></b> (<b id="remove-user-email"></b>)?</p>
+                                                <p>Delete <b id="remove-user-name"></b> (<b id="remove-user-email"></b>)'s account?</p>
                                                 <input type="hidden" id="userEmail2" name="userEmail2" value="" />
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="modal-footer" style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                                                <button type="submit"  class="btn btn-sisu-primary" style="margin-bottom:15px;">Yes, delete account</button>
                                                 <button type="button" class="btn btn-sisu-lined" data-dismiss="modal">Cancel</button>
-                                                <button type="submit"  class="btn btn-sisu-primary">Confirm Deletion</button>
                                             </div>
                                         </form>
                                     </div>
@@ -233,6 +270,10 @@
         <script src="{% static 'portal/js/scripts.js' %}"></script>
         
         <script src="{% static 'portal/plugins/datatables/js/jquery.datatables.min.js' %}"></script>
+        <script src="{% static 'portal/js/table-data-register.js' %}"></script>
+
+        <!--Font Awesome CDN-->
+        <script src="https://kit.fontawesome.com/c93b7b420e.js" crossorigin="anonymous"></script>
         <!-- <script src="{% static 'portal/js/table-data.js' %}"></script> -->
     </body>
 

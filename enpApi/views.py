@@ -125,7 +125,9 @@ def reportUsage(request):
         sisuUsr = False;
     #print(usr)
     #player = Player.objects.get(user=usr)
-    data = {'username': request.GET['email'], 'device_model': request.GET['model'], 'sisu_user' : sisuUsr}
+    ip_addr = request.META.get("REMOTE_ADDR")
+    print(ip_addr)
+    data = {'username': request.GET['email'], 'device_model': request.GET['model'], 'sisu_user' : sisuUsr, 'module_id' : request.GET['module_id'], 'ip_address' : ip_addr }
     session_serializer = UsageReportSerializer(data=data)
     if session_serializer.is_valid():
         print("Session valid")

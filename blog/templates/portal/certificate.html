@@ -5,82 +5,121 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sisu VR Inc">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
 
-        <!-- Title -->
-        {% include 'components/portal_tab_title.html' %}
+    <!-- Title -->
+    {% include 'components/portal_tab_title.html' %}
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" media="all">
-        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" media="all"/>
-        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" media="all"/>
-        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" media="all"/>
-        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" media="all"/>
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" media="all" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" media="all" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" media="all" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" media="all" />
 
-        <!-- Theme Styles -->
-        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" media="all"/>
-        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" media="all"/>
-    </head>
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" media="all" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" media="all" />
+</head>
 
-    <body style="background: #e0e0e0">
+<style>
 
-        <!-- Page Container -->
-        <div class="page-container">
+.page-container, .certificate, body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevents potential scrollbars */
+}
+    .certificate {
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        margin: 0;
+        background-color: #ffffff;
+        background: url('{% static "public/assets/modified_border.png" %}') no-repeat center center;
+        /* Adjust the path */
+        background-size: cover;
+        background-position: center center;
+        border: 90px solid transparent;
+        /* Adjust as per your border thickness */
+        border-image: url('{% static "public/assets/modified_border" %}') 30 round;
+        /* Adjust the path and border thickness */
+    }
+
+    .page-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e0e0e0;
+    }
+
+
+</style>
+
+<body style="background: #ffffff">
+
+    <!-- Page Container -->
+    <div class="page-container" >
+        <div class="certificate" >
             <div class="row" style="margin: auto;">
                 {% if has_completed_all_mandatory %}
-                <div class="panel panel-white cert-container cert-border-primary">
-                    <div class="panel-body">
 
-                        <h1 class="cert cert-title">Certificate of Completion</h1>
-                        <h1 class="cert cert-player-name">{{ player.full_name }}</h1>
-                        <p class="cert cert-text-reg">has successfully completed</p>
+                <div class="panel-body" >
 
-                        <p class="cert cert-text-reg"><strong>The Empower Now Program: Business Conduct Training</strong></p>
-                        <p class="cert cert-text-reg">{{date}}</p>
+                    <h1 class="cert cert-title">Congratulations to...</h1>
+                    <h1 class="cert cert-player-name">{{ player.full_name }}</h1>
+                    <p class="cert cert-text-reg">on successfully completing</p>
 
-                        <div class="col-md-6 cert-col" >
-                            <img src="{% static 'portal/img/logo-sisu.svg' %}" height="35" alt="Sisu VR">
-                        </div>
-                        <div class="col-md-6 cert-col">
-                            {% if not logo %}
-                                <p class="cert cert-text-reg">{{company}}</p>
-                            {% else %}
-                                <img src="{{logo}}" height="50">
-                            {% endif %}
-                        </div>
+                    <p class="cert cert-text-reg"><strong>The Empower Now Program: Business Conduct Training</strong>
+                    </p>
+                    <p class="cert cert-text-reg">{{date}}</p>
+
+                    <div class="col-md-6 cert-col">
+                        <img src="{% static 'public/assets/sisu_logo.png' %}" height="45" alt="Sisu VR">
+                    </div>
+                    <div class="col-md-6 cert-col">
+                        {% if not logo %}
+                        <p class="cert cert-text-reg">{{company}}</p>
+                        {% else %}
+                        <img src="{% static 'public/assets/company_logo.png' %}" height="50">
+                        {% endif %}
                     </div>
                 </div>
-                {% else %}
-                <div class="panel panel-white cert-container">
-                    <div class="panel-body">
-                        <h1 class="cert cert-title">Nice Try!</h1>
-                        <p class="cert cert-text-reg">The training certificate will be generated once all<br>mandatory training
-                            modules are completed. </p>
-
-                        <div style="margin: auto; text-align: center;">
-                            <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
-                                href="/portal/home/">Return to training</a>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
             </div>
+
+            {% else %}
+            <div class="panel panel-white cert-container">
+                <div class="panel-body">
+                    <h1 class="cert cert-title">Nice Try!</h1>
+                    <p class="cert cert-text-reg">The training certificate will be generated once all<br>mandatory
+                        training
+                        modules are completed. </p>
+
+                    <div style="margin: auto; text-align: center;">
+                        <a style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary"
+                            href="/portal/home/">Return to training</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        <!-- /Page Content -->
+    </div>
+    <!-- /Page Content -->
 
 
-            <!-- Scripts -->
-            <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
-            <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-            <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-            <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+    <!-- Scripts -->
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
 
-            <script src="{% static 'portal/js/space.js' %}"></script>
-            <script src="{% static 'portal/js/scripts.js' %}"></script>
-    </body>
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
+</body>
 
 </html>
