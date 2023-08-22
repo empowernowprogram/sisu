@@ -34,11 +34,12 @@
     <div class="body-inner">
         <!-- Header -->
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed" >
-            <div class="header-inner sisu-header-bkg">
+            <div style="background-image: linear-gradient(94.78deg, rgba(236, 127, 0, 0.06) 99.9%, rgba(236, 127, 0, 0.06) 0.1%); " class="header-inner sisu-header-bkg">
                 <div class="container">
                   <!--Logo-->
                   <a href="{% url 'home' %}" id="logo">
-                    <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
+                    <img src="{% static 'public/assets/sisu_logo.png' %}"  style="width: auto; height: 40px;"/>
+                    
                   </a>
                   <!--End: Logo-->
                   <!--Navigation Resposnive Trigger-->
@@ -47,7 +48,7 @@
                   </div>
                   <!--end: Navigation Resposnive Trigger-->
                   <!--Navigation-->
-                  {% include 'components/new-nav-bar.html' %}
+                  {% include 'components/new-nav-bar-2.html' %}
                   <!--end: Navigation-->
                 </div>
               </div>
@@ -61,23 +62,12 @@
             <div class="container">
                 <div class="sisu-divider-line text-center">
 
-                    <span class="lead"> Frequently Asked Questions</span>
-                     <div class="bg-cube-container" style="margin-left:-123px">
-                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
-                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
-                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
-                    </div>
+                    <span class="lead"> Frequently Asked Questions</span><br/> <br/>
+                    <hr style=" border: 1px solid #494949;">
 
-                    
                 </div>
                 <br/> <br/> <br/> <br/>
         </section>
-
-
 
 
         <section id="page-content">
@@ -248,14 +238,14 @@
                 <div class="sisu-divider-line text-center">
 
                     <div style="padding-bottom: 20px;">
-                        <span class="lead">Still have questions?</span>
+                        <span >Have any specific questions? Feel free to contact us and we would be happy to help.</span>
                     </div>
                     
                     <button type="button" class="btn btn-rounded btn-sisu-primary"><a href="{% url 'contact' %}" style="color:#fff">Contact Us</a></button>
                 </div>
         </section>
         <!-- end: Content -->
-        {% include 'components/new-footer.html' %}
+        {% include 'components/new-footer-faq.html' %}
     </div>
     <!-- end: Body Inner -->
 
@@ -266,6 +256,8 @@
 
     <!--Template functions-->
     <script src="{% static 'public/js/functions.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 

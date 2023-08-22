@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from .models import LinkedinPost, MediumPost
+from .models import LinkedinPost, MediumPost, Pres
 import sendgrid
 import os, urllib
 import requests, json

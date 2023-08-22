@@ -162,27 +162,14 @@
                                             <br>
                                             <p id="single">Click on &nbsp; <i class="fa-regular fa-bell"></i>&nbsp; to
                                                 notify individual employees</p>
-                                            <p id="multiple" style="text-decoration: underline;">
-                                            </p>
+                                            <div id="multiple" style="text-decoration: underline;">
+                                            </div>
 
                                             <tr>
                                                 <!-- if checkbox is ticked then show Checkme or else dont-->
                                                 <th id="col1">
                                                     Checkme
                                                     <!-- if accept checkbox is checked show col1 or else remove it -->
-                                                    <script>
-                                                        var checkbox = document.getElementById("accept");
-                                                        var col1 = document.getElementById("col1");
-                                                        checkbox.addEventListener("change", function () {
-                                                            if (this.checked) {
-                                                                col1.style.display = "block";
-                                                            } else {
-                                                                // delete col1
-                                                                col1.style.display = "none";
-
-                                                            }
-                                                        });
-                                                    </script>
 
                                                 </th>
                                                 <th>Name</th>
@@ -206,22 +193,6 @@
                                                     <!-- show row1 only if accept is checked-->
                                                     <input type="checkbox" id="checkme" name="checkme" value="yes">
                                                     <!-- show row1 only if accept is checked-->
-                                                    <script>
-                                                        var checkbox = document.getElementById("accept");
-                                                        var row1 = document.getElementById("row1");
-                                                        checkbox.addEventListener("change", function () {
-                                                            // create a for loop
-                                                            if (this.checked) {
-                                                                // create 
-                                                                row1.style.display = "block";
-                                                            } else {
-                                                                // remove row1 for all player_obj in player_obj
-                                                                row1.style.display = "none";
-
-                                                            }
-
-                                                        });
-                                                    </script>
 
                                                 </td>
                                                 <td>{{ player_obj.name }}</td>
@@ -338,7 +309,7 @@
                                                             border-radius: 10px;
                                                             margin: 5px;
                                                             padding: 5px;
-                                                            
+
                                                         }
 
                                                         .later {
@@ -379,7 +350,7 @@
                                                             onclick="openForm()"><i class="fa-regular fa-bell"></i></a>
                                                     </div>
                                                     <div class="formPopup" id="popupForm">
-                                                        <form action="/action_page.php" class="formContainer">
+                                                        <form class="formContainer">
                                                             <p style="  
                                                             font-family: 'Jost', sans-serif;
                                                             font-style: normal;
@@ -401,7 +372,7 @@
                                                                         alert them about training module due dates.</h5>
 
                                                                     </label>
-                                                                    <button type="submit" class="btn">Send</button>
+                                                                    <button onclick="sendEmail()" type="submit" class="btn">Send</button>
                                                                 </div>
                                                                 <div class="later">
                                                                     <h4>Schedule Future Alerts</h4>
@@ -409,7 +380,7 @@
                                                                             type="time" id="time"></p>
 
                                                                     </label>
-                                                                    <button type="submit" class="btn">Send</button>
+                                                                    <button onclick="sendEmail()" type="submit" class="btn">Send</button>
                                                                 </div>
                                                             </div>
                                                             <br>
@@ -426,10 +397,10 @@
                                                             return document.getElementById(id);
                                                         }
                                                         function showModal() {
-                                                            $("#popupForm").fadeIn('slow');
+                                                            $("#popupForm").fadeIn('fast');
                                                         }
                                                         function hideModal() {
-                                                            $("#popupForm").fadeOut('slow');
+                                                            $("#popupForm").fadeOut('fast');
                                                         }
 
                                                     </script>
@@ -442,16 +413,14 @@
                                 <p id="uncheck" style="text-decoration: underline;"> </p>
                                 <!-- uncheck all boxes with id="checkAll" whech click on button uncheck? -->
                                 <div class="openBtn">
-                                    <a class="openButton" onclick="openForm()"><button id="multiple-send"
+                                    <a class="openButton" onclick="openForm()"><button id="multiplesend"
                                             type="submit"></button></a>
                                 </div>
                                 <style>
-                                    #multiple-send {
-                                        background: #EC7F00;
-                                        border-radius: 50px;
-                                        color: #fff;
-                                        display: flex;
-                                        justify-content: center;
+                                    #multiplesend {
+                                        display: none;
+                                        /* justify-content: center; */
+                                        /* content: "Send notification to all checked employees"; */
 
                                     }
 
@@ -496,19 +465,66 @@
                 if (this.checked) {
                     document.getElementById("multiple").innerHTML = "Select all employees";
                     document.getElementById("uncheck").innerHTML = "Uncheck all boxes";
-                    document.getElementById("multiple-send").innerHTML = "Send notification to all checked employees";
+                    document.getElementById("multiplesend").innerHTML = "Send notification to all checked employees";
                     document.getElementById("single").innerHTML = "";
                 }
                 else {
                     document.getElementById("single").innerHTML = 'Click on &nbsp; <i class="fa-regular fa-bell"></i>&nbsp; to notify individual employees';
                     document.getElementById("multiple").innerHTML = "";
                     document.getElementById("uncheck").innerHTML = "";
-                    document.getElementById("multiple-send").innerHTML = "";
+                    document.getElementById("multiplesend").innerHTML = "";
                 }
+            });
+            // onclick the checkbox remove multiplesend
+
+        </script>
+        <script>
+            var checkbox = document.getElementById("accept");
+            var ms = document.getElementById("multiplesend");
+            var row1 = document.getElementById("row1");
+            var col1 = document.getElementById("col1");
+            checkbox.addEventListener("change", function () {
+                // create a for loop
+                if (this.checked) {
+                    // create 
+                    ms.style.display = "block";
+                    ms.style.background = "#EC7F00";
+                    ms.style.color = "#fff";
+                    ms.style.borderRadius = "50px";
+                    ms.style.content = "Send notification to all checked employees";
+                    ms.style.justifyContent = "center";
+                    row1.style.display = "block";
+                    col1.style.display = "block";
+
+                } else {
+                    // remove row1 for all player_obj in player_obj
+                    ms.style.display = "none";
+                    row1.style.display = "none";
+                    col1.style.display = "none";
+
+                }
+
             });
         </script>
         <!-- add employee-progress.js as a script -->
         <script src="employee-progress.js"></script>
+        <script src="https://smtpjs.com/v3/smtp.js">
+        </script>
+        <script>
+            function sendEmail() {
+                Email.send({
+                    SecureToken: "4bc0c302-b25c-4788-808b-96235c5ee1a4",
+                    To: "ayushshreeshreemal@gmail.com",
+                    From: "ayushjlm10@gmail.com",
+                    Subject: "Sisu Employee registration",
+                    Body: "This is a test email"
+                }).then(
+                    message => alert(message)
+                );
+            }
+        </script>
+        <!-- add modal.js from js folder in portal -->
+        <script src="{% static 'portal/js/modal.js' %}"></script>
         <script src="https://kit.fontawesome.com/1c33bc798c.js" crossorigin="anonymous"></script>
         <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
         <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
