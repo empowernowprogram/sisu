@@ -71,16 +71,6 @@
     });
   </script>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9Z5LETMYLK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-9Z5LETMYLK');
-  </script>
-
   <!-- Document title -->
   <title>Home - Sisu VR</title>
   <!-- Stylesheets & Fonts -->
@@ -165,8 +155,9 @@
   <!-- Body Inner -->
   <div id="emailModal" class="modal fade">
     <div class="modal-dialog">
-      <div class="my-modal-content" style="background-color: rgba(255, 255, 255, 1);
-      background-image: linear-gradient(94.78deg, rgba(245, 185, 66, 0.2) 10.09%, rgba(206, 68, 134, 0.2) 71.99%);">
+      <div class="my-modal-content"
+        style="background-color: rgba(255, 255, 255, 1);
+      background-image: linear-gradient(94.78deg, rgba(245, 185, 66, 0.2) 10.09%, rgba(206, 68, 134, 0.2) 71.99%); overflow-y: auto; max-height: 80vh; ">
         <div class="my-modal-top-bar">
           <button type="button" class="my-modal-button" data-dismiss="modal"
             style="margin-top: 50px; margin-right: 50px; color: rgba(209, 76, 132, 1); border-color: rgba(209, 76, 132, 1);">
@@ -227,55 +218,105 @@
 
   <div class="body-inner">
 
-    <!-- Header -->
-    <!-- <header id="header" data-transparent="true" data-fullwidth="true" data-responsive-fixed="true"
-      data-sticky-active="500" class="dark submenu-light header-fixed home">
-      <div id="header-inner" class="header-inner sisu-header-transparent-bkg">
-        <div class="container"> -->
-    <!--Logo-->
-    <!-- <a id="logo" href="{% url 'home' %}">
-            <img src="{% static 'public/assets/svg/logo-text-light.svg' %}" />
-          </a> -->
-    <!--End: Logo-->
-
-    <!--Navigation Resposnive Trigger-->
-    <!-- <div id="mainMenu-trigger">
-            <a class="lines-button x"><span id="menu-trigger-lines" class="lines lines-dark"></span></a>
-          </div> -->
-    <!--end: Navigation Resposnive Trigger-->
-    <!--Navigation-->
-    <!-- {% include 'components/new-nav-bar-2.html' %} -->
-    <!--end: Navigation-->
-    <!-- </div>
-      </div>
-    </header> -->
-    <!-- end: Header -->
 
 
     <!-- Inspiro Slider -->
-    <div id="slider" class="inspiro-slider" style="top: -92px; margin-bottom: -122px">
+    <style>
+      .sisu-header-title {
+        font-size: 40px;
+      }
+
+      .btn-sisu-secondary {
+        font-size: 20px;
+        margin-top: -12px;
+        margin-bottom: 24px;
+        border-radius: 30px;
+        height: 72px;
+        width: 300px;
+      }
+
+      #btn-link {
+        font-size: 20px;
+      }
+
+      #slider {
+        top: -92px;
+        margin-bottom: -122px
+      }
+
+      #title-image {
+        right: -30px;
+        bottom: 55px;
+        position: absolute;
+        width: 50%;
+        height: auto;
+      }
+
+      #wavy-shape {
+        position: absolute;
+        bottom: -90px;
+      }
+
+
+      @media (max-width: 768px) {
+
+        /* Styles for mobile screens */
+        .slide img {
+          width: 100%;
+          right: 0;
+          bottom: 0;
+        }
+
+        .sisu-header-title {
+          font-size: 20px;
+          max-width: 100%;
+          overflow-wrap: break-word;
+        }
+
+        .slide-captions h2 {
+          font-size: 16px;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+
+        .btn-sisu-secondary {
+          font-size: 16x;
+          width: 200px;
+          height: 48px;
+        }
+
+        #portal-redirect {
+          padding-top: 20px;
+        }
+
+        #btn-link {
+          font-size: 16px;
+        }
+
+        #slider {
+          top: -120px;
+          margin-bottom: -232px
+        }
+
+        #title-image {
+          right: -30px;
+          bottom: 75px;
+        }
+
+        #wavy-shape {
+          position: absolute;
+          bottom: -5px;
+          height: 90px;
+        }
+      }
+    </style>
+
+    <div id="slider" class="inspiro-slider">
       <div class="slide"
         style="background: linear-gradient(100.76deg, rgba(160, 55, 137, 0.06) 8.34%, rgba(170, 64, 122, 0.06) 48.23%, rgba(255, 138, 0, 0.2) 86.49%);">
-        <img src="{% static 'public/assets/woman-vr-4.png' %}"
-          style="right: -30px; bottom: 55px; position: absolute; width: 50%; height: auto;" />
-        <!-- <div
-            class="shape-divider"
-            data-style="12"
-            style="z-index: 0; opacity: 1"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 630 120"
-              preserveAspectRatio="none"
-              style="height: 105px"
-            >
-              <path
-                d="M630,34.5a54,54,0,0,1-9,2.3C578.3,46.1,556.1,24,517.2,12.5c-22.9-6.7-47.9-9.8-71-3.9C395.8,21.7,340.3,102,285.1,102.4c-45.4.3-72.6-26.5-102.3-46.1-21.8-14.4-44-30.8-67.4-42.1C84.2-.9,50.9-7.2,13.2,11.8l-1.2.6c-3.5,1.9-8.2,3.9-12,5.9V120H630Z"
-                style="fill: #fff"
-              ></path>
-            </svg>
-          </div> -->
-        <img src="{% static 'public/assets/wavy-shape.png' %}" style="position: absolute; bottom: -90px;" />
+        <img id="title-image" src="{% static 'public/assets/woman-vr-4.png' %}" />
+
+        <img id="wavy-shape" src="{% static 'public/assets/wavy-shape.png' %}" />
 
 
         <div class="container">
@@ -288,19 +329,12 @@
             <h2 style="margin-top: -30px;  color: #494949">
               Take one step closer to an empowered workplace.
             </h2>
-            <button style="
-                  font-size: 20px;
-                  margin-top: -12px;
-                  margin-bottom: 24px;
-                  border-radius: 30px;
-                  height: 72px;
-                  width: 300px;
-                " type="button" class="btn btn-sisu-secondary">
-              <a href="enp" style="color: #ffffff !important">View Our Trainings</a>
+            <button type="button" class="btn btn-sisu-secondary">
+              <a id="btn-link" href="enp" style="color: #ffffff !important; ">View Our Trainings</a>
             </button>
             <!-- <button style="font-size:16px; margin-top:12px" type="button" class="btn btn-sisu-primary"
                             style="background-color: #3c3c3c" id="btn-view-demo">View Demo</button> -->
-            <h2 style="color: #494949;">
+            <h2 id="portal-redirect" style="color: #494949;">
               Already a customer?
               <a style="color: #494949; text-decoration: underline; font-weight: bold" href="{% url 'home_portal' %}">Go
                 to Customer Portal</a>
@@ -458,55 +492,102 @@
               Our Trainings
             </h3>
             <br><br><br>
-            <div
-              style="font-size: 32px;display: flex;  justify-content: center; align-items: center; flex-direction: row; text-align: center; gap: 180px;">
-              <div style="font-size: 18px; color: #494949;"><img src="{% static '/public/assets/training_1.png' %}"
-                  class="card-img-top" alt="..." style="height:240px; width:auto; padding-bottom: 30px;" />
-                <div style="font-size: 32px; font-weight: 700; color: #9F3688;">HR Business Conduct Training</div><br>
-                <div style="font-size: 18px; font-weight: 700; color: #373F41; line-height: 22px;">Sexual harrassment to
-                  bullying, our HR Business Conduct Training can
-                  help your employees learn to handle a variety of situations.</div><br>
-                This training can help your employees learn to handle situations such as workplace harassment,
+            <style>
+              #cards-container {
+                font-size: 32px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-direction: row;
+                text-align: center;
+                gap: 180px;
+              }
+
+              .cards {
+                font-size: 18px;
+                color: #494949;
+              }
+
+              .cards-title {
+                font-size: 32px;
+                font-weight: 700;
+                color: #9F3688;
+              }
+
+              .card .description {
+                font-size: 18px;
+                font-weight: 700;
+                color: #373F41;
+                line-height: 22px;
+              }
+
+              .card-img-top {
+                height: 240px;
+                width: auto;
+                margin-bottom: 30px; 
+              }
+
+              .btn-sisu-secondary {
+                font-size: 20px;
+                margin-top: -12px;
+                margin-bottom: 24px;
+                border-radius: 30px;
+                height: 50px;
+                width: 300px;
+              }
+
+              /* Responsive Styles */
+              @media screen and (max-width: 768px) {
+                #cards-container {
+                  flex-direction: column;
+                  gap: 30px;
+                }
+
+                .btn-custom {
+                  font-size: 16px;
+                  height: 40px;
+                  width: 240px;
+                }
+
+                .cards-title {
+                  font-size: 25px;
+                  line-height: normal;
+                  font-weight: 700;
+                  color: #9F3688;
+                }
+              }
+            </style>
+            <div id="cards-container">
+              <div class="cards">
+                <img src="{% static '/public/assets/new_training_1.png' %}" class="card-img-top" alt="..."  />
+                <div class="cards-title">HR Business Conduct
+                  Training</div><br>
+                <div style="font-size: 18px; font-weight: 700; color: #373F41; line-height: 22px;">Our HR Business
+                  Conduct Training helps your employees learn to handle a variety of situations. </div><br>
+                This training helps employees learn to handle situations such as workplace harassment,
                 discrimination,
                 and bullying. Avoid decreased productivity, increased turnover, and even lawsuits due to problems in the
                 workforce.<br><br> Learn more about how HR Business Conduct Training can help you have a safer work
                 environment for
                 everyone.<br><br><br><br>
-                <button style="
-                  font-size: 20px;
-                  margin-top: -12px;
-                  margin-bottom: 24px;
-                  border-radius: 30px;
-                  height: 50px;
-                  width: 300px;
-                " type="button" class="btn btn-sisu-secondary">
-                  <a href="enp" style="color: #ffffff !important">View Our Trainings</a>
+                <button type="button" class="btn btn-sisu-secondary">
+                  <a href="enp" style="color: #ffffff !important; font-size: 20px;">View Our Trainings</a>
                 </button>
               </div>
-              <div
-                style="font-size: 32px;display: flex;  justify-content: center; align-items: center; flex-direction: row; text-align: center; gap: 180px;">
-                <div style="font-size: 18px; color: #494949;"><img src="{% static '/public/assets/training_2.png' %}"
-                    class="card-img-top" alt="..." style="height:240px; width:auto; padding-bottom: 30px;" />
-                  <div style="font-size: 32px; font-weight: 700; color: #9F3688;">Active Shooter Training</div><br>
-                  <div style="font-size: 18px; font-weight: 700; color: #373F41; line-height: 22px;">Our Active Shooter
-                    Training can help
-                    your employees be prepared for the unimaginable.</div><br>
-                  The deadliest situations involve an active shooter. 80% of active shooter incidents occur in the
-                  workplace, and 25% of companies are unprepared for active shooter incidents. Do not let your company
-                  be
-                  one of them.<br><br> Learn more about how Mindglow Active Shooter Training can help your company be
-                  prepared.<br><br><br><br>
-                  <button style="
-                  font-size: 20px;
-                  margin-top: -12px;
-                  margin-bottom: 24px;
-                  border-radius: 30px;
-                  height: 50px;
-                  width: 300px;
-                " type="button" class="btn btn-sisu-secondary">
-                    <a href="enp/#AST" style="color: #ffffff !important">View Our Trainings</a>
-                  </button>
-                </div>
+              <div class="cards">
+                <img src="{% static '/public/assets/new_training_2.png' %}" class="card-img-top" alt="..."/>
+                <div class="cards-title" style="width:max-content">Active Shooter Response Training</div><br>
+                <div style="font-size: 18px; font-weight: 700; color: #373F41; line-height: 22px;">Our Active Shooter Response
+                  Training can help
+                  your employees be prepared for the unimaginable.</div><br>
+                The deadliest situations involve an active shooter. 80% of active shooter incidents occur in the
+                workplace, and 25% of companies are unprepared for active shooter incidents. Do not let your company
+                be
+                one of them.<br><br><br> Learn more about how Mindglow Active Shooter Response Training can help your company be
+                prepared.<br><br><br><br><br>
+                <button type="button" class="btn btn-sisu-secondary">
+                  <a href="enp/#AST" style="color: #ffffff !important; font-size: 20px;">View Our Trainings</a>
+                </button>
               </div>
 
               <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
@@ -521,6 +602,8 @@
           </div>
 
 
+
+
           <hr class="space" />
         </div>
       </div>
@@ -529,7 +612,97 @@
     </div>
 
 
+
+
     <!-- Slideshow container -->
+    <style>
+      #learn-more-3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #373F41;
+        animation-duration: 100ms;
+      }
+
+      .text-center-4 {
+        font-weight: 500;
+        color: #494949;
+        font-size: large;
+        margin-top: 70px;
+        text-align: center;
+      }
+
+      .text-center-1 {
+        padding: 0px 15px;
+        font-size: 24px;
+        text-align: center;
+      }
+
+      .text-center-2 {
+        font-size: 18px;
+        text-align: center;
+        color: #494949;
+      }
+
+      .prev {
+        color: #ec7f00;
+        margin-top: -90px;
+        margin-left: -90px;
+        font-size: 45px;
+        padding: 10px 20px;
+        width: auto;
+        height: auto;
+      }
+
+      .next {
+        color: #ec7f00;
+        margin-top: -90px;
+        margin-right: -90px;
+        font-size: 45px;
+        padding: 10px 20px;
+        width: auto;
+        height: auto;
+      }
+
+      @media screen and (max-width: 768px) {
+
+        .text-center-1 {
+          padding: 0px 15px;
+          font-size: 16px;
+          text-align: center;
+          margin-left: 30px;
+          margin-right: 30px;
+        }
+
+        .text-center-2 {
+          font-size: 12px;
+          text-align: center;
+          color: #494949;
+
+        }
+
+        .prev {
+          margin-left: -10px;
+        }
+
+        .next {
+          margin-right: -10px;
+        }
+
+        .text-center-4 {
+          margin-top: 100px;
+          font-weight: 500;
+          color: #494949;
+          font-size: large;
+          padding-top: 70px;
+          text-align: center;
+        }
+
+
+      }
+    </style>
     <div class="slideshow-container">
       <!-- Full-width images with number and caption text -->
       <div class="mySlides" style="display: block">
@@ -537,15 +710,7 @@
           <div class="row">
             <div class="col-lg-12 p-t-80 p-b-20">
               <div class="heading-section">
-                <h3 id="learn-more-3" style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 700;
-            color: #373F41;
-            animation-duration: 100ms;
-            ">
+                <h3 id="learn-more-3">
                   Testimonials
                 </h3>
               </div>
@@ -553,13 +718,13 @@
           </div>
           <div class="row justify-content-md-center align-items-center" style="height: 200px">
             <div class="col-lg-12">
-              <p class="text-center" style="padding: 0px 15px; font-size: 24px;">
+              <p class="text-center-1">
                 “Sisu VR's training provides a surreal training experience,
                 something I have never personally experienced before. I
                 definitely felt more engaged with Sisu's training package
                 compared to the traditional training methods.”
               </p><br><br>
-              <p class="text-center" style="font-size: 18px; color:  #494949;">
+              <p class="text-center-2">
                 <strong><cite>Robert M.</cite></strong>
                 <br />Founder of SatCatalog
               </p>
@@ -573,15 +738,7 @@
           <div class="row">
             <div class="col-lg-12 p-t-80 p-b-20">
               <div class="heading-section">
-                <h3 id="learn-more-3" style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 600;
-            color: #373F41;
-            animation-duration: 100ms;
-            ">
+                <h3 id="learn-more-3">
                   Testimonials
                 </h3>
               </div>
@@ -589,12 +746,12 @@
           </div>
           <div class="row justify-content-md-center align-items-center" style="height: 200px;">
             <div class="col-lg-12">
-              <p class="text-center" style="padding: 0px 15px;  font-size: 24px;">
+              <p class="text-center-1">
                 “Sisu VR is disrupting the market of workplace safety training
                 by brining immersive virtual reality to a field traditionally
                 served by dull and boring training situations.”
               </p><br><br>
-              <p class="text-center" style="font-size: 18px; color:  #494949;">
+              <p class="text-center-2">
                 <strong><cite>Renzo Zagni</cite></strong><br />Founder and CEO of Intelenz
               </p>
               <br />
@@ -607,15 +764,7 @@
           <div class="row">
             <div class="col-lg-12 p-t-80 p-b-20">
               <div class="heading-section">
-                <h3 id="learn-more-3" style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 600;
-            color: #373F41;
-            animation-duration: 100ms;
-            ">
+                <h3 id="learn-more-3">
                   Testimonials
                 </h3>
               </div>
@@ -623,12 +772,12 @@
           </div>
           <div class="row justify-content-md-center align-items-center" style="height: 200px">
             <div class="col-lg-12">
-              <p class="text-center" style="padding: 0px 15px; font-size: 24px;">
+              <p class="text-center-1">
                 “Jocelyn Tan and her team were amazing to work with &mdash;
                 motivating, passionate and helpful. What more could you ask
                 for?”
               </p><br><br>
-              <p class="text-center" style="font-size: 18px; color:  #494949;">
+              <p class="text-center-2">
                 <strong><cite>Pat Ferris</cite></strong><br />Principal at Pat Ferris Consulting
               </p>
               <br />
@@ -640,10 +789,8 @@
       </div>
 
       <!-- Next and previous buttons -->
-      <a class="prev" onclick="plusSlides(-1)"
-        style="color: #ec7f00; margin-top: -90px; margin-left: -90px; font-size: 45px; padding: 10px 20px; width: auto; height: auto;">&#10094;</a>
-      <a class="next" onclick="plusSlides(1)"
-        style="color: #ec7f00; margin-top: -90px; margin-right: -90px; font-size: 45px; padding: 10px 20px; width: auto; height: auto;">&#10095;</a>
+      <a class="prev" style="color: #ec7f00;" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" style="color: #ec7f00;" onclick="plusSlides(1)">&#10095;</a>
     </div>
   </div>
 
@@ -659,7 +806,7 @@
 
       <div class="row justify-content-md-center center-container">
         <div class="col-lg-12">
-          <h3 class="text-center" style="font-weight: 500; color: #494949; font-size: large;  margin-top: 70px;">
+          <h3 class="text-center-4">
             Take one step closer to a safe and empowered workplace
           </h3>
         </div>
@@ -814,63 +961,6 @@
       </div>
 
 
-      <!-- <div class="heading-text heading-line text-center">
-        <h4><br><br><br><br><br>Our Partners<br><br><br></h4>
-      </div>
-      <div class="row team-members" style="display: grid; grid-template-columns: 1fr 1fr 1fr; ">
-        <div class="col-sm">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://www.mindglowinc.com/" target="_blank"><img
-                  src="{% static 'public/assets/img/partner-02.png' %}" alt="MindGlow Inc." style="width: 138px" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://www.redlinevr.com/" target="_blank"><img
-                  src="{% static 'public/assets/img/partner-logo-redlinevr.jpg' %}" alt="Redline VR"
-                  style="width: 138px" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm" style="display: flex; align-items: center">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://www.opensesame.com/" target="_blank"><img
-                  src="{% static 'public/assets/img/partner-logo-opensesame.png' %}" alt="OpenSesame"
-                  style="width: 300px" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://theeplex.com/" target="_blank"><img
-                  src="{% static 'public/assets/img/partner-logo-eplex.png' %}" alt="EPlex" style="width: 138px" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://www.boozallen.com/" target="_blank"><img
-                  src="{% static 'public/assets/img/partner-logo-boozallen.png' %}" alt="Booz Allen"
-                  style="width: 138px" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm">
-          <div class="team-member">
-            <div class="team-image">
-              <a href="https://www.boozallen.com/" target="_blank"><img
-                  src="{% static 'public/assets/gray_matter.png' %}" alt="Gray Matter Growth"
-                  style="width: 138px" /></a>
-            </div>
-          </div>
-        </div> -->
-
 
       <div class="row justify-content-md-center center-container">
   </section>
@@ -986,11 +1076,11 @@
     });
   </script>
   <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
+    document.getElementById('myForm').addEventListener('submit', function (event) {
       var emailInput = document.querySelector('input[name="email_signup"]');
       var emailValue = emailInput.value;
       var emailError = document.getElementById("email-error");
-    
+
       // if email is empty or does not contain @
       if (!emailValue.includes('@')) {
         emailError.style.display = 'block';
@@ -1001,7 +1091,7 @@
         emailError.innerText = "";
       }
     });
-    </script>
+  </script>
 
 </body>
 
