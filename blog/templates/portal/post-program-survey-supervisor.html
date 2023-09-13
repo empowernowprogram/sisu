@@ -4,189 +4,200 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Meta Tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Sisu VR Inc">
 
-        <!-- Title -->
-        {% include 'components/portal_tab_title.html' %}
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Sisu VR Inc">
 
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <!-- Title -->
+    {% include 'components/portal_tab_title.html' %}
 
-        <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/font-awesome/css/font-awesome.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
-        <!-- Theme Styles -->
-        <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'portal/plugins/icomoon/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/plugins/uniform/css/default.css' %}" />
 
-        <!-- jQuery -->
-        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    </head>
-    <body>
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{% static 'portal/css/space.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
 
-        <!-- Page Container -->
-        <div class="page-container">
 
-            <!-- Page Sidebar Start -->
-            {% if player.admin is True %}
-                {% include 'components/portal_sidebar_admin.html' %}
-            {% else %}
-                {% include 'components/portal_sidebar_employee.html' %}
-            {% endif %}
-            <!-- Page Sidebar End -->
+    <!-- jQuery -->
+    <style>
+        [name^='overall'] {
+            display: none;
+        }
 
-            <!-- Page Content Start -->
-            <div class="page-content">
-                <!-- Page Sidebar / Navigation Elements Start -->
-                <div class="page-header">
-                    <!-- Collapsed / Mobile Navigation Bar Start -->
-                    {% include 'components/portal_mobilenav.html' %}
-                    <!-- Collapsed / Mobile Navigation Bar End -->
+        .star {
+            font-size: 50px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .empty i {
+            color: #ccc;
+        }
+
+        .orange i {
+            color: #FFAB08;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Container -->
+    <div class="page-container">
+
+        <!-- Page Sidebar Start -->
+        {% if player.admin is True %}
+        {% include 'components/portal_sidebar_admin.html' %}
+        {% else %}
+        {% include 'components/portal_sidebar_employee.html' %}
+        {% endif %}
+        <!-- Page Sidebar End -->
+
+        <!-- Page Content Start -->
+        <div class="page-content">
+            <!-- Page Sidebar / Navigation Elements Start -->
+            <div class="page-header">
+                <!-- Collapsed / Mobile Navigation Bar Start -->
+                {% include 'components/portal_mobilenav.html' %}
+                <!-- Collapsed / Mobile Navigation Bar End -->
+            </div>
+            <!-- Page Sidebar / Navigation Elements End -->
+
+            <!-- Page Inner Start -->
+            <div class="page-inner">
+                <!-- Page Top Bar Start -->
+                <div id="portal-home" class="page-title">
+                    <h2 id="survey-title">Survey</h2>
+                    <hr>
                 </div>
-                <!-- Page Sidebar / Navigation Elements End -->
+                <!-- Page Top Bar End -->
 
-                <!-- Page Inner Start -->
-                <div class="page-inner">
-                    <!-- Page Top Bar Start -->
-                    <div id="portal-home" class="page-title">
-                        <h2 id="survey-title">One last thing...</h2>
-                        <hr>
-                    </div>
-                    <!-- Page Top Bar End -->
-                    
-                    <!-- Main Content Start -->
-                    <div id="survey">
-                        <form action="{% url 'save_survey' pk='supervisor' %}" method="post">
-                            {% csrf_token %}
-                            <div id="question1" class="row">
-                                <h4>1. On a scale from 1-10, how likely are you to recommend Sisu VR to a friend or colleague?</h4>
+
+                <!-- Main Content Start -->
+                <div id="survey">
+
+                    <form action="{% url 'save_survey' pk='supervisor' %}" method="post" id="inputs">
+
+
+
+                        {% csrf_token %}
+
+                        <div id="question1" class="row">
+                            <!-- <h4>1. On a scale from 1-10, how likely are you to recommend Sisu VR to a friend or colleague?</h4>
                                 <br>
                                 <div class="likert">
                                     <li> Not at all likely </li>
                                     {% for score in scale10 %}
                                     <li><input type="radio" name="recommendScore" value="{{score}}" /></li>
                                     {% endfor %}
-                                    <li> Extremely likely </li>
-                                </div>
-                                <br><br><br>
-                                <a id="continue1" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn">Continue</a>
+                                    <li> Extremely likely </li> -->
+                            <h4>Please rate your overall experience with the Empower Now Program.</h4>
+                            <label class="star orange"><input type="radio" name="overall" value="1"><i
+                                    class="fa fa-star"></i></label>
+                            <label class="star orange"><input type="radio" name="overall" value="2"><i
+                                    class="fa fa-star"></i></label>
+                            <label class="star orange"><input type="radio" name="overall" value="3" checked><i
+                                    class="fa fa-star"></i></label>
+                            <label class="star empty"><input type="radio" name="overall" value="4"><i
+                                    class="fa fa-star"></i></label>
+                            <label class="star empty"><input type="radio" name="overall" value="5"><i
+                                    class="fa fa-star"></i></label><br>
 
-                            </div>
 
-                            <div id="question2" class="row" hidden>
-                                <div class="form-group">
-                                    <label for="textarea1"><h4>2. Please tell us why you gave this rating.</h4></label>
-                                    <textarea class="form-control" id="textarea1" name="recommendFriendReason" rows="3"></textarea>
-                                </div>
-                                <br><br>
-                                
-                                <a id="continue2" style="margin-bottom:15px;" type="button" class="btn btn-sisu-primary continueBtn">Continue</a>
-                            </div>
+                        </div>
 
-                            <div id="question3" class="row" hidden>
-                                <h4>3. Please select the features that are applicable to your overall experience with the program.</span></h4>
-                                <br>
-                                {% for feature in experienceFeatures %}
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" id="checkbox_feature_{{feature}}" name="features" value="{{forloop.counter0}}">{{feature.description}}
-                                </label>
-                                {% endfor %}
-                                <br><br><br>
 
-                                <h4>4. How well do you think employees will retain the information in our training? (Scale from 1-5)</h4>
-                                <br>
-                                <div class="likert">
-                                    <li> They will not retain it at all </li>
-                                    {% for score in scale5 %}
-                                    <li><input type="radio" name="retainScore" value="{{score}}" /></li>
-                                    {% endfor %}
-                                    <li> They will retain it completely </li>
-                                </div>
-                                <br><br><br>
-
-                                <h4>5. How confident are you that our training will help to prevent harassment in your workplace?</h4>
-                                <br>
-                                <div class="likert">
-                                    <li> Not confident at all </li>
-                                    {% for score in scale5 %}
-                                    <li><input type="radio" name="confidenceScore" value="{{score}}" /></li>
-                                    {% endfor %}
-                                    <li> Completely confident </li>
-                                </div>
-                                <br><br><br>
-
-                                <h4>6. Compared to previous forms of training, do you prefer the Empower Now Program?</h4>
-                                <br>
-                                <div class="btn-group" data-toggle="buttons">
-                                    {% for prefer in preference %}
-                                    <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference" value="{{forloop.counter0}}">{{prefer.description}}</label><br>
-                                    {% endfor %}
-                                </div>
-                                <br><br><br>
-
-                                <div class="form-group">
-                                    <h4>7. How likely are you to recommend this training to other employers/managers?</h4>
-                                    <br>
-                                    <div class="likert">
-                                        <li> Extremely unlikely </li>
-                                        {% for score in scale10 %}
-                                        <li><input type="radio" name="recommendManagerScore" value="{{score}}" /></li>
-                                        {% endfor %}
-                                        <li> Extremely likely </li>
-                                    </div>
-                                </div>
-                                <br><br><br>
-
-                                <div class="form-group">
-                                    <h4>8. How likely are you to recommend this training to your company’s employees?</h4>
-                                    <br>
-                                    <div class="likert">
-                                        <li> Extremely unlikely </li>
-                                        {% for score in scale10 %}
-                                        <li><input type="radio" name="recommendEmployeeScore" value="{{score}}" /></li>
-                                        {% endfor %}
-                                        <li> Extremely likely </li>
-                                    </div>
-                                </div>
-                                <br><br><br>
-
-                                <div class="form-group">
-                                    <label for="textarea2"><h4>9. Do you have any questions, comments, or suggestions?</h4></label>
-                                    <textarea class="form-control" id="textarea2" name="comments" rows="3"></textarea>
-                                </div>
-                                <br><br><br>
-
-                                <input id="continue3" style="margin-bottom:15px;" type="submit" class="btn btn-sisu-primary continueBtn" value="Continue">
-                            </div>
-                        </form>
-                    </div>
-                    <!-- Main Content End -->
-
-                    <!-- Page Footer Start -->
-                    {% include 'components/portal_footer.html' %}
-                    <!-- Page Footer End -->
                 </div>
-                <!-- Page Inner End -->
+
+                <div id="question2" class="row">
+                    <h4>How would you describes your experience with Enpower Now.</span></h4>
+                    <br>
+                    <div
+                        style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; justify-content: center; align-items: center; flex-direction: column; text-align: center; gap: 20px; justify-items: start;">
+                        {% for feature in experienceFeatures %}
+                        <label class="checkbox-inline" style=" margin-left: 30px;">
+                            <input type="checkbox" id="checkbox_feature_{{feature}}" name="features"
+                                value="{{forloop.counter0}}">{{feature.description}}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+
+                <div id="question3" class="row">
+                    <h4>Compared to previous forms of training, do you prefer the Empower Now Program?</h4>
+                    <br>
+                    <div class="btn-group" data-toggle="buttons">
+                        {% for prefer in preference %}
+                        <label><input type="radio" id="radio_preference_{{forloop.counter}}" name="preference"
+                                value="{{forloop.counter0}}" style="margin-bottom: 20px;">{{prefer.description}}</label><br>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="question4" class="row">
+                    <div class="form-group">
+                        <label for="textarea2">
+                            <h4>Let us know if you have any additional comments or feedback. </h4>
+                        </label>
+                        <textarea class="form-control" id="textarea2" name="comments" rows="3" placeholder="I liked it because..."></textarea>
+                    </div>
+                </div>
+
+
+                <input id="continue3" style="margin-bottom:15px;" type="submit" class="btn btn-sisu-primary continueBtn"
+                    value="Submit">
             </div>
-            <!-- Page Content End -->
+            </form>
         </div>
-        <!-- /Page Content -->
+        <!-- Main Content End -->
+
+        <!-- Page Footer Start -->
+        {% include 'components/portal_footer.html' %}
+        <!-- Page Footer End -->
+    </div>
+    <!-- Page Inner End -->
+    </div>
+    <!-- Page Content End -->
+    </div>
+    <!-- /Page Content -->
 
 
-        <!-- Scripts -->
-        <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
-        <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+    <!-- Scripts -->
+    <script>
+        var inputsForm = document.querySelector("#inputs");
+        inputsForm.onchange = function (e) {
+            if (e.target.type = "radio") {
+                var stars = document.querySelectorAll(`[name='${e.target.name}']`);
+                for (var i = 0; i < stars.length; i++) {
+                    if (i < e.target.value) {
+                        stars[i].parentElement.classList.replace("empty", "orange");
+                    } else {
+                        stars[i].parentElement.classList.replace("orange", "empty");
+                    }
+                }
+            }
+        }
 
-        <script src="{% static 'portal/js/space.js' %}"></script>
-        <script src="{% static 'portal/js/scripts.js' %}"></script>
-    </body>
+    </script>
+    <script src="{% static 'portal/plugins/jquery/jquery-3.1.0.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'portal/plugins/uniform/js/jquery.uniform.standalone.js' %}"></script>
+
+    <script src="{% static 'portal/js/space.js' %}"></script>
+    <script src="{% static 'portal/js/scripts.js' %}"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+</body>
 
 </html>

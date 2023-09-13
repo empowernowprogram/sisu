@@ -108,10 +108,9 @@
                 <!-- Main Content Start -->
                 <div id="main-wrapper">
                     {% if player.admin == True %}
-                    <p>Your company’s progress metrics: <span style="color: purple; font-weight: bolder;">{% widthratio
-                            play_sessions_completed.count play_sessions.count 100 %}%
-                            employee completion of modules ({{ play_sessions_completed.count }}-{{ play_sessions.count
-                            }}) </span></p>
+                    <p>Your company’s progress metrics: <span style="color: purple; font-weight: bolder;">
+                        {% widthratio play_sessions_completed.count play_sessions.count 100 %}%
+                            employee completion of modules ({{ play_sessions_completed.count }}-{{ play_sessions.count}}) </span></p>
                     <canvas id="modulesChart" width="400" height="400"></canvas>
                     <br>
                     <div style="display: flex; flex-direction: row; justify-content: center;">
