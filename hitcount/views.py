@@ -35,8 +35,8 @@ class HitCountMixin(object):
 
         # as of Django 1.8.4 empty sessions are not being saved
         # https://code.djangoproject.com/ticket/25489
-        if request.session.session_key is None:
-            request.session.save()
+        #if request.session.session_key is None:
+        #    request.session.save()
 
         user = request.user
         try:
