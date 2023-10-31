@@ -593,7 +593,7 @@ def portal_signup(request):
                 # create playsession
                 allModules = employer.registered_modules.all()
                 for module in allModules:
-                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=module.module_id, score=0, success=False, time_taken=0)
+                    PlaySession.objects.create(employer=employer.employer_id, player=newPlayer, module_id=module.module_id, score=0, success=False)
 
                 return redirect('/portal/home/')
             else:
