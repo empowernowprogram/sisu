@@ -3,7 +3,7 @@
 
 <div class="page-sidebar">
     <a class="logo-box" href="{% url 'index' %}" target="_blank">
-        <img src="{% static 'portal/img/logo-sisu.svg' %}" width="100px" height="auto" alt="Sisu VR">
+        <img src="{% static 'public/assets/sisu_logo.png' %}" width="200px" height="auto" alt="Sisu VR">
         <i class="icon-close" id="sidebar-toggle-button-close"></i>
     </a>
     <div class="page-sidebar-inner">
@@ -25,11 +25,12 @@
                     </a>
                 </li>
                 <li class="menu-divider"></li>
-                <li>
+                <!-- <li>
                     <a href="{% url 'contact' %}" target="_blank">
                         <i class="menu-icon"></i><span>Contact Support</span>
                     </a>
                 </li>
+                -->
                 <li>
                     <a href="{% url 'portal_logout' %}">
                         <i class="menu-icon"></i><span>Sign Out</span>

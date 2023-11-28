@@ -72,23 +72,18 @@
 
                             {% else %}
                                 <!-- Instruction -->
-                                {% if player.admin is False %}
-                                    {% if player.registration_type == 'Desktop'%}
-                                        {% include 'components/dl-instructions-desktop.html' %}
-                                    {% elif player.registration_type == 'VR'%}
-                                        {% include 'components/dl-instructions-vr.html' %}  
-                                    {% endif %}
-                                {% else %}
-                                    {% include 'components/dl-instructions-desktop.html' %}
-                                    {% include 'components/dl-instructions-vr.html' %}
-                                {% endif %}
+                                {% include 'components/dl-instructions-desktop.html' %}
                                 <hr>
                                 <!-- Training Download Links -->
                                 {% if player.admin is False %}
                                     <!-- For non-supervisor -->
                                     {% if player.supervisor is False %}
                                         {% comment %} TRAINING - NON-SUPERVISOR {% endcomment %}
-                                        <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Training</h3>
+                                        {% if player.registration_type == 'Desktop' %}
+                                            <h3 style="padding-top:12px; padding-bottom: 6px;">Active Shooter Preparedness Training</h3>
+                                        {% elif player.registration_type == 'VR' %}
+                                            <h3 style="padding-top:12px; padding-bottom: 6px;">Nonsupervisor Training</h3>
+                                        {% endif %}
                                         <div class="row">
                                         {% if player.registration_type == 'Desktop' %}
                                             {% for module_download_link in module_download_links %}                                        
