@@ -428,6 +428,9 @@ def enp(request):
 def mindglow(request):
     return render(request, 'blog/mindglow.html')
     
+def nocode(request):
+    return render(request, 'blog/nocode.html')
+
 def about_us(request):
     return render(request, 'blog/about-us.html')
     

@@ -14,6 +14,7 @@ urlpatterns = [
     path('about-us/', views.about_us, name='about-us'),
     path('enp/', views.enp, name='enp'),
     path('mindglow/', views.mindglow, name='mindglow'),
+    path('nocode/', views.nocode, name='nocode'),
 
     path('about_us/team', views.about_team, name='about_team'),
     path('about_us/empower_now', views.about_program, name='about_program'),
