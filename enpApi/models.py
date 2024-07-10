@@ -71,6 +71,8 @@ class UsageReport(models.Model):
     device_model = models.CharField(max_length=50)
     date_taken = models.DateField(auto_now=True)
     sisu_user = models.BooleanField()
+    module_id = models.IntegerField()
+    ip_address = models.CharField(max_length=50, null=True)
     
 class PlayState(models.Model):
     employer = models.IntegerField()

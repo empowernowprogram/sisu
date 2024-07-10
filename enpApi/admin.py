@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from django.contrib import admin
-from .models import Modules, Player, Employer, PlaySession, TrainingPackageDownloadLink, SupervisorMapping
+from .models import Modules, Player, Employer, PlaySession, PlaySessionMG, PlayStateMG, TrainingPackageDownloadLink, SupervisorMapping
 from .models import ComparisonRating, Adjective, SelectedAdjective, PostProgramSurvey, PostProgramSurveySupervisor, Behavior, SceneInfo, EthicalFeedback, UsageReport
 
 class PlayerAdmin(admin.ModelAdmin):
@@ -13,11 +13,17 @@ class PlayerAdmin(admin.ModelAdmin):
 class PlaySessionAdmin(admin.ModelAdmin):
     list_display = ('player', 'module_id', 'success', 'date_taken')
 
+class PlaySessionMGAdmin(admin.ModelAdmin):
+    list_display = ('player', 'module_id', 'success', 'date_taken')
+
 class EmployerAdmin(admin.ModelAdmin):
     list_display = ('company_name', 'id')
 
 
 class PlayStateAdmin(admin.ModelAdmin):
+    list_display = ('player', 'module_id', 'current_scene', 'time_taken')
+
+class PlayStateMGAdmin(admin.ModelAdmin):
     list_display = ('player', 'module_id', 'current_scene', 'time_taken')
 
 class UsageReportAdmin(admin.ModelAdmin):
@@ -61,6 +67,7 @@ admin.site.register(Player, PlayerAdmin)
 admin.site.register(UsageReport, UsageReportAdmin)
 admin.site.register(Employer, EmployerAdmin)
 admin.site.register(PlaySession, PlaySessionAdmin)
+admin.site.register(PlayStateMG, PlayStateMGAdmin)
 admin.site.register(TrainingPackageDownloadLink, TrainingPackageDownloadLinkAdmin)
 admin.site.register(PostProgramSurvey, PostProgramSurveyAdmin)
 admin.site.register(PostProgramSurveySupervisor, PostProgramSurveySupervisorAdmin) 
