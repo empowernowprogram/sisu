@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from .models import Player, Employer, Modules, PlaySession, Employee, EthicalFeedback, PlayState, UsageReport
+from .models import Player, Employer, Modules, PlaySession, PlaySessionMG, Employee, EthicalFeedback, PlayState, PlayStateMG, UsageReport
 
 class EthicalFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = EthicalFeedback
         fields = ('user', 'module_id', 'timestamp', 'scene', 'behavior_id', 'emotion')
+
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Player
@@ -15,9 +16,19 @@ class PlaySessionSerializer(serializers.ModelSerializer):
         model = PlaySession
         fields = ('employer', 'player', 'module_id', 'date_taken', 'score', 'success', 'time_taken', 'training_type')
 
+class PlaySessionMGSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlaySessionMG
+        fields = ('employer', 'player', 'module_id', 'date_taken', 'score', 'success', 'time_taken', 'training_type')
+
 class PlayStateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayState
+        fields = ('employer', 'player', 'module_id', 'current_scene', 'time_taken')
+
+class PlayStateSerializerMG(serializers.ModelSerializer):
+    class Meta:
+        model = PlayStateMG
         fields = ('employer', 'player', 'module_id', 'current_scene', 'time_taken')
 
 class UsageReportSerializer(serializers.ModelSerializer):

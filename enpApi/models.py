@@ -58,6 +58,14 @@ class PlaySession(models.Model):
     score = models.IntegerField()
     success = models.BooleanField()
  
+class PlaySessionMG(models.Model):
+    employer = models.IntegerField()
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    module_id = models.CharField(max_length=10)
+    date_taken = models.DateField(auto_now=True)
+    score = models.IntegerField()
+    success = models.BooleanField()
+ 
 class UsageReport(models.Model):
     username = models.CharField(max_length=50)
     device_model = models.CharField(max_length=50)
@@ -65,6 +73,13 @@ class UsageReport(models.Model):
     sisu_user = models.BooleanField()
     
 class PlayState(models.Model):
+    employer = models.IntegerField()
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+    module_id = models.CharField(max_length=10)
+    current_scene = models.CharField(max_length=30)
+    time_taken = models.IntegerField()
+
+class PlayStateMG(models.Model):
     employer = models.IntegerField()
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
     module_id = models.CharField(max_length=10)
