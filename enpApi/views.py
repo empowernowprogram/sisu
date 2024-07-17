@@ -60,19 +60,20 @@ def addEthicalData(request):
         inputData = JSONParser().parse(request)
         print("input------")
         print(inputData)
-        user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
-        module = inputData["data"]["session"]["Module"]
+        #user = CustomUser.objects.get(email=inputData["data"]["session"]["Email"]).pk
+        user = CustomUser.objects.get(email=inputData["user"]).pk
+        module = inputData["module_id"]
         # timestamp = inputData["data"]["session"]["Date"]
-        for ethical in inputData["data"]["ethical"]:
-            scene = ethical["Scene"]
-            behavior_id = ethical["Action"]
-            emotion = ethical["Emotion"]
-            data = {'user': inputData["user"], 'module_id': inputData["module_id"], 'scene': inputData["scene"], 'behavior_id' : inputData["behavior"], 'emotion': inputData["emotion"]}
-            ethical_serializer = EthicalFeedbackSerializer(data=data)
-            if ethical_serializer.is_valid():
-                ethical_serializer.save()
-            else:
-                return JsonResponse(ethical_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        #for ethical in inputData["ethical"]:
+        scene = inputData["scene"]
+        behavior_id = inputData["behavior_id"]
+        emotion = inputData["emotion"]
+        data = {'user': inputData["user"], 'module_id': inputData["module_id"], 'scene': inputData["scene"], 'behavior_id' : inputData["behavior_id"], 'emotion': inputData["emotion"]}
+        ethical_serializer = EthicalFeedbackSerializer(data=data)
+        if ethical_serializer.is_valid():
+            ethical_serializer.save()
+        else:
+            return JsonResponse(ethical_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     if request.method == 'GET':
         #inputData = JSONParser().parse(request)
         #print("input------")
