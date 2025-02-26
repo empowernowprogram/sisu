@@ -208,4 +208,4 @@ django_heroku.settings(locals())
 
 # Google reCAPTCHA #
 # TODO - move to .env key instead of storing in settings.py file.
-RECAPTCHA_SECRET_KEY = '6Lf4EywbAAAAAOvh_pR5uG_Ds3-iwRLng3xJJ4ln'
+RECAPTCHA_SECRET_KEY = '6LennOMqAAAAALPY9cIQY7gapGf08xmUqP95ExMX'
