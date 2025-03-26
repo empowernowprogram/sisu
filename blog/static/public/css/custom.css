@@ -452,12 +452,6 @@
   /* min-height: 150px; */
   left: 0px;
   top: 0px;
-  background: linear-gradient(
-    179deg,
-    rgba(159, 54, 136, 1) 0%,
-    rgba(206, 68, 134, 1) 56%,
-    rgba(248, 207, 104, 1) 100%
-  );
 }
 
 .sisu-header-transparent-bkg {
@@ -510,7 +504,6 @@
   /* min-height: 99px; */
   left: 0px;
   top: 0px;
-  opacity: 80%;
   background: linear-gradient(
     #F5B942,
     #CE4486
