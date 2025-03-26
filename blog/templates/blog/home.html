@@ -157,7 +157,7 @@
         data-sticky-active="500"
         class="dark submenu-light header-fixed home"
       >
-        <div id="header-inner" class="header-inner sisu-header-transparent-bkg" style="background-color: offwhite; opacity: 80%;">
+        <div id="header-inner" class="header-inner sisu-header-transparent-bkg" style="background-color: offwhite;">
           <div class="container">
             <!--Logo-->
             <a id="logo" href="{% url 'home' %}">
@@ -250,7 +250,7 @@
         <!-- end: Slide 2 -->
       </div>
       <!--end: Inspiro Slider -->
-        <div class="row" style="margin-left:150px; margin-right:150px;">
+        <div class="row" style="margin-left:300px; margin-right:300px;">
           <div class="row-wrapper">
             <div class="heading-text heading-line text-center">
               <h3
@@ -261,11 +261,17 @@
                   animation-duration: 100ms;
                 "
               >
-                What is Sisu?
+                What is Sisu VR?
               </h3>
               <p>
-                <div style="font-size: 24px; color:purple"> Sisu offers immersive and engaging virtual reality trainings to ensure your workplace can be a safe and harassment-free environment for your employees.</div> <div style="font-size: 24px;">Our trainings focus on different topics including bullying, sexual harassment, Quid Pro Quo, and how to respond if an active shooter enters the building. 
-                Let’s work together to empower your workforce today. </div>
+                <span style="font-weight: bold"> Sisu offers immersive and engaging virtual reality (VR) trainings.</span>
+                to ensure your workplace can be safe and harassment-free for your employees.
+              </p>
+              <p>
+                <span style="font-weight: bold">Our trainings focus on</span> topics such as bullying, sexual harassment, Quid Pro Quo, and how to respond if an active shooter enters the building.
+              </p>
+              <p>
+                <span style="font-weight: bold; color: purple;">Let’s work together to empower your workforce today. 
               </p>
               </div>
               <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
@@ -278,7 +284,6 @@
       <section
         id="training-section"
         class="non-relative"
-        style="margin-top: 10px;"
       >
         <div class="container">
           <div class="heading-text heading-line text-center">
@@ -290,7 +295,7 @@
                 src="{% static 'public/assets/img/vr-headset-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">Virtual Reality Technology</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">Virtual Reality Technology</div>
               <p>
                 Studies show virtual reality (VR) trainings raise retention and empathy. VR learners learn 4 times faster and are shown to be more confident at applying the skills learned. 
               </p>
@@ -300,7 +305,7 @@
                 src="{% static 'public/assets/img/clock-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">20 Minute Modules</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">20 Minute Modules</div>
               <p>
                 Each module (training course) is around 20 minutes long to help with retention and avoid fatigue. Short module times will guarantee that your employee’s get the training they need as efficiently as possible. 
               </p>
@@ -310,7 +315,7 @@
                 src="{% static 'public/assets/img/certificate-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">Employee Certificates</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">Employee Certificates</div>
               <p>
                 Each person that completes the training will get their own certificate with your company’s name on it. Certificates are proven to be a great way to encourage the completion of trainings. 
               </p>
@@ -320,7 +325,7 @@
                 src="{% static 'public/assets/img/laptop-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">Accessible Options</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">Accessible Options</div>
               <p>
                 Although VR training has proven to be an excellent learning tool, we understand some might not prefer this method. Our trainings can be accessed through a computer and tablet. 
               </p>
@@ -330,7 +335,7 @@
                 src="{% static 'public/assets/img/ethics-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">Ethics Framework</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">Ethics Framework</div>
               <p>
                 Each training module will provide employee and employer with an ethical framework. Ethical framework allows trainees to see how they would naturally response to specific situations.  
               </p>
@@ -340,7 +345,7 @@
                 src="{% static 'public/assets/img/pie-chart-logo.png' %}"
                 style="width: 50px; height: 50px;" 
               />
-              <div class="text-center">Company Portal</div>
+              <div class="text-center" style="margin-bottom:10px; margin-top:10px;">Company Portal</div>
               <p>
                 Monitor your employee’s progress and send reminders to complete training modules. Stay on top of trainings and help your company stay organized.  
               </p>
@@ -362,11 +367,11 @@
           <div class="heading-text heading-line text-center">
             <h4>Our Trainings</h4>
           </div>
-          <div style="display: flex; gap:50px;">
+          <div style="display: flex; gap:50px; align-items: center;">
             <div style="text-align: center;">
               <img
                 src="{% static 'public/assets/img/sisu-hrbc-logo.png' %}"
-                style="width: 400px; height: 300px; border-radius: 50%"
+                style="max-width: 300px;"
               />
               <div
                 class="text=center sisu-color-purple"
@@ -389,7 +394,7 @@
             <div style="text-align: center;">
               <img
                 src="{% static 'public/assets/img/sisu-ast-logo.png' %}"
-                style="width: 400px; height: 300px; border-radius: 50%"
+                style="max-width: 300px;"
               />
               <div
                 class="text=center sisu-color-purple"
@@ -398,7 +403,7 @@
               <p>
                 <div class="text-center" style="font-weight:bold;">Our Active Shooter Training can help youre employees be prepared for the unimaginable.</div>
                 The deadliest situations involve an active shooter. 80% of active shooter incidents occur in the workplace, and 25% of companies are unprepared
-                for active shooter incidents. Don't let your company be one of them. 
+                for active shooter incidents. Don't let your company be one of these cases. 
               </p>
               <p>Learn more about how how Mindglow Active Shooter Training can help your company be prepared.</p>
               <a
@@ -562,7 +567,7 @@
             </a>
           </button>
         </div>
-        <div class="container" style="margin-top: 20px;">
+        <div class="container" style="margin-top: 100px;">
           <div class="bg-cube-container" style="float: right; margin-right: 0%">
             <div
               class="bg-cube-element"
