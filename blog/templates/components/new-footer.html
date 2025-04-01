@@ -118,10 +118,17 @@
             </div>
           </div>
           <div class="copyright-text text-center sisu-footer-copyright">
-            Copyright © 2025 Sisu VR Inc. All Rights Reserved.
+            Copyright © <span id="currentYear"></span> Sisu VR Inc. All Rights Reserved.
           </div>
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+ var currentYear = new Date().getFullYear();
+ document.getElementById('currentYear').textContent = currentYear;
+});
+</script>

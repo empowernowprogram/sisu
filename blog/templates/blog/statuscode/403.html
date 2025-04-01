@@ -145,7 +145,7 @@ body {
                 </div>
               </div>
               <div class="copyright-text text-center sisu-footer-copyright" style="font-size:12px">
-                Copyright © 2025 Sisu VR Inc. All
+                Copyright © <span id="currentYear"></span> Sisu VR Inc. All
                 Rights Reserved.</div>
             </div>
           </div>
@@ -169,3 +169,10 @@ body {
 </body>
 
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+ var currentYear = new Date().getFullYear();
+ document.getElementById('currentYear').textContent = currentYear;
+});
+</script>
