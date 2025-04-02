@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'public/css/plugins.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'public/css/custom.css' %}" />
-    
+
     <link rel="stylesheet" href="{{ STATIC_URL }}custom.css" />
     <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
     <link rel="stylesheet" href="{% static 'css/news2.css' %}" />
@@ -33,165 +33,145 @@
         <header id="header" data-fullwidth="true" data-responsive-fixed="true" class="header-fixed">
             <div class="header-inner sisu-header-bkg">
                 <div class="container">
-                  <!--Logo-->
-                  <a href="{% url 'home' %}" id="logo">
-                    <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;"/>
-                  </a>
-                  <!--End: Logo-->
-                  <!--Navigation Resposnive Trigger-->
-                  <div id="mainMenu-trigger">
-                    <a class="lines-button x"><span class="lines"></span></a>
-                  </div>
-                  <!--end: Navigation Resposnive Trigger-->
-                  <!--Navigation-->
-                  {% include 'components/new-nav-bar.html' %}
-                  <!--end: Navigation-->
+                    <!--Logo-->
+                    <a href="{% url 'home' %}" id="logo">
+                        <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;" />
+                    </a>
+                    <!--End: Logo-->
+                    <!--Navigation Resposnive Trigger-->
+                    <div id="mainMenu-trigger">
+                        <a class="lines-button x"><span class="lines"></span></a>
+                    </div>
+                    <!--end: Navigation Resposnive Trigger-->
+                    <!--Navigation-->
+                    {% include 'components/new-nav-bar.html' %}
+                    <!--end: Navigation-->
                 </div>
-              </div>
+            </div>
         </header>
         <!-- end: Header -->
         <!-- Content -->
         <section>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="sisu-divider-line text-center">
 
+                    <h2 class="news-subheading">News</h2>
+                    <div class="sisu-news-divider"></div>
 
-                    <div class="bg-cube-container" style="margin-left:-124px">
-                        <div class="bg-cube-element" style="width:34px; height:22px;"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: 88px;">
-                        <div class="bg-cube-element" style="width:36px; height:24px; margin-top:32px"></div>
-                    </div>
-                    <div class="bg-cube-container" style="float: right; margin-right: -88px;">
-                        <div class="bg-cube-element" style="width:28px; height:18px; margin-top:62px"></div>
-                    </div>
-                    <span class="lead">News</span>
-                    
-               
                 </div>
-        </section>
-
-        <section>
-            <div class="container">
-          
-                <div class="row">
-
-                    {% if latest_medium_post_list %}
-                        {% for posts in latest_medium_post_list %}
-		    <div class="col-lg-6">
 
 
-                        <div class="rectangle-148">
-                            <img src="{{posts.m_photo.url}}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                           > <!--style="width:253px; height:258px;">--!>
-                            <p class="second-text-12345678"> {{posts.title_m}} </p>
-
-                            <p class="first-text">
-				{{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
-
-                              
-                            
-                        </div>
-                    </div>
-
-                    <hr class="space">
-                        {% endfor %}
-                    {% else %}
-                        <p> Should be 4 medium posts </p>
-                    {% endif %}
-
-<!--
-                    {% if latest_medium_post_list %}
-                        {% for posts in latest_medium_post_list %}
-
-                            <div class="col-lg-6">
-
-
-                                <div class="rectangle-148">
-                                    <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="medium-img" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)">
-
-                                    
-                                    <p class="second-text-12345678"> {{posts.title_m}} </p>
-                                    
-
-                                    <p class="first-text">
-                                      {{posts.Summary_m}} ... <a class="keep-reading" href={{posts.url_m}}> Keep Reading</a>  </p>
-
-
-
-
-                                      
-                                    
-                                </div>
-
-
-                                
-                            </div>
-
-
-                            <hr class="space">
-
-
-                        {% endfor %}
-                    {% else %}
-                        <p> Should be 4 medium posts </p>
-                    {% endif %}
--->
- <!--Start of commented code-->                   
-<!--
-                     <div class="col-lg-6">
-
-
-                        <div class="rectangle-148">
-                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                            style="width:253px; height:258px;">
-
-                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
-
-                            <p class="first-text">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
-                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
-                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
-
-
-                              
-                            
-                        </div>
-                    </div>
-
-
-                    <hr class="space">
-
-                    <div class="col-lg-6">
-
-
-                        <div class="rectangle-148">
-                            <img src="{% static 'public/assets/empathy_sisu_vr.png' %}" class="rectangle-172" alt="Group headshot of Sisu's founding team: Jia Seow, Sean Rossi, Scully Liu, and Jocelyn Tan)"
-                            style="width:253px; height:258px;">
-
-                            <p class="second-text-12345678"> Why You Need Empathy in the Workplace </p>
-
-                            <p class="first-text">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae felis lacus. Nullam facilisis dictum odio, vitae faucibus ipsum
-                              pellentesque nec. Maecenas non leo a arcu vulputate eleifend id non risus. In egestas at ipsum vitae porttitor. Fusce volutpat suscipit
-                              magna eu sagittis. Proin hendrerit diam eu ligula... <a class="keep-reading" href="https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1"> Keep Reading</a> </p>
-
-
-
-                              
-                            
-                        </div>
-                    </div>
- -->
- <!--End of commented code-->                   
-                    
-
-
-                    
             </div>
         </section>
 
-        <section>
+
+        <!-- ============================= -->
+        <!--  SECTION: Post of the Week   -->
+        <!-- ============================= -->
+
+        <section class="post-of-week-section no-top-padding">
+            <div class="container-of-week">
+                <div class="row align-items-center">
+                    <!-- Image (left column) -->
+                    <div class="col-md-5">
+                        <img src="{% static latest_medium_article_list.19.p_photo %}" alt="Post of the Week Image"
+                            class="post-of-week-image" />
+                    </div>
+
+                    <!-- Text/Link area (right column) -->
+                    <div class="col-md-7">
+                        <h3 class="post-of-week-title">Post of the Week</h3>
+                        <h4 class="week-article-title">{{ latest_medium_article_list.19.p_title }}</h4>
+                        <p class="week-article-desc">{{ latest_medium_article_list.19.p_summary }}</p>
+                        <a href="{{ latest_medium_article_list.19.p_url }}" target="_blank"
+                            class="btn btn-sisu-primary">
+                            Read Article
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================= -->
+        <!--  SECTION: Press Articles     -->
+        <!-- ============================= -->
+        <section class="no-top-padding">
+            <div class="container-press">
+                <div class="text-center">
+                    <h2 class="news-subheading">Press</h2>
+                </div>
+
+                <!-- Left Arrow (Press) -->
+                <div class="scroll-arrow scroll-left" onclick="scrollPress('press-scroll', -1)">
+                    &#10094;
+                </div>
+
+                <!-- Scrolling row (Press) -->
+                <div class="scroll-outer-wrapper">
+                    <div class="scroll-container" id="press-scroll">
+                        {% for post in latest_press_post_list %}
+                        <div class="scroll-item">
+                            <img src="{% static post.p_photo %}" alt="{{ post.p_title }}" class="press-thumbnail" />
+                            <h5>{{ post.p_title }}</h5>
+                            <p>{{ post.p_summary }}</p>
+                            <a href="{{ post.p_url }}" target="_blank" class="read-more">Read More</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Right Arrow (Press) -->
+                <div class="scroll-arrow scroll-right" onclick="scrollPress('press-scroll', 1)">
+                    &#10095;
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================= -->
+        <!--  SECTION: Medium Articles           -->
+        <!-- ============================= -->
+        <section class="no-top-padding">
+            <div class="container-press">
+                <div class="text-center">
+                    <h2 class="news-subheading">Articles</h2>
+                </div>
+
+                <!-- Left Arrow (Articles) -->
+                <div class="scroll-arrow scroll-left" onclick="scrollPress('articles-scroll', -1)">
+                    &#10094;
+                </div>
+
+                <!-- Scrolling row (Articles) -->
+                <div class="scroll-outer-wrapper">
+                    <div class="scroll-container" id="articles-scroll">
+                        {% for post in latest_medium_article_list %}
+                        <div class="scroll-item">
+                            <img src="{% static post.p_photo %}" alt="{{ post.p_title }}" class="press-thumbnail" />
+                            <h5>{{ post.p_title }}</h5>
+                            <p>{{ post.p_summary }}</p>
+                            <a href="{{ post.p_url }}" target="_blank" class="read-more">Read More</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Right Arrow (Articles) -->
+                <div class="scroll-arrow scroll-right" onclick="scrollPress('articles-scroll', 1)">
+                    &#10095;
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ============================= -->
+        <!--  SECTION: LinkedIn Posts     -->
+        <!-- ============================= -->
+
+        <!-- For dynamic loadng of posts -->
+        <!-- <section>
             <div class="container">
                 <div class="sisu-divider-line text-center">
                     <div class="bg-cube-container" style="float: right; margin-right: -48px;">
@@ -205,30 +185,59 @@
                     </div>
                     <div class="row">
                         {% if latest_linked_in_post_list %}
-
                         {% for post in latest_linked_in_post_list %}
-                             <div class="col-lg-4">
-                                <iframe class="shadow" src={{post.url}} height="{{post.height}}" width="{{post.width}}" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                            </div>    
-
-
-                            <hr class="mobile-space">
+                        <div class="col-lg-4">
+                            <iframe class="shadow" src={{post.url}} height="{{post.height}}" width="{{post.width}}"
+                                frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                        </div>
+                        <hr class="mobile-space">
                         {% endfor %}
-
                         {% else %}
                         <p> There should be at least three linkedin posts </p>
                         {% endif %}
+                    </div>
+                </div>
+        </section> -->
 
-<!--                         <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7004112211925245953" height="234" width="136" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> -->
-                       
+        <!-- // Manually pasted iframed embedded links for posts -->
+        <!-- LATEST LINKEDIN POSTS -->
+        <section class="no-top-padding">
+            <div class="container">
+                <!-- Section Title -->
+                <div class="text-center">
+                    <h2 class="news-subheading">Our Latest LinkedIn Posts</h2>
+                </div>
+
+                <div class="row">
+                    <!-- 1st Post -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7305267296686514176"
+                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 1">
+                        </iframe>
                     </div>
 
-                    
+                    <!-- 2nd Post -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7302724385499500545"
+                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 2">
+                        </iframe>
+                    </div>
+
+                    <!-- 3rd Post -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7291236697889980416"
+                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 3">
+                        </iframe>
+                    </div>
                 </div>
-        
+            </div>
         </section>
 
 
+
+        <!-- ============================= -->
+        <!--  SECTION: Mobile Footer    -->
+        <!-- ============================= -->
         <section class="mobile-footer">
             <div class="container">
                 <div class="sisu-divider-line text-center">
@@ -241,86 +250,49 @@
                     <div style="padding-bottom: 20px;">
                         <span class="lead">Follow us and stay in the loop </span>
                     </div>
-
                     <hr class="mobile-space">
-
-
                     <div class="row">
-
-                             <div class="col-lg-4">
+                        <div class="col-lg-4">
+                            <div class="mobile-container">
+                                <img class="mobile-image" src="{% static 'public/assets/facebook-logo.png' %}"
+                                    class="rectangle-172" alt="facebook logo" style="width:20px; height:50px;">
+                                <p class="mobile-text"> Facebook.com/Sisuvr </p>
+                            </div>
+                            <div class="col-lg-4">
+                                <hr class="mobile-space">
                                 <div class="mobile-container">
-
-                                    <img class="mobile-image" src="{% static 'public/assets/facebook-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                    style="width:20px; height:50px;">
-                                    <p class="mobile-text"> Facebook.com/Sisuvr </p>
-
+                                    <img class="mobile-image-twitter"
+                                        src="{% static 'public/assets/twitter-logo.png' %}" class="rectangle-172"
+                                        alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Twitter.com/Sisuvr </p>
                                 </div>
-
-
-                                <div class="col-lg-4">
-
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/twitter-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Twitter.com/Sisuvr </p>
-
-                                    </div>
-
-
-                                </div>    
-
-
-
-                                <div class="col-lg-4">
-
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/linkedin-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Linkedin.com/Sisuvr </p>
-
-
-
-                                    </div>
-
-
-                                </div>   
-
-
-                                <div class="col-lg-4">
-
-                                    <hr class="mobile-space">
-
-
-                                    <div class="mobile-container">
-
-                                        <img class="mobile-image-twitter" src="{% static 'public/assets/medium-logo.png' %}" class="rectangle-172" alt="facebook logo"
-                                        style="width:20px; height:50px;">
-                                        <p class="mobile-text-twitter"> Medium.com/Sisuvr </p>
-
-
-
-                                    </div>
-
-
+                            </div>
+                            <div class="col-lg-4">
+                                <hr class="mobile-space">
+                                <div class="mobile-container">
+                                    <img class="mobile-image-twitter"
+                                        src="{% static 'public/assets/linkedin-logo.png' %}" class="rectangle-172"
+                                        alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Linkedin.com/Sisuvr </p>
                                 </div>
-
-
-
-
-                            <hr class="mobile-space">                       
+                            </div>
+                            <div class="col-lg-4">
+                                <hr class="mobile-space">
+                                <div class="mobile-container">
+                                    <img class="mobile-image-twitter" src="{% static 'public/assets/medium-logo.png' %}"
+                                        class="rectangle-172" alt="facebook logo" style="width:20px; height:50px;">
+                                    <p class="mobile-text-twitter"> Medium.com/Sisuvr </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mobile-space">
                     </div>
-
-
-
+                </div>
+            </div>
         </section>
+
+
+
 
         <!-- end: Content -->
 
@@ -339,6 +311,20 @@
 
     <!--Template functions-->
     <script src="{% static 'public/js/functions.js' %}"></script>
+
+    <!-- Script for arrow functionality -->
+    <script>
+        function scrollPress(containerId, direction) {
+            const container = document.getElementById(containerId);
+            const scrollAmount = 842;
+
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
 
 </body>
 

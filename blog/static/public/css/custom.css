@@ -983,3 +983,193 @@ section.non-relative {
     margin-left: 0px !important;
   }
 }
+
+
+
+
+
+
+
+
+/** ADDED STYLES FOR NEWS PAGE **/
+
+.sisu-news-divider {
+  width: 95%;
+  height: 1px;
+  background-color: #494949;
+  margin: 20px auto;
+  border: none;
+  opacity: 1;
+}
+
+.no-top-padding {
+  padding-top: 0px !important;
+}
+
+.post-of-week-title {
+  color: #D14C84;
+  font-size: 30px;
+  font-weight: 600px;
+}
+
+.news-subheading {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: #373F41;
+  margin-bottom: 30px;
+}
+
+/*  News Page SECTION: Post of the Week    */
+
+.post-of-week-section {
+  margin-top: 40px;
+}
+
+.post-of-week-section * {
+  font-family: 'Mulish', sans-serif;
+}
+
+.container-of-week {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.post-of-week-image {
+  width: 85%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.post-of-week-title {
+  color: #D14C84;
+  font-size: 32px;
+  font-weight: 500px;
+  margin-bottom: 15px;
+}
+
+.week-article-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #373F41;
+  margin-bottom: 12px;
+}
+
+.week-article-desc {
+  font-size: 18px;
+  color: #737B7D;
+  margin-bottom: 20px;
+  line-height: 22px;
+}
+
+
+/*  News Page SECTION: Scrollable articles and press    */
+.container-press {
+  width: 93%;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+}
+
+.scroll-outer-wrapper {
+  overflow: hidden;
+  margin: 0 40px; 
+}
+
+.scroll-container {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-item {
+  flex: 0 0 385px;
+  border: 0px solid #e6e6e6;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: flex-start;
+}
+
+.press-thumbnail {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.scroll-item h5 {
+  font-size: 18px;
+  font-family: 'Mulish', sans-serif;
+  line-height: 1.2;
+  margin: 0 0 6px 0;
+  font-weight: 550;
+  color: #373F41;
+}
+
+.scroll-item p {
+  font-size: 14px;
+  color: #494949;
+  line-height: 1.5em;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scroll-item a.read-more {
+  color: #D14C84;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%);
+  font-size: 32px;
+  color: #444444;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.scroll-left {
+  left: 0px;
+}
+
+.scroll-right {
+  right: 0px;
+}
+
+/* No arrows on smaller screens */
+@media (max-width: 768px) {
+  .scroll-arrow {
+    display: none;
+  }
+  .scroll-outer-wrapper {
+    margin: 0;
+  }
+}
+
+

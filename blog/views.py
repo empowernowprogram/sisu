@@ -1794,6 +1794,255 @@ class IndexView(TemplateView):
           return context
 def news_view(request, *args, **kwargs): 
 
+    # Hard-coded press artciles
+    latest_press_post_list = [
+        {
+            'p_title': 'This anti-sexual harassment training is designed to feel real: Is that a good thing?',
+            'p_url': 'https://www.hr-brew.com/stories/2022/04/14/this-anti-sexual-harassment-training-is-designed-to-feel-real-is-that-a-good-thing',
+            'p_photo': 'public/assets/img/press/press1.png', 
+            'p_summary': 'VR companies want to heighten the “emotional stakes” of sexual harassment training.'
+        },
+        {
+            'p_title': 'Your next sexual harassment training could be in virtual reality',
+            'p_url': 'https://www.washingtonpost.com/technology/2022/04/19/virtual-reality-sexual-harassment-training/',
+            'p_photo': 'public/assets/img/press/press2.png', 
+            'p_summary': 'Some say the technology is game-changing. Others worry it could trigger survivors and do little to change bad behavior.'
+        },
+        {
+            'p_title': 'Belästigung am Arbeitsplatz: Virtual-Reality-Brillen vermitteln, wie sich die junge Kollegin fühlt',
+            'p_url': 'https://www.nzz.ch/technologie/belaestigung-am-arbeitsplatz-ploetzlich-schluepft-man-selbst-in-die-haut-der-jungen-kollegin-ld.1694782',
+            'p_photo': 'public/assets/img/press/press3.png', 
+            'p_summary': 'Mit ihrer Technologie wollen amerikanische Startups bei Mitarbeiterschulungen eindrücklicher vermitteln, was Belästigung, Diskriminierung und Rassismus bei den Betroffenen auslösen – und wie man richtig darauf reagiert.'
+        },
+        {
+            'p_title': 'Workplace Conduct Training Through a Virtual Reality Lens',
+            'p_url': 'https://iovine-young.usc.edu/the-pulse/virtual-reality-workplace-conduct-training-sisu',
+            'p_photo': 'public/assets/img/press/press4.png', 
+            'p_summary': "Sisu VR's Empower Now uses immersive VR to tackle workplace harassment by letting users experience real scenarios from different perspectives—building empathy and promoting meaningful change."
+        },
+        {
+            'p_title': 'Title: Inspirational Women 2023: Jocelyn Tan',
+            'p_url': 'https://www.latimes.com/b2b/business-visionaries/inspirational-women/jocelyn-tan',
+            'p_photo': 'public/assets/img/press/press5.png', 
+            'p_summary': 'Jocelyn Tan is the founder of Sisu VR, using immersive tech to promote empathy and inclusion in the workplace.'
+        },
+        {
+            'p_title': 'Can VR better prepare employees for the worst?',
+            'p_url': 'https://thehustle.co/news/can-vr-better-prepare-employees-for-the-worst',
+            'p_photo': 'public/assets/img/press/press6.png', 
+            'p_summary': 'No one gets an Apple Vision Pro or a Meta Quest 3 and thinks, “Let\’s do active shooter training or learn about harassment." But that\’s what Sisu VR offers — an immersive way for companies to train employees for a day they hope never comes.'
+        },
+        {
+            'p_title': 'Few Shocks, Plenty Of AWE As Immersive Industry Ventures To LBC',
+            'p_url': 'https://www.forbes.com/sites/dbloom/2024/06/25/few-shocks-plenty-of-awe-as-immersive-industry-ventures-to-lbc/',
+            'p_photo': 'public/assets/img/press/press7.png', 
+            'p_summary': 'AWE 2024 brought together over 6,000 attendees and 300+ exhibitors in Long Beach, spotlighting the resilience and innovation of the immersive tech industry despite recent challenges.'
+        },
+        {
+            'p_title': 'AWE 2024 Auggie Awards Finalists',
+            'p_url': 'https://www.awexr.com/blog/AWE-2024-Auggie-Awards-Finalists',
+            'p_photo': 'public/assets/img/press/press8.png', 
+            'p_summary': 'Sisu VR\’s "Empower Now" and "Active Shooter Preparedness" trainings were recognized among the world\’s top XR solutions at the Auggie Awards, the leading honors for AR/VR excellence.'
+        },
+        {
+            'p_title': 'Navigating Workplace Toxicity: Jocelyn Tan Of Sisu VR On Strategies for a Healthier Work Environment',
+            'p_url': 'https://medium.com/authority-magazine/navigating-workplace-toxicity-jocelyn-tan-of-sisu-vr-on-strategies-for-a-healthier-work-8aa762244a12',
+            'p_photo': 'public/assets/img/press/press9.png', 
+            'p_summary': 'Jocelyn Tan discusses how Sisu VR uses immersive training to combat workplace toxicity and promote empathy.'
+        },
+        {
+            'p_title': 'Virtual Reality: A Game-Changer for Workplace Safety and Active Shooter Training',
+            'p_url': 'https://trainingindustry.com/articles/learning-technologies/virtual-reality-a-game-changer-for-workplace-safety-and-active-shooter-training/',
+            'p_photo': 'public/assets/img/press/press10.png', 
+            'p_summary': 'Virtual reality is helping employees prepare for workplace emergencies with realistic, hands-on active shooter training.'
+        },
+        {
+            'p_title': '4 Signs That You Could Be Bullying Career Coworkers Unknowingly',
+            'p_url': 'https://www.forbes.com/sites/bryanrobinson/2024/10/03/4-signs-that-indicate-you-could-be-bullying-career-coworkers/',
+            'p_photo': 'public/assets/img/press/press11.png', 
+            'p_summary': 'Jocelyn Tan shares signs of unintentional workplace bullying, how to take accountability, and steps to improve behavior. She also offers advice for victims on addressing and documenting mistreatment.'
+        },
+    ]
+
+
+    # Hard-coded medium articles
+    latest_medium_article_list = [
+        {
+            'p_title': 'The DEI Puzzle: Five Myths That Feed the Fire 🔥',
+            'p_url': 'https://sisuvr.medium.com/the-dei-puzzle-five-myths-that-feed-the-fire-985e2bdbc031',
+            'p_photo': 'public/assets/img/articles/article1.png', 
+            'p_summary': "It’s a movement that has transformed global organizations. The first year after the Black Lives Matter protests, an estimated 94% of the 300,000 jobs advertised by S&P 100 companies went to people of color. It has also been proven to impact the bottom line; a 2020 McKinsey and Company study concluded companies with gender diversity in their leadership were 25% more likely to report higher profits."
+        },
+        {
+            'p_title': '10 Best Practices to Ensure Your Compliance Training Hits Different',
+            'p_url': 'https://sisuvr.medium.com/10-best-practices-to-ensure-your-compliance-training-hits-different-881a81b6ba61',
+            'p_photo': 'public/assets/img/articles/article2.png', 
+            'p_summary': "Compliance training exists for a very real purpose — to ensure employees are kept up-to-date on what’s important. Specifically, learning about what’s legal, how they can be kept safe, and how to safeguard organizational assets and interest."
+        },
+        {
+            'p_title': 'A Closer Look: The Past, Present, and Future of Workplace Violence',
+            'p_url': 'https://sisuvr.medium.com/a-closer-look-the-past-present-and-future-of-workplace-violence-968f22461718',
+            'p_photo': 'public/assets/img/articles/article3.png', 
+            'p_summary': "Workplace violence affects employees and organizations worldwide. Specifically in North America, learning from past incidents and key trends is essential for creating safer work environments."
+        },
+        {
+            'p_title': '4 Apple Vision Pro Workplace Apps You Need To Try',
+            'p_url': 'https://sisuvr.medium.com/4-apple-vision-pro-workplace-apps-you-need-to-try-7f85b13f7579',
+            'p_photo': 'public/assets/img/articles/article4.png', 
+            'p_summary': "The long-anticipated Apple Vision Pro officially released on February 2nd and is currently available in the United States. There are currently over 1 million apps that are compatible with the device, including apps claiming to foster greater better productivity and collaboration. In this article, we hone in on four standout workplace apps for Vision Pro."
+        },
+        {
+            'p_title': 'Unlock the Power of Compliance: Navigating Recent Labor Law Changes',
+            'p_url': 'https://sisuvr.medium.com/unlock-the-power-of-compliance-navigating-recent-labor-law-changes-75306a1ac690',
+            'p_photo': 'public/assets/img/articles/article5.png', 
+            'p_summary': "In today’s dynamic business landscape, staying informed about evolving labor laws is vital. Our comprehensive guide provides valuable insights into recent and upcoming labor law changes, helping you navigate the complexities and ensure compliance."
+        },
+        {
+            'p_title': 'How ChatGPT, AI, and VR are Reshaping the Future of Employee Training',
+            'p_url': 'https://sisuvr.medium.com/how-chatgpt-and-ai-are-reshaping-the-future-of-vr-training-3ec39a47a267',
+            'p_photo': 'public/assets/img/articles/article6.png',
+            'p_summary': "Imagine stepping into a world where you can learn, practice, and refine your professional skills in a highly dynamic environment. This is the promise of the metaverse, an immersive environment that leverages augmented reality, virtual reality (VR), and mixed reality technologies. When you combine the metaverse with artificial intelligence (AI), what do you get?"
+        },
+        {
+            'p_title': '5 Ways Virtual Reality is Used in Workplace Training',
+            'p_url': 'https://sisuvr.medium.com/5-examples-of-virtual-reality-used-in-workplace-training-3f62ab3da089',
+            'p_photo': 'public/assets/img/articles/article7.png',
+            'p_summary': "Inrecent years, virtual reality (VR) has become more accessible, offering employers an exciting new way to train their staff. VR allows employers to provide immersive, engaging, and cost-effective training opportunities that can help employees develop new skills and stay up to date with industry best practices. In this article, we’ll look at five examples of how employers are using VR to train their staff."
+        },
+        {
+            'p_title': '4 Ways to Maximize Employee Learning',
+            'p_url': 'https://sisuvr.medium.com/4-ways-to-maximize-employee-learning-a7f5ac82647',
+            'p_photo': 'public/assets/img/articles/article8.png',
+            'p_summary': "Previously, we compared traditional training (e.g., PC-based, live lectures) to immersive learning using virtual reality (VR) technology. Specifically, immersive solutions can offer organizations a wide range of benefits, from enhanced employee engagement to improved safety."
+        },
+        {
+            'p_title': 'Workplace Safety 101: Responding to Threats, Accidents, and Hazards',
+            'p_url': 'https://sisuvr.medium.com/workplace-safety-101-responding-to-threats-accidents-and-hazards-3ef85725b11a',
+            'p_photo': 'public/assets/img/articles/article9.png',
+            'p_summary': "Active threats, accidents, and hazards can pose serious risks to employee safety. While incidents are almost inevitable, with the right knowledge employees can effectively mitigate these harms. In this article, we will explore the various types of workplace threats, accidents, and hazards, and discuss ways to prevent each via immersive training."
+        },
+        {
+            'p_title': '4 Ways to Enrich Soft Skills Through Immersive Learning',
+            'p_url': 'https://sisuvr.medium.com/4-ways-to-enrich-soft-skills-through-immersive-learning-477f260650e1',
+            'p_photo': 'public/assets/img/articles/article10.png',
+            'p_summary': "Developing core skills, also known as soft skills, is essential for professionals to thrive in the workplace. But did you know 87% of companies worldwide have realized or anticipate a soft skills gap?"
+        },
+        {
+            'p_title': 'My Thoughts On…',
+            'p_url': 'https://sisuvr.medium.com/my-thoughts-on-5fa8222849e0',
+            'p_photo': 'public/assets/img/articles/article11.png',
+            'p_summary': "…best practices for creating a diverse and inclusive workplace, which can help prevent harassment and discrimination."
+        },
+        {
+            'p_title': 'Transforming Training: From the Classroom to VR',
+            'p_url': 'https://sisuvr.medium.com/transforming-training-from-the-classroom-to-vr-6b8b78219967',
+            'p_photo': 'public/assets/img/articles/article12.png',
+            'p_summary': "Employee training is paramount. However, each individual has a distinct learning style–for example, one may prefer consuming content by listening, and another may prefer reading. With this in mind, what are some ways to deliver training experiences that will cater to a variety of learners?"
+        },
+        {
+            'p_title': 'Combating Workplace Discrimination: The Power of Diversity, Inclusion, and Empathy',
+            'p_url': 'https://sisuvr.medium.com/combating-workplace-discrimination-the-power-of-diversity-inclusion-and-empathy-9458bfb6645d',
+            'p_photo': 'public/assets/img/articles/article13.png',
+            'p_summary': "Did you know 3 in 5 employees have witnessed or experienced workplace discrimination? Discrimination is the unjust treatment of an individual or group based on protected characteristics (i.e., personal traits) by an organization, or authority figures within an organization. For example, discrimination is exhibited when a worker gets promoted due to their gender. Or when an employee gets fired due to her religion."
+        },
+        {
+            'p_title': 'Protecting Your People: Standing Up to Workplace Bullying',
+            'p_url': 'https://sisuvr.medium.com/protecting-your-people-standing-up-to-workplace-bullying-ca52408755de',
+            'p_photo': 'public/assets/img/articles/article14.png',
+            'p_summary': "No one should have to experience a hostile work environment. Unfortunately, workplace bullying is a reality for many employees, affecting millions of workers."
+        },
+        {
+            'p_title': 'Empowerment through Awareness: Sexual Harassment in the Workplace',
+            'p_url': 'https://sisuvr.medium.com/empowerment-through-awareness-sexual-harassment-in-the-workplace-abb111d5806e',
+            'p_photo': 'public/assets/img/articles/article15.png',
+            'p_summary': "Did you know sexual harassment is the most common form of workplace harassment? In our previous article, we discussed various types of inappropriate workplace behavior. Today, we will be focusing on sexual harassment (SH), which includes any unsolicited or inappropriate sexual behavior or advances."
+        },
+        {
+            'p_title': 'Workplace Misconduct 101',
+            'p_url': 'https://sisuvr.medium.com/workplace-misconduct-101-3a5383e08164',
+            'p_photo': 'public/assets/img/articles/article16.png',
+            'p_summary': "Inappropriate workplace behavior includes discrimination, harassment, bullying, and retaliation. Among other consequences, misconduct creates a hostile work environment, negatively impacting mental health, stress levels, and job satisfaction."
+        },
+        {
+            'p_title': 'I Want to Build a….Virtual Reality Training Program!',
+            'p_url': 'https://sisuvr.medium.com/i-want-to-build-a-virtual-reality-training-program-2c3181401e6d',
+            'p_photo': 'public/assets/img/articles/article17.png',
+            'p_summary': "Through immersive learning, businesses can open doors to highly engaging training experiences that can have long-lasting benefits on staff productivity and connectedness."
+        },
+        {
+            'p_title': '5 Major Industries in the Metaverse',
+            'p_url': 'https://sisuvr.medium.com/five-major-industries-in-the-metaverse-13b92249b774',
+            'p_photo': 'public/assets/img/articles/article18.png',
+            'p_summary': "Businesses in virtually every industry are recognizing the potential benefits of extended reality, which includes virtual reality (VR)."
+        },
+        {
+            'p_title': 'Saving Lives Through Active Shooter Preparation',
+            'p_url': 'https://sisuvr.medium.com/saving-lives-through-active-shooter-preparation-ec4f6f2aff0f',
+            'p_photo': 'public/assets/img/articles/article19.png',
+            'p_summary': 'According to the FBI, an active shooting is when “one or more individuals [are] actively engag[ing] in killing or attempting to kill people in a confined space or populated area.”'
+        },
+        {
+            'p_title': 'Empower Your Workforce in 2023',
+            'p_url': 'https://sisuvr.medium.com/empower-your-workforce-in-2023-1ac3a0477295',
+            'p_photo': 'public/assets/img/articles/article20.png',
+            'p_summary': "As we begin 2023, we ponder how organizations are cultivating an empowered workforce. Many companies are turning to more robust learning and development programs to create more informed and engaged teams. How are companies reimagining the way training is executed, especially in a rapidly changing, working world?"
+        },
+        {
+            'p_title': '6 Big Brands Using VR for Training',
+            'p_url': 'https://sisuvr.medium.com/6-big-brands-using-vr-for-training-63384140ffb4',
+            'p_photo': 'public/assets/img/articles/article21.png',
+            'p_summary': "Ascompanies demand more engaging training content and methods for increased learning retention, traditional workforce training ought to evolve."
+        },
+        {
+            'p_title': 'How VR is Changing Workplace Safety Trainings',
+            'p_url': 'https://sisuvr.medium.com/how-vr-is-changing-workplace-safety-trainings-d441c992adf9',
+            'p_photo': 'public/assets/img/articles/article22.png',
+            'p_summary': "Feeling safe, comfortable, and confident in the workplace is necessary to create a productive and professional work environment. However, violations of employee privacy, consent, and comfort occur frequently as a result of gender, racial, and sexual harassment and discrimination."
+        },
+        {
+            'p_title': 'Life’s greatest secret…',
+            'p_url': 'https://sisuvr.medium.com/lifes-greatest-secret-3d287768adf9',
+            'p_photo': 'public/assets/img/articles/article23.png',
+            'p_summary': "Can you believe it is almost the end of December? With a new year just around the corner, it is a good time to reflect on what we have accomplished, and what is next. For 2022, where do we want to go, and who do we want to become?"
+        },
+        {
+            'p_title': 'Why You Need Empathy in the Workplace',
+            'p_url': 'https://sisuvr.medium.com/why-you-need-empathy-in-the-workplace-85dfb7a2d8c1',
+            'p_photo': 'public/assets/img/articles/article24.png',
+            'p_summary': '“You never really understand a person until you consider things from his point of view…until you climb into his skin and walk around in it.”'
+        },
+        {
+            'p_title': 'Get The Most Out Of Training Your Employees!',
+            'p_url': 'https://sisuvr.medium.com/how-to-get-the-most-out-of-training-your-employees-3562581f3aa1',
+            'p_photo': 'public/assets/img/articles/article25.png',
+            'p_summary': "Bettering your business through efficient training. Do you have a subject area or skill set you wish to train your employees to be proficient in?"
+        },
+        {
+            'p_title': 'New Sexual Harassment Prevention Training Guidelines For California Businesses In The New Year',
+            'p_url': 'https://sisuvr.medium.com/new-sexual-harassment-prevention-training-guidelines-for-california-businesses-in-the-new-year-133be7ec3a3f',
+            'p_photo': 'public/assets/img/articles/article26.png',
+            'p_summary': "Catalyzed by the “Me Too” movement in 2018, California Governor Gavin Newsom signed Senate Bill (SB) 1343 and SB 778 to update the requirement of how many employees a company must have before they provide anti-sexual harassment training."
+        },
+        {
+            'p_title': 'Increase User Retention, Comprehension, and Empathy Using Virtual Reality Training',
+            'p_url': 'https://sisuvr.medium.com/increase-user-retention-comprehension-and-empathy-using-virtual-reality-training-7099a470e1f1',
+            'p_photo': 'public/assets/img/articles/article27.png',
+            'p_summary': "Since its inception, virtual reality (VR) has had its limits pushed to see what the next advancement could be made of the technology. From a storytelling tool to interactive games in VR, the opportunities are endless. Studies have shown training using VR technology has increased benefits compared to traditional training videos. Increased comprehension, increased empathy, and a more interactive experience keep users engaged."
+        },
+        {
+            'p_title': 'SISU VR’s Empower Now Program Comes To Life On Your Desktop',
+            'p_url': 'https://sisuvr.medium.com/sisu-vrs-empower-now-program-comes-to-life-on-your-screen-c6292cf7ab1b',
+            'p_photo': 'public/assets/img/articles/article28.png',
+            'p_summary': "The Empower Now Program (ENP), once offered exclusively through Virtual Reality, is now available to experience right on your desktop! SISU VR’s goal is to empower professionals to bring their best selves to work everyday with the help of effective and engaging anti-harassment training through virtual reality."
+        },
+        {
+            'p_title': 'The Future of Work Is Now: VR Productivity Apps To Try Out',
+            'p_url': 'https://sisuvr.medium.com/the-future-of-work-is-now-vr-productivity-apps-to-try-out-3c894290df8e',
+            'p_photo': 'public/assets/img/articles/article29.png',
+            'p_summary': "COVID-19 has accelerated our need to perform remote work. To assist individuals in this new climate, leading-edge technologies, such as virtual reality (VR), are being used as a means to increase collaboration and throughput. "
+        },
+    ]
+
 
 
     latest_linked_in_post_list = LinkedinPost.objects.order_by('-pub_date')[:3]
@@ -1801,6 +2050,9 @@ def news_view(request, *args, **kwargs):
 
     template = loader.get_template('blog/news.html')
     context = {
+        'latest_press_post_list': latest_press_post_list,
+        'latest_medium_article_list': latest_medium_article_list,
+
         'latest_linked_in_post_list': latest_linked_in_post_list,
         'latest_medium_post_list': latest_medium_post_list,
     }
