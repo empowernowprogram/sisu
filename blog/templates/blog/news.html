@@ -68,22 +68,21 @@
         <!-- ============================= -->
         <!--  SECTION: Post of the Week   -->
         <!-- ============================= -->
-
         <section class="post-of-week-section no-top-padding">
             <div class="container-of-week">
                 <div class="row align-items-center">
                     <!-- Image (left column) -->
                     <div class="col-md-5">
-                        <img src="{% static latest_medium_article_list.19.p_photo %}" alt="Post of the Week Image"
+                        <img src="{{ latest_medium_post_list.0.m_photo.url }}" alt="Post of the Week Image"
                             class="post-of-week-image" />
                     </div>
 
                     <!-- Text/Link area (right column) -->
                     <div class="col-md-7">
                         <h3 class="post-of-week-title">Post of the Week</h3>
-                        <h4 class="week-article-title">{{ latest_medium_article_list.19.p_title }}</h4>
-                        <p class="week-article-desc">{{ latest_medium_article_list.19.p_summary }}</p>
-                        <a href="{{ latest_medium_article_list.19.p_url }}" target="_blank"
+                        <h4 class="week-article-title">{{ latest_medium_post_list.0.title_m }}</h4>
+                        <p class="week-article-desc">{{ latest_medium_post_list.0.Summary_m }}</p>
+                        <a href="{{ latest_medium_post_list.0.url_m }}" target="_blank"
                             class="btn btn-sisu-primary">
                             Read Article
                         </a>
@@ -102,17 +101,20 @@
                     <h2 class="news-subheading">Press</h2>
                 </div>
 
-                <!-- Left Arrow (Press) -->
                 <div class="scroll-arrow scroll-left" onclick="scrollPress('press-scroll', -1)">
                     &#10094;
                 </div>
 
-                <!-- Scrolling row (Press) -->
                 <div class="scroll-outer-wrapper">
                     <div class="scroll-container" id="press-scroll">
-                        {% for post in latest_press_post_list %}
+                        {% for post in latest_press_article_list %}
                         <div class="scroll-item">
-                            <img src="{% static post.p_photo %}" alt="{{ post.p_title }}" class="press-thumbnail" />
+                            {% if post.p_photo %}
+                            <img src="{{ post.p_photo.url }}" alt="{{ post.p_title }}" class="press-thumbnail" />
+                            {% else %}
+                            <img src="{% static 'public/assets/img/press/press1.png' %}" alt="Default image"
+                                class="press-thumbnail" />
+                            {% endif %}
                             <h5>{{ post.p_title }}</h5>
                             <p>{{ post.p_summary }}</p>
                             <a href="{{ post.p_url }}" target="_blank" class="read-more">Read More</a>
@@ -121,7 +123,6 @@
                     </div>
                 </div>
 
-                <!-- Right Arrow (Press) -->
                 <div class="scroll-arrow scroll-right" onclick="scrollPress('press-scroll', 1)">
                     &#10095;
                 </div>
@@ -138,26 +139,28 @@
                     <h2 class="news-subheading">Articles</h2>
                 </div>
 
-                <!-- Left Arrow (Articles) -->
                 <div class="scroll-arrow scroll-left" onclick="scrollPress('articles-scroll', -1)">
                     &#10094;
                 </div>
 
-                <!-- Scrolling row (Articles) -->
                 <div class="scroll-outer-wrapper">
                     <div class="scroll-container" id="articles-scroll">
-                        {% for post in latest_medium_article_list %}
+                        {% for post in latest_medium_post_list %}
                         <div class="scroll-item">
-                            <img src="{% static post.p_photo %}" alt="{{ post.p_title }}" class="press-thumbnail" />
-                            <h5>{{ post.p_title }}</h5>
-                            <p>{{ post.p_summary }}</p>
-                            <a href="{{ post.p_url }}" target="_blank" class="read-more">Read More</a>
+                            {% if post.m_photo %}
+                            <img src="{{ post.m_photo.url }}" alt="{{ post.title_m }}" class="press-thumbnail" />
+                            {% else %}
+                            <img src="{% static 'public/assets/img/press/press1.png' %}" alt="Default image"
+                                class="press-thumbnail" />
+                            {% endif %}
+                            <h5>{{ post.title_m }}</h5>
+                            <p>{{ post.Summary_m }}</p>
+                            <a href="{{ post.url_m }}" target="_blank" class="read-more">Read More</a>
                         </div>
                         {% endfor %}
                     </div>
                 </div>
 
-                <!-- Right Arrow (Articles) -->
                 <div class="scroll-arrow scroll-right" onclick="scrollPress('articles-scroll', 1)">
                     &#10095;
                 </div>
@@ -167,68 +170,27 @@
 
 
         <!-- ============================= -->
-        <!--  SECTION: LinkedIn Posts     -->
+        <!--  SECTION: LinkedIn Posts      -->
         <!-- ============================= -->
-
-        <!-- For dynamic loadng of posts -->
-        <!-- <section>
-            <div class="container">
-                <div class="sisu-divider-line text-center">
-                    <div class="bg-cube-container" style="float: right; margin-right: -48px;">
-                        <div class="bg-cube-element" style="width:56px; height:36px; margin-top:4%"></div>
-                    </div>
-                    <div class="bg-cube-container" style="margin-left:-84px">
-                        <div class="bg-cube-element" style="width:34px; height:26px; margin-top:0%"></div>
-                    </div>
-                    <div style="padding-bottom: 20px;">
-                        <span class="lead">What happening at Sisu Vr?</span>
-                    </div>
-                    <div class="row">
-                        {% if latest_linked_in_post_list %}
-                        {% for post in latest_linked_in_post_list %}
-                        <div class="col-lg-4">
-                            <iframe class="shadow" src={{post.url}} height="{{post.height}}" width="{{post.width}}"
-                                frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                        </div>
-                        <hr class="mobile-space">
-                        {% endfor %}
-                        {% else %}
-                        <p> There should be at least three linkedin posts </p>
-                        {% endif %}
-                    </div>
-                </div>
-        </section> -->
-
-        <!-- // Manually pasted iframed embedded links for posts -->
-        <!-- LATEST LINKEDIN POSTS -->
         <section class="no-top-padding">
             <div class="container">
                 <!-- Section Title -->
                 <div class="text-center">
-                    <h2 class="news-subheading">Our Latest LinkedIn Posts</h2>
+                    <h2 class="news-subheading">Our Latest Social Media Updates</h2>
                 </div>
 
                 <div class="row">
-                    <!-- 1st Post -->
+                    {% if latest_linked_in_post_list %}
+                    {% for post in latest_linked_in_post_list %}
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7305267296686514176"
-                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 1">
+                        <iframe src="{{ post.url }}" style="width: 100%; height: 500px;" frameborder="0" allowfullscreen
+                            title="LinkedIn Post {{ forloop.counter }}">
                         </iframe>
                     </div>
-
-                    <!-- 2nd Post -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7302724385499500545"
-                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 2">
-                        </iframe>
-                    </div>
-
-                    <!-- 3rd Post -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7291236697889980416"
-                            style="width: 100%; height: 500px;" frameborder="0" allowfullscreen title="LinkedIn Post 3">
-                        </iframe>
-                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-center">No recent LinkedIn posts available.</p>
+                    {% endif %}
                 </div>
             </div>
         </section>

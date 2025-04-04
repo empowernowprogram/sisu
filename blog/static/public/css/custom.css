@@ -1120,9 +1120,16 @@ section.non-relative {
   margin: 0 0 6px 0;
   font-weight: 550;
   color: #373F41;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .scroll-item p {
+  width: 100%;
   font-size: 14px;
   color: #494949;
   line-height: 1.5em;
