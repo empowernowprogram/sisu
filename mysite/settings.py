@@ -207,5 +207,4 @@ HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 120 }
 django_heroku.settings(locals())
 
 # Google reCAPTCHA #
-# TODO - move to .env key instead of storing in settings.py file.
-RECAPTCHA_SECRET_KEY = '6LennOMqAAAAALPY9cIQY7gapGf08xmUqP95ExMX'
+RECAPTCHA_SECRET_KEY = '6LceWhErAAAAAN6om4T9sOSOdcFrxPDbiWnDLfcx'
