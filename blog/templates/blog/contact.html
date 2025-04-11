@@ -55,84 +55,104 @@
         <!-- end: Header -->
         <!-- Content -->
         {% include 'components/message-sent.html' %}
-        <section style="padding-bottom:32px">
+        <section style="padding-bottom:24px">
             <div class="container">
                 <div class="sisu-divider-line text-center">
-                    <h2>Contact Us</h2>
-                    <div class="bg-cube-container">
-                        <div class="bg-cube-element" style="width:68px; height:42px; margin-top: 60px"></div>
-                    </div>
+                    <h2>Let's Work Together</h2>
 
-                    <hr class="sisu-hr">
-                    <p class="lead sisu-color-purple">Partnerships? Inquiries? Want to share your story?<br>Let’s talk!
+                    <hr class="sisu-hr line">
+                    <p class="lead sisu-color-purple">Interested in one of our trainings?<br>Want to know about pricing for your company?<br>Need a demo before committing?<br>Send us a message.
                     </p>
                 </div>
         </section>
 
         <section style="padding-top:12px">
-            <div class="container" style="padding-left:12%; padding-right:12%">
+            <div class="container" style="padding-left:17%; padding-right:17%">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="m-t-30">
-                            <p>* required field</p>
                             <form id="form-contact" class="widget-contact-form" method="POST" action="">
                                 {% csrf_token %}
-                                <div class="bg-cube-container" style="float: right; margin-right: -88px;">
-                                    <div class="bg-cube-element" style="width:44px; height:28px; margin-top:-12px">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="subject">Subject<span class="required-star">*</span></label>
+                                        {% if errors.input_subject %}
+                                            <p class="error-message">{{ errors.input_subject.0 }}</p>
+                                        {% endif %}
+                                        <select name="input-subject" class="form-control" required>
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="hrtrain">Interested in HR Business Conduct Training</option>
+                                            <option value="active">Interested in Active Shooter Training</option>
+                                            <option value="demo">Request a demo</option>
+                                            <option value="question">General question</option>
+                                            <option value="story">Share my story</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">First Name<span class="required-star">*</span></label>
+                                        {% if errors.input_first_name %}
+                                            <p class="error-message">{{ errors.input_first_name.0 }}</p>
+                                        {% endif %}
+                                        <input type="text" aria-required="true" name="input-first-name"
+                                            autocomplete="given-name" class="form-control" required
+                                            value="{% if form_data.input_first_name %}{{ form_data.input_first_name }}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="name">First Name *</label>
-                                        <input type="text" aria-required="true" name="input-first-name"
-                                            autocomplete="given-name" class="form-control" required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="name">Last Name *</label>
+                                        <label for="name">Last Name<span class="required-star">*</span></label>
+                                        {% if errors.input_last_name %}
+                                            <p class="error-message">{{ errors.input_last_name.0 }}</p>
+                                        {% endif %}
                                         <input type="text" aria-required="true" name="input-last-name"
                                             autocomplete="family-name" required class="form-control">
                                     </div>
                                 </div>
-                                <div class="bg-cube-container" style="margin-left:-124px">
-                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
-                                </div>
+
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="subject">Email Address *</label>
+                                        <label for="subject">Company Name (Optional)</label>
+                                        <input type="text" name="input-company-name" required class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="subject">Email Address<span class="required-star">*</span></label>
+                                        {% if errors.input_email %}
+                                            <p class="error-message">{{ errors.input_email.0 }}</p>
+                                        {% endif %}
                                         <input type="email" aria-required="true" name="input-email" autocomplete="email"
                                             required class="form-control">
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="subject">Company Name</label>
-                                        <input type="text" name="input-company-name" required class="form-control">
+                                    <div class="form-group col-md-6">
+                                        <label for="phone">Phone Number (Optional)</label>
+                                        <input type="tel" name="input-phone" class="form-control">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="subject">Subject</label>
-                                        <input type="text" name="input-subject" required class="form-control">
-                                    </div>
-                                </div>
-                                <div class="bg-cube-container" style="float: right; margin-right: -58px;">
-                                    <div class="bg-cube-element" style="width:68px; height:42px; margin-top:12px"></div>
-                                </div>
+                                
                                 <div class="form-group">
-                                    <label for="message">Message *</label>
-                                    <textarea type="text" name="input-message" required rows="5"
-                                        class="form-control required"></textarea>
+                                    <label for="message">Message (Optional)</label>
+                                    <textarea type="text" name="input-message" required rows="8"
+                                    class="form-control required" placeholder="Type your message here..."></textarea>
                                 </div>
                                 <div class="sisu-divider-line text-center">
+                                    {% if errors %}
+                                        <p class="general-error-message">Looks like you missed some of the required fields. Please double check form.</p>
+                                    {% endif %}
                                     <div style="padding-bottom: 20px;">
                                     </div>
                                     <button type="submit" data-sitekey="6Lf4EywbAAAAAHYgI-pcbhLQs04XtDKncfSc8x-w"
                                         data-callback="onSubmit" data-action="submit"
                                         class="g-recaptcha btn btn-sisu-primary">Send Message</button>
                                 </div>
-                                <div class="bg-cube-container" style="margin-left:-80px">
-                                    <div class="bg-cube-element" style="width:38px; height:22px;"></div>
-                                </div>
+                                
                             </form>
                         </div>
                     </div>

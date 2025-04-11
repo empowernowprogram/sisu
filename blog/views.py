@@ -461,19 +461,35 @@ def contact(request):
         values = {
             'secret': settings.RECAPTCHA_SECRET_KEY,
             'response': recaptcha_response
-            }
-        data        = urllib.parse.urlencode(values).encode()
-        req         = urllib.request.Request(url, data=data)
-        response    = urllib.request.urlopen(req)
-        result      = json.loads(response.read().decode()) # if pass result["success"] will == True        
+        }
+        data = urllib.parse.urlencode(values).encode()
+        req = urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())  # if pass result["success"] will == True
 
         if result['success'] == True:
-            input_first_name    = request.POST.get('input-first-name')
-            input_last_name     = request.POST.get('input-last-name')
-            input_subject     = request.POST.get('input-subject')
-            input_email         = request.POST.get('input-email')
-            input_company_name  = request.POST.get('input-company-name')
-            input_message       = request.POST.get('input-message')
+            input_first_name = request.POST.get('input-first-name')
+            input_last_name = request.POST.get('input-last-name')
+            input_subject = request.POST.get('input-subject')
+            input_email = request.POST.get('input-email')
+            input_company_name = request.POST.get('input-company-name')
+            input_message = request.POST.get('input-message')
+            input_phone = request.POST.get('input-phone')  # Retrieve phone number
+
+            errors = {}  # Initialize errors dictionary
+
+            if not input_subject:
+                errors['input_subject'] = ['Please select a subject.']
+            if not input_first_name:
+                errors['input_first_name'] = ['This field is required.']
+            if not input_last_name:
+                errors['input_last_name'] = ['This field is required.']
+            if not input_email:
+                errors['input_email'] = ['This field is required./Please add an @ in the email address.']
+
+            if errors:
+                return render(request, 'blog/contact.html', {'errors': errors, 'form_data': request.POST})
+                # return render(request, 'blog/contact.html', {'errors': errors})
 
             subject = f'[Contact Us] - from {str(input_first_name)} {str(input_last_name)} - {str(input_subject)}'
             emailContent = {
@@ -483,27 +499,27 @@ def contact(request):
                 'input_company_name': input_company_name,
                 'input_subject': input_subject,
                 'input_message': input_message,
+                'input_phone': input_phone, #add phone to the email content.
             }
             html_content = render_to_string('email-templates/email-contact-us.html', emailContent)
 
             # this is a quick fix, because for whatever reason, the "required" tag on the html page is not working.
             if len(input_first_name) != 0 and len(input_last_name) != 0 and "@" in input_email and len(input_message) != 0:
-                
                 try:
-                    #send mail to company's email
+                    # send mail to company's email
                     mail = EmailMultiAlternatives(subject, '', settings.EMAIL_HOST_USER, [settings.DEFAULT_FROM_EMAIL])
                     mail.attach_alternative(html_content, "text/html")
                     mail.send()
 
-                    messages.success(request, mark_safe('<strong>Message sent!</strong> Thank you for contacting Sisu VR, we will reply to you shortly!'))
+                    messages.success(request, mark_safe('<strong>Message sent!</strong> We received your message. </br>A Sisu VR member will reach out soon.'))
                     return redirect('/contact')
 
                 except:
                     messages.error(request, mark_safe('<strong>Error occurred.</strong> Message could not be sent due to an error. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
                     return redirect('/contact')
-            
+
             else:
-                messages.error(request, mark_safe('<strong>Error occurred.</strong> Please make sure you filled out all required fields. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
+                messages.error(request, mark_safe('<strong>Error occurred.</strong> lease make sure you filled out all required fields. </br>If this error persists please email <strong>hello@sisuvr.com</strong> directly. Thank you!'))
                 return redirect('/contact')
 
     return render(request, 'blog/contact.html')
