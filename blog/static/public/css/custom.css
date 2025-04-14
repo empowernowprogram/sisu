@@ -461,7 +461,7 @@
 }
 
 .sisu-header-link > li > a {
-  color: #484848 !important;
+  color: black !important;
   text-transform: capitalize !important;
   font-weight: 400 !important;
 }
