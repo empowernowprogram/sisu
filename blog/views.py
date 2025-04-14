@@ -455,6 +455,8 @@ def faq(request):
 
 def contact(request):
     if request.method == 'POST':
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+        
         # validate captcha
         recaptcha_response = request.POST.get('g-recaptcha-response')
         url = 'https://www.google.com/recaptcha/api/siteverify'
@@ -511,7 +513,11 @@ def contact(request):
                     mail.attach_alternative(html_content, "text/html")
                     mail.send()
 
-                    messages.success(request, mark_safe('<strong>Message sent!</strong> We received your message. </br>A Sisu VR member will reach out soon.'))
+                    messages.success(request, mark_safe('<strong>Message sent!</strong> Thank you for contacting Sisu VR, we will reply to you shortly!'))
+                    
+                    if is_ajax:
+                        return JsonResponse({"response": "success", "message": "Message sent successfully!"})
+                    
                     return redirect('/contact')
 
                 except:
