@@ -11,7 +11,6 @@
   /* min-height: 99px; */
   left: 0px;
   top: 0px;
-  background: linear-gradient(179deg, rgba(159,54,136,1) 0%, rgba(206,68,134,1) 56%, rgba(248,207,104,1) 100%);
 }
 
 
@@ -23,7 +22,7 @@
 }
 
 .sisu-header-link > li > a {
-  color: #fff !important;
+  color: black !important;
   text-transform: capitalize !important;
   font-weight: 400 !important;
 } 
@@ -58,6 +57,17 @@
   background: linear-gradient(180deg, rgba(159,54,136,1) 2%, rgba(206,68,134,1) 46%, rgba(248,207,104,1) 100%);
 }
 
+.sisu-footer-bg-new {
+  /* min-height: 99px; */
+  left: 0px;
+  top: 0px;
+  opacity: 80%;
+  background: linear-gradient(
+    #F5B942,
+    #CE4486
+  )
+}
+
 #footer-lazy-bg {
   height: 280px;
 }
@@ -68,6 +78,7 @@
 
 #footer .footer-content {
   padding: 42px 0 20px 0;
+  margin-bottom:-100px;
 }
 
 .sisu-hr {

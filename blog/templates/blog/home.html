@@ -44,7 +44,6 @@
          $("#emailModal").modal('show');
          $.cookie('bop', '1');
      }-->
- });
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> 
@@ -157,7 +156,7 @@
         data-sticky-active="500"
         class="dark submenu-light header-fixed home"
       >
-        <div id="header-inner" class="header-inner sisu-header-transparent-bkg">
+        <div id="header-inner" class="header-inner sisu-header-transparent-bkg" style="background-color: offwhite; opacity: 80%;">
           <div class="container">
             <!--Logo-->
             <a id="logo" href="{% url 'home' %}">
@@ -184,11 +183,11 @@
       <div
         id="slider"
         class="inspiro-slider"
-        style="top: -162px; margin-bottom: -162px"
       >
         <div
           class="slide"
-          data-bg-image="{% static 'public/assets/img/sisu-landing-bg-4.png' %}"
+          style="position: absolute; top:80px;"
+          data-bg-image="{% static 'public/assets/img/sisu-landing-bg-4.jpg' %}"
         >
           <!-- <div
             class="shape-divider"
@@ -207,14 +206,14 @@
               ></path>
             </svg>
           </div> -->
-          <div class="container">
+          <div class="container" style="position:absolute; left: 60px; top: 0px;">
             <div class="slide-captions text-left text-dark">
               <!-- Captions -->
               <h1
                 class="sisu-header-title"
-                style="font-size: xx-large; line-height: 150%"
+                style="font-size: x-large; line-height: 150%;"
               >
-                Workplace harassment<br />and safety training<br />through virtual reality.
+                Workplace safety training through virtual reality
               </h1>
               <h2 style="margin-top: -12px">
                 Take one step closer to an empowered workplace.
@@ -232,7 +231,7 @@
                 class="btn btn-sisu-secondary"
               >
                 <a href="#training-section" style="color: #000 !important"
-                  >View our programs</a
+                  >View Our Trainings</a
                 >
               </button>
               <!-- <button style="font-size:16px; margin-top:12px" type="button" class="btn btn-sisu-primary"
@@ -250,26 +249,9 @@
         <!-- end: Slide 2 -->
       </div>
       <!--end: Inspiro Slider -->
-
-      <div class="container" style="padding-top: 64px">
-        <div class="bg-cube-container" style="margin-left: -48px">
-          <div
-            class="bg-cube-element"
-            style="width: 34px; height: 22px; margin-top: -12px"
-          ></div>
-        </div>
-        <div
-          class="bg-cube-container"
-          style="float: right; margin-right: 100px"
-        >
-          <div
-            class="bg-cube-element"
-            style="width: 56px; height: 36px; margin-top: -62px"
-          ></div>
-        </div>
-        <div class="row">
+        <div class="row" style="margin-left:150px; margin-right:150px;">
           <div class="row-wrapper">
-            <div class="col-lg-6">
+            <div class="heading-text heading-line text-center">
               <h3
                 id="learn-more"
                 style="
@@ -278,381 +260,161 @@
                   animation-duration: 100ms;
                 "
               >
-                Did you know
-                <span class="sisu-color-purple">one in two women</span> has or
-                will face workplace harassment?
+                What is Sisu?
               </h3>
-              <p style="font-size: 16px">
-                And 90% of workers have been bullied. Harassment,
-                discrimination, and bullying have profound psychological
-                effects, including decreased productivity, and increased
-                turnover and lawsuits. What's more alarming is 30% of workers do
-                not know how to handle bad behavior.
-              </p>
               <p>
-                Source:
-                <a
-                  href="https://hbr.org/2020/10/do-your-employees-feel-safe-reporting-abuse-and-discrimination"
-                  class="sisu-color-purple"
-                  style="text-decoration: underline"
-                >
-                  Harvard Business Review</a
-                >
+                <div style="font-size: 24px; color:purple"> Sisu offers immersive and engaging virtual reality trainings to ensure your workplace can be a safe and harassment-free environment for your employees.</div> <div style="font-size: 24px;">Our trainings focus on different topics including bullying, sexual harassment, Quid Pro Quo, and how to respond if an active shooter enters the building. 
+                Let’s work together to empower your workforce today. </div>
               </p>
-
-              <div
-                class="bg-cube-container"
-                style="float: right; margin-right: 48%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="width: 56px; height: 36px; margin-top: 18%"
-                ></div>
               </div>
               <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
             </div>
-            <div class="col-lg-6">
-              <!-- <h2>Rounded</h2> -->
-              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
-              <img
-                src="{% static 'public/assets/img/featured-01-alt.jpg' %}"
-                class="img-fluid rounded"
-                alt="Two women sitting at a table."
-                style="width: 476px; height: auto"
-              />
-              <div
-                class="bg-cube-element"
-                style="
-                  width: 156px;
-                  height: 102px;
-                  margin-top: -80px;
-                  margin-left: -28px;
-                "
-              ></div>
-            </div>
-          </div>
-
-          <hr class="space" />
-          <div class="row-wrapper-alt">
-            <div class="col-lg-6">
-              <!-- <h2>Rounded</h2> -->
-              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
-              <img
-                src="{% static 'public/assets/img/featured-02-alt.jpg' %}"
-                class="img-fluid rounded"
-                alt="Firearm on table."
-                style="width: 476px; height: auto"
-              />
-              <div
-                class="bg-cube-element"
-                style="
-                  width: 156px;
-                  height: 102px;
-                  margin-top: -80px;
-                  margin-left: -28px;
-                "
-              ></div>
-            </div>
-            <div class="col-lg-6">
-              <h3
-                id="learn-more"
-                style="
-                  font-weight: 600;
-                  color: #494949;
-                  animation-duration: 100ms;
-                "
-              >
-                <span class="sisu-color-purple">
-                  20,050 injuries and 392 fatalities</span
-                >
-                have occurred as a result of workplace violence in 2020.
-              </h3>
-              <p style="font-size: 16px">
-                The deadliest situations involve an active shooter. 80% of
-                active shooter incidents occur in the workplace, and 25% of
-                companies are unprepared for active shooter incidents.
-                <br />Don’t let your company be one of them.
-              </p>
-              <p>
-                Source:
-                <!-- TODO: get link -->
-                <a
-                  href=""
-                  class="sisu-color-purple"
-                  style="text-decoration: underline"
-                >
-                  Active Shooter Plan Report
-                </a>
-              </p>
-              <div
-                class="bg-cube-container"
-                style="float: right; margin-right: 48%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="width: 56px; height: 36px; margin-top: 18%"
-                ></div>
-              </div>
               <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
             </div>
           </div>
-          <hr class="space" />
-          <div class="col-lg-2">
-            <div
-              class="bg-cube-element"
-              style="
-                width: 126px;
-                height: 88px;
-                margin-top: 0px;
-                margin-left: -12px;
-              "
-            ></div>
-            <div
-              class="bg-cube-element"
-              style="
-                width: 80px;
-                height: 72px;
-                margin-top: 60px;
-                margin-left: -36px;
-              "
-            ></div>
-          </div>
-          <div class="col-lg-8">
-            <h3 class="text-center" style="font-weight: 600; color: #494949">
-              Let <span class="sisu-color-purple">Sisu VR</span> empower your
-              workforce.
-            </h3>
-            <p class="text-center" style="font-size: 16px">
-              Sisu VR helps empower employees to work fearlessly.<br />
-              We offer immersive and engaging VR trainings to increase<br />
-              psychological safety and physical safety in the workplace.
-            </p>
-            <div class="col-lg-2">
-              <div
-                class="bg-cube-container"
-                style="float: right; margin-right: 0%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="width: 56px; height: 36px; margin-top: 0%"
-                ></div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-cube-container" style="float: right">
-            <div
-              class="bg-cube-element"
-              style="
-                width: 120px;
-                height: 96px;
-                margin-top: 160px;
-                margin-left: 42px;
-              "
-            ></div>
-          </div>
-          <hr class="space" />
-          <div class="row-wrapper">
-            <div class="col-lg-6">
-              <div
-                class="bg-cube-container"
-                style="float: left; margin-right: 0%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="
-                    width: 26px;
-                    height: 18px;
-                    margin-top: 34%;
-                    margin-left: 80px;
-                  "
-                ></div>
-              </div>
-              <h3 style="font-weight: 600; color: #494949">
-                Immersive training using<br /><span class="sisu-color-purple"
-                  >virtual reality (VR)</span
-                >
-              </h3>
-              <p style="font-size: 16px">
-                Studies show virtual reality (VR) training raises retention and
-                empathy. VR learners were 4x faster to train that in the
-                classroom, 275% more confident to apply their skills they
-                learned, 3.75x more emotionally connected to the content than
-                classroom learners, and 4x more focused than their e-learning
-                peers <br />
-              </p>
 
-              <p>
-                Source:
-                <a
-                  href="https://sisuvr.medium.com/increase-user-retention-comprehension-and-empathy-using-virtual-reality-training-7099a470e1f1"
-                  class="sisu-color-purple"
-                  style="text-decoration: underline"
-                >
-                  PWC Soft Skills Study, 2020</a
-                >
-              </p>
-            </div>
-            <div class="col-lg-6">
-              <!-- <h2>Rounded</h2> -->
-              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
-              <img
-                src="{% static 'public/assets/img/featured-03-alt.jpg' %}"
-                class="img-fluid rounded"
-                alt="Woman putting on vr headset."
-                style="width: 476px; height: autopx"
-              />
-              <div
-                class="bg-cube-container"
-                style="float: left; margin-right: 0%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="
-                    width: 226px;
-                    height: 186px;
-                    margin-top: 32%;
-                    margin-left: -24px;
-                  "
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <hr class="space" />
-          <div class="row-wrapper-alt">
-            <div class="col-lg-6">
-              <!-- <h2>Rounded</h2> -->
-              <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
-              <img
-                src="{% static 'public/assets/img/featured-04-alt.jpg' %}"
-                class="img-fluid rounded"
-                alt="Man holding VR headset."
-                style="width: 476px; height: auto"
-              />
-            </div>
-            <div class="col-lg-6">
-              <h3 style="font-weight: 600; color: #494949">
-                Hands-on
-                <span class="sisu-color-purple">interactive simulations</span>.
-              </h3>
-              <p style="font-size: 16px">
-                How many of your employees are distracted or lack engagement
-                during mandatory trainings? Our VR trainings eliminate
-                distractions and lets employees learn by engaging in our
-                simulations. Sisu VR’s trainings will make your employees
-                excited to take workplace safety trainings!
-              </p>
-              <!-- <img src="images/other/550x240.png" class="img-fluid rounded" alt=""> -->
-              <div
-                class="bg-cube-container"
-                style="float: right; margin-right: 0%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="width: 56px; height: 36px; margin-top: 0%"
-                ></div>
-              </div>
-              <div
-                class="bg-cube-container"
-                style="float: left; margin-right: 0%"
-              >
-                <div
-                  class="bg-cube-element"
-                  style="
-                    width: 26px;
-                    height: 18px;
-                    margin-top: 34%;
-                    margin-left: 80px;
-                  "
-                ></div>
-              </div>
-            </div>
-          </div>
-
-          <hr class="space" />
-        </div>
-      </div>
 
       <section
         id="training-section"
         class="non-relative"
-        style="margin-top: 0%"
+        style="margin-top: 10px;"
       >
         <div class="container">
           <div class="heading-text heading-line text-center">
-            <h4>View Our Trainings</h4>
+            <h4>Why Choose Our Trainings?</h4>
           </div>
-          <div class="row">
-            <div
-              class="col-lg-6"
-              style="display: flex; justify-content: center"
-            >
-              <div class="card sisu-trainings-card">
-                <img
-                  src="{% static 'public/assets/img/training-image-1.jpg' %}"
-                  class="card-img-top"
-                  alt="..."
-                  style="height: 55%"
-                />
-                <div class="card-body sisu-card-body">
-                  <span
-                    class="card-text sisu-color-purple"
-                    style="font-weight: bold"
-                    >HR Business Conduct Training:<br />Empower Now
-                    Program</span
-                  >
-                  <p class="card-text" style="margin-top: 20px">
-                    VR business conduct training in the<br />workplace for
-                    employees and supervisors
-                  </p>
-                  <a
-                    href="{% url 'enp' %}"
-                    class="card-text"
-                    style="color: #ec7f00"
-                    >Learn More</a
-                  >
-                </div>
-              </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/vr-headset-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">Virtual Reality Technology</div>
+              <p>
+                Studies show virtual reality (VR) trainings raise retention and empathy. VR learners learn 4 times faster and are shown to be more confident at applying the skills learned. 
+              </p>
             </div>
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/clock-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">20 Minute Modules</div>
+              <p>
+                Each module (training course) is around 20 minutes long to help with retention and avoid fatigue. Short module times will guarantee that your employee’s get the training they need as efficiently as possible. 
+              </p>
+            </div>
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/certificate-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">Employee Certificates</div>
+              <p>
+                Each person that completes the training will get their own certificate with your company’s name on it. Certificates are proven to be a great way to encourage the completion of trainings. 
+              </p>
+            </div>
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/laptop-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">Accessible Options</div>
+              <p>
+                Although VR training has proven to be an excellent learning tool, we understand some might not prefer this method. Our trainings can be accessed through a computer and tablet. 
+              </p>
+            </div>
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/ethics-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">Ethics Framework</div>
+              <p>
+                Each training module will provide employee and employer with an ethical framework. Ethical framework allows trainees to see how they would naturally response to specific situations.  
+              </p>
+            </div>
+            <div class="text-center" style="padding: 10px; align-items: center; justify-content: center;">
+              <img
+                src="{% static 'public/assets/img/pie-chart-logo.png' %}"
+                style="width: 50px; height: 50px;" 
+              />
+              <div class="text-center">Company Portal</div>
+              <p>
+                Monitor your employee’s progress and send reminders to complete training modules. Stay on top of trainings and help your company stay organized.  
+              </p>
+            </div>
+          </div>
 
-            <div
-              class="col-lg-6"
-              style="display: flex; justify-content: center"
-            >
-              <div class="card sisu-trainings-card">
-                <img
-                  src="{% static 'public/assets/img/training-image-2.png' %}"
-                  class="card-img-top"
-                  alt="..."
-                  style="height: 55%"
-                />
-                <div class="card-body sisu-card-body">
-                  <span
-                    class="card-text sisu-color-purple"
-                    style="font-weight: bold"
-                    >MindGlow Active Shooter<br />Response Training</span
-                  >
-                  <p class="card-text" style="margin-top: 20px">
-                    VR active shooter training in schools and<br />the office
-                    for students and employees
-                  </p>
-                  <a
-                    href="{% url 'mindglow' %}"
-                    class="card-text"
-                    style="color: #ec7f00"
-                    >Learn More</a
-                  >
-                </div>
-              </div>
-            </div>
+          </div>
           </div>
         </div>
       </section>
 
+      <!-- Our Trainings container -->
+      <section
+        id="our-trainings-section"
+        class="non-relative"
+        style="margin-top: 10px;"
+      >
+        <div class="container">
+          <div class="heading-text heading-line text-center">
+            <h4>Our Trainings</h4>
+          </div>
+          <div style="display: flex; gap:50px;">
+            <div style="text-align: center;">
+              <img
+                src="{% static 'public/assets/img/sisu-hrbc-logo.png' %}"
+                style="width: 400px; height: 300px; border-radius: 50%"
+              />
+              <div
+                class="text=center sisu-color-purple"
+                style="font-weight: bold; font-size: 24px"
+                >HR Business Conduct Training</div>
+              <p>
+                <div class="text-center" style="font-weight:bold;">Our HR Business Conduct Training can help your employees learn to handle a variety of situations.</div>
+                This training can help your employees learn to handle situations such as workplace harassment, discrimination, and bullying. Avoid decreased productivity,
+                increased turnover, and even lawsuits due to problems in the workforce.
+              </p>
+              <p>Learn more about how HR Business Conduct Training can help you have a safer work environment for everyone.</p>
+              <a
+                  href="{% url 'enp' %}"
+                  class="btn-sisu-primary"
+                  style="color: white; border-radius: 30px; width: 150px; height: 50px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none"
+              >
+                  View Training
+              </a>
+            </div>
+            <div style="text-align: center;">
+              <img
+                src="{% static 'public/assets/img/sisu-ast-logo.png' %}"
+                style="width: 400px; height: 300px; border-radius: 50%"
+              />
+              <div
+                class="text=center sisu-color-purple"
+                style="font-weight: bold; font-size: 24px"
+                >Active Shooter Training</div>
+              <p>
+                <div class="text-center" style="font-weight:bold;">Our Active Shooter Training can help youre employees be prepared for the unimaginable.</div>
+                The deadliest situations involve an active shooter. 80% of active shooter incidents occur in the workplace, and 25% of companies are unprepared
+                for active shooter incidents. Don't let your company be one of them. 
+              </p>
+              <p>Learn more about how how Mindglow Active Shooter Training can help your company be prepared.</p>
+              <a
+                  href="{% url 'mindglow' %}"
+                  class="btn-sisu-primary"
+                  style="color: white; border-radius: 30px; width: 150px; height: 50px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none"
+              >
+                  View Training
+              </a>
+            </div>
+          </div>
+        </div>
+
       <!-- Slideshow container -->
       <div class="slideshow-container">
         <!-- Full-width images with number and caption text -->
-        <div class="mySlides" style="display: block">
+        <div class="mySlides" style="display: block;">
           <div class="grid-system-demo-live">
             <div class="row">
               <div class="col-lg-12 p-t-80 p-b-20">
@@ -771,123 +533,14 @@
         >
       </div>
     </div>
-
     <section class="non-relative" style="margin-top: -250px">
-      <div class="container">
-        <div class="bg-cube-container" style="float: right; margin-right: 0%">
-          <div
-            class="bg-cube-element"
-            style="width: 26px; height: 18px; margin-top: 0%; margin-left: 80px"
-          ></div>
-        </div>
-        <div class="heading-text heading-line text-center">
-          <h4>Our Partners</h4>
-        </div>
-        <div class="row team-members m-b-40">
-          <!-- <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://www.mindglowinc.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-02.png' %}"
-                    alt="MindGlow Inc."
-                    style="width: 138px"
-                /></a>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                  <img
-                    src="{% static 'public/assets/img/partner-logo-redlinevr.jpg' %}"
-                    alt="Redline VR"
-                    style="width: 138px"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-sm" style="display: flex; align-items: center">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://www.opensesame.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-opensesame.png' %}"
-                    alt="OpenSesame"
-                    style="width: 300px"
-                /></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://theeplex.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-eplex.png' %}"
-                    alt="EPlex"
-                    style="width: 138px"
-                /></a>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://www.boozallen.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-boozallen.png' %}"
-                    alt="Booz Allen"
-                    style="width: 138px"
-                /></a>
-              </div>
-            </div>
-          </div> -->
-          <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://jmspartan.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-jmspartan.png' %}"
-                    alt="JM Spartan Training"
-                    style="width: 138px"
-                /></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://pixovr.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-pixovr.png' %}"
-                    alt="Pixo VR"
-                    style="width: 300px"
-                /></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="team-member">
-              <div class="team-image">
-                <a href="https://21clets.com/" target="_blank"
-                  ><img
-                    src="{% static 'public/assets/img/partner-logo-21.png' %}"
-                    alt="21 CLETS"
-                    style="width: 138px"
-                /></a>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="row justify-content-md-center center-container">
           <div class="col-lg-12">
             <h3
               class="text-center"
-              style="font-weight: 500; color: #494949; font-size: large"
+              style="font-weight: bold; color: #494949; font-size: 24px"
             >
-              Ready to empower your workforce with a<br />
-              customized training plan?
+              Take one step closer to a safe and empowered workplace
             </h3>
           </div>
           <button
@@ -903,10 +556,118 @@
             class="btn btn-sisu-primary"
           >
             <a href="{% url 'contact' %}" style="color: #fff !important">
-              Contact Us
+              Get Started
             </a>
           </button>
         </div>
+        <div class="container" style="margin-top: 20px;">
+          <div class="bg-cube-container" style="float: right; margin-right: 0%">
+            <div
+              class="bg-cube-element"
+              style="width: 26px; height: 18px; margin-top: 0%; margin-left: 80px"
+            ></div>
+          </div>
+          <div class="heading-text heading-line text-center">
+            <h4>Our Partners</h4>
+          </div>
+          <div class="row team-members m-b-40">
+            <!-- <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://www.mindglowinc.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-02.png' %}"
+                      alt="MindGlow Inc."
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://www.redlinevr.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-redlinevr.jpg' %}"
+                      alt="Redline VR"
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm" style="display: flex; align-items: center">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://www.opensesame.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-opensesame.png' %}"
+                      alt="OpenSesame"
+                      style="width: 200px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://theeplex.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-eplex.png' %}"
+                      alt="EPlex"
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://www.boozallen.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-boozallen.png' %}"
+                      alt="Booz Allen"
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://jmspartan.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-jmspartan.png' %}"
+                      alt="JM Spartan Training"
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://pixovr.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-pixovr.png' %}"
+                      alt="Pixo VR"
+                      style="width: 200px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="team-member">
+                <div class="team-image">
+                  <a href="https://21clets.com/" target="_blank"
+                    ><img
+                      src="{% static 'public/assets/img/partner-logo-21.png' %}"
+                      alt="21 CLETS"
+                      style="width: 138px"
+                  /></a>
+                </div>
+              </div>
+            </div>
+          </div>
     </section>
 
     <!-- Cookies -->
