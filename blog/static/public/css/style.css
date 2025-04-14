@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*  Mixins */
 /*  Fonts */
 /* --------------------------------------------------------------- 
@@ -9053,7 +9053,7 @@ Helpers
 .text-dark label,
 .text-dark div:not(.alert),
 .text-dark span:not(.btn-label) {
-  color: #111 !important;
+  color: #494949 !important;
 }
 
 .text-grey,

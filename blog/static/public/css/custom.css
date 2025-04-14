@@ -461,7 +461,7 @@
 }
 
 .sisu-header-link > li > a {
-  color: black !important;
+  color: #484848 !important;
   text-transform: capitalize !important;
   font-weight: 400 !important;
 }
@@ -707,7 +707,7 @@
 
 @media (max-width: 900px) {
   .sisu-header-link > li > a {
-    color: #fff !important;
+    color: #484848 !important;
     font-weight: 600 !important;
   }
 }
