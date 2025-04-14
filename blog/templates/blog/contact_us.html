@@ -10,6 +10,17 @@
                 <form method="post" action="{% url 'contact_us' %}" class="contact-form d-flex flex-column align-items-center py-3">
                     {% csrf_token %}
                     <div class="form-group contact-input">
+                        <select name="{{ form.subject.html_name }}" class="form-control" required="" id="{{ form.subject.id_for_label }}">
+                            <option value="" disabled selected>Select</option>
+                            <option value="hrtrain">Interested in HR Business Conduct Training</option>
+                            <option value="active">Interested in Active Shooter Training</option>
+                            <option value="demo">Request a demo</option>
+                            <option value="question">General question</option>
+                            <option value="story">Share my story</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group contact-input">
                         <input type="text" name="{{ form.your_name.html_name }}" class="form-control"
                             maxlength="100" required="" id="{{ form.your_name.id_for_label }}"
                             placeholder="Name">
@@ -25,12 +36,6 @@
                         <input type="text" name="{{ form.your_company.html_name }}" class="form-control"
                             maxlength="100" required="" id="{{ form.your_company.id_for_label }}"
                             placeholder="Company Name">
-                    </div>
-
-                    <div class="form-group contact-input">
-                        <input type="text" name="{{ form.subject.html_name }}" class="form-control"
-                            maxlength="100" required="" id="{{ form.subject.id_for_label }}"
-                            placeholder="Subject">
                     </div>
 
                     <div class="form-group contact-input">
