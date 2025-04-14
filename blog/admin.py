@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, PostPreferrence, ReplyToComment, Cluster, Resource, LinkedinPost, MediumPost
+from .models import Post, Comment, PostPreferrence, ReplyToComment, Cluster, Resource, PressArticle, MediumPost, LinkedinPost
 
 class PostAdmin(admin.ModelAdmin):
     model = Post
@@ -27,5 +27,6 @@ admin.site.register(ReplyToComment)
 
 admin.site.register(Cluster, ClusterAdmin)
 
-admin.site.register(LinkedinPost)
+admin.site.register(PressArticle)
 admin.site.register(MediumPost)
+admin.site.register(LinkedinPost)

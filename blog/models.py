@@ -143,19 +143,28 @@ class Resource(models.Model):
 class LinkedinPost(models.Model): 
   url = models.CharField(max_length=250)
   pub_date = models.DateTimeField('date published', null=True)
-  height = models.IntegerField()
-  width = models.IntegerField()
+  height = models.IntegerField(default=500, null=True, blank=True)
+  width = models.IntegerField(default=100, null=True, blank=True)
 
 
 class MediumPost(models.Model): 
   url_m = models.CharField(max_length=250)
-  Summary_m = models.CharField(max_length=374)
+  Summary_m = models.TextField(max_length=500)
   pub_date_m = models.DateTimeField('date published', null=True)
   title_m = models.CharField(max_length=100)
   m_photo = CloudinaryField('image', blank=True, null=True)
-  #m_photo = models.ImageField(upload_to='medium/photos', null=True)
-  # text_m = models.IntegerField()
-  # width = models.IntegerField()
+
+  def __str__(self):
+    return self.title_m
 
 
+class PressArticle(models.Model):
+  p_title = models.CharField(max_length=200)
+  p_url = models.URLField()
+  p_summary = models.TextField(max_length=500)
+  p_photo = CloudinaryField('image', blank=True, null=True)
+  pub_date = models.DateTimeField('date published', null=True, blank=True)
+
+  def __str__(self):
+    return self.p_title
 

@@ -12,15 +12,18 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from decouple import config
+from dotenv import load_dotenv 
 import django_heroku 
 import dj_database_url
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+load_dotenv()
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', cast=bool)
+
 SECURE_SSL_REDIRECT = not DEBUG # prevousy was True
 #ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
@@ -207,5 +210,4 @@ HITCOUNT_KEEP_HIT_ACTIVE = { 'minutes': 120 }
 django_heroku.settings(locals())
 
 # Google reCAPTCHA #
-# TODO - move to .env key instead of storing in settings.py file.
-RECAPTCHA_SECRET_KEY = '6Lf4EywbAAAAAOvh_pR5uG_Ds3-iwRLng3xJJ4ln'
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")

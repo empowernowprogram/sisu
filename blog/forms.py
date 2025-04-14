@@ -26,7 +26,9 @@ class ContactForm(forms.Form):
     your_email = forms.EmailField(required=True)
     # your_company = forms.EmailField(max_length=100)
     subject = forms.CharField(max_length=100, required=True)
-    message = forms.CharField(required=True)
+    message = forms.CharField(required=False)
+    your_phone = forms.CharField(max_length=20, required=False) # Add phone number field
+
 
 class SearchForm(forms.Form):
     search_string = forms.CharField(max_length=200)
