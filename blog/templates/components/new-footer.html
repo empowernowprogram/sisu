@@ -1,14 +1,7 @@
 {% load static %}
 
-<footer id="footer" class="sisu-footer-bg">
+<footer id="footer" class="sisu-footer-bg-new">
   <div style="margin-bottom: -100px">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path
-        fill="#ffffff"
-        fill-opacity="1"
-        d="M0,224L60,192C120,160,240,96,360,96C480,96,600,160,720,186.7C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
-      ></path>
-    </svg>
   </div>
   <div id="footer-lazy-bg" data-ll-status="loaded">
     <div class="grid-system-demo-live vertical-center">
@@ -16,9 +9,10 @@
         <div class="container">
           <div class="row" style="padding-bottom: 0px">
             <div class="col-lg-12 text-center">
-              <h3 class="text-center footer-banner">
-                Stay updated with our free newsletter!
+              <h3 class="text-center footer-banner" style="color:black !important">
+                Harrassment, bullying and discrimination is still a big issue.
               </h3>
+              <p style="color:black;">Sign up for our newsletter and see how you can help make a difference</p>
               <div style="justify-content: center; display: flex">
                 <form class="site-search" method="POST" action=".">
                   {% csrf_token %}
@@ -56,35 +50,35 @@
               <div class="widget" style="margin-top: 40px">
                 <ul class="list footer-links">
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'about-us' %}"
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 'about-us' %}"
                       >About</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'contact' %}"
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 'contact' %}"
                       >Contact</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'home_portal' %}"
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 'home_portal' %}"
                       >Customer Portal</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'p_p' %}"
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 'p_p' %}"
                       >Privacy Policy</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 't_c' %}"
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 't_c' %}"
                       >Terms & Conditions</a
                     >
                   </li>
                   <li style="display: inline-block">
-                    <a class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a>
+                    <a style="color:black !important;" class="sisu-footer-link" href="{% url 'faq' %}">FAQ</a>
                   </li>
                   <li style="display: inline-block">
-                    <h5 style="color: #fff; font-weight: 300 !important">
+                    <h5 style="color:black !important;" style="color: #fff; font-weight: 300 !important">
                       Follow Us
                     </h5>
                     <div

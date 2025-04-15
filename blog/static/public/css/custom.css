@@ -452,12 +452,6 @@
   /* min-height: 150px; */
   left: 0px;
   top: 0px;
-  background: linear-gradient(
-    179deg,
-    rgba(159, 54, 136, 1) 0%,
-    rgba(206, 68, 134, 1) 56%,
-    rgba(248, 207, 104, 1) 100%
-  );
 }
 
 .sisu-header-transparent-bkg {
@@ -467,7 +461,7 @@
 }
 
 .sisu-header-link > li > a {
-  color: #484848 !important;
+  color: black !important;
   text-transform: capitalize !important;
   font-weight: 400 !important;
 }
@@ -506,6 +500,17 @@
   );
 }
 
+.sisu-footer-bg-new {
+  /* min-height: 99px; */
+  left: 0px;
+  top: 0px;
+  opacity: 80%;
+  background: linear-gradient(
+    #F5B942,
+    #CE4486
+  )
+}
+
 #footer-lazy-bg {
   height: auto;
 }
@@ -516,6 +521,7 @@
 
 #footer .footer-content {
   padding: 42px 0 20px 0;
+  margin-bottom:-100px;
 }
 .new-title {
   text-align: center;
