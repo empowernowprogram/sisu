@@ -266,6 +266,99 @@
   }
 }
 
+.modal-open {
+  padding-right: 0px !important;
+}
+
+.my-modal-content {
+  height: 728px;
+  width: 493px;
+  background: linear-gradient(
+    0deg,
+    rgba(248, 207, 104, 1),
+    rgba(206, 68, 134, 1),
+    rgba(191, 63, 135, 1)
+  );
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.my-modal-top-bar {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.my-modal-button {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  font-style: bold;
+  text-align: center;
+  line-height: 22px;
+  border-style: solid;
+  border-radius: 12px;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-right: 20px;
+}
+
+.sisu-modal-image {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.email-banner {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 58px;
+  color: white;
+  text-shadow: 4px 4px #494949;
+  margin-bottom: 50px;
+}
+
+.my-modal-input {
+  border: 2px solid #000;
+  font-size: 16px;
+  width: 400px;
+  height: 61px;
+  margin-bottom: 20px;
+}
+
+.modal-btn {
+  border: 0 !important;
+  font-size: 36px !important;
+  width: 400px;
+  height: 61px;
+  text-transform: none !important;
+  background: #d14c84 !important;
+}
+
+.email-dismiss {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 14px;
+  color: black;
+  text-shadow: none;
+  border: 0;
+}
+
 
 @media (max-width: 768px) {
   .footer-content {
