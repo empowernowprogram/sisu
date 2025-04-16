@@ -62,10 +62,7 @@
   left: 0px;
   top: 0px;
   opacity: 80%;
-  background: linear-gradient(
-    #F5B942,
-    #CE4486
-  )
+  background: #fefbfe;
 }
 
 #footer-lazy-bg {
