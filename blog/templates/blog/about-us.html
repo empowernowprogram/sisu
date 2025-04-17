@@ -41,7 +41,7 @@
           <div class="container">
             <!--Logo-->
             <a href="{% url 'home' %}" id="logo">
-              <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: auto; height: 40px;"/>
+              <img src="{% static 'public/assets/svg/logo-text-colored.svg' %}" style="width: auto; height: 30px; margin-bottom: 10px"/>
             </a>
             <!--End: Logo-->
             <!--Navigation Resposnive Trigger-->
@@ -58,15 +58,15 @@
       <!-- end: Header -->
       <!-- Content -->
       <div>
-        <div class="container" style="padding-top: 120px">
-          <div class="sisu-divider-line text-center">
+        <div class="container" style="padding-top: 80px">
+          <div class="sisu-divider-line sisu-divider-line--about text-center">
             <span class="lead">About Us</span>
-            <div style="padding-bottom: 20px; padding-top: 40px">
+            <div style="padding-bottom: 10px; padding-top: 20px">
               <img
                 src="{% static 'public/assets/svg/logo-text-colored.svg' %}"
               />
             </div>
-            <p style="font-size: 16px">
+            <p style="font-size: 16px; margin-bottom: 0">
               In Finnish, "Sisu" means "grit, bravery, and resilience" and "hope
               in the face of adversity."
             </p>
@@ -76,20 +76,21 @@
 
       <section>
         <div class="container">
-          <div class="row">
+          <div class="row d-flex align-items-center gap-3">
             <div class="col-lg-6">
               <!-- <h2>Rounded</h2> -->
               <!-- <p>Add classes to an <code>&lt;img&gt;</code> element to easily style images in any project.</p> -->
               <img
-                src="{% static 'public/assets/group-picture.png' %}"
-                class="img-fluid rounded"
+                src="{% static 'public/assets/diverseprofessionals_sisu.png' %}"
+                class="img-fluid rounded mb-0"
                 alt=""
-                style="width: 400px; height: auto"
+                style="padding-top: 200px; margin-right: 0; width: 600px; height: auto;"
               />
             </div>
             <div class="col-lg-6">
               <h3
                 style="
+                  font-size: 28px;
                   font-weight: 600;
                   color: #494949;
                   animation-duration: 100ms;
@@ -112,7 +113,7 @@
               </p>
             </div>
 
-            <div class="col-lg-12">
+            <div class="col-lg-12 mt-5">
               <h3 style="font-weight: 600; color: #494949">Who are we?</h3>
               <p style="font-size: 16px">
                 Welcome to Sisu VR. We are a people-first team teaching our
@@ -162,7 +163,7 @@
                 ></div>
             </div>
             <div style="padding-bottom: 20px">
-                <span class="lead" style="font-weight: bold"
+                <span class="lead" 
                 >Choose to work fearlessly with Sisu VR!</span
                 >
             </div>
@@ -173,13 +174,13 @@
                 margin-bottom: 24px;
                 border-radius: 30px;
                 height: 64px;
-                width: 200px;
+                width: 250px;
                 "
                 type="button"
                 class="btn btn-sisu-primary"
             >
                 <a href="{% url 'contact' %}" style="color: #fff !important">
-                Contact Us
+                Let's Work Together
                 </a>
             </button>
             </div>

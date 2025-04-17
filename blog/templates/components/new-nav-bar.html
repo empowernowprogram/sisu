@@ -5,11 +5,18 @@
     <nav>
       <ul class="sisu-header-link">
         <li>
-          <a class="sisu-menu-link" href="{% url 'about-us' %}">About Us</a>
+    <a class="sisu-menu-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
+      Home
+    </a>
+  </li> 
+        <li>
+          <a class="sisu-menu-link {% if request.resolver_match.url_name == 'about-us' %}active{% endif %}" href="{% url 'about-us' %}">
+          About Us
+        </a>
         </li>
         <li id="menu-dropdown" class="sisu-menu-link-dropdown">
-          <a class="sisu-menu-link sisu-menu-link-dropdown-button"
-            >View Our Products
+          <a class="sisu-menu-link sisu-menu-link-dropdown-button
+  {% if request.resolver_match.url_name in 'enp mindglow nocode' %}active{% endif %}">View Our Products
             <img
               src="{% static 'public/assets/svg/ep_arrow-down.svg' %}"
               alt="menu-button"
@@ -27,15 +34,15 @@
             >
           </div>
         </li>
-        <li><a class="sisu-menu-link" href="{% url 'faq' %}">FAQ</a></li>
-        <li><a class="sisu-menu-link" href="{% url 'news' %}">News</a></li>
+        <li><a class="sisu-menu-link {% if request.resolver_match.url_name == 'faq' %}active{% endif %}" href="{% url 'faq' %}">FAQ</a></li>
+        <li><a class="sisu-menu-link {% if request.resolver_match.url_name == 'news' %}active{% endif %}" href="{% url 'news' %}">News</a></li>
         <li>
-          <a class="sisu-menu-link" href="{% url 'home_portal' %}"
-            >Customer Portal</a
+          <a class="sisu-menu-link {% if request.resolver_match.url_name == 'home_portal' %}active{% endif %}" href="{% url 'home_portal' %}">
+            Customer Portal</a
           >
         </li>
         <li>
-          <a class="sisu-menu-link" href="{% url 'contact' %}">Contact Us</a>
+          <a class="sisu-menu-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact Us</a>
         </li>
       </ul>
     </nav>

@@ -278,13 +278,22 @@
 
 .footer-banner {
   font-weight: 600;
-  color: #fff;
+  color: #000;
   font-size: 24px;
+}
+
+footer > div:first-child {
+  display: none !important;
 }
 
 .footer-links {
   display: flex;
   justify-content: space-between;
+}
+
+.footer-links a,
+.footer-links h5 {
+  color: #000 !important;
 }
 
 @media (max-width: 900px) {
@@ -449,15 +458,11 @@
 /* USC code end */
 
 .sisu-header-bkg {
-  /* min-height: 150px; */
-  left: 0px;
-  top: 0px;
-  background: linear-gradient(
-    179deg,
-    rgba(159, 54, 136, 1) 0%,
-    rgba(206, 68, 134, 1) 56%,
-    rgba(248, 207, 104, 1) 100%
-  );
+  background-color: #f6eee3 !important;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  height: 64px;
 }
 
 .sisu-header-transparent-bkg {
@@ -467,9 +472,17 @@
 }
 
 .sisu-header-link > li > a {
-  color: #fff !important;
+  color: #494949 !important;
   text-transform: capitalize !important;
   font-weight: 400 !important;
+}
+
+.sisu-header-link > li > a.active {
+  color: #ec7f00 !important;
+  font-weight: 700;
+  background: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .sisu-footer-text {
@@ -479,8 +492,14 @@
 }
 
 .sisu-footer-copyright {
-  color: #fff !important;
-  font-weight: 300;
+  background-color: #FDE7A0 !important; /* Yellow */
+  color: #000 !important;               /* Black text */
+  padding: 10px 0;
+  width: 100vw;                         /* Full viewport width */
+  position: relative;
+  left: 0;
+  margin-left: calc(-50vw + 50%);
+  text-align: center;
 }
 
 .sisu-footer-link {
@@ -495,15 +514,9 @@
 }
 
 .sisu-footer-bg {
-  /* min-height: 99px; */
-  left: 0px;
-  top: 0px;
-  background: linear-gradient(
-    0deg,
-    rgba(159, 54, 136, 1) 2%,
-    rgba(206, 68, 134, 1) 46%,
-    rgba(248, 207, 104, 1) 100%
-  );
+  background: linear-gradient(90deg, #fffaf2 0%, #fbeafa 100%) !important;
+  color: #494949 !important;
+  padding-top: 60px;
 }
 
 #footer-lazy-bg {
@@ -515,7 +528,8 @@
 }
 
 #footer .footer-content {
-  padding: 42px 0 20px 0;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .new-title {
   text-align: center;
@@ -551,8 +565,8 @@
 }
 
 .lead {
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .btn-sisu-primary {
@@ -811,7 +825,7 @@
 }
 
 .sisu-menu-link:hover {
-  text-decoration: underline !important;
+  color: #ec7f00 !important;
 }
 
 @media (min-width: 640px) {
@@ -983,3 +997,95 @@ section.non-relative {
     margin-left: 0px !important;
   }
 }
+
+/* Rounder orange Contact Us button */
+.sisu-header-link > li:last-child .sisu-menu-link {
+  background-color: #ec7f00;
+  color: #fff !important;
+  padding: 10px 24px;
+  border-radius: 999px !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the button */
+.sisu-header-link > li:last-child .sisu-menu-link:hover {
+  background-color: #ff9900;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+/* Base and active styles for Contact Us link */
+#mainMenu .sisu-header-link > li:last-child > a.sisu-menu-link,
+#mainMenu .sisu-header-link > li:last-child > a.sisu-menu-link.active {
+  background-color: #ec7f00 !important;
+  color: #fff !important;
+  padding: 10px 24px !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: none !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover styles */
+#mainMenu .sisu-header-link > li:last-child > a.sisu-menu-link:hover,
+#mainMenu .sisu-header-link > li:last-child > a.sisu-menu-link.active:hover {
+  background-color: #ff9900 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+.footer-content .input-group {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between input and button */
+}
+
+/* Email input box */
+.footer-content .input-group input[type="text"],
+.footer-content .input-group input[type="email"] {
+  height: 56px;
+  width: 400px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  padding: 0 24px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.footer-content .input-group .btn {
+  height: 56px;
+  padding: 0 32px;
+  border-radius: 999px !important; /* fully rounded */
+  background-color: #e17f24;
+  color: #fff !important;
+  font-weight: 500;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sisu-divider-line .lead {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #494949;
+  position: relative;
+}
+
+.sisu-divider-line--about .lead::after {
+  content: "";
+  display: block;
+  margin: 20px auto 0;
+  width: 100%;
+  max-width: none;
+  height: 1px;
+  background-color: #494949;
+}
+
+

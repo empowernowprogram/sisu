@@ -37,7 +37,7 @@ urlpatterns = [
 
 
 # Page Error Handling
-handler400 = 'main.views.handle400'
-handler403 = 'main.views.handle403'
-handler404 = 'main.views.handle404'
-handler500 = 'main.views.handle500'
+handler400 = 'blog.views.handle400'
+handler403 = 'blog.views.handle403'
+handler404 = 'blog.views.handle404'
+handler500 = 'blog.views.handle500'
