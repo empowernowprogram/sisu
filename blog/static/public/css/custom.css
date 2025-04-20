@@ -273,12 +273,7 @@
 .my-modal-content {
   height: 728px;
   width: 493px;
-  background: linear-gradient(
-    0deg,
-    rgba(248, 207, 104, 1),
-    rgba(206, 68, 134, 1),
-    rgba(191, 63, 135, 1)
-  );
+  background: #eae0e9;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -320,25 +315,29 @@
 }
 
 .email-banner {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 36px;
   line-height: 58px;
-  color: white;
-  text-shadow: 4px 4px #494949;
+  color: #212529;
   margin-bottom: 50px;
 }
 
 .my-modal-input {
-  border: 2px solid #000;
+  border: 2px solid white;
   font-size: 16px;
-  width: 400px;
-  height: 61px;
+  width: 85%;
+  max-width: 280px;
+  height: 35px;
+  border-radius: 999px; 
+  padding: 12px 20px;
   margin-bottom: 20px;
+  outline: none;
+  box-sizing: border-box;
 }
 
 .modal-btn {
   border: 0 !important;
-  font-size: 36px !important;
+  font-size: 14px !important;
   width: 400px;
   height: 61px;
   text-transform: none !important;
