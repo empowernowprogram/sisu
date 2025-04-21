@@ -90,58 +90,58 @@
     <div id="emailModal" class="modal fade">
       <div class="modal-dialog">
         <div class="my-modal-content">
-          <div class="my-modal-top-bar">
-            <button type="button" class="my-modal-button" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <div class="sisu-modal-image">
-            <image src="{% static 'public/assets/img/sisu-email-logo.png' %}">
-            </image>
-          </div>
-          <div class="email-banner">
-            Subscribe to Our<br />
-            Free Newsletter!
-          </div>
-          <div style="width: 100%">
-            <form
-              class="site-search"
-              style="width: 100%"
-              method="POST"
-              action="."
-            >
-              {% csrf_token %}
-              <div
-                style="
-                  width: 100%;
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-              >
-                <input
-                  class="my-modal-input"
-                  placeholder="Enter email"
-                  type="text"
-                  name="email_signup"
-                />
-                <span
-                  ><button class="btn modal-btn" type="submit">
-                    Sign up
-                  </button></span
-                >
-              </div>
-              <div>
-                <button
-                  type="button"
-                  class="email-dismiss"
-                  data-dismiss="modal"
-                >
-                  <span>No, Thank You.</span>
-                </button>
-              </div>
-            </form>
-          </div>
+          {% if message %}
+            <!-- Success state -->
+            <div class="my-modal-top-bar">
+              <button type="button" class="my-modal-button" data-dismiss="modal" 
+                style="color: #D14C84; background: transparent; border: 2px solid #D14C84; font-size: 24px;">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div style="text-align: center; padding: 20px;">
+              <h3 style="color: black; font-size: 48px; margin-bottom: 10px;">Success!</h3>
+              <p style="margin-top: 20px; color: black; font-size: 36px; font-weight: 300px;">You are taking a stand against harassment</p>
+            </div>
+            <div class="sisu-modal-image" style="text-align: center;">
+              <img src="{% static 'public/assets/img/sisu-newletter-success.png' %}" style="width: 350px; height: auto;" />
+            </div>
+        
+          {% else %}
+            <!-- Default signup form -->
+            <div class="my-modal-top-bar">
+              <button type="button" class="my-modal-button" data-dismiss="modal" 
+                style="color: #D14C84; background: transparent; border: 2px solid #D14C84; font-size: 24px;">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="sisu-modal-image">
+              <img src="{% static 'public/assets/sisu_logo.png' %}" style="width: 250px; height: auto;" />
+            </div>
+            <div class="email-banner" style="text-align: center;">
+              Take a stand<br />
+              against harassment
+            </div>
+            <span style="margin-left: 30px; margin-right: 20px; display: inline-block; margin-bottom: 30px; margin-top: -30px; font-weight: 500; color:#212529">
+              <div style="margin-bottom: 15px;">&bull; Tips on how to handle negative situations in a work environment</div>
+              <div style="margin-bottom: 15px;">&bull; News on how virtual reality is changing how companies train</div>
+              <div>&bull; Stay up-to-date on how virtual reality is making an impact against harassment</div>
+            </span>
+            <div style="width: 100%">
+              <form class="site-search" style="width: 100%" method="POST" action=".">
+                {% csrf_token %}
+                <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                  {% if error %}
+                    <div style="color: red; font-weight: 500; margin-bottom: 10px;">{{ error }}</div>
+                  {% endif %}
+                  <input class="my-modal-input" placeholder="Enter email address..." type="text" name="email_signup" />
+                  <span><button class="btn modal-btn" type="submit" style="width: 180px;">Yes, Sign Me Up</button></span>
+                </div>
+                <div>
+                  <button type="button" style="margin-bottom: 15px;" class="email-dismiss" data-dismiss="modal"><span>No, thank you.</span></button>
+                </div>
+              </form>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

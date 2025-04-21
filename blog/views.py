@@ -54,17 +54,23 @@ from django.contrib.auth.password_validation import validate_password
 def index(request):
     context = {}
     if request.method == 'POST':
-        url = "https://api.mailerlite.com/api/v2/groups/104430287/subscribers"
-        
-        data = {
-            'email': request.POST['email_signup']
-        }
-        payload = json.dumps(data)
-        headers = {
-            'content-type': "application/json",
-            'x-mailerlite-apikey': "cdf788da5a461f34b95459a22160a4ee"
-        }
-        response = requests.request("POST", url, data=payload, headers=headers)
+        email = request.POST.get('email_signup', '')
+
+        # Check if "@" is present
+        if "@" in email:
+            url = "https://api.mailerlite.com/api/v2/groups/104430287/subscribers"
+            data = { 'email': email }
+            payload = json.dumps(data)
+            headers = {
+                'content-type': "application/json",
+                'x-mailerlite-apikey': "cdf788da5a461f34b95459a22160a4ee"
+            }
+            response = requests.request("POST", url, data=payload, headers=headers)
+
+            context['message'] = "Thanks for signing up!"
+        else:
+            context['error'] = "Please include an ‘@’ in the email address."
+
     return render(request, 'blog/home.html', context)
 
 
